@@ -1,5 +1,8 @@
 <template>
-  <component :is="buttonType">
+  <component
+    class="fd-button"
+    :is="buttonType"
+  >
     <slot />
   </component>
 </template>
@@ -49,7 +52,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+@import '../../styles/variables';
 
-
+.fd-button {
+  border-radius: $button-border-radius;
+}
 </style>
