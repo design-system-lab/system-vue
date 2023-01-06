@@ -1,6 +1,8 @@
 <template>
-  <h1>Home</h1>
-  <fd-button>Test button</fd-button>
+  <div>
+    <h1>Home</h1>
+    <fd-button>Test button</fd-button>
+  </div>
 </template>
 
 <script lang="ts">
