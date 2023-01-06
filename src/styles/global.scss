@@ -4,3 +4,11 @@
 @import 'variables';
 @import 'mixins';
 @import 'typography';
+
+
+// global styles
+
+html,
+body {
+  font-family: $font-family;
+}
