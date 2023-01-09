@@ -1,0 +1,6 @@
+@mixin focus-primary {
+  &:focus-visible {
+    box-shadow: 0 0 0 4px rgba($primary-50, 0.5);
+    outline: none;
+  }
+}

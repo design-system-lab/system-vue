@@ -4,3 +4,11 @@
        url("@/assets/fonts/Inter-VariableFont_slnt,wght.ttf") format("truetype-variations");
   font-weight: 100 900;
 }
+
+h1,
+.heading-1 {
+  font-family: $font-family;
+  font-size: 3rem;
+  font-weight: $font-black;
+  line-height: 3.5rem;
+}

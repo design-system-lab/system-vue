@@ -8,7 +8,10 @@ export default defineConfig(({ mode }) => ({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: '@import "@/styles/variables";',
+        additionalData: `
+          @import "@/styles/variables";
+          @import "@/styles/mixins";
+        `,
       }
     }
   },

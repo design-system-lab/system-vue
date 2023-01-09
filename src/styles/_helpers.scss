@@ -1,0 +1,21 @@
+// helper classes for spacing and stuff
+
+@each $size in $spacing-values {
+  $s-value: 4px * $size;
+
+  @each $dir, $properties in $spacing-opts {
+    .m#{$dir}-#{$size} {
+      @each $prop in $properties {
+        margin#{$prop}: $s-value !important;
+      }
+    }
+  }
+
+  @each $dir, $properties in $spacing-opts {
+    .p#{$dir}-#{$size} {
+      @each $prop in $properties {
+       padding#{$prop}: $s-value !important;
+      }
+    }
+  }
+}

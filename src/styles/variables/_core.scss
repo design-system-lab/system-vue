@@ -1,3 +1,25 @@
 // Base variables used in many places
 
+// helpers
+$spacing-values: (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12);
+
+$spacing-opts: (
+  'a': (''),
+  't': ('-top'),
+  'r': ('-right'),
+  'b': ('-bottom'),
+  'l': ('-left'),
+  'x': ('-top', '-bottom'),
+  'y': ('-left', '-right'),
+);
+
+$tshirt-sizing: ('xs', 'sm', 'md', 'lg', 'xl');
+
+// elements
 $border-radius: 5px !default;
+
+// layout
+$grid-breakpoints: (400px, 700px, 1000px, 1300px, 1600px);
+
+// transitions
+$transition-timing: .35s ease;
