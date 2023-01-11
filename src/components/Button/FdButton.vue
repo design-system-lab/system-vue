@@ -113,7 +113,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .fd-button {
-  background-color: $primary-50;
+  background-color: $primary-500;
   border: none;
   border-radius: $button-border-radius;
   box-shadow: 0 0 6px rgba(0,0,0,0.35);
@@ -127,12 +127,12 @@ export default defineComponent({
   transition: $transition-timing background, $transition-timing box-shadow, $transition-timing border-color;
 
   &:hover {
-    background-color: $primary-60;
+    background-color: $primary-600;
   }
 
   &:active,
   &.fd-button--pressed {
-    background-color: $primary-70;
+    background-color: $primary-700;
     box-shadow: none;
   }
 
@@ -146,21 +146,21 @@ export default defineComponent({
 
 .fd-button--outlined {
   background-color: transparent;
-  border: 2px solid $primary-50;
+  border: 2px solid $primary-500;
   box-shadow: none;
-  color: $primary-50;
+  color: $primary-500;
 
   &:hover {
-    background-color: rgba($primary-50, 0.1);
-    border-color: $primary-60;
-    color: $primary-60;
+    background-color: rgba($primary-500, 0.1);
+    border-color: $primary-600;
+    color: $primary-600;
   }
 
   &:active,
   &.fd-button--pressed {
-    background-color: rgba($primary-50, 0.2);
-    border-color: $primary-70;
-    color: $primary-70;
+    background-color: rgba($primary-500, 0.2);
+    border-color: $primary-700;
+    color: $primary-700;
   }
 }
 

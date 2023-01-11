@@ -11,6 +11,17 @@ module.exports = {
   ],
   plugins: ["@typescript-eslint"],
   rules: {
-      // coming soon
+    "prefer-const": ["error", {
+        destructuring: "any",
+        ignoreReadBeforeAssign: false
+    }],
+    "no-var": "error",
+    "object-shorthand": ["error", "always", { avoidQuotes: true }],
+    "quote-props": ["error", "as-needed"],
+    "prefer-object-spread": "error",
+    "prefer-destructuring": ["error", {"object": true, "array": false}],
+    quotes: ["error", "single"],
+    "prefer-template": "error",
+    "template-curly-spacing": ["error", "never"],
   },
 }
