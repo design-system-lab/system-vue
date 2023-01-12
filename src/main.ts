@@ -1,11 +1,9 @@
 import type { App } from 'vue'
-
-type AppOptions = {
-  theme: string;
-}
+import type { ForaOptions } from './composables/app';
 
 export default {
-  install: (app: App, options: AppOptions = { theme: 'light'}) => {
-    app.config.globalProperties.$theme = options.theme;
+  install: (app: App, { theme = 'light', rtl = false }: ForaOptions = {}) => {
+    app.config.globalProperties.$theme = theme;
+    app.config.globalProperties.$rtl = rtl;
   }
 }

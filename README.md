@@ -15,5 +15,14 @@ If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has a
    2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
 2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
 
-## Linting with ESLint
-We're using ESLint 
+## Linting
+
+We're using ESLint for linting with many presets similar to the Airbnb standard.
+
+## Unit testing
+
+We use Vitest and Testing Library to do unit and component testing. See the [Vue testing page](https://vuejs.org/guide/scaling-up/testing.html) for more information on testing. We're following a similar philosophy for dividing our unit and component tests.
+
+## The Kitchen Sink
+
+Within the `client` directory is a kitchen sink where the components will be represented in various states. Each major component should have its own page where as many as possible of the possible states are shown. Mock data should be used where needed to represent an accurate picture of what the final component will look like.
