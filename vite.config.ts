@@ -30,15 +30,6 @@ export default defineConfig(({ mode }) => ({
       ],
     },
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `
-          @import "@app/styles/required";
-        `,
-      }
-    }
-  },
   resolve:{
     alias:{
       '@': path.resolve(__dirname, './src'),

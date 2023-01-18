@@ -1,0 +1,23 @@
+// here are global styles for the design system
+// this is what the client will import
+
+@import 'required';
+@import 'themes';
+@import 'typography';
+@import 'helpers';
+
+@import 'reset';
+
+
+// global styles
+
+html,
+body {
+  font-family: $font-family;
+  font-size: 100%;
+}
+
+button,
+a {
+  cursor: pointer;
+}

@@ -1,6 +1,5 @@
 // These are the files that are required to be auto-imported into each component
-// Typically these would be added via vite config file in css: { preprocessorOptions: { scss } }
-// These will be imported into a client file, and imported on the client-side
+// We import these into each component
 
 @import 'functions';
 @import 'variables';
