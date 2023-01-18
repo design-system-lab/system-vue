@@ -3,7 +3,7 @@
     <h1>Home</h1>
     <br>
     <h4>Default Button</h4>
-    <fd-button>Test button</fd-button>
+    <fd-button @click="updateTheme('dark')">Change Theme</fd-button>
     <br><br>
 
     <h4>Toggle Button</h4>
@@ -27,21 +27,23 @@
     <fd-button
       outlined
     >
-      Test Button
+      Change Language
     </fd-button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef } from 'vue';
+import { defineComponent, shallowRef, inject } from 'vue';
 import FdButton from '../../../src/components/Button';
+import { ThemeSupport } from '../../../src/utils/theme';
 
 export default defineComponent({
   components: { FdButton },
   setup () {
     const testVal = shallowRef(false);
+    const { theme, updateTheme } = inject('theme') as ThemeSupport;
 
-    return { testVal };
+    return { testVal, theme, updateTheme };
   },
 })
 </script>

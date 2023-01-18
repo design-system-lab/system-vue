@@ -34,8 +34,7 @@ export default defineConfig(({ mode }) => ({
     preprocessorOptions: {
       scss: {
         additionalData: `
-          @import "@/styles/variables";
-          @import "@/styles/mixins";
+          @import "@app/styles/required";
         `,
       }
     }
@@ -43,10 +42,8 @@ export default defineConfig(({ mode }) => ({
   resolve:{
     alias:{
       '@': path.resolve(__dirname, './src'),
+      '@app': path.resolve(__dirname, './client/app'),
     },
-  },
-  server: {
-    port: 3000,
   },
   test: {
     globals: true,

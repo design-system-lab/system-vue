@@ -1,0 +1,17 @@
+// here's where we'll add and test overwriting those sweet sweet variables
+
+$primary-500: pink;
+$button-primary: red;
+$button-outlined: red;
+
+
+$themes: (
+  dark: (
+    primary-500: #000,
+    primary-600: #000,
+    primary-700: #000,
+
+    // button-primary
+    button-primary: #000,
+  )
+)

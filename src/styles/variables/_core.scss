@@ -18,8 +18,12 @@ $tshirt-sizing: ('xs', 'sm', 'md', 'lg', 'xl');
 // elements
 $border-radius: 5px !default;
 
+// elevation
+
+$elevation-1: 0 0 6px rgba(0,0,0,0.35) !default;
+
 // layout
-$grid-breakpoints: (400px, 700px, 1000px, 1300px, 1600px);
+$grid-breakpoints: (400px, 700px, 1000px, 1300px, 1600px) !default;
 
 // transitions
-$transition-timing: .35s ease;
+$transition-timing: .35s ease !default;

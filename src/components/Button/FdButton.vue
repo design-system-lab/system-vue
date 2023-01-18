@@ -112,27 +112,30 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+@import "@/styles/variables";
+@import "@/styles/mixins";
+
 .fd-button {
-  background-color: $primary-500;
-  border: none;
+  background-color: var(--fora-button-primary);
+  border: $button-border;
   border-radius: $button-border-radius;
-  box-shadow: 0 0 6px rgba(0,0,0,0.35);
-  color: $button-text-color;
-  font-family: $font-family;
-  font-size: 1rem;
-  font-weight: $font-bold;
-  padding: 0.5rem 1rem;
-  text-align: center;
+  box-shadow: $button-elevation;
+  color: var(--fora-button-primary-text);
+  font-family: $button-font-family;
+  font-size: $button-font-size;
+  font-weight: $button-font-weight;
+  padding: $button-padding;
+  text-align: $button-text-align;
   text-transform: $button-text-transform;
-  transition: $transition-timing background, $transition-timing box-shadow, $transition-timing border-color;
+  transition: $button-transition;
 
   &:hover {
-    background-color: $primary-600;
+    background-color: var(--fora-button-primary-hover);
   }
 
   &:active,
   &.fd-button--pressed {
-    background-color: $primary-700;
+    background-color: var(--fora-button-primary-pressed);
     box-shadow: none;
   }
 
@@ -145,34 +148,34 @@ export default defineComponent({
 }
 
 .fd-button--outlined {
-  background-color: transparent;
-  border: 2px solid $primary-500;
+  background-color: var(--fora-button-outlined-bg);
+  border: $button-outlined-border var(--fora-button-outlined);
   box-shadow: none;
-  color: $primary-500;
+  color: $button-outlined-text;
 
   &:hover {
-    background-color: rgba($primary-500, 0.1);
-    border-color: $primary-600;
-    color: $primary-600;
+    background-color: var(--fora-button-outlined-bg-hover);
+    border-color: var(--fora-button-outlined-hover);
+    color: var(--fora-button-outlined-text-hover);
   }
 
   &:active,
   &.fd-button--pressed {
-    background-color: rgba($primary-500, 0.2);
-    border-color: $primary-700;
-    color: $primary-700;
+    background-color: var(--fora-button-outlined-bg-pressed);
+    border-color: var(--fora-button-outlined-pressed);
+    color: var(--fora-button-outlined-text-pressed);
   }
 }
 
 .fd-button--disabled {
-  background-color: $disabled-bg;
-  color: $disabled-text;
+  background-color: var(--fora-disabled-bg);
+  color: var(--fora-disabled-text);
   pointer-events: none;
 
   &.fd-button--outlined {
     background-color: transparent;
-    border-color: $disabled-bg;
-    color: $disabled-text;
+    border-color: var(--fora-disabled-bg);
+    color: var(--fora-disabled-text);
   }
 }
 </style>

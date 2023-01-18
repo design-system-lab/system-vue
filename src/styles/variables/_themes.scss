@@ -1,0 +1,22 @@
+// set the default theme so multi-theming can be used if desired
+@use 'sass:map';
+
+$themes: () !default;
+
+$defaultThemes: (
+  default: (
+    // default colors
+    primary-500: $primary-500,
+    primary-500-rgb: convertHex($primary-500),
+    primary-600: $primary-600,
+    primary-700: $primary-700,
+    // text colors
+    text-light: $text-light,
+    disabled-text: $disabled-text,
+    disabled-bg: $disabled-bg,
+    // components
+  ),
+);
+
+// for each component var, merge the keys into default
+$defaultThemes: map-merge($defaultThemes, 'default', $theme-buttons);

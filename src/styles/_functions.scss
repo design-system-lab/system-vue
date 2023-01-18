@@ -1,0 +1,17 @@
+// function checks for value in first map, if it doesn't contain the key, use the fallback
+@function themeFallback($map, $key, $fallback) {
+  @if (map-has-key($map, $key)) {
+    @return map-get($map, $key);
+  } @else {
+    @return map-get($fallback, $key);
+  }
+}
+
+@function convertHex($hex) {
+  // remove #
+  // divide into groups of 2
+  // multiply first char by 16, then find second char and add
+  // return 
+
+  @return $hex;
+}
