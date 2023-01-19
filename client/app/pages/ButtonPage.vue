@@ -3,7 +3,9 @@
     <h1>Home</h1>
     <br>
     <h4>Default Button</h4>
-    <fd-button @click="updateTheme('dark')">Change Theme</fd-button>
+    <fd-button @click="updateTheme('dark')">
+      Change Theme
+    </fd-button>
     <br><br>
 
     <h4>Toggle Button</h4>
