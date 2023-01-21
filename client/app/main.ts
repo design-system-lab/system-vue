@@ -10,7 +10,11 @@ const router = createRouter({
   routes,
 });
 
+const translations = {
+  fr: 'Fermer'
+}
+
 createApp(App)
 .use(router)
-.use(Fora)
+.use(Fora, { translations })
 .mount('#app');

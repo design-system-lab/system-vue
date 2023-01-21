@@ -10,11 +10,16 @@
 
     <h4>Toggle Button</h4>
     <fd-button
+      class="mb-2"
       toggle
       v-model="testVal"
+      @click="updateLang('fr')"
     >
-      Test Button
+      Change Lang
     </fd-button>
+
+    <p>Close translation: {{ t('close') }}</p>
+    <p>Language: {{ lang }}</p>
     <br><br>
 
     <h4>Block Button</h4>
@@ -38,14 +43,16 @@
 import { defineComponent, shallowRef, inject } from 'vue';
 import FdButton from '../../../src/components/Button';
 import { ThemeSupport } from '../../../src/utils/theme';
+import { TranslationSupport } from '../../../src/utils/i18n';
 
 export default defineComponent({
   components: { FdButton },
   setup () {
     const testVal = shallowRef(false);
     const { theme, updateTheme } = inject('theme') as ThemeSupport;
+    const { updateLang, t, lang } = inject('i18n') as TranslationSupport;
 
-    return { testVal, theme, updateTheme };
+    return { testVal, theme, updateTheme, updateLang, t, lang };
   },
 })
 </script>

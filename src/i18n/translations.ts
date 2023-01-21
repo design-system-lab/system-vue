@@ -1,3 +1,3 @@
 export default {
-  close: 'close',
+  close: 'Close',
 };

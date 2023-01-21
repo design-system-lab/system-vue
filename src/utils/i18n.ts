@@ -1,4 +1,4 @@
-import { shallowRef } from 'vue';
+import { shallowRef, ShallowRef } from 'vue';
 import { translations as defaultTranslations } from '../i18n';
 
 export interface TranslationKeys {
@@ -11,6 +11,13 @@ export interface FinalTranslationKeys extends TranslationKeys {
   en: {
     [key: string]: string;
   };
+}
+
+export interface TranslationSupport {
+  lang: ShallowRef<string>;
+  translations: FinalTranslationKeys;
+  updateLang: (l: string) => void;
+  t: (k: string, ...rest: unknown[]) => string;
 }
 
 export const langSupport = (l: string) => {
@@ -39,12 +46,12 @@ export const rtlSupport = (d: boolean) => {
   return { rtl, updateRtl };
 };
 
-export const i18n = (l: string, userTranslations: TranslationKeys) => {
+export const i18n = (l: string, userTranslations: TranslationKeys): TranslationSupport => {
   const { lang, updateLang } = langSupport(l);
   const translations = translationSupport(userTranslations);
   
-  const t = (k: string, ...rest: [unknown]) => {
-    const s: string = (translations as TranslationKeys)[lang.value][k];
+  const t = (k: string, ...rest: unknown[]): string => {
+    let s: string = (translations as TranslationKeys)[lang.value][k];
     const arr: string[] = [];
     for (let i = 0; i < s.length; i += 1) {
       if (s[i] === '{') {
@@ -62,7 +69,7 @@ export const i18n = (l: string, userTranslations: TranslationKeys) => {
     });
   
     for (let i = 0; i < arr.length; i += 1) {
-      s.replace(arr[i], `${rest[i]}`);
+      s = s.replace(arr[i], `${rest[i]}`);
     }
   
     return s;
