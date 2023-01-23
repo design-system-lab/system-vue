@@ -26,3 +26,7 @@ We use Vitest and Testing Library to do unit and component testing. See the [Vue
 ## The Kitchen Sink
 
 Within the `client` directory is a kitchen sink where the components will be represented in various states. Each major component should have its own page where as many as possible of the possible states are shown. Mock data should be used where needed to represent an accurate picture of what the final component will look like.
+
+## Icon library
+
+Fora uses the [Heroicons](https://github.com/tailwindlabs/heroicons) icon library as the default icon set available within the project. However, if using an alternate icon set, the icon helper component `FdIcon` can still be used, it's simple a wrapper component that provides some helpful styling to standardize the icon sizes and usage.

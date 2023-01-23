@@ -4,7 +4,11 @@
     :class="`fd-icon--size-${size}`"
     :style="{ width: `${size}px`, height: `${size}px` }"
   >
-    <slot><component :is="icon" /></slot>
+    <slot>
+      <component
+        :is="icon"
+      />
+    </slot>
   </span>
 </template>
 
@@ -21,7 +25,7 @@ export default defineComponent({
     size: {
       type: Number,
       default: 24,
-    }
+    },
   },
 });
 </script>

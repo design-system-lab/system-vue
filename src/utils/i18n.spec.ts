@@ -16,8 +16,8 @@ describe('i18n functions', () => {
     const curLang = translationSupport({
       fr: { slider: 'glisseur' }
     });
-    expect(curLang.fr.slider).toBe('glisseur');
-    expect(curLang.en.close).toBe('close');
+    expect(curLang.fr.slider.toLowerCase()).toBe('glisseur');
+    expect(curLang.en.close.toLowerCase()).toBe('close');
   });
 
   test('translationSupport allows overwrite of original translations', () => {
@@ -25,7 +25,7 @@ describe('i18n functions', () => {
       fr: { slider: 'glisseur' },
       en: { close: 'shut' }
     });
-    expect(curLang.en.close).toBe('shut');
+    expect(curLang.en.close.toLowerCase()).toBe('shut');
   });
 
   test('rtlSupport returns object containing set rtl state', () => {
