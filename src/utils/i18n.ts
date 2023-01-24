@@ -49,7 +49,7 @@ export const rtlSupport = (d: boolean) => {
 export const i18n = (l: string, userTranslations: TranslationKeys): TranslationSupport => {
   const { lang, updateLang } = langSupport(l);
   const translations = translationSupport(userTranslations);
-  
+
   const t = (k: string, ...rest: unknown[]): string => {
     let s: string = (translations as TranslationKeys)[lang.value][k];
     const arr: string[] = [];
@@ -63,15 +63,17 @@ export const i18n = (l: string, userTranslations: TranslationKeys): TranslationS
         i = j;
       }
     }
-  
-    arr.sort((a, b) => {
-      return +(a.slice(1, -1)) - +(b.slice(1, -1));
-    });
-  
+
+    if (arr.length > 1) {
+      arr.sort((a, b) => {
+        return +(a.slice(1, -1)) - +(b.slice(1, -1));
+      });
+    }
+
     for (let i = 0; i < arr.length; i += 1) {
       s = s.replace(arr[i], `${rest[i]}`);
     }
-  
+
     return s;
   }
 
