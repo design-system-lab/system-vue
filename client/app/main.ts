@@ -11,7 +11,9 @@ const router = createRouter({
 });
 
 const translations = {
-  fr: 'Fermer'
+  fr: {
+    close: 'Fermer',
+  }
 }
 
 createApp(App)
