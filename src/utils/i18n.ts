@@ -5,7 +5,7 @@ export interface TranslationKeys {
   [key: string]: {
     [key: string]: string;
   };
-};
+}
 
 export interface FinalTranslationKeys extends TranslationKeys {
   en: {
