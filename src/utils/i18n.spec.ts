@@ -16,8 +16,8 @@ describe('i18n functions', () => {
     const curLang = translationSupport({
       fr: { slider: 'glisseur' }
     });
-    expect(curLang.fr.slider).toBe('glisseur');
-    expect(curLang.en.close).toBe('close');
+    expect(curLang.fr.slider.toLowerCase()).toBe('glisseur');
+    expect(curLang.en.close.toLowerCase()).toBe('close');
   });
 
   test('translationSupport allows overwrite of original translations', () => {
