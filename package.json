@@ -11,6 +11,7 @@
     "coverage": "vitest run --coverage"
   },
   "dependencies": {
+    "@heroicons/vue": "^2.0.13",
     "vue": "^3.2.45"
   },
   "devDependencies": {

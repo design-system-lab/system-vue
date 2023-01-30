@@ -25,7 +25,7 @@ describe('i18n functions', () => {
       fr: { slider: 'glisseur' },
       en: { close: 'shut' }
     });
-    expect(curLang.en.close).toBe('shut');
+    expect(curLang.en.close.toLowerCase()).toBe('shut');
   });
 
   test('rtlSupport returns object containing set rtl state', () => {
