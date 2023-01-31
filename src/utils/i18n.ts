@@ -53,6 +53,7 @@ export const i18n = (l: string, userTranslations: TranslationKeys): TranslationS
   const t = (k: string, ...rest: unknown[]): string => {
     let s: string = (translations as TranslationKeys)[lang.value][k];
     const arr: string[] = [];
+    
     for (let i = 0; i < s.length; i += 1) {
       if (s[i] === '{') {
         let j = i + 1;
