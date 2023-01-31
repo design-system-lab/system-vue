@@ -1,9 +1,78 @@
-$primary-500: #2243F4 !default;
-$primary-500-rgb: 34, 67, 244;
+// Foundational Colors
 
-$primary-600: #1d39cf !default;
-$primary-700: #1830ad !default;
+$primary-1: #e9ecfe !default;
+$primary-2: #cad2fc !default;
+$primary-3: #a0aefa !default;
+$primary-4: #7489f8 !default;
+$primary-5: #4a65f6 !default;
+$primary-6: #2243f4 !default;
+$primary-7: #1d39cf !default;
+$primary-8: #1830ad !default;
+$primary-9: #13268b !default;
+$primary-10: #0f1e6e !default;
 
+$secondary-1: #f5e8f7 !default;
+$secondary-2: #e7c8ec !default;
+$secondary-3: #d49cdd !default;
+$secondary-4: #c16ece !default;
+$secondary-5: #ae42bf !default;
+$secondary-6: #9c19b1 !default;
+$secondary-7: #851596 !default;
+$secondary-8: #6f127e !default;
+$secondary-9: #590e65 !default;
+$secondary-10: #460b50 !default;
+
+$danger-1: #fbe6e7 !default;
+$danger-2: #f6c2c4 !default;
+$danger-3: #ef9196 !default;
+$danger-4: #e85e65 !default;
+$danger-5: #e12e37 !default;
+$danger-6: #da000b !default;
+$danger-7: #b90009 !default;
+$danger-8: #9b0008 !default;
+$danger-9: #7c0006 !default;
+$danger-10: #620005 !default;
+
+$warning-1: #fff4ed !default;
+$warning-2: #ffe3d3 !default;
+$warning-3: #ffceb0 !default;
+$warning-4: #ffb78c !default;
+$warning-5: #ffa169 !default;
+$warning-6: #ff8c48 !default;
+$warning-7: #d9773d !default;
+$warning-8: #b56333 !default;
+$warning-9: #915029 !default;
+$warning-10: #733f20 !default;
+
+$success-1: #e6f3f0 !default;
+$success-2: #c2e3dc !default;
+$success-3: #91cdc0 !default;
+$success-4: #5eb6a3 !default;
+$success-5: #2ea087 !default;
+$success-6: #008b6d !default;
+$success-7: #00765d !default;
+$success-8: #00634d !default;
+$success-9: #004f3e !default;
+$success-10: #003f31 !default;
+
+$neutral-1: #fdfdfd !default;
+$neutral-2: #f4f3f4 !default;
+$neutral-3: #edecee !default;
+$neutral-4: #d3d2d6 !default;
+$neutral-5: #afafb6 !default;
+$neutral-6: #8a8a94 !default;
+$neutral-7: #676674 !default;
+$neutral-8: #464555 !default;
+$neutral-9: #3c3b48 !default;
+$neutral-10: #32313c !default;
+$neutral-11: #282730 !default;
+$neutral-12: #1f1f26 !default;
+$neutral-13: #0e0e11 !default;
+
+$white: #fff;
+$black: #000;
+
+// Contextual Colors
 
 $text-light: #fff !default;
 
