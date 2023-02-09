@@ -115,11 +115,11 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-button {
-  background-color: var(--fora-button-primary);
+  background-color: rgba(var(--fora-button-primary));
   border: $button-border;
   border-radius: $button-border-radius;
   box-shadow: $button-elevation;
-  color: var(--fora-button-primary-text);
+  color: rgba(var(--fora-button-primary-text));
   font-family: $button-font-family;
   font-size: $button-font-size;
   font-weight: $button-font-weight;
@@ -129,12 +129,12 @@ export default defineComponent({
   transition: $button-transition;
 
   &:hover {
-    background-color: var(--fora-button-primary-hover);
+    background-color: rgba(var(--fora-button-primary-hover));
   }
 
   &:active,
   &.fd-button--pressed {
-    background-color: var(--fora-button-primary-pressed);
+    background-color: rgba(var(--fora-button-primary-pressed));
     box-shadow: none;
   }
 
@@ -147,34 +147,34 @@ export default defineComponent({
 }
 
 .fd-button--outlined {
-  background-color: var(--fora-button-outlined-bg);
-  border: $button-outlined-border var(--fora-button-outlined);
+  background-color: rgba(var(--fora-button-outlined-bg));
+  border: $button-outlined-border rgba(var(--fora-button-outlined));
   box-shadow: none;
   color: $button-outlined-text;
 
   &:hover {
-    background-color: var(--fora-button-outlined-bg-hover);
-    border-color: var(--fora-button-outlined-hover);
-    color: var(--fora-button-outlined-text-hover);
+    background-color: rgba(var(--fora-button-outlined-bg-hover));
+    border-color: rgba(var(--fora-button-outlined-hover));
+    color: rgba(var(--fora-button-outlined-text-hover));
   }
 
   &:active,
   &.fd-button--pressed {
-    background-color: var(--fora-button-outlined-bg-pressed);
-    border-color: var(--fora-button-outlined-pressed);
-    color: var(--fora-button-outlined-text-pressed);
+    background-color: rgba(var(--fora-button-outlined-bg-pressed));
+    border-color: rgba(var(--fora-button-outlined-pressed));
+    color: rgba(var(--fora-button-outlined-text-pressed));
   }
 }
 
 .fd-button--disabled {
-  background-color: var(--fora-disabled-bg);
-  color: var(--fora-disabled-text);
+  background-color: rgba(var(--fora-disabled-bg));
+  color: rgba(var(--fora-disabled-text));
   pointer-events: none;
 
   &.fd-button--outlined {
     background-color: transparent;
-    border-color: var(--fora-disabled-bg);
-    color: var(--fora-disabled-text);
+    border-color: rgba(var(--fora-disabled-bg));
+    color: rgba(var(--fora-disabled-text));
   }
 }
 </style>
