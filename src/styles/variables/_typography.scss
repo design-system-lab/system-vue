@@ -1,4 +1,5 @@
 $font-family: 'Inter', 'Avenir', Helvetica, Arial, sans-serif !default;
+$font-family-display: $font-family;
 
 $font-thin: 100 !default;
 $font-light: 200 !default;
@@ -6,3 +7,20 @@ $font-regular: 300 !default;
 $font-medium: 400 !default;
 $font-bold: 700 !default;
 $font-black: 900 !default;
+
+$font-xs: 0.75rem;
+$font-sm: 0.875rem;
+$font-base: 1rem;
+$font-lg: 1.125rem;
+
+$heading-6: 1.25rem;
+$heading-5: 1.5rem;
+$heading-4: 1.75rem;
+$heading-3: 2rem;
+$heading-2: 2.25rem;
+$heading-1: 2.5rem;
+
+$display-xs: 2.75rem;
+$display-sm: 3rem;
+$display-md: 3.25rem;
+$display-lg: 3.5rem;
