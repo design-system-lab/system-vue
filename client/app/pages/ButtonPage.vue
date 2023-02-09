@@ -46,6 +46,7 @@ import { ThemeSupport } from '../../../src/utils/theme';
 import { TranslationSupport } from '../../../src/utils/i18n';
 
 export default defineComponent({
+  name: 'ButtonPage',
   components: { FdButton },
   setup () {
     const testVal = shallowRef(false);
