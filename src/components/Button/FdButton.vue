@@ -150,7 +150,7 @@ export default defineComponent({
   background-color: rgba(var(--fora-button-outlined-bg));
   border: $button-outlined-border rgba(var(--fora-button-outlined));
   box-shadow: none;
-  color: $button-outlined-text;
+  color: rgba(var(--fora-button-outlined-text));
 
   &:hover {
     background-color: rgba(var(--fora-button-outlined-bg-hover));
