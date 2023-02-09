@@ -38,7 +38,7 @@
 h1,
 .heading-1 {
   font-family: $font-family-display;
-  font-size: $heading-1;
+  font-size: $heading-2;
   font-weight: $font-bold;
   line-height: 3rem;
 }
@@ -46,7 +46,7 @@ h1,
 h2,
 .heading-2 {
   font-family: $font-family-display;
-  font-size: $heading-1;
+  font-size: $heading-2;
   font-weight: $font-bold;
   line-height: 2.75rem;
 }
@@ -54,7 +54,7 @@ h2,
 h3,
 .heading-3 {
   font-family: $font-family-display;
-  font-size: $heading-1;
+  font-size: $heading-3;
   font-weight: $font-bold;
   line-height: 2.5rem;
 }
@@ -62,7 +62,7 @@ h3,
 h4,
 .heading-4 {
   font-family: $font-family-display;
-  font-size: $heading-1;
+  font-size: $heading-4;
   font-weight: $font-bold;
   line-height: 2.25rem;
 }
@@ -70,7 +70,7 @@ h4,
 h5,
 .heading-5 {
   font-family: $font-family-display;
-  font-size: $heading-1;
+  font-size: $heading-5;
   font-weight: $font-bold;
   line-height: 2rem;
 }
@@ -78,7 +78,7 @@ h5,
 h6,
 .heading-6 {
   font-family: $font-family-display;
-  font-size: $heading-1;
+  font-size: $heading-6;
   font-weight: $font-bold;
   line-height: 1.75rem;
 }
@@ -127,6 +127,7 @@ p,
   font-weight: $font-medium !important;
 }
 
+strong,
 .font-bold {
   font-weight: $font-bold !important;
 }
@@ -153,4 +154,9 @@ p,
 
 .font-nowrap {
   white-space: nowrap;
+}
+
+.font-italic,
+em {
+  font-style: italic;
 }
