@@ -1,4 +1,5 @@
 import { render } from '@testing-library/vue'
+import { dom } from '../../../testing/utils';
 import FdRow from './FdRow.vue'
 
 const props = {
@@ -20,11 +21,7 @@ test('row renders, has slot content, has grid classes', async () => {
 
   const row = getByText(slots.default);
 
-  expect(row.classList).toContain('justify-center');
-  expect(row.classList).toContain('justify-end');
-  expect(row.classList).toContain('justify-between');
-  expect(row.classList).toContain('justify-around');
-  expect(row.classList).toContain('justify-evenly');
-  expect(row.classList).toContain('no-gutter');
-  expect(row.classList).toContain('reverse');
+  const classes: string[] = ['justify-center', 'justify-end', 'justify-between', 'justify-around', 'justify-evenly', 'no-gutter', 'reverse'];
+
+  expect(dom.checkClasses(row, classes)).toBeTruthy();
 })
