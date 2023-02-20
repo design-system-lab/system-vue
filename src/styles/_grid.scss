@@ -5,7 +5,7 @@
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
-  margin: 0 (-($grid-gutter / 2));
+  margin: 0 calc($grid-gutter / -2);
 
   &.reverse {
     flex-direction: row-reverse;
@@ -60,11 +60,12 @@
   }
 }
 
-[class^="col"] {
+[class^="col"],
+.col {
   align-items: flex-start;
   display: flex;
   flex: 1 1 0;
-  padding: 0 ($grid-gutter / 2);
+  padding: 0 calc($grid-gutter / 2);
 
   .no-gutter > & {
     padding: 0;
@@ -91,6 +92,14 @@
       align-self: baseline;
     }
   }
+
+  &.order-first {
+    order: -1;
+  }
+
+  &.order-last {
+    order: 999;
+  }
 }
 
 // col breakpoints
@@ -99,6 +108,14 @@
   .col-#{$step} {
     flex: 0 0 auto;
     width: #{($step / list.length($grid-steps)) * 100%};
+  }
+
+  .order-#{$step} {
+    order: #{$step};
+  }
+
+  .offset-#{$step} {
+    margin-left: #{($step / list.length($grid-steps)) * 100%};
   }
 }
 
@@ -109,6 +126,24 @@
         flex: 0 0 auto;
         width: #{($step / list.length($grid-steps)) * 100%};
       }
+
+      .order-#{$breakpoint}-#{$step} {
+        order: #{$step};
+      }
+
+      .offset-#{$breakpoint}-#{$step} {
+        margin-left: #{($step / list.length($grid-steps)) * 100%};
+      }
+    }
+
+    .col-#{$breakpoint}-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+
+    .col-#{$breakpoint} {
+      flex: 1 1 0;
+      width: auto;
     }
   }
-} 
+}
