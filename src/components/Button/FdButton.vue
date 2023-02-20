@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject, PropType } from 'vue';
+import { computed, defineComponent, PropType } from 'vue';
 import { tshirt } from '../../utils/validators';
 import { isRouterLink } from '../../utils/router';
 import { RouteLocationRaw } from 'vue-router';
