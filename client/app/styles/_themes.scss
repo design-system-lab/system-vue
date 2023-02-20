@@ -1,16 +1,16 @@
 // here's where we'll add and test overwriting those sweet sweet variables
 
-$primary-500: pink;
-$button-outlined: red;
+// $primary-6: 0, 255, 0;
+// $button-outlined: 255, 255, 0, 1;
 
 
 $themes: (
   dark: (
-    primary-500: #000,
-    primary-600: #000,
-    primary-700: #000,
+    primary-6: (100, 100, 100),
+    primary-7: (150, 150, 150),
+    primary-8: (200, 200, 200),
 
     // button-primary
-    button-primary: #000,
+    button-primary: (255, 255, 0, 1),
   )
 )
