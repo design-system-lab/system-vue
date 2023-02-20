@@ -1,20 +1,24 @@
 // Variables specific to FdButton
 
 // colors for theming, must be duplicated in theme map
-$button-primary: $primary-6 !default;
-$button-primary-hover: $primary-7 !default;
-$button-primary-pressed: $primary-8 !default;
-$button-primary-text: $text-light !default;
+$button-default: $primary-6;
+$button-default-dark: $primary-7;
+$button-default-darker: $primary-8;
 
-$button-outlined: $button-primary !default;
-$button-outlined-hover: $button-primary-hover !default;
-$button-outlined-pressed: $button-primary-pressed !default;
-$button-outlined-bg: transparent !default;
-$button-outlined-bg-hover: rgba($button-outlined, 0.1) !default;
-$button-outlined-bg-pressed: rgba($button-outlined, 0.2) !default;
-$button-outlined-text: $button-primary !default;
-$button-outlined-text-hover: $button-primary-hover !default;
-$button-outlined-text-pressed: $button-primary-pressed !default;
+$button-primary: $button-default, 1 !default;
+$button-primary-hover: $button-default-dark, 1 !default;
+$button-primary-pressed: $button-default-darker, 1 !default;
+$button-primary-text: $text-light, 1 !default;
+
+$button-outlined: $button-default, 1 !default;
+$button-outlined-hover: $button-default-dark, 1 !default;
+$button-outlined-pressed: $button-default-darker, 1 !default;
+$button-outlined-bg: $transparent !default;
+$button-outlined-bg-hover: $button-default, 0.1 !default;
+$button-outlined-bg-pressed: $button-default, 0.2 !default;
+$button-outlined-text: $button-default, 1 !default;
+$button-outlined-text-hover: $button-default-dark, 1 !default;
+$button-outlined-text-pressed: $button-default-darker, 1 !default;
 
 // default style vars
 $button-border: none !default;
