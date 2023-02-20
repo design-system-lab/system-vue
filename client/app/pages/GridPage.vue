@@ -161,11 +161,9 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/required';
-
 .box {
-  background-color: $neutral-5;
-  border: 2px solid $white;
+  background-color: rgba(var(--fora-neutral-4));
+  border: 2px solid rgba(var(--fora-white));
   min-height: 200px;
   padding: 1.5rem;
   width: 100%;
@@ -176,7 +174,7 @@ export default defineComponent({
 }
 
 .outlined {
-  border: 1px solid $black;
+  border: 1px solid rgba(var(--fora-white));
   margin-bottom: 2rem;
 }
 </style>

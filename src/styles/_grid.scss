@@ -107,7 +107,7 @@
 @each $step in $grid-steps {
   .col-#{$step} {
     flex: 0 0 auto;
-    width: #{($step / list.length($grid-steps)) * 100%};
+    width: #{calc(($step / list.length($grid-steps)) * 100%)};
   }
 
   .order-#{$step} {
@@ -115,7 +115,7 @@
   }
 
   .offset-#{$step} {
-    margin-left: #{($step / list.length($grid-steps)) * 100%};
+    margin-left: #{calc(($step / list.length($grid-steps)) * 100%)};
   }
 }
 
@@ -124,7 +124,7 @@
     @each $step in $grid-steps {
       .col-#{$breakpoint}-#{$step} {
         flex: 0 0 auto;
-        width: #{($step / list.length($grid-steps)) * 100%};
+        width: #{calc(($step / list.length($grid-steps)) * 100%)};
       }
 
       .order-#{$breakpoint}-#{$step} {
@@ -132,7 +132,7 @@
       }
 
       .offset-#{$breakpoint}-#{$step} {
-        margin-left: #{($step / list.length($grid-steps)) * 100%};
+        margin-left: #{calc(($step / list.length($grid-steps)) * 100%)};
       }
     }
 
