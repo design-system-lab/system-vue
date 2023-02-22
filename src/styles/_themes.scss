@@ -7,7 +7,7 @@ $allValues: map-get($defaultThemes, 'default');
 @each $name, $theme in $finalThemes {
   [data-theme=#{$name}] {
     @each $key, $value in $allValues {
-      --fora-#{$key}: #{themeFallback($theme, $key, $allValues)};
+      --fora-#{"" + $key}: #{themeFallback($theme, $key, $allValues)};
     }
   }
 }

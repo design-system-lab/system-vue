@@ -1,6 +1,20 @@
+@use 'sass:map';
+
 @mixin focus-primary {
   &:focus-visible {
     box-shadow: 0 0 0 4px rgba(var(--fora-primary-500-rgb), 0.5);
     outline: none;
+  }
+}
+
+@mixin breakpoint-above($breakpoint) {
+  @media (min-width: map-get($grid-breakpoints, $breakpoint)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-below($breakpoint) {
+  @media (max-width: calc(map-get($grid-breakpoints, $breakpoint) - 0.01px)) {
+    @content;
   }
 }
