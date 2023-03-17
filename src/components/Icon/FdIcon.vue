@@ -33,5 +33,6 @@ export default defineComponent({
 <style lang="scss">
 .fd-icon {
   display: inline-block;
+  vertical-align: middle;
 }
 </style>
