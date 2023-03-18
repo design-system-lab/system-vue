@@ -281,13 +281,6 @@ export default defineComponent({
   }
   }
 
-  &--disabled,
-  &:disabled {
-    background-color: rgba(var(--fora-disabled-bg));
-    color: rgba(var(--fora-disabled-text));
-    pointer-events: none;
-  }
-
   // include a content wrapper to help with vert align with icons
   &__content {
     display: inline-block;
@@ -345,7 +338,8 @@ export default defineComponent({
     }
   }
 
-  &--disabled {
+  &--disabled,
+  &:disabled {
     background-color: rgba(var(--fora-button-disabled));
     color: rgba(var(--fora-button-disabled-text));
     pointer-events: none;
