@@ -193,6 +193,68 @@
       Primary Button
     </fd-button>
     <br><br>
+
+    <h4 class="mb-4">Disabled buttons</h4>
+
+    <fd-button disabled>Primary</fd-button>
+    <br><br>
+    <fd-button disabled kind="secondary">Secondary</fd-button>
+    <br><br>
+    <fd-button disabled kind="tertiary">Tertiary</fd-button>
+    <br><br>
+    <fd-button disabled kind="tertiary-neutral">Tertiary Neutral</fd-button>
+    <br><br>
+    <fd-button disabled kind="link">Link</fd-button>
+    <br><br>
+    <fd-button disabled kind="destructive">Destructive</fd-button>
+    <br><br>
+
+    <fd-button disabled class="mr-2" icon>
+      <fd-icon
+        :icon="CubeTransparentIconSm"
+        :size="20"
+      />
+    </fd-button>
+    <fd-button disabled class="mr-2" kind="secondary" icon>
+      <fd-icon
+        :icon="CubeTransparentIconSm"
+        :size="20"
+      />
+    </fd-button>
+    <fd-button disabled class="mr-2" kind="tertiary" icon>
+      <fd-icon
+        :icon="CubeTransparentIconSm"
+        :size="20"
+      />
+    </fd-button>
+    <fd-button disabled class="mr-2" kind="tertiary-neutral" icon>
+      <fd-icon
+        :icon="CubeTransparentIconSm"
+        :size="20"
+      />
+    </fd-button>
+    <fd-button disabled class="mr-2" kind="link" icon>
+      <fd-icon
+        :icon="CubeTransparentIconSm"
+        :size="20"
+      />
+    </fd-button>
+    <fd-button disabled class="mr-2" kind="destructive" icon>
+      <fd-icon
+        :icon="CubeTransparentIconSm"
+        :size="20"
+      />
+    </fd-button>
+    <br><br>
+
+    <h4 class="mb-4">Button elements</h4>
+    <fd-button href="http://example.com">Anchor element</fd-button>
+    <br><br>
+    <!-- <fd-button to="/">Router link element</fd-button> -->
+    <fd-button tag="div">Div... but don't do this</fd-button>
+    <br><br>
+    <fd-button>Button element</fd-button>
+    <br><br>
   </div>
 </template>
 

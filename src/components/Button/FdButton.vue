@@ -40,19 +40,19 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
+import { getButtonElement } from '../../utils/buttons';
 import { tshirt } from '../../utils/validators';
-import { isRouterLink } from '../../utils/router';
 import { RouteLocationRaw } from 'vue-router';
 import { ButtonKind } from '../../types/button';
 import { TshirtSize } from '../../types/common';
-import FdIcon from '../../../src/components/Icon';
+import FdIcon from '../Icon';
 
 export default defineComponent({
   name: 'FdButton',
   components: { FdIcon },
   props: {
     appendIcon: {
-      type: Object,
+      type: [Object, Function],
       default: undefined,
     },
     block: {
@@ -85,7 +85,7 @@ export default defineComponent({
       default: false,
     },
     prependIcon: {
-      type: Object,
+      type: [Object, Function],
       default: undefined,
     },
     size: {
@@ -105,18 +105,11 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    type: {
-      type: String,
-      default: undefined,
-    },
   },
   setup(props, { emit }) {
     const buttonType = computed((): string => {
       if (props.tag) return props.tag;
-      if (props.href) return 'a';
-      if (props.to && isRouterLink(props.to)) return 'router-link';
-
-      return 'button';
+      return getButtonElement(props.href, props.to);
     });
 
     const handleClick = (e: MouseEvent) => {
@@ -140,18 +133,22 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-button {
+  align-items: center;
   border: $button-border;
   border-radius: $button-border-radius;
   box-shadow: $button-elevation;
+  display: inline-flex;
   font-family: $button-font-family;
   font-size: $button-font-size;
   font-weight: $button-font-weight;
   height: $button-height;
+  justify-content: center;
   line-height: 1.5rem;
   padding: 0 $button-padding;
   text-align: $button-text-align;
   text-transform: $button-text-transform;
   transition: $button-transition;
+  vertical-align: middle;
 
   &--primary {
     background-color: rgba(var(--fora-button-primary));
@@ -284,6 +281,12 @@ export default defineComponent({
   &--icon {
     padding: 0;
     width: $button-height;
+
+    ::v-deep {
+    .fd-icon {
+      margin-top: -0.2em; // fix positioning for icon buttons
+    }
+  }
   }
 
   &--disabled,
@@ -305,9 +308,7 @@ export default defineComponent({
     line-height: 1.25rem;
     padding: 0 $button-xs-padding;
 
-    &__content {
-      line-height: 1.25rem;
-    }
+
 
     &.fd-button--icon {
       padding: 0;
@@ -321,9 +322,7 @@ export default defineComponent({
     line-height: 1.25rem;
     padding: 0 $button-sm-padding;
 
-    &__content {
-      line-height: 1.25rem;
-    }
+
     
     &.fd-button--icon {
       padding: 0;
@@ -353,13 +352,27 @@ export default defineComponent({
     line-height: 1.75rem;
     padding: 0 $button-xl-padding;
 
-    &__content {
-      line-height: 1.75rem;
-    }
+
     
     &.fd-button--icon {
       padding: 0;
       width: $button-xl-height;
+    }
+  }
+
+  &--disabled {
+    background-color: rgba(var(--fora-button-disabled));
+    color: rgba(var(--fora-button-disabled-text));
+    pointer-events: none;
+
+    &.fd-button--tertiary,
+    &.fd-button--tertiary-neutral {
+      background-color: rgba(var(--fora-button-disabled-bg));
+      border-color: rgba(var(--fora-button-disabled));
+    }
+
+    &.fd-button--link {
+      background-color: transparent;
     }
   }
 
@@ -377,13 +390,6 @@ export default defineComponent({
     .fd-button--xs & {
       margin-right: 0.25rem;
     }
-  }
-}
-
-::v-deep {
-  //fixes minor vertical align issue with icons
-  .fd-icon {
-    margin-top: -0.2em;
   }
 }
 </style>

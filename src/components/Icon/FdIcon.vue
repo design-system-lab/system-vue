@@ -19,7 +19,7 @@ export default defineComponent({
   name: 'FdIcon',
   props: {
     icon: {
-      type: Object,
+      type: [Object, Function],
       default: () => ({}),
     },
     size: {
@@ -32,6 +32,7 @@ export default defineComponent({
 
 <style lang="scss">
 .fd-icon {
+  color: currentColor;
   display: inline-block;
   vertical-align: middle;
 }

@@ -49,6 +49,10 @@ $button-destructive-text: $white, 1 !default;
 $button-destructive-text-hover: $white, 1 !default;
 $button-destructive-text-pressed: $neutral-2, 1 !default;
 
+$button-disabled: $neutral-4, 1 !default;
+$button-disabled-bg: $neutral-3, 1 !default; // for outlined buttons
+$button-disabled-text: $neutral-5, 1 !default;
+
 // default style vars
 $button-border: none !default;
 $button-border-radius: $border-radius !default;
@@ -133,4 +137,8 @@ $theme-buttons: (
   button-destructive-text: $button-destructive-text,
   button-destructive-text-hover: $button-destructive-text-hover,
   button-destructive-text-pressed: $button-destructive-text-pressed,
+
+  button-disabled: $button-disabled,
+  button-disabled-bg: $button-disabled-bg,
+  button-disabled-text: $button-disabled-text,
 );
