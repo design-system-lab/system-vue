@@ -150,6 +150,8 @@ export default defineComponent({
   transition: $button-transition;
   vertical-align: middle;
 
+  @include focus-primary;
+
   &--primary {
     background-color: rgba(var(--fora-button-primary));
     color: rgba(var(--fora-button-primary-text));
@@ -165,8 +167,6 @@ export default defineComponent({
       box-shadow: none;
       color: rgba(var(--fora-button-primary-text-pressed));
     }
-
-    @include focus-primary;
   }
 
   &--secondary {
@@ -184,8 +184,6 @@ export default defineComponent({
       box-shadow: none;
       color: rgba(var(--fora-button-secondary-text-pressed));
     }
-
-    @include focus-primary;
   }
 
   &--tertiary {
@@ -207,8 +205,6 @@ export default defineComponent({
       box-shadow: none;
       color: rgba(var(--fora-button-tertiary-text-pressed));
     }
-
-    @include focus-primary;
   }
 
   &--tertiary-neutral {
@@ -230,8 +226,6 @@ export default defineComponent({
       box-shadow: none;
       color: rgba(var(--fora-button-tertiary-neutral-text-pressed));
     }
-
-    @include focus-primary;
   }
 
   &--link {
@@ -250,8 +244,6 @@ export default defineComponent({
       box-shadow: none;
       color: rgba(var(--fora-button-link-pressed));
     }
-
-    @include focus-primary;
   }
 
   &--destructive {
@@ -274,7 +266,7 @@ export default defineComponent({
   }
 
   &--block {
-    display: block;
+    display: flex;
     width: 100%;
   }
 
@@ -299,7 +291,6 @@ export default defineComponent({
   // include a content wrapper to help with vert align with icons
   &__content {
     display: inline-block;
-    line-height: 1.5rem;
   }
 
   &--xs {
@@ -307,8 +298,6 @@ export default defineComponent({
     height: $button-xs-height;
     line-height: 1.25rem;
     padding: 0 $button-xs-padding;
-
-
 
     &.fd-button--icon {
       padding: 0;
@@ -321,8 +310,6 @@ export default defineComponent({
     height: $button-sm-height;
     line-height: 1.25rem;
     padding: 0 $button-sm-padding;
-
-
     
     &.fd-button--icon {
       padding: 0;
@@ -351,8 +338,6 @@ export default defineComponent({
     height: $button-xl-height;
     line-height: 1.75rem;
     padding: 0 $button-xl-padding;
-
-
     
     &.fd-button--icon {
       padding: 0;
