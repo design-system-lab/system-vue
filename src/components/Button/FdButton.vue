@@ -13,7 +13,7 @@
       }
     ]"
     :is="buttonType"
-    :disabled="disabled && 'disabled'"
+    :disabled="disabled || undefined"
     @click="handleClick"
   >
     <slot name="prepend-icon">
@@ -282,7 +282,7 @@ export default defineComponent({
   }
 
   &--disabled,
-  &[disabled="disabled"] {
+  &:disabled {
     background-color: rgba(var(--fora-disabled-bg));
     color: rgba(var(--fora-disabled-text));
     pointer-events: none;
