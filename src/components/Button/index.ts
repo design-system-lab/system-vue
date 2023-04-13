@@ -1,3 +1,1 @@
-import FdButton from './FdButton.vue';
-
-export default FdButton;
+export { default } from './FdButton.vue';
