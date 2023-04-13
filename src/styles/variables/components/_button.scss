@@ -1,36 +1,88 @@
 // Variables specific to FdButton
 
 // colors for theming, must be duplicated in theme map
-$button-default: $primary-6;
-$button-default-dark: $primary-7;
-$button-default-darker: $primary-8;
+$button-primary: $primary-6, 1 !default;
+$button-primary-hover: $primary-8, 1 !default;
+$button-primary-pressed: $primary-9, 1 !default;
+$button-primary-text: $white, 1 !default;
+$button-primary-text-hover: $white, 1 !default;
+$button-primary-text-pressed: $neutral-2, 1 !default;
 
-$button-primary: $button-default, 1 !default;
-$button-primary-hover: $button-default-dark, 1 !default;
-$button-primary-pressed: $button-default-darker, 1 !default;
-$button-primary-text: $text-light, 1 !default;
+$button-secondary: $primary-2, 1 !default;
+$button-secondary-hover: $primary-3, 1 !default;
+$button-secondary-pressed: $primary-4, 1 !default;
+$button-secondary-text: $primary-7, 1 !default;
+$button-secondary-text-hover: $primary-8, 1 !default;
+$button-secondary-text-pressed: $primary-10, 1 !default;
 
-$button-outlined: $button-default, 1 !default;
-$button-outlined-hover: $button-default-dark, 1 !default;
-$button-outlined-pressed: $button-default-darker, 1 !default;
-$button-outlined-bg: $transparent !default;
-$button-outlined-bg-hover: $button-default, 0.1 !default;
-$button-outlined-bg-pressed: $button-default, 0.2 !default;
-$button-outlined-text: $button-default, 1 !default;
-$button-outlined-text-hover: $button-default-dark, 1 !default;
-$button-outlined-text-pressed: $button-default-darker, 1 !default;
+$button-tertiary: $primary-6, 1 !default;
+$button-tertiary-hover: $primary-8, 1 !default;
+$button-tertiary-pressed: $primary-9, 1 !default;
+$button-tertiary-bg: $primary-6, 0 !default;
+$button-tertiary-bg-hover: $primary-6, 0.15 !default;
+$button-tertiary-bg-pressed: $primary-6, 0.3 !default;
+$button-tertiary-text: $button-tertiary !default;
+$button-tertiary-text-hover: $button-tertiary-hover !default;
+$button-tertiary-text-pressed: $button-tertiary-pressed !default;
+
+$button-tertiary-neutral: $neutral-8, 1 !default;
+$button-tertiary-neutral-hover: $neutral-9, 1 !default;
+$button-tertiary-neutral-pressed: $neutral-10, 1 !default;
+$button-tertiary-neutral-bg: $neutral-6, 0 !default;
+$button-tertiary-neutral-bg-hover: $neutral-6, 0.15 !default;
+$button-tertiary-neutral-bg-pressed: $neutral-6, 0.3 !default;
+$button-tertiary-neutral-text: $button-tertiary-neutral, 1 !default;
+$button-tertiary-neutral-text-hover: $button-tertiary-neutral-hover, 1 !default;
+$button-tertiary-neutral-text-pressed: $button-tertiary-neutral-pressed, 1 !default;
+
+$button-link: $primary-6, 1 !default;
+$button-link-hover: $primary-8, 1 !default;
+$button-link-pressed: $primary-9, 1 !default;
+$button-link-bg: $primary-6, 0 !default;
+$button-link-bg-hover: $primary-6, 0.15 !default;
+$button-link-bg-pressed: $primary-6, 0.3 !default;
+
+$button-destructive: $danger-6, 1 !default;
+$button-destructive-hover: $danger-8, 1 !default;
+$button-destructive-pressed: $danger-9, 1 !default;
+$button-destructive-text: $white, 1 !default;
+$button-destructive-text-hover: $white, 1 !default;
+$button-destructive-text-pressed: $neutral-2, 1 !default;
+
+$button-disabled: $neutral-4, 1 !default;
+$button-disabled-bg: $neutral-3, 1 !default; // for outlined buttons
+$button-disabled-text: $neutral-5, 1 !default;
 
 // default style vars
 $button-border: none !default;
 $button-border-radius: $border-radius !default;
 $button-elevation: $elevation-1 !default;
 $button-font-family: $font-family !default;
-$button-font-size: 1rem !default;
-$button-font-weight: $font-bold !default;
-$button-padding: 0.5rem 1rem !default;
+$button-font-weight: $font-semi-bold !default;
 $button-text-align: center !default;
 $button-text-transform: none !default;
 $button-transition: $transition-timing background, $transition-timing box-shadow, $transition-timing border-color, $transition-timing color !default;
+
+// different sizes
+$button-padding: 1.25rem !default;
+$button-font-size: $font-base !default;
+$button-height: 2.5rem;
+
+$button-xs-padding: 0.75rem !default;
+$button-xs-font-size: $font-xs !default;
+$button-xs-height: 1.75rem;
+
+$button-sm-padding: 1rem !default;
+$button-sm-font-size: $font-sm !default;
+$button-sm-height: 2.25rem;
+
+$button-lg-padding: 1.5rem !default;
+$button-lg-font-size: $font-base !default;
+$button-lg-height: 3rem;
+
+$button-xl-padding: 1.5rem !default;
+$button-xl-font-size: $font-lg !default;
+$button-xl-height: 3.75rem;
 
 // outlined
 $button-outlined-border: 2px solid !default;
@@ -42,14 +94,51 @@ $theme-buttons: (
   button-primary-hover: $button-primary-hover,
   button-primary-pressed: $button-primary-pressed,
   button-primary-text: $button-primary-text,
+  button-primary-text-hover: $button-primary-text-hover,
+  button-primary-text-pressed: $button-primary-text-pressed,
 
-  button-outlined: $button-outlined,
-  button-outlined-hover: $button-outlined-hover,
-  button-outlined-pressed: $button-outlined-pressed,
-  button-outlined-bg: $button-outlined-bg,
-  button-outlined-bg-hover: $button-outlined-bg-hover,
-  button-outlined-bg-pressed: $button-outlined-bg-pressed,
-  button-outlined-text: $button-outlined-text,
-  button-outlined-text-hover: $button-outlined-text-hover,
-  button-outlined-text-pressed: $button-outlined-text-pressed,
+  button-secondary: $button-secondary,
+  button-secondary-hover: $button-secondary-hover,
+  button-secondary-pressed: $button-secondary-pressed,
+  button-secondary-text: $button-secondary-text,
+  button-secondary-text-hover: $button-secondary-text-hover,
+  button-secondary-text-pressed: $button-secondary-text-pressed,
+
+  button-tertiary: $button-tertiary,
+  button-tertiary-hover: $button-tertiary-hover,
+  button-tertiary-pressed: $button-tertiary-pressed,
+  button-tertiary-bg: $button-tertiary-bg,
+  button-tertiary-bg-hover: $button-tertiary-bg-hover,
+  button-tertiary-bg-pressed: $button-tertiary-bg-pressed,
+  button-tertiary-text: $button-tertiary-text,
+  button-tertiary-text-hover: $button-tertiary-text-hover,
+  button-tertiary-text-pressed: $button-tertiary-text-pressed,
+
+  button-tertiary-neutral: $button-tertiary-neutral,
+  button-tertiary-neutral-hover: $button-tertiary-neutral-hover,
+  button-tertiary-neutral-pressed: $button-tertiary-neutral-pressed,
+  button-tertiary-neutral-bg: $button-tertiary-neutral-bg,
+  button-tertiary-neutral-bg-hover: $button-tertiary-neutral-bg-hover,
+  button-tertiary-neutral-bg-pressed: $button-tertiary-neutral-bg-pressed,
+  button-tertiary-neutral-text: $button-tertiary-neutral-text,
+  button-tertiary-neutral-text-hover: $button-tertiary-neutral-text-hover,
+  button-tertiary-neutral-text-pressed: $button-tertiary-neutral-text-pressed,
+
+  button-link: $button-link,
+  button-link-hover: $button-link-hover,
+  button-link-pressed: $button-link-pressed,
+  button-link-bg: $button-link-bg,
+  button-link-bg-hover: $button-link-bg-hover,
+  button-link-bg-pressed: $button-link-bg-pressed,
+
+  button-destructive: $button-destructive,
+  button-destructive-hover: $button-destructive-hover,
+  button-destructive-pressed: $button-destructive-pressed,
+  button-destructive-text: $button-destructive-text,
+  button-destructive-text-hover: $button-destructive-text-hover,
+  button-destructive-text-pressed: $button-destructive-text-pressed,
+
+  button-disabled: $button-disabled,
+  button-disabled-bg: $button-disabled-bg,
+  button-disabled-text: $button-disabled-text,
 );
