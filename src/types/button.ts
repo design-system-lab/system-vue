@@ -8,7 +8,9 @@ export type ButtonGroupButton = {
   disabled?: boolean;
   href?: string;
   icon?: boolean;
+  label?: string;
   prependIcon?: Icon;
+  slot?: string;
   to?: RouteLocationRaw;
-  toggle: boolean;
+  toggle?: boolean;
 };
