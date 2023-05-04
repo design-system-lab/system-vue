@@ -3,6 +3,7 @@ import ButtonPage from '../pages/ButtonPage.vue';
 import ColorsPage from '../pages/ColorsPage.vue';
 import GridPage from '../pages/GridPage.vue';
 import IconPage from '../pages/IconPage.vue';
+import SwitchPage from '../pages/SwitchPage.vue';
 import TypographyPage from '../pages/TypographyPage.vue';
 
 export default [
@@ -11,5 +12,6 @@ export default [
   { path: '/colors', name: 'Colors', component: ColorsPage },
   { path: '/grid', name: 'Grid', component: GridPage },
   { path: '/icons', name: 'Icons', component: IconPage },
+  { path: '/switch', name: 'Switch', component: SwitchPage },
   { path: '/typography', name: 'Typography', component: TypographyPage },
 ]

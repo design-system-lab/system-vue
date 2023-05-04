@@ -1,0 +1,33 @@
+// Variables specific to FdSwitch
+
+// colors for theming, must duplicate in theme map
+$switch-active: $primary-6, 1 !default;
+$switch-active-hover: $primary-8, 1 !default;
+$switch-active-pressed: $primary-9, 1 !default;
+$switch-inactive: $neutral-6, 1 !default;
+$switch-inactive-hover: $neutral-7, 1 !default;
+$switch-inactive-pressed: $neutral-8, 1 !default;
+$switch-knob: $white;
+
+// default style vars
+$switch-control-height: 1.75rem;
+$switch-control-width: 3.5rem;
+$switch-label-size: $input-label-size;
+$switch-label-weight: $input-label-weight;
+$switch-knob-height: 1.5rem;
+$switch-knob-width: 1.5rem;
+$switch-transition: $transition-timing background, $transition-timing left !default;
+$switch-value-size: $input-auxiliary-text-size;
+$switch-value-weight: $input-auxiliary-text-weight;
+
+// theme map, must replicate colors
+// when using, add --fora- before the key as the css variable, for example: var(--fora-switch-primary)
+$theme-switch: (
+  switch-active: $switch-active,
+  switch-active-hover: $switch-active-hover,
+  switch-active-pressed: $switch-active-pressed,
+  switch-inactive: $switch-inactive,
+  switch-inactive-hover: $switch-inactive-hover,
+  switch-inactive-pressed: $switch-inactive-pressed,
+  switch-knob: $switch-knob,
+);

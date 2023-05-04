@@ -84,3 +84,4 @@ $defaultThemes: (
 
 // for each component var, merge the keys into default
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-buttons);
+$defaultThemes: map-merge($defaultThemes, 'default', $theme-switch);
