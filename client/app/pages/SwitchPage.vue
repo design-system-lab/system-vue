@@ -3,16 +3,18 @@
     <h1>Switches</h1>
     <br>
     <h4>Default switch:</h4>
+    <br>
     <fd-switch v-model="val" id="example-val" label="Example switch" />
 
     <br><br>
 
     <h4>Show Values</h4>
+    <br>
     <fd-switch v-model="val2" id="example-val-2" label="Example switch" show-value />
     
     <br><br>
 
-    <h4>Show Values and Hide Label</h4>
+    <h4>Show Values and Hide Label</h4><br>
     <fd-switch v-model="val3" id="example-val-3" label="Example switch" show-value hide-label />
   </div>
 </template>

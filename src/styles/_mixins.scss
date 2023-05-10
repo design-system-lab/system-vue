@@ -1,16 +1,24 @@
 @use 'sass:map';
 
+@mixin focus-primary-styles {
+  box-shadow: 0 0 0 4px rgba(var(--fora-primary-6), 0.5);
+  outline: none;
+}
+
+@mixin focus-danger-styles {
+  box-shadow: 0 0 0 4px rgba(var(--fora-danger-6), 0.5);
+  outline: none;
+}
+
 @mixin focus-primary {
   &:focus-visible {
-    box-shadow: 0 0 0 4px rgba(var(--fora-primary-6), 0.5);
-    outline: none;
+    @include focus-primary-styles;
   }
 }
 
 @mixin focus-danger {
   &:focus-visible {
-    box-shadow: 0 0 0 4px rgba(var(--fora-danger-6), 0.5);
-    outline: none;
+    @include focus-danger-styles;
   }
 }
 

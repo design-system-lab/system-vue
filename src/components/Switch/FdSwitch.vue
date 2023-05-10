@@ -114,6 +114,10 @@ export default defineComponent({
 
   &__input {
     @include visually-hidden;
+
+    &:focus-visible + .fd-switch__controller > .fd-switch__control {
+      @include focus-primary-styles;
+    }
   }
 
   &__controller {
