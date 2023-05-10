@@ -1,16 +1,24 @@
 @use 'sass:map';
 
+@mixin focus-primary-styles {
+  box-shadow: 0 0 0 4px rgba(var(--fora-primary-6), 0.5) !important;
+  outline: none;
+}
+
+@mixin focus-danger-styles {
+  box-shadow: 0 0 0 4px rgba(var(--fora-danger-6), 0.5) !important;
+  outline: none;
+}
+
 @mixin focus-primary {
   &:focus-visible {
-    box-shadow: 0 0 0 4px rgba(var(--fora-primary-6), 0.5) !important;
-    outline: none;
+    @include focus-primary-styles;
   }
 }
 
 @mixin focus-danger {
   &:focus-visible {
-    box-shadow: 0 0 0 4px rgba(var(--fora-danger-6), 0.5) !important;
-    outline: none;
+    @include focus-danger-styles;
   }
 }
 
@@ -24,4 +32,14 @@
   @media (max-width: calc(map-get($grid-breakpoints, $breakpoint) - 0.01px)) {
     @content;
   }
+}
+
+@mixin visually-hidden {
+  clip: rect(0,0,0,0) !important;
+  clip-path: inset(50%);
+  height: 1px !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  white-space: nowrap !important;
+  width: 1px !important;
 }

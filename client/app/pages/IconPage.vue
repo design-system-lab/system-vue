@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h1>Icons</h1>
     <br>
     <h4>Example icons:</h4>
     <fd-icon :icon="BeakerIcon" />
