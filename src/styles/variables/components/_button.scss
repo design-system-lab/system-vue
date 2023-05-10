@@ -85,7 +85,8 @@ $button-xl-font-size: $font-lg !default;
 $button-xl-height: 3.75rem;
 
 // outlined
-$button-outlined-border: 2px solid !default;
+$button-outlined-width: 2px;
+$button-outlined-border: $button-outlined-width solid !default;
 
 // theme map, must replicate colors
 // when using, add --fora- before the key as the css variable, for example: var(--fora-button-primary)

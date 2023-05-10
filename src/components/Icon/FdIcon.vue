@@ -13,13 +13,14 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
+import { Icon } from '../../types/common';
 
 export default defineComponent({
   name: 'FdIcon',
   props: {
     icon: {
-      type: [Object, Function],
+      type: Function as PropType<Icon>,
       default: () => ({}),
     },
     size: {

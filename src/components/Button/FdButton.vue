@@ -44,7 +44,7 @@ import { getButtonElement } from '../../utils/buttons';
 import { tshirt } from '../../utils/validators';
 import { RouteLocationRaw } from 'vue-router';
 import { ButtonKind } from '../../types/button';
-import { TshirtSize } from '../../types/common';
+import { TshirtSize, Icon } from '../../types/common';
 import FdIcon from '../Icon';
 
 export default defineComponent({
@@ -52,7 +52,7 @@ export default defineComponent({
   components: { FdIcon },
   props: {
     appendIcon: {
-      type: [Object, Function],
+      type: Function as PropType<Icon>,
       default: undefined,
     },
     block: {
@@ -85,7 +85,7 @@ export default defineComponent({
       default: false,
     },
     prependIcon: {
-      type: [Object, Function],
+      type: Function as PropType<Icon>,
       default: undefined,
     },
     size: {
@@ -274,11 +274,9 @@ export default defineComponent({
     padding: 0;
     width: $button-height;
 
-    ::v-deep {
-    .fd-icon {
+    :deep(.fd-icon) {
       margin-top: -0.2em; // fix positioning for icon buttons
     }
-  }
   }
 
   // include a content wrapper to help with vert align with icons

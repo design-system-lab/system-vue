@@ -1,12 +1,12 @@
 @use 'sass:map';
 
 @mixin focus-primary-styles {
-  box-shadow: 0 0 0 4px rgba(var(--fora-primary-6), 0.5);
+  box-shadow: 0 0 0 4px rgba(var(--fora-primary-6), 0.5) !important;
   outline: none;
 }
 
 @mixin focus-danger-styles {
-  box-shadow: 0 0 0 4px rgba(var(--fora-danger-6), 0.5);
+  box-shadow: 0 0 0 4px rgba(var(--fora-danger-6), 0.5) !important;
   outline: none;
 }
 

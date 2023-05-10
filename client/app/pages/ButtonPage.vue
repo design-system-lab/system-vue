@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Home</h1>
+    <h1>Buttons</h1>
     <br>
     <h4 class="mb-4">Default Button</h4>
     <fd-button @click="updateTheme('dark')">
