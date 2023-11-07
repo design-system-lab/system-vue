@@ -4,6 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { Icon } from '../../types/common';
 
 interface ErrorMessages {
   [key: string]: string; 
@@ -12,19 +13,27 @@ interface ErrorMessages {
 export default defineComponent({
   name: 'FdInputField',
   props: {
-    label: {
-      type: String,
+    appendIcon: {
+      type: Function as PropType<Icon>,
       default: undefined,
     },
-    errorMessages: {
-      type: Object as PropType<ErrorMessages>,
-      default: () => ({}),
+    assistiveText: {
+      type: String,
+      default: undefined,
     },
     errors: {
       type: Array as PropType<string[]>,
       default: () => [],
     },
-    assistiveText: {
+    errorMessages: {
+      type: Object as PropType<ErrorMessages>,
+      default: () => ({}),
+    },
+    label: {
+      type: String,
+      default: undefined,
+    },
+    modelValue: {
       type: String,
       default: undefined,
     },
@@ -32,8 +41,8 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    modelValue: {
-      type: String,
+    prependIcon: {
+      type: Function as PropType<Icon>,
       default: undefined,
     },
   }
