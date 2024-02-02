@@ -30,3 +30,20 @@ Within the `client` directory is a kitchen sink where the components will be rep
 ## Icon library
 
 Fora uses the [Heroicons](https://github.com/tailwindlabs/heroicons) icon library as the default icon set available within the project. However, if using an alternate icon set, the icon helper component `FdIcon` can still be used, it's simple a wrapper component that provides some helpful styling to standardize the icon sizes and usage.
+
+## Variable Naming Schema
+
+Fora uses a consistent naming schema across both the design and development libraries:
+
+`[component]` `_` `[heirarchy]` `_` `[semantics]` `_` `[property]` `--` `[modifier]`
+
+For example:
+`input-field_primary_error_border--hover`
+
+- Component: Optional (doesn't apply to global variables), this is a hyphen separated component name, for example: `input-field`
+- Heirarchy: Describes how the component relates to alternate versions of the component, for example: `primary` or `xs`
+- Semantics: This is the current state of the component, for example: `error` or `readonly`
+- Property: Typically a keyword correlated to the CSS property using the variable, for example: `bg` or `border`
+- Modifier: This describes ephemeral states, for example: `hover` or `focus`
+
+To reduce confusion and maintain parity between developers and designers, the system uses the same variable names in both Figma and the development kit.

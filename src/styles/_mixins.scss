@@ -43,3 +43,16 @@
   white-space: nowrap !important;
   width: 1px !important;
 }
+
+@mixin form-label {
+  font-size: $font-sm;
+  font-weight: $font-medium;
+  margin-bottom: 0.25rem;
+}
+
+@mixin form-assistive-text {
+  color: $neutral-7;
+  font-size: $font-xs;
+  font-weight: $font-regular;
+  margin-top: 0.25rem;
+}
