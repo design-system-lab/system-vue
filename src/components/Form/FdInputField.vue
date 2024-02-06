@@ -9,13 +9,17 @@
       'fd-input-field--small': small,
     }"
   >
-    <div class="fd-input-field__label mb-1">
+    <div
+      v-if="label || $slots['label']"
+      :id="`${id}_label`"
+      class="fd-input-field__label"
+    >
       <slot name="label">
         {{ label }}
       </slot>
     </div>
     <div
-      class="fd-input-field__input-field mb-1"
+      class="fd-input-field__input-field"
       :class="{
         'fd-input-field__input-field--disabled': disabled,
         'fd-input-field__input-field--error': error,
@@ -25,56 +29,69 @@
         'fd-input-field__input-field--small': small,
       }"
     >
-      <slot name="prepend-icon">
-        <fd-icon
-          v-if="prependIcon"
-          class="fd-input-field__prepend-icon"
-          :icon="prependIcon"
-          :size="getIconSize(small ? 'sm' : 'md')"
-        />
-      </slot>
-      <input
-        class="fd-input-field__input font-sm font-regular"
-        :disabled="disabled"
-        :placeholder="placeholder"
-        :readonly="readonly"
-        :type="type"
-        :value="modelValue"
-        @input="handleInput"
-        @blur="hasFocus = false"
-        @focus="hasFocus = true"
-      >
-      <slot name="append-icon">
-        <fd-icon
-          v-if="appendIcon"
-          class="fd-input-field__append-icon"
-          :icon="appendIcon"
-          :size="getIconSize(small ? 'sm' : 'md')"
-        />
-      </slot>
-    </div>
-    <div
-      v-if="error && error in errorMessages"
-      class="fd-input-field__error-text"
-    >
-      <fd-icon
-        class="fd-input-field__error-icon"
-        :icon="ExclamationTriangleIcon"
-        :size="getIconSize('sm')"
-      />
-      <slot name="error-text">
-        <span
-          v-for="(errorMessage, index) in errorMessages"
-          :key="index"
+      <div class="fd-input-field__input-container">
+        <slot name="prepend-icon">
+          <fd-icon
+            v-if="prependIcon"
+            class="fd-input-field__prepend-icon"
+            :icon="prependIcon"
+            :size="getIconSize('sm')"
+          />
+        </slot>
+        <input
+          class="fd-input-field__input font-sm font-regular"
+          v-bind="inputAttrs"
+          :aria-describedby="describedBy || ((assistiveText || $slots['assistive-text']) && `${id}_assistive-text`)"
+          :aria-labelledby="labelledBy || ((label || $slots['label']) && `${id}_label`)"
+          :disabled="disabled"
+          :placeholder="placeholder"
+          :readonly="readonly"
+          :type="type"
+          :value="modelValue"
+          @input="handleInput"
+          @blur="hasFocus = false"
+          @focus="hasFocus = true"
         >
-          {{ errorMessage }}
-        </span>
-      </slot>
+        <slot name="append-icon">
+          <fd-icon
+            v-if="appendIcon"
+            class="fd-input-field__append-icon"
+            :icon="appendIcon"
+            :size="getIconSize('sm')"
+          />
+        </slot>
+      </div>
     </div>
-    <div class="fd-input-field__assistive-text">
-      <slot name="assistive-text">
-        {{ assistiveText }}
-      </slot>
+    <div class="fd-input-field__post-text">
+      <transition-group :name="`slide-${persistentAssistiveText ? 'in-out' : 'down'}`">
+        <div
+          v-if="error && error in errorMessages"
+          class="fd-input-field__error-text"
+        >
+          <fd-icon
+            class="fd-input-field__error-icon"
+            :icon="ExclamationTriangleIcon"
+            :size="getIconSize('sm')"
+          />
+          <slot name="error-text">
+            <span
+              v-for="(errorMessage, index) in errorMessages"
+              :key="index"
+            >
+              {{ errorMessage }}
+            </span>
+          </slot>
+        </div>
+        <div
+          v-if="(assistiveText || $slots['assistive-text']) && (!error || persistentAssistiveText)"
+          :id="`${id}_assistive-text`"
+          class="fd-input-field__assistive-text"
+        >
+          <slot name="assistive-text">
+            {{ assistiveText }}
+          </slot>
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -104,9 +121,6 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    /**
-     * TODO: add optional descibed by
-     */
     describedBy: {
       type: String,
       default: undefined,
@@ -123,16 +137,22 @@ export default defineComponent({
       type: Object as PropType<ErrorMessages>,
       default: () => ({}),
     },
-    /**
-     * TODO: add id for associating parts of component with input - required?
-     */
+    id: {
+      type: String,
+      required: true,
+    },
+    inputAttrs: {
+      type: Object as PropType<{[key: string]: string}>,
+      default: () => ({}),
+    },
     label: {
       type: String,
       default: undefined,
     },
-    /**
-     * TODO: add optional labelled by
-     */
+    labelledBy: {
+      type: String,
+      default: undefined,
+    },
     modelValue: {
       type: String,
       default: undefined,
@@ -195,6 +215,7 @@ export default defineComponent({
   &__label {
     font-size: $form-field_label_size;
     font-weight: $form-field_label_weight;
+    margin-bottom: $form-field_vertical_spacer;
   }
 
   &__prepend-icon {
@@ -208,12 +229,15 @@ export default defineComponent({
   }
 
   &__input-field {
+    background-color: rgba(var(--fora_form-field_input_bg));
     border: $form-field-border;
     border-color: rgba(var(--fora_form-field_border-color));
     border-radius: 8px;
     line-height: 1.25rem;
-    padding: 0.625rem;
+    padding: calc(0.625rem - 1px);
+    position: relative;
     transition: border .35s ease, box-shadow .35s ease;
+    z-index: 1;
 
     &--focused {
       @include focus-primary-styles;
@@ -225,8 +249,8 @@ export default defineComponent({
     }
 
     &--small {
-      padding-bottom: 0.25rem;
-      padding-top: 0.25rem;
+      padding-bottom: calc(0.375rem - 1px);
+      padding-top: calc(0.375rem - 1px);
     }
 
     &--disabled:hover,
@@ -252,8 +276,14 @@ export default defineComponent({
     }
 
     &--disabled {
-      
+      background-color: rgba(var(--fora_form-field_disabled_bg));
+      border-color: rgba(var(--fora_form-field_disabled_border-color));
+      color: rgba(var(--fora_form-field_disabled_color));
     }
+  }
+
+  &__input-container {
+    display: flex;
   }
 
   &__input {
@@ -268,20 +298,33 @@ export default defineComponent({
     }
   }
 
+  &__post-text {
+    position: relative;
+  }
+
   &__assistive-text {
     color: rgba(var(--fora_form-field_assistive-text_color));
     font-size: $form-field_auxillary-text_size;
     font-weight: $form-field_auxillary-text_weight;
+    line-height: 1.25rem;
+    padding-top: $form-field_vertical_spacer;
   }
 
   &__error-text {
     color: rgba(var(--fora_form-field_error-text_color));
     font-size: $form-field_error-text_size;
     font-weight: $form-field_error-text_weight;
+    line-height: 1.25rem;
+    padding-left: 1.75rem;
+    padding-top: $form-field_vertical_spacer;
+    position: relative;
   }
 
   &__error-icon {
+    left: 0;
     margin-right: 0.5rem;
+    position: absolute;
+    top: $form-field_vertical_spacer;
   }
 }
 </style>
