@@ -41,8 +41,8 @@
         <input
           class="fd-input-field__input font-sm font-regular"
           v-bind="inputAttrs"
-          :aria-describedby="describedBy || ((assistiveText || $slots['assistive-text']) && `${id}_assistive-text`)"
-          :aria-labelledby="labelledBy || ((label || $slots['label']) && `${id}_label`)"
+          :aria-describedby="((errors.length || $slots['error-text']) && `${id}_error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}_assistive-text`)"
+          :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}_label`)"
           :disabled="disabled"
           :placeholder="placeholder"
           :readonly="readonly"
@@ -65,7 +65,8 @@
     <div class="fd-input-field__post-text">
       <transition-group :name="`slide-${persistentAssistiveText ? 'in-out' : 'down'}`">
         <div
-          v-if="error && error in errorMessages"
+          v-if="errors.length || $slots['error-text']"
+          :id="`${id}_error-text`"
           class="fd-input-field__error-text"
         >
           <fd-icon
@@ -75,15 +76,15 @@
           />
           <slot name="error-text">
             <span
-              v-for="(errorMessage, index) in errorMessages"
+              v-for="(error, index) in errors"
               :key="index"
             >
-              {{ errorMessage }}
+              {{ errorMessages[error] }}
             </span>
           </slot>
         </div>
         <div
-          v-if="(assistiveText || $slots['assistive-text']) && (!error || persistentAssistiveText)"
+          v-if="(assistiveText || $slots['assistive-text']) && (!errors.length || persistentAssistiveText)"
           :id="`${id}_assistive-text`"
           class="fd-input-field__assistive-text"
         >
@@ -103,10 +104,32 @@ import { Icon } from '../../types/common';
 import FdIcon from '../Icon';
 import { ExclamationTriangleIcon } from '@heroicons/vue/20/solid';
 
+// TODO: Move this somewhere global
 interface ErrorMessages {
   [key: string]: string; 
 }
 
+/**
+ * Input Field
+ * 
+ * @param {Icon} appendIcon - An icon component to use within FdIcon, comes after the text within the input field
+ * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
+ * @param {string} describedby - Optional. When using descriptive text for the input outside of the component, supply this prop with the id of the descriptive text element
+ * @param {boolean} disabled - Whether the component is disabled
+ * @param {array} errors - The keys of the error messages for the errors that are in effect
+ * @param {ErrorMessages} errorMessages - Key:value pairs for possible errors, where the value is the error message displayed
+ * @param {string} id - Required id for the input, used to correlate the label, hint text, and error message
+ * @param {object} inputAttrs - An object of key:value pairs for attributes to add to the html input element
+ * @param {string} label - The label for the input field
+ * @param {string} labelledby - Optional. When using a label outside of the component, supply this prop with the id of the label element
+ * @param {string} modelValue - The value of the input
+ * @param {boolean} persistentAssistiveText - Whether to show the assistive text while displaying errors
+ * @param {string} placeholder - Placeholder text for the input
+ * @param {Icon} prependIcon - An icon component to use within FdIcon, comes before the text within the input field
+ * @param {boolean} readonly - Whether the field should be set to readonly mode
+ * @param {boolean} small - Whether to render the field in small mode
+ * @param {string} type - The HTML attribute type value to set on the input element, (e.g. 'text', 'number', etc.)
+ */
 export default defineComponent({
   name: 'FdInputField',
   components: {
@@ -121,7 +144,7 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    describedBy: {
+    describedby: {
       type: String,
       default: undefined,
     },
@@ -129,9 +152,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    error: {
-      type: String,
-      default: undefined,
+    // TODO: Test and debug transitioning multiple errors
+    errors: {
+      type: Array as PropType<string[]>,
+      default: () => [],
     },
     errorMessages: {
       type: Object as PropType<ErrorMessages>,
@@ -149,7 +173,7 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    labelledBy: {
+    labelledby: {
       type: String,
       default: undefined,
     },
@@ -157,9 +181,6 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    /**
-     * TODO: Make error replace hint unless this is true
-     */
     persistentAssistiveText: {
       type: Boolean,
       default: false,

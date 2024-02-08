@@ -9,6 +9,7 @@
     <h4 class="mb-4">Default Input</h4>
     <fd-input-field
       v-model="testVal"
+      id="test-default"
       label="Example Input"
       placeholder="Placeholder text here"
       :small="small"
@@ -19,6 +20,7 @@
     <h4 class="mb-4">Assistive Text</h4>
     <fd-input-field
       v-model="testVal"
+      id="test-assistive"
       assistive-text="Please use the format MM/DD/YYYY"
       label="Example Input"
       placeholder="Placeholder text here"
@@ -29,6 +31,7 @@
     <h4 class="mb-4">Error</h4>
     <fd-input-field
       v-model="testVal"
+      id="test-error"
       error="format"
       :errorMessages="{
         format: 'Incorrect date format, please use MM/DD/YYYY',
@@ -43,9 +46,11 @@
     <p class="mb-4">Add content to the input to remove the error</p>
     <fd-input-field
       v-model="testVal"
+      id="test-error-custom"
       assistive-text="Please use the format MM/DD/YYYY"
-      :error="(!testVal && 'required') || ''"
+      :errors="(!testVal && ['required']) || []"
       :errorMessages="{
+        example: 'Another message that won\'t show up.',
         required: 'This input is a required field.',
       }"
       label="Example Input"
@@ -63,10 +68,11 @@
     <fd-input-field
       v-model="testVal"
       assistive-text="Please use the format MM/DD/YYYY"
-      :error="(!testVal && 'required') || ''"
+      :errors="(!testVal && ['required']) || []"
       :errorMessages="{
         required: 'This input is a required field.',
       }"
+      id="test-assistive-error"
       label="Example Input"
       persistent-assistive-text
       placeholder="Placeholder text here"
@@ -76,6 +82,7 @@
 
     <h4 class="mb-4">Disabled</h4>
     <fd-input-field
+      id="test-disabled"
       disabled
       label="Example Input"
       placeholder="Placeholder text here"
@@ -85,6 +92,7 @@
 
     <h4 class="mb-4">Read Only</h4>
     <fd-input-field
+      id="test-readonly"
       label="Copy this Value"
       model-value="000-02-F34500"
       placeholder="Placeholder text here"
@@ -95,6 +103,7 @@
 
     <h4 class="mb-4">Prepend Icon</h4>
     <fd-input-field
+      id="test-prepend"
       v-model="prependIconVal"
       label="Favorite Food"
       :prepend-icon="CubeTransparentIcon"
@@ -105,6 +114,7 @@
 
     <h4 class="mb-4">Append Icon</h4>
     <fd-input-field
+      id="test-append"
       v-model="appendIconVal"
       label="Copy this Value"
       :append-icon="CubeTransparentIcon"
@@ -116,6 +126,7 @@
     <h4 class="mb-4">Append Icon</h4>
     <fd-input-field
       v-model="appendPrependIconVal"
+      id="test-append-prepend"
       label="Copy this Value"
       :append-icon="CubeTransparentIcon"
       :prepend-icon="CubeTransparentIcon"
@@ -127,6 +138,7 @@
     <h4 class="mb-4">With Input Attributes</h4>
     <fd-input-field
       v-model="appendPrependIconVal"
+      id="test-attributes"
       :input-attrs="{
         autocomplete: 'email',
         class: 'my-text-class',
@@ -136,6 +148,11 @@
       :small="small"
     />
     <br><br>
+
+    <!-- test labelledby -->
+    <!-- test describedby -->
+    <!-- test ALL SLOTS -->
+    <!-- test small inputs -->
 
   </div>
 </template>
