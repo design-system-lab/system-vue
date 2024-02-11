@@ -149,6 +149,28 @@
     />
     <br><br>
 
+    <fd-row>
+      <fd-col col="12 sm-6 md-4 lg-3 xl-2">
+        <fd-input-field
+          v-model="testVal"
+          assistive-text="Please use the format MM/DD/YYYY"
+          :errors="(!testVal && ['required', 'test']) || []"
+          :errorMessages="{
+            required: 'This input is a required field.',
+            test: 'This is another error and equally as invalid.'
+          }"
+          id="test-assistive-error"
+          label="Example Input"
+          placeholder="Placeholder text here"
+          :small="small"
+        />
+      </fd-col>
+    </fd-row>
+
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+
     <!-- test labelledby -->
     <!-- test describedby -->
     <!-- test ALL SLOTS -->
@@ -159,13 +181,15 @@
 
 <script lang="ts">
 import { defineComponent, shallowRef } from 'vue';
+import FdCol from '../../../src/components/Col';
+import FdRow from '../../../src/components/Row';
 import { FdInputField } from '../../../src/components/Form';
 import FdButton from '../../../src/components/Button';
 import { CubeTransparentIcon } from '@heroicons/vue/20/solid'
 
 export default defineComponent({
   name: 'InputFieldPage',
-  components: { FdInputField, FdButton },
+  components: { FdInputField, FdButton, FdCol, FdRow },
   setup () {
     const appendIconVal = shallowRef('');
     const appendPrependIconVal = shallowRef('');

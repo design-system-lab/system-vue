@@ -3,7 +3,7 @@
     class="fd-input-field"
     :class="{
       'fd-input-field--disabled': disabled,
-      'fd-input-field--error': error,
+      'fd-input-field--error': errors.length,
       'fd-input-fiel--focused': hasFocus,
       'fd-input-field--readonly': readonly,
       'fd-input-field--small': small,
@@ -22,9 +22,9 @@
       class="fd-input-field__input-field"
       :class="{
         'fd-input-field__input-field--disabled': disabled,
-        'fd-input-field__input-field--error': error,
+        'fd-input-field__input-field--error': errors.length,
         'fd-input-field__input-field--focused': hasFocus,
-        'fd-input-field__input-field--focused-error': hasFocus && error,
+        'fd-input-field__input-field--focused-error': hasFocus && errors.length,
         'fd-input-field__input-field--readonly': readonly,
         'fd-input-field__input-field--small': small,
       }"
@@ -63,7 +63,14 @@
       </div>
     </div>
     <div class="fd-input-field__post-text">
-      <transition-group :name="`slide-${persistentAssistiveText ? 'in-out' : 'down'}`">
+      <transition-group
+        @before-enter="onBeforeEnter"
+        @enter="onEnter"
+        @after-enter="onAfterEnter"
+        @before-leave="onBeforeLeave"
+        @leave="onLeave"
+        @after-leave="onAfterLeave"
+      >
         <div
           v-if="errors.length || $slots['error-text']"
           :id="`${id}_error-text`"
@@ -77,6 +84,7 @@
           <slot name="error-text">
             <span
               v-for="(error, index) in errors"
+              class="fd-input-field__error"
               :key="index"
             >
               {{ errorMessages[error] }}
@@ -100,14 +108,9 @@
 <script lang="ts">
 import { defineComponent, shallowRef, PropType } from 'vue';
 import { getIconSize } from '../../utils/icons';
-import { Icon } from '../../types/common';
+import { Icon,  ErrorMessages } from '../../types/common';
 import FdIcon from '../Icon';
 import { ExclamationTriangleIcon } from '@heroicons/vue/20/solid';
-
-// TODO: Move this somewhere global
-interface ErrorMessages {
-  [key: string]: string; 
-}
 
 /**
  * Input Field
@@ -184,7 +187,7 @@ export default defineComponent({
     persistentAssistiveText: {
       type: Boolean,
       default: false,
-    },
+    },  
     placeholder: {
       type: String,
       default: undefined,
@@ -219,11 +222,41 @@ export default defineComponent({
       emit('update:modelValue', (e.target as HTMLInputElement)?.value);
     }
 
+    function onBeforeEnter() {
+      // called before it's entered dom
+    }
+
+    function onEnter() {
+      // called one frame after entering
+    }
+
+    function onAfterEnter() {
+      // called when enter transition has finished
+    }
+
+    function onBeforeLeave() {
+      // called before the leave hook
+    }
+
+    function onLeave() {
+      // called one frame after leave begins
+    }
+
+    function onAfterLeave() {
+      // called when the leave transition has finished
+    }
+
     return {
       ExclamationTriangleIcon,
       getIconSize,
       handleInput,
-      hasFocus
+      hasFocus,
+      onBeforeEnter,
+      onEnter,
+      onAfterEnter,
+      onBeforeLeave,
+      onLeave,
+      onAfterLeave,
     };
   }
 });
@@ -233,6 +266,8 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-input-field {
+  width: 100%;
+
   &__label {
     font-size: $form-field_label_size;
     font-weight: $form-field_label_weight;
@@ -346,6 +381,10 @@ export default defineComponent({
     margin-right: 0.5rem;
     position: absolute;
     top: $form-field_vertical_spacer;
+  }
+
+  &__error {
+    display: block;
   }
 }
 </style>
