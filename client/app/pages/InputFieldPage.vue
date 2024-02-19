@@ -149,6 +149,7 @@
     />
     <br><br>
 
+    <h4 class="mb-4">Multiple Errors</h4>
     <fd-row>
       <fd-col col="12 sm-6 md-4 lg-3 xl-2">
         <fd-input-field
@@ -166,15 +167,40 @@
         />
       </fd-col>
     </fd-row>
-
     <p>
       Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
+    <br><br>
 
-    <!-- test labelledby -->
-    <!-- test describedby -->
-    <!-- test ALL SLOTS -->
-    <!-- test small inputs -->
+    <h4 class="mb-4">Aria Specific Attributes</h4>
+    <label id="test-label-example">This is the Label</label>
+    <fd-input-field
+      describedby="test-described-by"
+      id="test-aria"
+      labelledby="test-label-example"
+      placeholder="Placeholder text here"
+      :small="small"
+    />
+    <p
+      id="test-described-by"
+    >
+      This is the descriptive text
+    </p>
+    <br><br>
+
+    <h4 class="mb-4">All Slots</h4>
+    <fd-input-field
+      describedby="test-described-by"
+      id="test-aria"
+      labelledby="test-label-example"
+      persistent-assistive-text
+      :small="small"
+    >
+      <template #label>What is the Best Horse</template>
+      <template #error-text>You should really check on that</template>
+      <template #assistive-text>This is a descriptive area for the input</template>
+    </fd-input-field>
+    <br><br>
 
   </div>
 </template>

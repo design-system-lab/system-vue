@@ -3,7 +3,7 @@
     class="fd-input-field"
     :class="{
       'fd-input-field--disabled': disabled,
-      'fd-input-field--error': errors.length,
+      'fd-input-field--error': (errors.length || $slots['error-text']),
       'fd-input-fiel--focused': hasFocus,
       'fd-input-field--readonly': readonly,
       'fd-input-field--small': small,
@@ -22,9 +22,9 @@
       class="fd-input-field__input-field"
       :class="{
         'fd-input-field__input-field--disabled': disabled,
-        'fd-input-field__input-field--error': errors.length,
+        'fd-input-field__input-field--error': (errors.length || $slots['error-text']),
         'fd-input-field__input-field--focused': hasFocus,
-        'fd-input-field__input-field--focused-error': hasFocus && errors.length,
+        'fd-input-field__input-field--focused-error': hasFocus && (errors.length || $slots['error-text']),
         'fd-input-field__input-field--readonly': readonly,
         'fd-input-field__input-field--small': small,
       }"
