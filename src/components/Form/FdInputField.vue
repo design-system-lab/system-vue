@@ -11,7 +11,7 @@
   >
     <div
       v-if="label || $slots['label']"
-      :id="`${id}_label`"
+      :id="`${id}__label`"
       class="fd-input-field__label"
     >
       <slot name="label">
@@ -41,8 +41,8 @@
         <input
           class="fd-input-field__input font-sm font-regular"
           v-bind="inputAttrs"
-          :aria-describedby="((errors.length || $slots['error-text']) && `${id}_error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}_assistive-text`)"
-          :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}_label`)"
+          :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
+          :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
           :disabled="disabled"
           :placeholder="placeholder"
           :readonly="readonly"
@@ -62,43 +62,113 @@
         </slot>
       </div>
     </div>
-    <div class="fd-input-field__post-text">
-      <transition-group
-        @before-enter="onBeforeEnter"
-        @enter="onEnter"
-        @after-enter="onAfterEnter"
-        @before-leave="onBeforeLeave"
-        @leave="onLeave"
-        @after-leave="onAfterLeave"
+    <div
+      ref="postText"
+      class="fd-input-field__post-text"
+      :class="{
+        'fd-input-field__post-text--persistent-assistive': persistentAssistiveText
+      }"
+    >
+      <transition
+        v-if="!persistentAssistiveText"
+        :duration="350"
+        @before-enter="(el) => onBeforeEnter(el as HTMLElement)"
+        @enter="(el) => onEnter(el as HTMLElement)"
+        @after-enter="(el) => onAfterEnter(el as HTMLElement)"
+        @before-leave="(el) => onBeforeLeave(el as HTMLElement)"
+        @leave="(el) => onLeave(el as HTMLElement)"
+        @after-leave="(el) => onAfterLeave(el as HTMLElement)"
       >
         <div
           v-if="errors.length || $slots['error-text']"
-          :id="`${id}_error-text`"
-          class="fd-input-field__error-text"
+          key="errors"
+          class="fd-input-field__errors"
         >
-          <fd-icon
-            class="fd-input-field__error-icon"
-            :icon="ExclamationTriangleIcon"
-            :size="getIconSize('sm')"
-          />
-          <slot name="error-text">
-            <span
-              v-for="(error, index) in errors"
-              class="fd-input-field__error"
-              :key="index"
-            >
-              {{ errorMessages[error] }}
-            </span>
-          </slot>
+          <div
+            :id="`${id}__error-text`"
+            class="fd-input-field__errors-text"
+          >
+            <fd-icon
+              class="fd-input-field__error-icon"
+              :icon="ExclamationTriangleIcon"
+              :size="getIconSize('sm')"
+            />
+            <div>
+              <slot name="error-text">
+                <span
+                  v-for="(error, index) in errors"
+                  class="fd-input-field__error"
+                  :key="index"
+                >
+                  {{ errorMessages[error] }}
+                </span>
+              </slot>
+            </div>
+          </div>
         </div>
         <div
-          v-if="(assistiveText || $slots['assistive-text']) && (!errors.length || persistentAssistiveText)"
-          :id="`${id}_assistive-text`"
-          class="fd-input-field__assistive-text"
+          v-else
+          key="assistive"
+          class="fd-input-field__assistive"
         >
-          <slot name="assistive-text">
-            {{ assistiveText }}
-          </slot>
+          <div
+            :id="`${id}__assistive-text`"
+            class="fd-input-field__assistive-text"
+          >
+            <slot name="assistive-text">
+              {{ assistiveText }}
+            </slot>
+          </div>
+        </div>
+      </transition>
+      <transition-group
+        v-else
+        @before-enter="(el) => onBeforeEnter(el as HTMLElement)"
+        @enter="(el) => onEnter(el as HTMLElement)"
+        @after-enter="(el) => onAfterEnter(el as HTMLElement)"
+        @before-leave="(el) => onBeforeLeave(el as HTMLElement)"
+        @leave="(el) => onLeave(el as HTMLElement)"
+        @after-leave="(el) => onAfterLeave(el as HTMLElement)"
+      >
+        <div
+          v-if="errors.length || $slots['error-text']"
+          key="errors"
+          class="fd-input-field__errors"
+        >
+          <div
+            :id="`${id}__error-text`"
+            class="fd-input-field__errors-text"
+          >
+            <fd-icon
+              class="fd-input-field__error-icon"
+              :icon="ExclamationTriangleIcon"
+              :size="getIconSize('sm')"
+            />
+            <div>
+              <slot name="error-text">
+                <span
+                  v-for="(error, index) in errors"
+                  class="fd-input-field__error"
+                  :key="index"
+                >
+                  {{ errorMessages[error] }}
+                </span>
+              </slot>
+            </div>
+          </div>
+        </div>
+        <div
+          key="assistive"
+          class="fd-input-field__assistive"
+        >
+          <div
+            :id="`${id}__assistive-text`"
+            class="fd-input-field__assistive-text"
+          >
+            <slot name="assistive-text">
+              {{ assistiveText }}
+            </slot>
+          </div>
         </div>
       </transition-group>
     </div>
@@ -106,11 +176,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef, PropType } from 'vue';
+import { computed, defineComponent, shallowRef, PropType } from 'vue';
 import { getIconSize } from '../../utils/icons';
 import { Icon,  ErrorMessages } from '../../types/common';
 import FdIcon from '../Icon';
 import { ExclamationTriangleIcon } from '@heroicons/vue/20/solid';
+import { slideInOutContent, swapContent } from '../../utils/transitions';
 
 /**
  * Input Field
@@ -155,7 +226,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    // TODO: Test and debug transitioning multiple errors
     errors: {
       type: Array as PropType<string[]>,
       default: () => [],
@@ -210,8 +280,13 @@ export default defineComponent({
     },
   },
   emits: ['update:modelValue'],
-  setup(_, { emit }) {
+  setup(props, { slots, emit }) {
     const hasFocus = shallowRef(false);
+    const postText = shallowRef<HTMLDivElement | null>(null);
+
+    const showAssistive = computed(() => {
+      return (props.assistiveText || slots['assistive-text']) && (!props.errors.length || props.persistentAssistiveText)
+    })
 
     /**
      * Handles the input event and emits the input value
@@ -222,28 +297,52 @@ export default defineComponent({
       emit('update:modelValue', (e.target as HTMLInputElement)?.value);
     }
 
-    function onBeforeEnter() {
-      // called before it's entered dom
+    function onBeforeEnter(el: HTMLElement) {
+      if (props.persistentAssistiveText){
+        slideInOutContent('before-enter', el);
+      } else {
+        swapContent('before-enter', el, postText.value);
+      }
     }
 
-    function onEnter() {
-      // called one frame after entering
+    function onEnter(el: HTMLElement) {
+      if (props.persistentAssistiveText){
+        slideInOutContent('enter', el);
+      } else {
+        swapContent('enter', el, postText.value);
+      }
     }
 
-    function onAfterEnter() {
-      // called when enter transition has finished
+    function onAfterEnter(el: HTMLElement) {
+      if (props.persistentAssistiveText){
+        slideInOutContent('after-enter', el);
+      } else {
+        swapContent('after-enter', el, postText.value);
+      }
     }
 
-    function onBeforeLeave() {
-      // called before the leave hook
+    function onBeforeLeave(el: HTMLElement) {
+      if (props.persistentAssistiveText){
+        slideInOutContent('before-leave', el);
+      } else {
+        swapContent('before-leave', el, postText.value);
+      }
     }
 
-    function onLeave() {
-      // called one frame after leave begins
+    function onLeave(el: HTMLElement) {
+      if (props.persistentAssistiveText){
+        slideInOutContent('leave', el);
+      } else {
+        swapContent('leave', el, postText.value);
+      }
     }
 
-    function onAfterLeave() {
-      // called when the leave transition has finished
+    function onAfterLeave(el: HTMLElement) {
+      if (props.persistentAssistiveText){
+        slideInOutContent('after-leave', el);
+      } else {
+        swapContent('after-leave', el, postText.value);
+      }
     }
 
     return {
@@ -257,6 +356,8 @@ export default defineComponent({
       onBeforeLeave,
       onLeave,
       onAfterLeave,
+      postText,
+      showAssistive,
     };
   }
 });
@@ -366,21 +467,19 @@ export default defineComponent({
     padding-top: $form-field_vertical_spacer;
   }
 
-  &__error-text {
+  &__errors-text {
     color: rgba(var(--fora_form-field_error-text_color));
+    display: flex;
     font-size: $form-field_error-text_size;
     font-weight: $form-field_error-text_weight;
     line-height: 1.25rem;
-    padding-left: 1.75rem;
     padding-top: $form-field_vertical_spacer;
     position: relative;
   }
 
   &__error-icon {
-    left: 0;
+    flex: 0 0 auto;
     margin-right: 0.5rem;
-    position: absolute;
-    top: $form-field_vertical_spacer;
   }
 
   &__error {

@@ -1,38 +1,50 @@
-// Form Transitions
+// Swap content transition
 
-.slide-down-enter-active,
-.slide-down-leave-active {
-  transition: all 0.25s ease-out;
-}
-
-.slide-down-enter-active {
-  position: absolute !important;
+.swap-content--before-enter {
+  left: 0;
+  opacity: 0;
+  position: absolute;
   top: 0;
+  transform: translateY(-100%);
 }
 
-.slide-down-enter-from {
-  position: absolute !important;
-  opacity: 0;
+.swap-content--enter {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.35s ease-in-out;
+}
+
+.swap-content--before-leave {
+  left: 0;
+  opacity: 1;
+  position: absolute;
   top: 0;
-  transform: translateY(-1.5rem);
+  transform: translateY(0);
 }
 
-.slide-down-leave-to {
+.swap-content--leave {
   opacity: 0;
-  transform: translateY(1.5rem);
+  transform: translateY(100%);
+  transition: all 0.35s ease-in-out;
 }
 
-.slide-in-out-enter-active,
-.slide-in-out-leave-active {
-  transition: all 0.25s ease-in-out;
-}
+// Slide content in and out transition
 
-.slide-in-out-enter-from {
+.slide-in-out-content--before-enter {
   opacity: 0;
-  margin-top: -1.5rem;
 }
 
-.slide-in-out-leave-to {
+.slide-in-out-content--enter {
+  opacity: 1;
+  transition: 0.35s ease-in-out margin-top, 0.35s ease-in-out opacity;
+}
+
+.slide-in-out-content--before-leave {
+  margin-top: 0;
+  opacity: 1;
+}
+
+.slide-in-out-content--leave {
   opacity: 0;
-  margin-top: -1.5rem;
+  transition: 0.35s ease-in-out opacity, 0.35s ease-in-out margin-top;
 }
