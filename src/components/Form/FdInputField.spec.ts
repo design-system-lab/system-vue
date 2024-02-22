@@ -79,7 +79,7 @@ test('renders readonly input', async () => {
 });
 
 test('renders named slots text', () => {
-  const { getByText } = render(FdInputField, { props, slots: namedSlots });
+  const { getByText } = render(FdInputField, { props: { ...props, persistentAssistiveText: true }, slots: namedSlots });
 
   getByText(namedSlots['append-icon'], {exact: false});
   getByText(namedSlots['assistive-text'], {exact: false});
