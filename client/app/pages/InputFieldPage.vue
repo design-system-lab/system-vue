@@ -32,7 +32,7 @@
     <fd-input-field
       v-model="testVal"
       id="test-error"
-      error="format"
+      :errors="['format']"
       :errorMessages="{
         format: 'Incorrect date format, please use MM/DD/YYYY',
       }"
@@ -123,7 +123,7 @@
     />
     <br><br>
 
-    <h4 class="mb-4">Append Icon</h4>
+    <h4 class="mb-4">Both Prepend and Append Icons</h4>
     <fd-input-field
       v-model="appendPrependIconVal"
       id="test-append-prepend"

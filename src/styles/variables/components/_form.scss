@@ -19,14 +19,19 @@ $form-field_readonly_bg: $neutral-3, 1 !default;
 // default style vars
 $form-field_auxillary-text_size: $font-xs !default;
 $form-field_auxillary-text_weight: $font-regular !default;
+$form-field_border-radius: $border-radius !default;
 $form-field_error-text_size: $font-xs !default;
 $form-field_error-text_weight: $font-regular !default;
-$form-field_border: 1px solid !default;
 $form-field_border-radius: $border-radius !default;
+$form-field_border_size: 1px;
+$form-field_border: $form-field_border_size solid !default;
 $form-field_label_size: $font-sm !default;
 $form-field_label_weight: $font-medium !default;
 $form-field_vertical_spacer: 0.25rem !default;
 
+// different sizes
+$form-field_padding: 0.625rem !default;
+$form-field_sm_padding: 0.375rem !default;
 
 // theme map, must replicate colors
 // when using, add --fora- before the key as the css variable, for example: var(--fora-button-primary)
