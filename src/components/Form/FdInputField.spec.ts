@@ -1,4 +1,5 @@
-import { fireEvent, render } from '@testing-library/vue'
+import { render } from '@testing-library/vue'
+import userEvent from '@testing-library/user-event';
 import FdInputField from './FdInputField.vue'
 import { CubeTransparentIcon } from '@heroicons/vue/24/solid';
 
@@ -25,10 +26,18 @@ const namedSlots = {
 }
 
 test('renders default input with label and assistive text', async () => {
-  const { getByText } = render(FdInputField, { props: { ...props, errors: [] } });
+  const user = userEvent.setup();
+  const inputVal = 'TEST_INPUT';
+  const altVal = 'MY_VALUE';
+  const { getByText, getByDisplayValue } = render(FdInputField, { props: { ...props, modelValue: inputVal, errors: [] } });
 
   getByText(props.label);
   getByText(props.assistiveText)
+
+  // typing changes input
+  getByDisplayValue(inputVal)?.focus();
+  await user.keyboard(altVal);
+  getByDisplayValue(`${inputVal}${altVal}`);
 });
 
 test('renders default input with label, error, and assistive text', async () => {
@@ -45,17 +54,36 @@ test('renders default input with label, error, and persistent assistive text', a
   getByText(props.errorMessages.format);
 });
 
-// test disabled
-// test readonly
-// test append icon exists
-// test prepend icon exists
-// test icon slots & label/error/assistive slots
+test('renders disabled input', async () => {
+  const user = userEvent.setup();
+  const inputVal = 'TEST_INPUT';
+  const altVal = 'MY_VALUE';
+  const { getByDisplayValue, queryByDisplayValue } = render(FdInputField, { props: { ...props, modelValue: inputVal, disabled: true } });
+
+  // typing does nothing
+  getByDisplayValue(inputVal)?.focus();
+  user.keyboard(altVal);
+  expect(queryByDisplayValue(`${inputVal}${altVal}`)).toBeFalsy();
+});
+
+test('renders readonly input', async () => {
+  const user = userEvent.setup();
+  const inputVal = 'TEST_INPUT';
+  const altVal = 'MY_VALUE';
+  const { getByDisplayValue, queryByDisplayValue } = render(FdInputField, { props: { ...props, modelValue: inputVal, disabled: true } });
+
+  // typing does nothing
+  getByDisplayValue(inputVal)?.focus();
+  user.keyboard(altVal);
+  expect(queryByDisplayValue(`${inputVal}${altVal}`)).toBeFalsy();
+});
+
 test('renders named slots text', () => {
   const { getByText } = render(FdInputField, { props, slots: namedSlots });
 
   getByText(namedSlots['append-icon'], {exact: false});
+  getByText(namedSlots['assistive-text'], {exact: false});
+  getByText(namedSlots['error-text'], {exact: false});
+  getByText(namedSlots['label'], {exact: false});
   getByText(namedSlots['prepend-icon'], {exact: false});
 });
-// test input attrs
-// test aria specific attributes
-// test that input is emitted correctly
