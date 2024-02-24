@@ -8,7 +8,6 @@
   >
     <transition
       v-if="!persistentAssistiveText && (assistiveText || $slots['assistive-text'])"
-      :duration="350"
       @before-enter="(el) => onBeforeEnter(el as HTMLElement)"
       @enter="(el) => onEnter(el as HTMLElement)"
       @after-enter="(el) => onAfterEnter(el as HTMLElement)"
@@ -18,7 +17,6 @@
     >
       <div
         v-if="errors.length || $slots['error-text']"
-        key="errors"
         class="fd-input-post-text__errors"
       >
         <div
@@ -45,7 +43,6 @@
       </div>
       <div
         v-else
-        key="assistive"
         class="fd-input-post-text__assistive"
       >
         <div

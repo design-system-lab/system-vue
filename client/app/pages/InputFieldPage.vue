@@ -101,6 +101,37 @@
     />
     <br><br>
 
+    <h4 class="mb-4">Different Types</h4>
+    <fd-input-field
+      v-model="testNumber"
+      id="test-number"
+      label="Number Input"
+      :small="small"
+      type="number"
+    />
+    <fd-input-field
+      v-model="testEmail"
+      id="test-email"
+      label="Email Input"
+      :small="small"
+      type="email"
+    />
+    <fd-input-field
+      v-model="testTel"
+      id="test-tel"
+      label="Telephone Input"
+      :small="small"
+      type="tel"
+    />
+    <fd-input-field
+      v-model="testUrl"
+      id="test-tel"
+      label="URL Input"
+      :small="small"
+      type="url"
+    />
+    <br><br>
+
     <h4 class="mb-4">Prepend Icon</h4>
     <fd-input-field
       id="test-prepend"
@@ -196,6 +227,8 @@
       persistent-assistive-text
       :small="small"
     >
+      <template #prepend-icon><fd-icon :size="20"><cube-transparent-icon /></fd-icon></template>
+      <template #append-icon><fd-icon :size="20"><cube-transparent-icon /></fd-icon></template>
       <template #label>What is the Best Horse</template>
       <template #error-text>You should really check on that</template>
       <template #assistive-text>This is a descriptive area for the input</template>
@@ -207,21 +240,26 @@
 
 <script lang="ts">
 import { defineComponent, shallowRef } from 'vue';
+import FdButton from '../../../src/components/Button';
+import { FdInputField } from '../../../src/components/Form';
+import FdIcon from '../../../src/components/Icon';
 import FdCol from '../../../src/components/Col';
 import FdRow from '../../../src/components/Row';
-import { FdInputField } from '../../../src/components/Form';
-import FdButton from '../../../src/components/Button';
 import { CubeTransparentIcon } from '@heroicons/vue/20/solid'
 
 export default defineComponent({
   name: 'InputFieldPage',
-  components: { FdInputField, FdButton, FdCol, FdRow },
+  components: { FdInputField, FdButton, FdCol, FdRow, CubeTransparentIcon, FdIcon },
   setup () {
     const appendIconVal = shallowRef('');
     const appendPrependIconVal = shallowRef('');
     const prependIconVal = shallowRef('');
     const small = shallowRef(false);
     const testVal = shallowRef('');
+    const testNumber = shallowRef('');
+    const testEmail = shallowRef('');
+    const testTel = shallowRef('');
+    const testUrl = shallowRef('');
 
     return {
       appendIconVal,
@@ -229,7 +267,11 @@ export default defineComponent({
       CubeTransparentIcon,
       prependIconVal,
       small,
-      testVal
+      testVal,
+      testNumber,
+      testEmail,
+      testTel,
+      testUrl,
     };
   },
 })

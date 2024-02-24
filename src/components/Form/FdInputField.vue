@@ -39,7 +39,7 @@
           />
         </slot>
         <input
-          class="fd-input-field__input font-sm font-regular"
+          class="fd-input-field__input"
           v-bind="inputAttrs"
           :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
           :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
@@ -48,9 +48,9 @@
           :readonly="readonly"
           :type="type"
           :value="modelValue"
-          @input="handleInput"
           @blur="hasFocus = false"
           @focus="hasFocus = true"
+          @input="handleInput"
         >
         <slot name="append-icon">
           <fd-icon
@@ -63,6 +63,7 @@
       </div>
     </div>
     <fd-input-post-text
+      class="fd-input-field__post-text"
       :assistive-text="assistiveText"
       :error-messages="errorMessages"
       :errors="errors"
@@ -70,16 +71,13 @@
       :persistent-assistive-text="persistentAssistiveText"
     >
       <template
-        v-if="$slots['error-text']"
-        #error-text
+        v-for="(_, name) in filterSlots($slots, ['error-text', 'assistive-text'])"
+        #[name]="slotData"
       >
-        <slot name="error-text" />
-      </template>
-      <template
-        v-if="$slots['assistive-text']"
-        #assistive-text
-      >
-        <slot name="assistive-text" />
+        <slot
+          v-bind="slotData"
+          :name="name"
+        />
       </template>
     </fd-input-post-text>
   </div>
@@ -90,7 +88,8 @@ import { defineComponent, shallowRef, PropType } from 'vue';
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
 import { getIconSize } from '../../utils/icons';
-import { Icon,  ErrorMessages } from '../../types/common';
+import { filterSlots } from '../../utils/components';
+import { Icon, ErrorMessages } from '../../types/common';
 
 /**
  * Input Field
@@ -203,6 +202,7 @@ export default defineComponent({
     }
 
     return {
+      filterSlots,
       getIconSize,
       handleInput,
       hasFocus,
@@ -294,6 +294,9 @@ export default defineComponent({
   &__input {
     background: none;
     border: 0;
+    font-size: $form-field_input_size;
+    font-weight: $form-field_input_weight;
+    line-height: $form-field_input_line-height;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -301,37 +304,6 @@ export default defineComponent({
     &:focus-visible {
       outline: none;
     }
-  }
-
-  &__post-text {
-    position: relative;
-  }
-
-  &__assistive-text {
-    color: rgba(var(--fora_form-field_assistive-text_color));
-    font-size: $form-field_auxillary-text_size;
-    font-weight: $form-field_auxillary-text_weight;
-    line-height: 1.25rem;
-    padding-top: $form-field_vertical_spacer;
-  }
-
-  &__errors-text {
-    color: rgba(var(--fora_form-field_error-text_color));
-    display: flex;
-    font-size: $form-field_error-text_size;
-    font-weight: $form-field_error-text_weight;
-    line-height: 1.25rem;
-    padding-top: $form-field_vertical_spacer;
-    position: relative;
-  }
-
-  &__error-icon {
-    flex: 0 0 auto;
-    margin-right: 0.5rem;
-  }
-
-  &__error {
-    display: block;
   }
 }
 </style>

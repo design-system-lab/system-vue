@@ -19,12 +19,14 @@ $form-field_readonly_bg: $neutral-3, 1 !default;
 // default style vars
 $form-field_auxillary-text_size: $font-xs !default;
 $form-field_auxillary-text_weight: $font-regular !default;
+$form-field_border_size: 1px;
+$form-field_border: $form-field_border_size solid !default;
 $form-field_border-radius: $border-radius !default;
 $form-field_error-text_size: $font-xs !default;
 $form-field_error-text_weight: $font-regular !default;
-$form-field_border-radius: $border-radius !default;
-$form-field_border_size: 1px;
-$form-field_border: $form-field_border_size solid !default;
+$form-field_input_line-height: 1.25rem !default;
+$form-field_input_size: $font-sm !default;
+$form-field_input_weight: $font-regular !default;
 $form-field_label_size: $font-sm !default;
 $form-field_label_weight: $font-medium !default;
 $form-field_vertical_spacer: 0.25rem !default;

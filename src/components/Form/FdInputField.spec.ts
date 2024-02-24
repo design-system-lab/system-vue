@@ -87,3 +87,9 @@ test('renders named slots text', () => {
   getByText(namedSlots['label'], {exact: false});
   getByText(namedSlots['prepend-icon'], {exact: false});
 });
+
+test('passes input attributes to input element', () => {
+  const { getByTestId } = render(FdInputField, { props });
+
+  getByTestId(props.inputAttrs['data-testid']);
+});
