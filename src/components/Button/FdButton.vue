@@ -113,7 +113,7 @@ export default defineComponent({
       return getButtonElement(props.href, props.to);
     });
 
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = () => {
       if (props.toggle) {
         emit('update:modelValue', !props.modelValue);
       }
