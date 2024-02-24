@@ -1,0 +1,50 @@
+// Swap content transition
+
+.swap-content--before-enter {
+  left: 0;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transform: translateY(-100%);
+}
+
+.swap-content--enter {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.35s ease-in-out;
+}
+
+.swap-content--before-leave {
+  left: 0;
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  transform: translateY(0);
+}
+
+.swap-content--leave {
+  opacity: 0;
+  transform: translateY(100%);
+  transition: all 0.35s ease-in-out;
+}
+
+// Slide content in and out transition
+
+.slide-in-out-content--before-enter {
+  opacity: 0;
+}
+
+.slide-in-out-content--enter {
+  opacity: 1;
+  transition: 0.35s ease-in-out margin-top, 0.35s ease-in-out opacity;
+}
+
+.slide-in-out-content--before-leave {
+  margin-top: 0;
+  opacity: 1;
+}
+
+.slide-in-out-content--leave {
+  opacity: 0;
+  transition: 0.35s ease-in-out opacity, 0.35s ease-in-out margin-top;
+}

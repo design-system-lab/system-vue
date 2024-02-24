@@ -134,7 +134,7 @@
 }
 
 @each $breakpoint, $size in $grid-breakpoints {
-  @include breakpoint-above($size) {
+  @include breakpoint-above($breakpoint) {
     @each $step in $grid-steps {
       .col-#{$breakpoint}-#{$step} {
         flex: 0 0 auto;

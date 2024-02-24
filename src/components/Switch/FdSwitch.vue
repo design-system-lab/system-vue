@@ -110,6 +110,7 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-switch {
+  display: inline-block;
   margin: 0 -0.375rem;
 
   &__input {
@@ -127,54 +128,54 @@ export default defineComponent({
   }
 
   &__control {
-    background-color: rgba(var(--fora-switch-inactive));
-    border-radius: calc($switch-control-height / 2);
+    background-color: rgba(var(--fora_switch_inactive_bg));
+    border-radius: calc($switch_control_height / 2);
     flex: 0 0 auto;
-    height: $switch-control-height;
+    height: $switch_control_height;
     margin: 0 0.375rem;
     position: relative;
-    transition: $switch-transition;
-    width: $switch-control-width;
+    transition: $switch_transition;
+    width: $switch_control_width;
 
     &:hover {
-      background-color: rgba(var(--fora-switch-inactive-hover));
+      background-color: rgba(var(--fora_switch_inactive_bg--hover));
     }
 
     &:active {
-      background-color: rgba(var(--fora-switch-inactive-pressed));
+      background-color: rgba(var(--fora_switch_inactive_bg--pressed));
     }
 
     &--active {
-      background-color: rgba(var(--fora-switch-active));
+      background-color: rgba(var(--fora_switch_active_bg));
 
       &:hover {
-        background-color: rgba(var(--fora-switch-active-hover));
+        background-color: rgba(var(--fora_switch_active_bg--hover));
       }
 
       &:active {
-        background-color: rgba(var(--fora-switch-active-pressed));
+        background-color: rgba(var(--fora_switch_active_bg--pressed));
       }
     }
   }
 
   &__knob {
-    background-color: rgba(var(--fora-switch-knob));
-    border-radius: calc($switch-knob-height / 2);
-    height: $switch-knob-height;
-    left: calc(($switch-control-height - $switch-knob-height) / 2);
+    background-color: rgba(var(--fora_switch_knob_bg));
+    border-radius: calc($switch_knob_height / 2);
+    height: $switch_knob_height;
+    left: calc(($switch_control_height - $switch_knob_height) / 2);
     position: absolute;
-    top: calc(($switch-control-height - $switch-knob-height) / 2);
-    transition: $switch-transition;
-    width: $switch-knob-width;
+    top: calc(($switch_control_height - $switch_knob_height) / 2);
+    transition: $switch_transition;
+    width: $switch_knob_width;
 
     &--active {
-      left: calc(100% - $switch-knob-width - 0.125rem);
+      left: calc(100% - $switch_knob_width - 0.125rem);
     }
   }
 
   &__label {
-    font-size: $switch-label-size;
-    font-weight: $switch-label-weight;
+    font-size: $switch_label_size;
+    font-weight: $switch_label_weight;
     margin: 0 0.375rem;
 
     &--visually-hidden {
@@ -187,8 +188,8 @@ export default defineComponent({
   }
 
   &__value {
-    font-size: $switch-value-size;
-    font-weight: $switch-value-weight;
+    font-size: $switch_value_size;
+    font-weight: $switch_value_weight;
     margin: 0 0.375rem;
   }
 }

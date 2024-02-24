@@ -1,33 +1,33 @@
 // Variables specific to FdSwitch
 
 // colors for theming, must duplicate in theme map
-$switch-active: $primary-6, 1 !default;
-$switch-active-hover: $primary-8, 1 !default;
-$switch-active-pressed: $primary-9, 1 !default;
-$switch-inactive: $neutral-6, 1 !default;
-$switch-inactive-hover: $neutral-7, 1 !default;
-$switch-inactive-pressed: $neutral-8, 1 !default;
-$switch-knob: $white;
+$switch_active_bg: $primary-6, 1 !default;
+$switch_active_bg--hover: $primary-8, 1 !default;
+$switch_active_bg--pressed: $primary-9, 1 !default;
+$switch_inactive_bg: $neutral-6, 1 !default;
+$switch_inactive_bg--hover: $neutral-7, 1 !default;
+$switch_inactive_bg--pressed: $neutral-8, 1 !default;
+$switch_knob_bg: $white;
 
 // default style vars
-$switch-control-height: 1.75rem;
-$switch-control-width: 3.5rem;
-$switch-label-size: $input-label-size;
-$switch-label-weight: $input-label-weight;
-$switch-knob-height: 1.5rem;
-$switch-knob-width: 1.5rem;
-$switch-transition: $transition-timing background, $transition-timing left !default;
-$switch-value-size: $input-auxiliary-text-size;
-$switch-value-weight: $input-auxiliary-text-weight;
+$switch_control_height: 1.75rem;
+$switch_control_width: 3.5rem;
+$switch_knob_height: 1.5rem;
+$switch_knob_width: 1.5rem;
+$switch_label_size: $form-field_label_size;
+$switch_label_weight: $form-field_label_weight;
+$switch_transition: $transition-timing background, $transition-timing left !default;
+$switch_value_size: $form-field_auxillary-text_size;
+$switch_value_weight: $form-field_auxillary-text_weight;
 
 // theme map, must replicate colors
 // when using, add --fora- before the key as the css variable, for example: var(--fora-switch-primary)
 $theme-switch: (
-  switch-active: $switch-active,
-  switch-active-hover: $switch-active-hover,
-  switch-active-pressed: $switch-active-pressed,
-  switch-inactive: $switch-inactive,
-  switch-inactive-hover: $switch-inactive-hover,
-  switch-inactive-pressed: $switch-inactive-pressed,
-  switch-knob: $switch-knob,
+  switch_active_bg: $switch_active_bg,
+  switch_active_bg--hover: $switch_active_bg--hover,
+  switch_active_bg--pressed: $switch_active_bg--pressed,
+  switch_inactive_bg: $switch_inactive_bg,
+  switch_inactive_bg--hover: $switch_inactive_bg--hover,
+  switch_inactive_bg--pressed: $switch_inactive_bg--pressed,
+  switch_knob_bg: $switch_knob_bg,
 );

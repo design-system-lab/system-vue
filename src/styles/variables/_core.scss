@@ -23,6 +23,7 @@ $border-radius: 8px !default;
 $elevation-1: 0 1px 2px rgba(var(--fora-neutral-10), 0.15) !default;
 
 // layout
+// these breakpoints sit between the design layouts/screen sizes so that the layout has wiggle room on either side of the breakpoint
 $grid-breakpoints: (
   xs: 400px,
   sm: 700px,

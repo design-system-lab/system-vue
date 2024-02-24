@@ -21,7 +21,7 @@
         v-if="prependIcon"
         class="fd-button__prepend-icon"
         :icon="prependIcon"
-        :size="getIconSize()"
+        :size="getIconSize(size)"
       />
     </slot>
     <span class="fd-button__content">
@@ -32,7 +32,7 @@
         v-if="appendIcon"
         class="fd-button__append-icon"
         :icon="appendIcon"
-        :size="getIconSize()"
+        :size="getIconSize(size)"
       />
     </slot>
   </component>
@@ -41,6 +41,7 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { getButtonElement } from '../../utils/buttons';
+import { getIconSize } from '../../utils/icons';
 import { tshirt } from '../../utils/validators';
 import { RouteLocationRaw } from 'vue-router';
 import { ButtonKind } from '../../types/button';
@@ -112,17 +113,11 @@ export default defineComponent({
       return getButtonElement(props.href, props.to);
     });
 
-    const handleClick = (e: MouseEvent) => {
+    const handleClick = () => {
       if (props.toggle) {
         emit('update:modelValue', !props.modelValue);
       }
-
-      emit('click', e);
     }
-
-    const getIconSize = (): number => (
-      props.size === 'xs' || props.size === 'sm' ? 20 : 24
-    );
 
     return { buttonType, getIconSize, handleClick };
   }
@@ -134,132 +129,133 @@ export default defineComponent({
 
 .fd-button {
   align-items: center;
-  border: $button-border;
-  border-radius: $button-border-radius;
-  box-shadow: $button-elevation;
+  border: $button_border;
+  border-radius: $button_border-radius;
+  box-shadow: $button_elevation;
+  cursor: pointer;
   display: inline-flex;
-  font-family: $button-font-family;
-  font-size: $button-font-size;
-  font-weight: $button-font-weight;
-  height: $button-height;
+  font-family: $button_font-family;
+  font-size: $button_size;
+  font-weight: $button_weight;
+  height: $button_height;
   justify-content: center;
   line-height: 1.5rem;
-  padding: 0 $button-padding;
-  text-align: $button-text-align;
-  text-transform: $button-text-transform;
-  transition: $button-transition;
+  padding: 0 $button_padding;
+  text-align: $button_text-align;
+  text-transform: $button_text-transform;
+  transition: $button_transition;
   vertical-align: middle;
 
   @include focus-primary;
 
   &--primary {
-    background-color: rgba(var(--fora-button-primary));
-    color: rgba(var(--fora-button-primary-text));
+    background-color: rgba(var(--fora_button_primary_bg));
+    color: rgba(var(--fora_button_primary_color));
 
     &:hover {
-      background-color: rgba(var(--fora-button-primary-hover));
-      color: rgba(var(--fora-button-primary-text-hover));
+      background-color: rgba(var(--fora_button_primary_bg--hover));
+      color: rgba(var(--fora_button_primary_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora-button-primary-pressed));
+      background-color: rgba(var(--fora_button_primary_bg--pressed));
       box-shadow: none;
-      color: rgba(var(--fora-button-primary-text-pressed));
+      color: rgba(var(--fora_button_primary_color--pressed));
     }
   }
 
   &--secondary {
-    background-color: rgba(var(--fora-button-secondary));
-    color: rgba(var(--fora-button-secondary-text));
+    background-color: rgba(var(--fora_button_secondary_bg));
+    color: rgba(var(--fora_button_secondary_color));
 
     &:hover {
-      background-color: rgba(var(--fora-button-secondary-hover));
-      color: rgba(var(--fora-button-secondary-text-hover));
+      background-color: rgba(var(--fora_button_secondary_bg--hover));
+      color: rgba(var(--fora_button_secondary_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora-button-secondary-pressed));
+      background-color: rgba(var(--fora_button_secondary_bg--pressed));
       box-shadow: none;
-      color: rgba(var(--fora-button-secondary-text-pressed));
+      color: rgba(var(--fora_button_secondary_color--pressed));
     }
   }
 
   &--tertiary {
-    background-color: rgba(var(--fora-button-tertiary-bg));
-    border: $button-outlined-border;
-    border-color: rgba(var(--fora-button-tertiary));
-    color: rgba(var(--fora-button-tertiary-text));
+    background-color: rgba(var(--fora_button_tertiary_bg));
+    border: $button_outlined_border;
+    border-color: rgba(var(--fora_button_tertiary));
+    color: rgba(var(--fora_button_tertiary_color));
 
     &:hover {
-      background-color: rgba(var(--fora-button-tertiary-bg-hover));
-      border-color: rgba(var(--fora-button-tertiary-hover));
-      color: rgba(var(--fora-button-tertiary-text-hover));
+      background-color: rgba(var(--fora_button_tertiary_bg--hover));
+      border-color: rgba(var(--fora_button_tertiary_border-color--hover));
+      color: rgba(var(--fora_button_tertiary_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora-button-tertiary-bg-pressed));
-      border-color: rgba(var(--fora-button-tertiary-pressed));
+      background-color: rgba(var(--fora_button_tertiary_bg--pressed));
+      border-color: rgba(var(--fora_button_tertiary_border-color--pressed));
       box-shadow: none;
-      color: rgba(var(--fora-button-tertiary-text-pressed));
+      color: rgba(var(--fora_button_tertiary_color--pressed));
     }
   }
 
   &--tertiary-neutral {
-    background-color: rgba(var(--fora-button-tertiary-neutral-bg));
-    border: $button-outlined-border;
-    border-color: rgba(var(--fora-button-tertiary-neutral));
-    color: rgba(var(--fora-button-tertiary-neutral-text));
+    background-color: rgba(var(--fora_button_tertiary-neutral_bg));
+    border: $button_outlined_border;
+    border-color: rgba(var(--fora_button_tertiary-neutral_border-color));
+    color: rgba(var(--fora_button_tertiary-neutral_color));
 
     &:hover {
-      background-color: rgba(var(--fora-button-tertiary-neutral-bg-hover));
-      border-color: rgba(var(--fora-button-tertiary-neutral-hover));
-      color: rgba(var(--fora-button-tertiary-neutral-text-hover));
+      background-color: rgba(var(--fora_button_tertiary-neutral_bg--hover));
+      border-color: rgba(var(--fora_button_tertiary-neutral_border-color--hover));
+      color: rgba(var(--fora_button_tertiary-neutral_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora-button-tertiary-neutral-bg-pressed));
-      border-color: rgba(var(--fora-button-tertiary-neutral-pressed));
+      background-color: rgba(var(--fora_button_tertiary-neutral_bg--pressed));
+      border-color: rgba(var(--fora_button_tertiary-neutral_border-color--pressed));
       box-shadow: none;
-      color: rgba(var(--fora-button-tertiary-neutral-text-pressed));
+      color: rgba(var(--fora_button_tertiary-neutral_color--pressed));
     }
   }
 
   &--link {
-    background-color: rgba(var(--fora-button-link-bg));
+    background-color: rgba(var(--fora_button_link_bg));
     box-shadow: none;
-    color: rgba(var(--fora-button-link));
+    color: rgba(var(--fora_button_link_color));
 
     &:hover {
-      background-color: rgba(var(--fora-button-link-bg-hover));
-      color: rgba(var(--fora-button-link-hover));
+      background-color: rgba(var(--fora_button_link_bg--hover));
+      color: rgba(var(--fora_button_link_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora-button-link-bg-pressed));
+      background-color: rgba(var(--fora_button_link_bg--pressed));
       box-shadow: none;
-      color: rgba(var(--fora-button-link-pressed));
+      color: rgba(var(--fora_button_link_color--pressed));
     }
   }
 
   &--destructive {
-    background-color: rgba(var(--fora-button-destructive));
-    color: rgba(var(--fora-button-destructive-text));
+    background-color: rgba(var(--fora_button_destructive_bg));
+    color: rgba(var(--fora_button_destructive_color));
 
     &:hover {
-      background-color: rgba(var(--fora-button-destructive-hover));
-      color: rgba(var(--fora-button-destructive-text-hover));
+      background-color: rgba(var(--fora_button_destructive_bg--hover));
+      color: rgba(var(--fora_button_destructive_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora-button-destructive-pressed));
+      background-color: rgba(var(--fora_button_destructive_bg--pressed));
       box-shadow: none;
-      color: rgba(var(--fora-button-destructive-text-pressed));
+      color: rgba(var(--fora_button_destructive_color--pressed));
     }
 
     @include focus-danger;
@@ -272,7 +268,7 @@ export default defineComponent({
 
   &--icon {
     padding: 0;
-    width: $button-height;
+    width: $button_height;
 
     :deep(.fd-icon) {
       margin-top: -0.2em; // fix positioning for icon buttons
@@ -285,67 +281,67 @@ export default defineComponent({
   }
 
   &--xs {
-    font-size: $button-xs-font-size;
-    height: $button-xs-height;
+    font-size: $button_xs_size;
+    height: $button_xs_height;
     line-height: 1.25rem;
-    padding: 0 $button-xs-padding;
+    padding: 0 $button_xs_padding;
 
     &.fd-button--icon {
       padding: 0;
-      width: $button-xs-height;
+      width: $button_xs_height;
     }
   }
 
   &--sm {
-    font-size: $button-sm-font-size;
-    height: $button-sm-height;
+    font-size: $button_sm_size;
+    height: $button_sm_height;
     line-height: 1.25rem;
-    padding: 0 $button-sm-padding;
+    padding: 0 $button_sm_padding;
     
     &.fd-button--icon {
       padding: 0;
-      width: $button-sm-height;
+      width: $button_sm_height;
     }
   }
 
   &--md {
-    height: $button-height;
+    height: $button_height;
   }
 
   &--lg {
-    font-size: $button-lg-font-size;
-    height: $button-lg-height;
+    font-size: $button_lg_size;
+    height: $button_lg_height;
     line-height: 1.5rem;
-    padding: 0 $button-lg-padding;
+    padding: 0 $button_lg_padding;
     
     &.fd-button--icon {
       padding: 0;
-      width: $button-lg-height;
+      width: $button_lg_height;
     }
   }
 
   &--xl {
-    font-size: $button-xl-font-size;
-    height: $button-xl-height;
+    font-size: $button_xl_size;
+    height: $button_xl_height;
     line-height: 1.75rem;
-    padding: 0 $button-xl-padding;
+    padding: 0 $button_xl_padding;
     
     &.fd-button--icon {
       padding: 0;
-      width: $button-xl-height;
+      width: $button_xl_height;
     }
   }
 
   &--disabled,
   &:disabled {
-    background-color: rgba(var(--fora-button-disabled));
-    color: rgba(var(--fora-button-disabled-text));
+    background-color: rgba(var(--fora_button_disabled_bg));
+    color: rgba(var(--fora_button_disabled_color));
     pointer-events: none;
 
     &.fd-button--tertiary,
     &.fd-button--tertiary-neutral {
-      background-color: rgba(var(--fora-button-disabled-bg));
-      border-color: rgba(var(--fora-button-disabled));
+      background-color: rgba(var(--fora_button_disabled_bg));
+      border-color: rgba(var(--fora_button_disabled_border-color));
     }
 
     &.fd-button--link {
