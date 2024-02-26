@@ -5,7 +5,7 @@ import GridPage from '../pages/GridPage.vue';
 import GroupPage from '../pages/GroupPage.vue';
 import IconPage from '../pages/IconPage.vue';
 import InputFieldPage from '../pages/InputFieldPage.vue';
-import SwitchPage from '../pages/SwitchPage.vue';
+import TogglePage from '../pages/TogglePage.vue';
 import TypographyPage from '../pages/TypographyPage.vue';
 
 export default [
@@ -16,6 +16,6 @@ export default [
   { path: '/group', name: 'Group', component: GroupPage },
   { path: '/icons', name: 'Icons', component: IconPage },
   { path: '/input-field', name: 'InputField', component: InputFieldPage },
-  { path: '/switch', name: 'Switch', component: SwitchPage },
+  { path: '/toggle', name: 'Toggle', component: TogglePage },
   { path: '/typography', name: 'Typography', component: TypographyPage },
 ]
