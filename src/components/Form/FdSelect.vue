@@ -1,69 +1,109 @@
 <template>
   <div
-    class="fd-input-field"
+    class="fd-select"
     :class="{
-      'fd-input-field--disabled': disabled,
-      'fd-input-field--error': (errors.length || $slots['error-text']),
+      'fd-select--disabled': disabled,
+      'fd-select--error': (errors.length || $slots['error-text']),
       'fd-input-fiel--focused': hasFocus,
-      'fd-input-field--readonly': readonly,
-      'fd-input-field--small': small,
+      'fd-select--readonly': readonly,
+      'fd-select--small': small,
     }"
   >
     <div
       v-if="label || $slots['label']"
       :id="`${id}__label`"
-      class="fd-input-field__label"
+      class="fd-select__label"
     >
       <slot name="label">
         {{ label }}
       </slot>
     </div>
     <div
-      class="fd-input-field__input-field"
+      ref="select"
+      class="fd-select__input-field"
       :class="{
-        'fd-input-field__input-field--disabled': disabled,
-        'fd-input-field__input-field--error': (errors.length || $slots['error-text']),
-        'fd-input-field__input-field--focused': hasFocus,
-        'fd-input-field__input-field--focused-error': hasFocus && (errors.length || $slots['error-text']),
-        'fd-input-field__input-field--readonly': readonly,
-        'fd-input-field__input-field--small': small,
+        'fd-select__input-field--disabled': disabled,
+        'fd-select__input-field--error': (errors.length || $slots['error-text']),
+        'fd-select__input-field--focused': hasFocus,
+        'fd-select__input-field--focused-error': hasFocus && (errors.length || $slots['error-text']),
+        'fd-select__input-field--readonly': readonly,
+        'fd-select__input-field--small': small,
       }"
     >
-      <div class="fd-input-field__input-container">
+      <div class="fd-select__input-container">
         <slot name="prepend-icon">
           <fd-icon
             v-if="prependIcon"
-            class="fd-input-field__prepend-icon"
+            class="fd-select__prepend-icon"
             :icon="prependIcon"
             :size="getIconSize('sm')"
           />
         </slot>
-        <input
-          class="fd-input-field__input"
+        <select
+          ref="selectInput"
+          class="fd-select__input"
           v-bind="inputAttrs"
           :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
           :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
           :disabled="disabled"
-          :placeholder="placeholder"
           :readonly="readonly"
-          :type="type"
           :value="modelValue"
-          @blur="hasFocus = false"
-          @focus="hasFocus = true"
+          @blur="handleBlur"
           @input="handleInput"
+          @focus="hasFocus = true"
+          @keydown.down="handleDown"
+          @keydown.up="handleUp"
+          @keydown.space.prevent="handleClick"
+          @keydown.tab="handleTab"
+          @mousedown.prevent="handleClick"
         >
-        <slot name="append-icon">
-          <fd-icon
-            v-if="appendIcon"
-            class="fd-input-field__append-icon"
-            :icon="appendIcon"
-            :size="getIconSize('sm')"
-          />
-        </slot>
+          <option
+            v-if="placeholder"
+            disabled
+            hidden
+            selected
+            value=""
+          >
+            {{ placeholder }}
+          </option>
+          <option
+            v-for="item in items"
+            :key="item.text || item.slotName"
+            :value="item.value"
+          >
+            <slot :name="item.slotName">
+              {{ item.text }}
+            </slot>
+          </option>
+        </select>
+        <fd-icon
+          class="fd-select__append-icon"
+          :icon="ChevronDownIcon"
+          :size="getIconSize('sm')"
+        />
       </div>
+      <fd-menu
+        v-if="menuOpen"
+        class="fd-select__menu"
+        :focus-item="focusedItem"
+        :items="items"
+        @blur="handleMenuBlur"
+        @document-click="handleDocumentClick"
+        @menu-click="handleMenuClick"
+      >
+        <template
+          v-for="(_, name) in $slots"
+          #[name]="slotData"
+        >
+          <slot
+            v-bind="slotData"
+            :name="name"
+          />
+        </template>
+      </fd-menu>
     </div>
     <fd-input-post-text
-      class="fd-input-field__post-text"
+      class="fd-select__post-text"
       :assistive-text="assistiveText"
       :error-messages="errorMessages"
       :errors="errors"
@@ -82,19 +122,20 @@
     </fd-input-post-text>
   </div>
 </template>
-
 <script lang="ts">
-import { defineComponent, shallowRef, PropType } from 'vue';
+import { defineComponent, shallowRef, watch, PropType } from 'vue';
+import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
+import FdMenu from '../Menu';
 import { getIconSize } from '../../utils/icons';
 import { filterSlots } from '../../utils/components';
 import { Icon, ErrorMessages } from '../../types/common';
+import { SelectOption } from '../../types/forms';
 
 /**
  * Input Field
  * 
- * @param {Icon} appendIcon - An icon component to use within FdIcon, comes after the text within the input field
  * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
  * @param {string} describedby - Optional. When using descriptive text for the input outside of the component, supply this prop with the id of the descriptive text element
  * @param {boolean} disabled - Whether the component is disabled
@@ -113,10 +154,11 @@ import { Icon, ErrorMessages } from '../../types/common';
  * @param {string} type - The HTML attribute type value to set on the input element, (e.g. 'text', 'number', etc.)
  */
 export default defineComponent({
-  name: 'FdInputField',
+  name: 'FdSelect',
   components: {
     FdIcon,
     FdInputPostText,
+    FdMenu,
   },
   props: {
     appendIcon: {
@@ -160,8 +202,16 @@ export default defineComponent({
       default: undefined,
     },
     modelValue: {
-      type: String,
+      type: Array as PropType<string[]>,
       default: undefined,
+    },
+    multiple: {
+      type: Boolean,
+      default: false,
+    },
+    items: {
+      type: Array as PropType<SelectOption[]>,
+      required: true,
     },
     persistentAssistiveText: {
       type: Boolean,
@@ -179,6 +229,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    size: {
+      type: Number,
+      default: 7,
+    },
     small: {
       type: Boolean,
       default: false,
@@ -190,7 +244,11 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const focusedItem = shallowRef(0);
     const hasFocus = shallowRef(false);
+    const menuOpen = shallowRef(false);
+    const select = shallowRef<HTMLDivElement | null>(null);
+    const selectInput = shallowRef<HTMLSelectElement | null>(null);
 
     /**
      * Handles the input event and emits the input value
@@ -198,23 +256,94 @@ export default defineComponent({
      * @prop {object} e The HTML InputEvent from the input
      */
     function handleInput(e: Event) {
-      emit('update:modelValue', (e.target as HTMLInputElement)?.value);
+      emit('update:modelValue', [(e.target as HTMLSelectElement)?.value]);
     }
 
+    function handleMenuBlur() {
+      selectInput.value.focus();
+      menuOpen.value = false;
+    }
+
+    function handleBlur() {
+      hasFocus.value = false;
+      menuOpen.value = false;
+    }
+
+    function handleClick() {
+      selectInput.value.focus();
+      menuOpen.value = true;
+    }
+
+    function handleDocumentClick(e) {
+      if (select.value && !select.value.contains(e.target)) {
+        menuOpen.value = false;
+      }
+    }
+
+    function handleUp() {
+      if (focusedItem.value > 0) {
+        focusedItem.value -= 1;
+      }
+    }
+
+    function handleMenuClick() {
+      selectInput.value.focus();
+    }
+
+    function handleDown() {
+      if (focusedItem.value < props.items.length - 1) {
+        focusedItem.value += 1;
+      }
+    }
+
+    function handleTab(e: Event) {
+      if (menuOpen.value) {
+        e.preventDefault();
+        menuOpen.value = false;
+        selectInput.value.focus();
+      }
+    }
+
+    // set initial focused item when menu is opened
+    watch(
+      menuOpen,
+      (newVal) => {
+        if (newVal) {
+          if (props.modelValue.length) {
+            focusedItem.value = props.items.findIndex((val) => val.value === props.modelValue[0]);
+          } else {
+            focusedItem.value = 0;
+          }
+        }
+      },
+    );
+
     return {
+      ChevronDownIcon,
       filterSlots,
+      focusedItem,
       getIconSize,
+      handleBlur,
+      handleClick,
+      handleDocumentClick,
+      handleDown,
       handleInput,
+      handleMenuBlur,
+      handleMenuClick,
+      handleUp,
+      handleTab,
       hasFocus,
+      menuOpen,
+      select,
+      selectInput,
     };
   }
 });
 </script>
-
 <style lang="scss" scoped>
 @import "@/styles/required";
 
-.fd-input-field {
+.fd-select {
   width: 100%;
 
   &__label {
@@ -292,6 +421,7 @@ export default defineComponent({
   }
 
   &__input {
+    appearance: none;
     background: none;
     border: 0;
     font-size: $form-field_input_size;
@@ -304,6 +434,11 @@ export default defineComponent({
     &:focus-visible {
       outline: none;
     }
+  }
+
+  &__menu {
+    position: absolute;
+    top: 100%;
   }
 }
 </style>

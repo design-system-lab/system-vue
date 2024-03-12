@@ -7,3 +7,15 @@ export type ErrorMessages = {
 export type Icon = FunctionalComponent<HTMLAttributes & VNodeProps>;
 
 export type TshirtSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+
+export interface ComponentWithSlot {
+  slotName: string;
+  text?: never;
+}
+
+export interface ComponentWithText {
+  slotName?: never;
+  text: string;
+}
+
+export type SlotOrText = ComponentWithSlot | ComponentWithText;
