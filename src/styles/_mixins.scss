@@ -5,8 +5,17 @@
   outline: none;
 }
 
+@mixin focus-primary-inset-styles {
+  box-shadow: inset 0 0 0 4px rgba(var(--fora_primary-6), 0.61) !important;
+}
+
 @mixin focus-danger-styles {
   box-shadow: 0 0 0 4px rgba(var(--fora_danger-6), 0.6) !important;
+  outline: none;
+}
+
+@mixin focus-danger-inset-styles {
+  box-shadow: inset 0 0 0 4px rgba(var(--fora_danger-6), 0.6) !important;
   outline: none;
 }
 

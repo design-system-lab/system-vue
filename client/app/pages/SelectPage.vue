@@ -10,16 +10,7 @@
     <fd-select
       v-model="testVal"
       id="test-default"
-      :items="[
-        {
-          text: 'Test',
-          value: 'test'
-        },
-        {
-          text: 'Testy',
-          value: 'testy'
-        }
-      ]"
+      :items="items"
       label="Example Select"
       placeholder="Select an option"
       :small="small"
@@ -271,6 +262,25 @@ export default defineComponent({
     const testTel = shallowRef('');
     const testUrl = shallowRef('');
 
+    const items = shallowRef([
+      {
+        text: 'Bartholomew',
+        value: 'bartholomew'
+      },
+      {
+        text: 'Test',
+        value: 'test'
+      },
+      {
+        text: 'Testy',
+        value: 'testy'
+      },
+      {
+        text: 'Zillow',
+        value: 'zillow'
+      },
+    ]);
+
     return {
       appendIconVal,
       appendPrependIconVal,
@@ -282,6 +292,7 @@ export default defineComponent({
       testEmail,
       testTel,
       testUrl,
+      items,
     };
   },
 })

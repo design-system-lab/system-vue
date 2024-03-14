@@ -4,7 +4,7 @@
     :class="{
       'fd-input-field--disabled': disabled,
       'fd-input-field--error': (errors.length || $slots['error-text']),
-      'fd-input-fiel--focused': hasFocus,
+      'fd-input-field--focused': hasFocus,
       'fd-input-field--readonly': readonly,
       'fd-input-field--small': small,
     }"

@@ -48,3 +48,15 @@
   opacity: 0;
   transition: 0.35s ease-in-out opacity, 0.35s ease-in-out margin-top;
 }
+
+// Fade content in and out, using default transition so naming is slightly different
+.fade-enter-active,
+.fade-leave-active {
+  transition: $transition-timing opacity;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+

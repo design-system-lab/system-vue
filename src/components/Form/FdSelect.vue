@@ -4,7 +4,7 @@
     :class="{
       'fd-select--disabled': disabled,
       'fd-select--error': (errors.length || $slots['error-text']),
-      'fd-input-fiel--focused': hasFocus,
+      'fd-select--focused': hasFocus,
       'fd-select--readonly': readonly,
       'fd-select--small': small,
     }"
@@ -20,76 +20,83 @@
     </div>
     <div
       ref="select"
-      class="fd-select__input-field"
-      :class="{
-        'fd-select__input-field--disabled': disabled,
-        'fd-select__input-field--error': (errors.length || $slots['error-text']),
-        'fd-select__input-field--focused': hasFocus,
-        'fd-select__input-field--focused-error': hasFocus && (errors.length || $slots['error-text']),
-        'fd-select__input-field--readonly': readonly,
-        'fd-select__input-field--small': small,
-      }"
+      class="fd-select__input-menu-container"
     >
-      <div class="fd-select__input-container">
-        <slot name="prepend-icon">
+      <div
+        class="fd-select__input-field"
+        :class="{
+          'fd-select__input-field--disabled': disabled,
+          'fd-select__input-field--error': (errors.length || $slots['error-text']),
+          'fd-select__input-field--focused': hasFocus,
+          'fd-select__input-field--focused-error': hasFocus && (errors.length || $slots['error-text']),
+          'fd-select__input-field--readonly': readonly,
+          'fd-select__input-field--small': small,
+        }"
+      >
+        <div class="fd-select__input-container">
+          <slot name="prepend-icon">
+            <fd-icon
+              v-if="prependIcon"
+              class="fd-select__prepend-icon"
+              :icon="prependIcon"
+              :size="getIconSize('sm')"
+            />
+          </slot>
+          <select
+            ref="selectInput"
+            class="fd-select__input"
+            v-bind="inputAttrs"
+            :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
+            :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
+            :disabled="disabled"
+            :readonly="readonly"
+            :value="modelValue"
+            @blur="handleBlur"
+            @input="handleInput"
+            @focus="hasFocus = true"
+            @keydown.down="handleDown"
+            @keydown.enter="handleEnter"
+            @keydown.up="handleUp"
+            @keydown.space.prevent="handleClick"
+            @keydown.tab="handleTab"
+            @mousedown.prevent="handleClick"
+          >
+            <option
+              v-if="placeholder"
+              disabled
+              hidden
+              selected
+              value=""
+            >
+              {{ placeholder }}
+            </option>
+            <option
+              v-for="item in items"
+              :key="item.text || item.slotName"
+              :value="item.value"
+            >
+              <slot :name="item.slotName">
+                {{ item.text }}
+              </slot>
+            </option>
+          </select>
           <fd-icon
-            v-if="prependIcon"
-            class="fd-select__prepend-icon"
-            :icon="prependIcon"
+            class="fd-select__append-icon"
+            :icon="ChevronDownIcon"
             :size="getIconSize('sm')"
           />
-        </slot>
-        <select
-          ref="selectInput"
-          class="fd-select__input"
-          v-bind="inputAttrs"
-          :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
-          :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
-          :disabled="disabled"
-          :readonly="readonly"
-          :value="modelValue"
-          @blur="handleBlur"
-          @input="handleInput"
-          @focus="hasFocus = true"
-          @keydown.down="handleDown"
-          @keydown.up="handleUp"
-          @keydown.space.prevent="handleClick"
-          @keydown.tab="handleTab"
-          @mousedown.prevent="handleClick"
-        >
-          <option
-            v-if="placeholder"
-            disabled
-            hidden
-            selected
-            value=""
-          >
-            {{ placeholder }}
-          </option>
-          <option
-            v-for="item in items"
-            :key="item.text || item.slotName"
-            :value="item.value"
-          >
-            <slot :name="item.slotName">
-              {{ item.text }}
-            </slot>
-          </option>
-        </select>
-        <fd-icon
-          class="fd-select__append-icon"
-          :icon="ChevronDownIcon"
-          :size="getIconSize('sm')"
-        />
+        </div>
       </div>
       <fd-menu
         v-if="menuOpen"
         class="fd-select__menu"
         :focus-item="focusedItem"
         :items="items"
+        :model-value="modelValue"
         @blur="handleMenuBlur"
-        @document-click="handleDocumentClick"
-        @menu-click="handleMenuClick"
+        @document:click="handleDocumentClick"
+        @item:click="handleItemClick"
+        @menu:click="handleMenuClick"
       >
         <template
           v-for="(_, name) in $slots"
@@ -256,7 +263,10 @@ export default defineComponent({
      * @prop {object} e The HTML InputEvent from the input
      */
     function handleInput(e: Event) {
-      emit('update:modelValue', [(e.target as HTMLSelectElement)?.value]);
+      const target = (e.target as HTMLSelectElement);
+
+      focusedItem.value = props.items.findIndex((val) => val.value === target?.value);
+      emit('update:modelValue', [target?.value]);
     }
 
     function handleMenuBlur() {
@@ -264,9 +274,11 @@ export default defineComponent({
       menuOpen.value = false;
     }
 
-    function handleBlur() {
-      hasFocus.value = false;
-      menuOpen.value = false;
+    function handleBlur(e) {
+      if (!select.value?.contains(e.relatedTarget)) {
+        hasFocus.value = false;
+        menuOpen.value = false;
+      }
     }
 
     function handleClick() {
@@ -294,6 +306,19 @@ export default defineComponent({
       if (focusedItem.value < props.items.length - 1) {
         focusedItem.value += 1;
       }
+    }
+
+    function handleEnter() {
+      if (menuOpen.value) {
+        menuOpen.value = false;
+      }
+    }
+
+    function handleItemClick(val: string) {
+      focusedItem.value = props.items.findIndex((val) => val.value === val);
+      emit('update:modelValue', [val]);
+      menuOpen.value = false;
+      selectInput.value.focus();
     }
 
     function handleTab(e: Event) {
@@ -327,6 +352,8 @@ export default defineComponent({
       handleClick,
       handleDocumentClick,
       handleDown,
+      handleEnter,
+      handleItemClick,
       handleInput,
       handleMenuBlur,
       handleMenuClick,
@@ -436,9 +463,14 @@ export default defineComponent({
     }
   }
 
+  &__input-menu-container {
+    position: relative;
+  }
+
   &__menu {
+    left: 0;
     position: absolute;
-    top: 100%;
+    top: calc(100% + 0.25rem);
   }
 }
 </style>
