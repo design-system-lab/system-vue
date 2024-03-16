@@ -32,8 +32,11 @@
           'fd-select__input-field--readonly': readonly,
           'fd-select__input-field--small': small,
         }"
+        @click="handleClick"
       >
-        <div class="fd-select__input-container">
+        <div
+          class="fd-select__input-container"
+        >
           <slot name="prepend-icon">
             <fd-icon
               v-if="prependIcon"
@@ -59,7 +62,7 @@
             @keydown.up="handleUp"
             @keydown.space.prevent="handleClick"
             @keydown.tab="handleTab"
-            @mousedown.prevent="handleClick"
+            @mousedown.prevent
           >
             <option
               v-if="placeholder"
@@ -80,8 +83,30 @@
               </slot>
             </option>
           </select>
+          <div
+            class="fd-select__faux-input"
+            inert
+          >
+            <span
+              v-if="modelValue && modelValue.length === 0"
+              class="fd-select__placeholder"
+            >
+              {{ placeholder }}
+            </span>
+            <span v-else>
+              <span
+                v-for="val in activeValues"
+                :key="val.value"
+              >
+                {{ val.text }}
+              </span>
+            </span>
+          </div>
           <fd-icon
             class="fd-select__append-icon"
+            :class="{
+              'fd-select__append-icon--open': menuOpen,
+            }"
             :icon="ChevronDownIcon"
             :size="getIconSize('sm')"
           />
@@ -90,9 +115,7 @@
       <fd-menu
         v-if="menuOpen"
         class="fd-select__menu"
-        :focus-item="focusedItem"
-        :items="items"
-        :model-value="modelValue"
+        v-bind="{ focusItem: focusedItem, items, modelValue, size }"
         @blur="handleMenuBlur"
         @document:click="handleDocumentClick"
         @item:click="handleItemClick"
@@ -130,7 +153,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, shallowRef, watch, PropType } from 'vue';
+import { computed, defineComponent, shallowRef, watch, PropType } from 'vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
@@ -176,11 +199,25 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
+    /**
+     * TODO: Build out chips
+     */
+    chips: {
+      type: Boolean,
+      default: false,
+    },
     describedby: {
       type: String,
       default: undefined,
     },
     disabled: {
+      type: Boolean,
+      default: false,
+    },
+    /**
+     * TODO: Build out icon swapping when this is turned on
+     */
+    displaySelectionIcon: {
       type: Boolean,
       default: false,
     },
@@ -200,6 +237,10 @@ export default defineComponent({
       type: Object as PropType<{[key: string]: string}>,
       default: () => ({}),
     },
+    items: {
+      type: Array as PropType<SelectOption[]>,
+      required: true,
+    },
     label: {
       type: String,
       default: undefined,
@@ -210,15 +251,14 @@ export default defineComponent({
     },
     modelValue: {
       type: Array as PropType<string[]>,
-      default: undefined,
+      default: () => [],
     },
+    /**
+     * TODO: Build out multiple
+     */
     multiple: {
       type: Boolean,
       default: false,
-    },
-    items: {
-      type: Array as PropType<SelectOption[]>,
-      required: true,
     },
     persistentAssistiveText: {
       type: Boolean,
@@ -236,6 +276,9 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /**
+     * TODO: build out size attr - how many items we show in the menu at one time
+     */
     size: {
       type: Number,
       default: 7,
@@ -257,12 +300,18 @@ export default defineComponent({
     const select = shallowRef<HTMLDivElement | null>(null);
     const selectInput = shallowRef<HTMLSelectElement | null>(null);
 
+    const activeValues = computed(() => {
+      return props.items.filter(item => props.modelValue.includes(item.value));
+    });
+
     /**
      * Handles the input event and emits the input value
      * 
      * @prop {object} e The HTML InputEvent from the input
      */
     function handleInput(e: Event) {
+      if (props.readonly || props.disabled) return;
+
       const target = (e.target as HTMLSelectElement);
 
       focusedItem.value = props.items.findIndex((val) => val.value === target?.value);
@@ -283,7 +332,10 @@ export default defineComponent({
 
     function handleClick() {
       selectInput.value.focus();
-      menuOpen.value = true;
+
+      if (!props.readonly && !props.disabled) {
+        menuOpen.value = !menuOpen.value;
+      }
     }
 
     function handleDocumentClick(e) {
@@ -344,6 +396,7 @@ export default defineComponent({
     );
 
     return {
+      activeValues,
       ChevronDownIcon,
       filterSlots,
       focusedItem,
@@ -387,6 +440,11 @@ export default defineComponent({
   &__append-icon {
     color: rgba(var(--fora_form-field_icon_color));
     margin-left: 0.625rem;
+    transition: $transition-timing transform;
+
+    &--open {
+      transform: rotate(180deg);
+    }
   }
 
   &__input-field {
@@ -448,14 +506,14 @@ export default defineComponent({
   }
 
   &__input {
-    appearance: none;
-    background: none;
-    border: 0;
-    font-size: $form-field_input_size;
-    font-weight: $form-field_input_weight;
-    line-height: $form-field_input_line-height;
+    cursor: pointer;
+    height: 100%;
+    left: 0;
     margin: 0;
     padding: 0;
+    position: absolute;
+    top: 0;
+    opacity: 0;
     width: 100%;
 
     &:focus-visible {
@@ -465,6 +523,16 @@ export default defineComponent({
 
   &__input-menu-container {
     position: relative;
+  }
+
+  &__faux-input {
+    cursor: pointer;
+    font-size: $font-sm;
+    width: 100%;
+  }
+
+  &__placeholder {
+    color: rgba(var(--fora_neutral-7), 1);
   }
 
   &__menu {

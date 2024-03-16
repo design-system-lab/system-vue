@@ -23,6 +23,7 @@
       v-model="testVal"
       id="test-assistive"
       assistive-text="Please use the format MM/DD/YYYY"
+      :items="items"
       label="Example Select"
       placeholder="Placeholder text here"
       :small="small"
@@ -35,8 +36,9 @@
       id="test-error"
       :errors="['format']"
       :errorMessages="{
-        format: 'Incorrect date format, please use MM/DD/YYYY',
+        format: 'This is incorrect, and there\'s nothing you can do to fix it.',
       }"
+      :items="items"
       label="Example Select"
       placeholder="Placeholder text here"
       :small="small"
@@ -49,11 +51,12 @@
       v-model="testVal"
       id="test-error-custom"
       assistive-text="Please use the format MM/DD/YYYY"
-      :errors="(!testVal && ['required']) || []"
+      :errors="(!testVal.length && ['required']) || []"
       :errorMessages="{
-        example: 'Another message that won\'t show up.',
-        required: 'This Select is a required field.',
+        example: 'Another message that won\'t sho   w up.',
+        required: 'This select is a required field.',
       }"
+      :items="items"
       label="Example Select"
       placeholder="Placeholder text here"
       :small="small"
@@ -69,11 +72,12 @@
     <fd-select
       v-model="testVal"
       assistive-text="Please use the format MM/DD/YYYY"
-      :errors="(!testVal && ['required']) || []"
+      :errors="(!testVal.length && ['required']) || []"
       :errorMessages="{
         required: 'This Select is a required field.',
       }"
       id="test-assistive-error"
+      :items="items"
       label="Example Select"
       persistent-assistive-text
       placeholder="Placeholder text here"
@@ -85,6 +89,7 @@
     <fd-select
       id="test-disabled"
       disabled
+      :items="items"
       label="Example Select"
       placeholder="Placeholder text here"
       :small="small"
@@ -94,42 +99,12 @@
     <h4 class="mb-4">Read Only</h4>
     <fd-select
       id="test-readonly"
+      :items="items"
       label="Copy this Value"
-      model-value="000-02-F34500"
+      :model-value="['test']"
       placeholder="Placeholder text here"
       readonly
       :small="small"
-    />
-    <br><br>
-
-    <h4 class="mb-4">Different Types</h4>
-    <fd-select
-      v-model="testNumber"
-      id="test-number"
-      label="Number Select"
-      :small="small"
-      type="number"
-    />
-    <fd-select
-      v-model="testEmail"
-      id="test-email"
-      label="Email Select"
-      :small="small"
-      type="email"
-    />
-    <fd-select
-      v-model="testTel"
-      id="test-tel"
-      label="Telephone Select"
-      :small="small"
-      type="tel"
-    />
-    <fd-select
-      v-model="testUrl"
-      id="test-tel"
-      label="URL Select"
-      :small="small"
-      type="url"
     />
     <br><br>
 
@@ -137,19 +112,9 @@
     <fd-select
       id="test-prepend"
       v-model="prependIconVal"
+      :items="items"
       label="Favorite Food"
       :prepend-icon="CubeTransparentIcon"
-      placeholder="Placeholder text here"
-      :small="small"
-    />
-    <br><br>
-
-    <h4 class="mb-4">Append Icon</h4>
-    <fd-select
-      id="test-append"
-      v-model="appendIconVal"
-      label="Copy this Value"
-      :append-icon="CubeTransparentIcon"
       placeholder="Placeholder text here"
       :small="small"
     />
@@ -159,8 +124,8 @@
     <fd-select
       v-model="appendPrependIconVal"
       id="test-append-prepend"
+      :items="items"
       label="Copy this Value"
-      :append-icon="CubeTransparentIcon"
       :prepend-icon="CubeTransparentIcon"
       placeholder="Placeholder text here"
       :small="small"
@@ -171,6 +136,7 @@
     <fd-select
       v-model="appendPrependIconVal"
       id="test-attributes"
+      :items="items"
       :input-attrs="{
         autocomplete: 'email',
         class: 'my-text-class',
@@ -193,6 +159,7 @@
             test: 'This is another error and equally as invalid.'
           }"
           id="test-assistive-error"
+          :items="items"
           label="Example Select"
           placeholder="Placeholder text here"
           :small="small"
@@ -209,6 +176,7 @@
     <fd-select
       describedby="test-described-by"
       id="test-aria"
+      :items="items"
       labelledby="test-label-example"
       placeholder="Placeholder text here"
       :small="small"
@@ -224,12 +192,12 @@
     <fd-select
       describedby="test-described-by"
       id="test-aria"
+      :items="items"
       labelledby="test-label-example"
       persistent-assistive-text
       :small="small"
     >
       <template #prepend-icon><fd-icon :size="20"><cube-transparent-icon /></fd-icon></template>
-      <template #append-icon><fd-icon :size="20"><cube-transparent-icon /></fd-icon></template>
       <template #label>What is the Best Horse</template>
       <template #error-text>You should really check on that</template>
       <template #assistive-text>This is a descriptive area for the Select</template>

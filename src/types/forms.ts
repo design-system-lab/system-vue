@@ -1,6 +1,7 @@
-import { SlotOrText } from './common';
+import { Icon, SlotOrText } from './common';
 
 export interface SelectOptionDefault {
+  icon?: Icon;
   selected?: boolean;
   value: string;
 }

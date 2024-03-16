@@ -18,6 +18,11 @@
         @keydown.tab.prevent.stop="handleBlur"
         @click.stop.prevent="handleClick(item.value)"
       >
+        <fd-icon
+          v-if="item.icon"
+          :icon="item.icon"
+          :size="getIconSize('sm')"
+        />
         <span>
           <slot :name="item.slotName">
             {{ item.text }}
@@ -46,6 +51,10 @@ export default defineComponent({
   name: 'FdMenu',
   components: { FdIcon },
   props: {
+    focusItem: {
+      type: Number,
+      default: -1,
+    },
     items: {
       type: Array as PropType<SelectOption[]>,
       required: true,
@@ -54,10 +63,10 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: undefined,
     },
-    focusItem: {
+    size: {
       type: Number,
-      default: -1,
-    }
+      default: 7,
+    },
   },
   setup(_, { emit }) {
     const menu = shallowRef<HTMLDivElement | null>(null);
@@ -105,6 +114,7 @@ export default defineComponent({
     border: 0;
     cursor: pointer;
     display: inline-flex;
+    font-size: $font-sm;
     justify-content: space-between;
     width: 100%;
     height: 2.5rem;
