@@ -9,15 +9,16 @@
       'fd-select--small': small,
     }"
   >
-    <div
+    <label
       v-if="label || $slots['label']"
       :id="`${id}__label`"
       class="fd-select__label"
+      :for="`${id}__input`"
     >
       <slot name="label">
         {{ label }}
       </slot>
-    </div>
+    </label>
     <div
       ref="select"
       class="fd-select__input-menu-container"
@@ -37,16 +38,17 @@
         <div
           class="fd-select__input-container"
         >
-          <slot name="prepend-icon">
-            <fd-icon
-              v-if="prependIcon"
-              class="fd-select__prepend-icon"
-              :icon="prependIcon"
-              :size="getIconSize('sm')"
-            />
-          </slot>
+          <fd-icon
+            v-if="getPrependIcon || $slots['prepend-icon']"
+            class="fd-select__prepend-icon"
+            :icon="getPrependIcon"
+            :size="getIconSize('sm')"
+          >
+            <slot name="prepend-icon" />
+          </fd-icon>
           <select
             ref="selectInput"
+            :id="`${id}__input`"
             class="fd-select__input"
             v-bind="inputAttrs"
             :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
@@ -98,7 +100,9 @@
                 v-for="val in activeValues"
                 :key="val.value"
               >
-                {{ val.text }}
+                <slot :name="val.slotName">
+                  {{ val.text }}
+                </slot>
               </span>
             </span>
           </div>
@@ -304,6 +308,16 @@ export default defineComponent({
       return props.items.filter(item => props.modelValue.includes(item.value));
     });
 
+    const getPrependIcon = computed(() => {
+      const selectedItemIcon: Icon | undefined = activeValues.value.length ? activeValues.value[0].icon : undefined;
+
+      if (!props.multiple && props.displaySelectionIcon && selectedItemIcon) {
+        return selectedItemIcon;
+      }
+
+      return props.prependIcon;
+    })
+
     /**
      * Handles the input event and emits the input value
      * 
@@ -401,6 +415,7 @@ export default defineComponent({
       filterSlots,
       focusedItem,
       getIconSize,
+      getPrependIcon,
       handleBlur,
       handleClick,
       handleDocumentClick,
@@ -424,85 +439,14 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-select {
-  width: 100%;
-
-  &__label {
-    font-size: $form-field_label_size;
-    font-weight: $form-field_label_weight;
-    margin-bottom: $form-field_vertical_spacer;
-  }
-
-  &__prepend-icon {
-    color: rgba(var(--fora_form-field_icon_color));
-    margin-right: 0.625rem;
-  }
+  @include form-field-common;
 
   &__append-icon {
-    color: rgba(var(--fora_form-field_icon_color));
-    margin-left: 0.625rem;
     transition: $transition-timing transform;
 
     &--open {
       transform: rotate(180deg);
     }
-  }
-
-  &__input-field {
-    background-color: rgba(var(--fora_form-field_input_bg));
-    border: $form-field_border;
-    border-color: rgba(var(--fora_form-field_border-color));
-    border-radius: $form-field_border-radius;
-    line-height: 1.25rem;
-    padding: calc($form-field_padding - $form-field_border_size);
-    position: relative;
-    transition: border .35s ease, box-shadow .35s ease;
-    z-index: 1;
-
-    &--focused {
-      @include focus-primary-styles;
-      border-color: rgba(var(--fora_form-field_border-color--focus));
-    }
-
-    &:hover {
-      border-color: rgba(var(--fora_form-field_border-color--hover));
-    }
-
-    &--small {
-      padding-bottom: calc($form-field_sm_padding - $form-field_border_size);
-      padding-top: calc($form-field_sm_padding - $form-field_border_size);
-    }
-
-    &--disabled:hover,
-    &--readonly:hover {
-      border-color: rgba(var(--fora_form-field_border-color));
-    }
-
-    &--readonly {
-      background-color: rgba(var(--fora_form-field_readonly_bg));
-    }
-
-    &--error {
-      border-color: rgba(var(--fora_form-field_error_border-color));
-
-      &:hover {
-        border-color: rgba(var(--fora_form-field_error_border-color--hover))
-      }
-    }
-
-    &--focused-error {
-      @include focus-danger-styles;
-      border-color: rgba(var(--fora_form-field_error_border-color--focus));
-    }
-
-    &--disabled {
-      background-color: rgba(var(--fora_form-field_disabled_bg));
-      border-color: rgba(var(--fora_form-field_disabled_border-color));
-      color: rgba(var(--fora_form-field_disabled_color));
-    }
-  }
-
-  &__input-container {
-    display: flex;
   }
 
   &__input {
@@ -518,6 +462,10 @@ export default defineComponent({
 
     &:focus-visible {
       outline: none;
+    }
+
+    &:disabled {
+      cursor: default;
     }
   }
 

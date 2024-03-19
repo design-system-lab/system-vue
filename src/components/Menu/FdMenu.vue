@@ -1,6 +1,5 @@
 <template>
   <div
-    ref="menu"
     class="fd-menu"
     @click.stop="$emit('menu:click')"
   >
@@ -20,10 +19,11 @@
       >
         <fd-icon
           v-if="item.icon"
+          class="fd-menu__button-icon"
           :icon="item.icon"
           :size="getIconSize('sm')"
         />
-        <span>
+        <span class="fd-menu__button-text">
           <slot :name="item.slotName">
             {{ item.text }}
           </slot>
@@ -31,6 +31,7 @@
         <transition name="fade">
           <fd-icon
             v-if="modelValue.includes(item.value)"
+            class="fd-menu__button-check"
             :icon="CheckIcon"
             :size="getIconSize('sm')"
           />
@@ -69,20 +70,15 @@ export default defineComponent({
     },
   },
   setup(_, { emit }) {
-    const menu = shallowRef<HTMLDivElement | null>(null);
-
     function handleBlur(e: Event) {
-      console.log('blur occured');
       emit('blur', e);
     }
 
     function handleClick(val: string) {
-      console.log('in here');
       emit('item:click', val);
     }
 
     onDocumentClick((e: Event) => {
-      console.log('we failed')
       emit('document:click', e);
     });
 
@@ -90,7 +86,6 @@ export default defineComponent({
       getIconSize,
       handleBlur,
       handleClick,
-      menu,
       CheckIcon,
     }
   },
@@ -131,6 +126,25 @@ export default defineComponent({
 
     &--selected {
       color: rgba(var(--fora_primary-8), 1);
+    }
+
+    &-icon,
+    &-check {
+      flex: 0 0 auto;
+    }
+
+    &-icon {
+      color: rgba(var(--fora_neutral-7), 1);
+      margin-right: 0.625rem;
+    }
+
+    &-check {
+      margin-left: 0.625rem;
+    }
+
+    &-text {
+      text-align: left;
+      width: 100%;
     }
   }
 }

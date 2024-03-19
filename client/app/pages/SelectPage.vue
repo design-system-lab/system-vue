@@ -120,11 +120,12 @@
     />
     <br><br>
 
-    <h4 class="mb-4">Both Prepend and Append Icons</h4>
+    <h4 class="mb-4">Swap Icon to Option Icon</h4>
     <fd-select
       v-model="appendPrependIconVal"
+      display-selection-icon
       id="test-append-prepend"
-      :items="items"
+      :items="itemsAlt"
       label="Copy this Value"
       :prepend-icon="CubeTransparentIcon"
       placeholder="Placeholder text here"
@@ -153,7 +154,7 @@
         <fd-select
           v-model="testVal"
           assistive-text="Please use the format MM/DD/YYYY"
-          :errors="(!testVal && ['required', 'test']) || []"
+          :errors="(!testVal.length && ['required', 'test']) || []"
           :errorMessages="{
             required: 'This Select is a required field.',
             test: 'This is another error and equally as invalid.'
@@ -190,17 +191,23 @@
 
     <h4 class="mb-4">All Slots</h4>
     <fd-select
+      v-model="allSlotsVal"
       describedby="test-described-by"
-      id="test-aria"
-      :items="items"
+      id="test-all-slots"
+      :items="allSlotsItems"
       labelledby="test-label-example"
       persistent-assistive-text
+      placeholder="Placeholder text here"
       :small="small"
     >
-      <template #prepend-icon><fd-icon :size="20"><cube-transparent-icon /></fd-icon></template>
+      <template #prepend-icon>
+        <cube-transparent-icon />
+      </template>
       <template #label>What is the Best Horse</template>
       <template #error-text>You should really check on that</template>
       <template #assistive-text>This is a descriptive area for the Select</template>
+      <template #battery>Battery Slot Filled!</template>
+      <template #beaker>This is a beaker</template>
     </fd-select>
     <br><br>
 
@@ -215,20 +222,22 @@ import FdIcon from '../../../src/components/Icon';
 import FdCol from '../../../src/components/Col';
 import FdRow from '../../../src/components/Row';
 import { CubeTransparentIcon } from '@heroicons/vue/20/solid'
+import { Battery0Icon, BeakerIcon, BellIcon, BookOpenIcon } from '@heroicons/vue/24/outline'
 
 export default defineComponent({
   name: 'InputFieldPage',
   components: { FdSelect, FdButton, FdCol, FdRow, CubeTransparentIcon, FdIcon },
   setup () {
-    const appendIconVal = shallowRef('');
-    const appendPrependIconVal = shallowRef('');
-    const prependIconVal = shallowRef('');
+    const appendIconVal = shallowRef([]);
+    const appendPrependIconVal = shallowRef([]);
+    const prependIconVal = shallowRef([]);
     const small = shallowRef(false);
     const testVal = shallowRef([]);
-    const testNumber = shallowRef('');
-    const testEmail = shallowRef('');
-    const testTel = shallowRef('');
-    const testUrl = shallowRef('');
+    const testNumber = shallowRef([]);
+    const testEmail = shallowRef([]);
+    const testTel = shallowRef([]);
+    const testUrl = shallowRef([]);
+    const allSlotsVal = shallowRef([]);
 
     const items = shallowRef([
       {
@@ -249,10 +258,59 @@ export default defineComponent({
       },
     ]);
 
+    const itemsAlt = shallowRef([
+      {
+        icon: Battery0Icon,
+        text: 'Battery',
+        value: 'battery'
+      },
+      {
+        icon: BeakerIcon,
+        text: 'Beaker',
+        value: 'beaker'
+      },
+      {
+        icon: BellIcon,
+        text: 'Bell',
+        value: 'bell'
+      },
+      {
+        icon: BookOpenIcon,
+        text: 'Book',
+        value: 'book'
+      },
+    ]);
+
+    const allSlotsItems = shallowRef([
+    {
+        icon: Battery0Icon,
+        slotName: 'battery',
+        value: 'battery'
+      },
+      {
+        icon: BeakerIcon,
+        slotName: 'beaker',
+        value: 'beaker'
+      },
+      {
+        icon: BellIcon,
+        text: 'Bell',
+        value: 'bell'
+      },
+      {
+        icon: BookOpenIcon,
+        text: 'Book',
+        value: 'book'
+      },
+    ]);
+
     return {
+      allSlotsVal,
+      allSlotsItems,
       appendIconVal,
       appendPrependIconVal,
       CubeTransparentIcon,
+      itemsAlt,
       prependIconVal,
       small,
       testVal,

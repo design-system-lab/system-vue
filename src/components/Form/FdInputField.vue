@@ -9,15 +9,16 @@
       'fd-input-field--small': small,
     }"
   >
-    <div
+    <label
       v-if="label || $slots['label']"
       :id="`${id}__label`"
       class="fd-input-field__label"
+      :for="`${id}__input`"
     >
       <slot name="label">
         {{ label }}
       </slot>
-    </div>
+    </label>
     <div
       class="fd-input-field__input-field"
       :class="{
@@ -30,15 +31,16 @@
       }"
     >
       <div class="fd-input-field__input-container">
-        <slot name="prepend-icon">
-          <fd-icon
-            v-if="prependIcon"
-            class="fd-input-field__prepend-icon"
-            :icon="prependIcon"
-            :size="getIconSize('sm')"
-          />
-        </slot>
+        <fd-icon
+          v-if="prependIcon"
+          class="fd-input-field__prepend-icon"
+          :icon="prependIcon"
+          :size="getIconSize('sm')"
+        >
+          <slot name="prepend-icon" />
+        </fd-icon>
         <input
+          :id="`${id}__input`"
           class="fd-input-field__input"
           v-bind="inputAttrs"
           :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
@@ -52,14 +54,14 @@
           @focus="hasFocus = true"
           @input="handleInput"
         >
-        <slot name="append-icon">
-          <fd-icon
-            v-if="appendIcon"
-            class="fd-input-field__append-icon"
-            :icon="appendIcon"
-            :size="getIconSize('sm')"
-          />
-        </slot>
+        <fd-icon
+          v-if="appendIcon"
+          class="fd-input-field__append-icon"
+          :icon="appendIcon"
+          :size="getIconSize('sm')"
+        >
+          <slot name="append-icon" />
+        </fd-icon>
       </div>
     </div>
     <fd-input-post-text
@@ -215,81 +217,7 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-input-field {
-  width: 100%;
-
-  &__label {
-    font-size: $form-field_label_size;
-    font-weight: $form-field_label_weight;
-    margin-bottom: $form-field_vertical_spacer;
-  }
-
-  &__prepend-icon {
-    color: rgba(var(--fora_form-field_icon_color));
-    margin-right: 0.625rem;
-  }
-
-  &__append-icon {
-    color: rgba(var(--fora_form-field_icon_color));
-    margin-left: 0.625rem;
-  }
-
-  &__input-field {
-    background-color: rgba(var(--fora_form-field_input_bg));
-    border: $form-field_border;
-    border-color: rgba(var(--fora_form-field_border-color));
-    border-radius: $form-field_border-radius;
-    line-height: 1.25rem;
-    padding: calc($form-field_padding - $form-field_border_size);
-    position: relative;
-    transition: border .35s ease, box-shadow .35s ease;
-    z-index: 1;
-
-    &--focused {
-      @include focus-primary-styles;
-      border-color: rgba(var(--fora_form-field_border-color--focus));
-    }
-
-    &:hover {
-      border-color: rgba(var(--fora_form-field_border-color--hover));
-    }
-
-    &--small {
-      padding-bottom: calc($form-field_sm_padding - $form-field_border_size);
-      padding-top: calc($form-field_sm_padding - $form-field_border_size);
-    }
-
-    &--disabled:hover,
-    &--readonly:hover {
-      border-color: rgba(var(--fora_form-field_border-color));
-    }
-
-    &--readonly {
-      background-color: rgba(var(--fora_form-field_readonly_bg));
-    }
-
-    &--error {
-      border-color: rgba(var(--fora_form-field_error_border-color));
-
-      &:hover {
-        border-color: rgba(var(--fora_form-field_error_border-color--hover))
-      }
-    }
-
-    &--focused-error {
-      @include focus-danger-styles;
-      border-color: rgba(var(--fora_form-field_error_border-color--focus));
-    }
-
-    &--disabled {
-      background-color: rgba(var(--fora_form-field_disabled_bg));
-      border-color: rgba(var(--fora_form-field_disabled_border-color));
-      color: rgba(var(--fora_form-field_disabled_color));
-    }
-  }
-
-  &__input-container {
-    display: flex;
-  }
+  @include form-field-common;
 
   &__input {
     background: none;
@@ -303,6 +231,10 @@ export default defineComponent({
 
     &:focus-visible {
       outline: none;
+    }
+
+    &:disabled {
+      cursor: default;
     }
   }
 }
