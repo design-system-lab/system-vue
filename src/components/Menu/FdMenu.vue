@@ -1,6 +1,10 @@
 <template>
   <div
+    ref="menu"
     class="fd-menu"
+    :class="{
+      'fd-menu--global': menuPlacement === 'global',
+    }"
     @click.stop="$emit('menu:click')"
   >
     <div
@@ -12,7 +16,8 @@
         class="fd-menu__button"
         :class="{
           'fd-menu__button--focused': i === focusItem,
-          'fd-menu__button--selected': modelValue.includes(item.value),
+          'fd-menu__button--small': small,
+          'fd-menu__button--selected': modelValue?.includes(item.value),
         }"
         @keydown.tab.prevent.stop="handleBlur"
         @click.stop.prevent="handleClick(item.value)"
@@ -30,7 +35,7 @@
         </span>
         <transition name="fade">
           <fd-icon
-            v-if="modelValue.includes(item.value)"
+            v-if="modelValue?.includes(item.value)"
             class="fd-menu__button-check"
             :icon="CheckIcon"
             :size="getIconSize('sm')"
@@ -41,9 +46,10 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, shallowRef, PropType } from 'vue';
+import { defineComponent, inject, shallowRef, PropType, onMounted, ShallowRef } from 'vue';
 import { CheckIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
+import { MenuPlacement } from '../../types/common';
 import { SelectOption } from '../../types/forms';
 import { onDocumentClick } from '../../utils/document';
 import { getIconSize } from '../../utils/icons';
@@ -60,16 +66,31 @@ export default defineComponent({
       type: Array as PropType<SelectOption[]>,
       required: true,
     },
+    menuPlacement: {
+      type: String as PropType<MenuPlacement>,
+      default: 'attached',
+    },
     modelValue: {
       type: Array as PropType<string[]>,
       default: undefined,
+    },
+    parent: {
+      type: Object as PropType<HTMLElement | null>,
+      required: true,
     },
     size: {
       type: Number,
       default: 7,
     },
+    small: {
+      type: Boolean,
+      default: false,
+    }
   },
-  setup(_, { emit }) {
+  setup(props, { emit }) {
+    const menu = shallowRef<HTMLDivElement | null>(null);
+    const app = inject<ShallowRef<HTMLDivElement | null>>('app');
+
     function handleBlur(e: Event) {
       emit('blur', e);
     }
@@ -78,14 +99,48 @@ export default defineComponent({
       emit('item:click', val);
     }
 
-    onDocumentClick((e: Event) => {
+    onDocumentClick((e?: Event) => {
       emit('document:click', e);
     });
+
+    onMounted(() => {
+      /** 
+       * TODO: Position and size the menu for global
+       */
+      if (props.menuPlacement === 'global' && app?.value && menu?.value && props.parent) {
+        const appVals = app.value.getBoundingClientRect();
+        const menuVals = menu.value.getBoundingClientRect();
+        const parentVals = props.parent.getBoundingClientRect();
+
+        app.value.appendChild(menu.value);
+        menu.value.style.width = `${parentVals.width}px`;
+
+        // check if there's enough space for the menu below the parent
+        if (appVals.height - (parentVals.height + props.parent.offsetTop) > menuVals.height) {
+          console.log('there is space');
+          menu.value.style.top = `${props.parent.offsetTop + parentVals.height}px`;
+        } else {
+          console.log('there is no space');
+          menu.value.style.top = `${props.parent.offsetTop - menuVals.height}px`;
+        }
+
+        menu.value.style.left = `${parentVals.x}px`;
+      }
+
+      /**
+       * TODO: change menu size/placement on window resizing
+       */
+    });
+
+    /**
+     * TODO: Size the menu - do we want to default to 100% with overflow on options or default to largest option size?
+     */
 
     return {
       getIconSize,
       handleBlur,
       handleClick,
+      menu,
       CheckIcon,
     }
   },
@@ -99,8 +154,8 @@ export default defineComponent({
   background-color: rgba(var(--fora_white), 1);
   border-radius: $border-radius;
   box-shadow: $shadow-md;
-  padding: 0.625rem 0;
-  width: 100%;
+  padding: 0.125rem 0;
+  min-width: 100%;
   z-index: 10;
 
   &__button {
@@ -112,8 +167,8 @@ export default defineComponent({
     font-size: $font-sm;
     justify-content: space-between;
     width: 100%;
-    height: 2.5rem;
-    padding: 0 16px;
+    min-height: 2.5rem;
+    padding: $form-field_padding-y $form-field_padding-x;
     transition: $transition-timing color, $transition-timing background-color, $transition-timing box-shadow;
 
     &:hover {
@@ -126,6 +181,10 @@ export default defineComponent({
 
     &--selected {
       color: rgba(var(--fora_primary-8), 1);
+    }
+
+    &--small {
+      padding-left: $form-field_sm_padding-y $form-field_sm_padding-x;
     }
 
     &-icon,
@@ -146,6 +205,10 @@ export default defineComponent({
       text-align: left;
       width: 100%;
     }
+  }
+
+  &--global {
+    min-width: auto;
   }
 }
 </style>

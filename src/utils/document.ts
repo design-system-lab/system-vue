@@ -1,6 +1,6 @@
 import { onMounted, onUnmounted } from 'vue';
 
-export function onDocumentClick(func: () => void) {
+export function onDocumentClick(func: (e?: Event) => void) {
   onMounted(() => {
     document.addEventListener('click', func);
   });

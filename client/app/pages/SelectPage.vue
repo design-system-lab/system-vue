@@ -211,6 +211,20 @@
     </fd-select>
     <br><br>
 
+    <h4 class="mb-4">With Global Menu</h4>
+    <div class="box">
+      <fd-select
+        v-model="appendPrependIconVal"
+        id="test-global"
+        :items="items"
+        label="Select Item"
+        menu-placement="global"
+        placeholder="example@example.com"
+        :small="small"
+      />
+    </div>
+    <br><br>
+
   </div>
 </template>
 
@@ -323,3 +337,16 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+
+.box {
+  background: rgba(var(--fora_neutral-2), 1);
+  border: 1px solid rgba(var(--fora_neutral-5), 1);
+  border-radius: 8px;
+  padding: 2rem;
+  overflow: hidden;
+  width: 50%;
+}
+
+</style>

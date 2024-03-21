@@ -119,7 +119,7 @@
       <fd-menu
         v-if="menuOpen"
         class="fd-select__menu"
-        v-bind="{ focusItem: focusedItem, items, modelValue, size }"
+        v-bind="{ focusItem: focusedItem, items, menuPlacement, modelValue, parent: select, size, small }"
         @blur="handleMenuBlur"
         @document:click="handleDocumentClick"
         @item:click="handleItemClick"
@@ -164,7 +164,7 @@ import FdInputPostText from './FdInputPostText.vue';
 import FdMenu from '../Menu';
 import { getIconSize } from '../../utils/icons';
 import { filterSlots } from '../../utils/components';
-import { Icon, ErrorMessages } from '../../types/common';
+import { ErrorMessages, Icon, MenuPlacement, NodeOrNull } from '../../types/common';
 import { SelectOption } from '../../types/forms';
 
 /**
@@ -253,6 +253,13 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
+    /**
+     * TODO: build out menu placement for global
+     */
+    menuPlacement: {
+      type: String as PropType<MenuPlacement>,
+      default: 'attached',
+    },
     modelValue: {
       type: Array as PropType<string[]>,
       default: () => [],
@@ -298,11 +305,15 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const focusedItem = shallowRef(0);
+    const focusedItem = shallowRef(-1);
     const hasFocus = shallowRef(false);
     const menuOpen = shallowRef(false);
     const select = shallowRef<HTMLDivElement | null>(null);
     const selectInput = shallowRef<HTMLSelectElement | null>(null);
+
+    /**
+     * TODO: Deal with losing the click entrapment when the menu is set to global (clicks aren't registering)
+     */
 
     const activeValues = computed(() => {
       return props.items.filter(item => props.modelValue.includes(item.value));
@@ -333,27 +344,27 @@ export default defineComponent({
     }
 
     function handleMenuBlur() {
-      selectInput.value.focus();
+      selectInput.value?.focus();
       menuOpen.value = false;
     }
 
-    function handleBlur(e) {
-      if (!select.value?.contains(e.relatedTarget)) {
+    function handleBlur(e: FocusEvent) {
+      if (!select.value?.contains(e.relatedTarget as NodeOrNull)) {
         hasFocus.value = false;
         menuOpen.value = false;
       }
     }
 
     function handleClick() {
-      selectInput.value.focus();
+      selectInput.value?.focus();
 
       if (!props.readonly && !props.disabled) {
         menuOpen.value = !menuOpen.value;
       }
     }
 
-    function handleDocumentClick(e) {
-      if (select.value && !select.value.contains(e.target)) {
+    function handleDocumentClick(e: Event) {
+      if (select.value && !select.value.contains(e.target as NodeOrNull)) {
         menuOpen.value = false;
       }
     }
@@ -365,7 +376,7 @@ export default defineComponent({
     }
 
     function handleMenuClick() {
-      selectInput.value.focus();
+      selectInput.value?.focus();
     }
 
     function handleDown() {
@@ -381,17 +392,17 @@ export default defineComponent({
     }
 
     function handleItemClick(val: string) {
-      focusedItem.value = props.items.findIndex((val) => val.value === val);
+      focusedItem.value = props.items.findIndex((item) => item.value === val);
       emit('update:modelValue', [val]);
       menuOpen.value = false;
-      selectInput.value.focus();
+      selectInput.value?.focus();
     }
 
     function handleTab(e: Event) {
       if (menuOpen.value) {
         e.preventDefault();
         menuOpen.value = false;
-        selectInput.value.focus();
+        selectInput.value?.focus();
       }
     }
 
@@ -403,7 +414,7 @@ export default defineComponent({
           if (props.modelValue.length) {
             focusedItem.value = props.items.findIndex((val) => val.value === props.modelValue[0]);
           } else {
-            focusedItem.value = 0;
+            focusedItem.value = -1;
           }
         }
       },
