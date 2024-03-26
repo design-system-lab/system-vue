@@ -18,6 +18,19 @@
     <br><br>
     <p>Value: {{ testVal }}</p>
 
+    <h4 class="mb-4">Menu top</h4>
+    <fd-select
+      v-model="testVal"
+      id="test-default"
+      direction="top"
+      :items="items"
+      label="Example Select"
+      placeholder="Select an option"
+      :small="small"
+    />
+    <br><br>
+    <p>Value: {{ testVal }}</p>
+
     <h4 class="mb-4">Assistive Text</h4>
     <fd-select
       v-model="testVal"

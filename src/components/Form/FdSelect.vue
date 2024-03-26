@@ -118,8 +118,9 @@
       </div>
       <fd-menu
         v-if="menuOpen"
+        ref="menu"
         class="fd-select__menu"
-        v-bind="{ focusItem: focusedItem, items, menuPlacement, modelValue, parent: select, size, small }"
+        v-bind="{ direction, focusItem: focusedItem, items, menuPlacement, modelValue, parent: select, size, small }"
         @blur="handleMenuBlur"
         @document:click="handleDocumentClick"
         @item:click="handleItemClick"
@@ -157,7 +158,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, shallowRef, watch, PropType } from 'vue';
+import { computed, defineComponent, shallowRef, watch, PropType, ComponentPublicInstance, Component } from 'vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
@@ -218,9 +219,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    /**
-     * TODO: Build out icon swapping when this is turned on
-     */
+    direction: {
+      type: String as PropType<'top' | 'bottom'>,
+      default: 'bottom',
+    },
     displaySelectionIcon: {
       type: Boolean,
       default: false,
@@ -287,9 +289,6 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
-    /**
-     * TODO: build out size attr - how many items we show in the menu at one time
-     */
     size: {
       type: Number,
       default: 7,
@@ -308,6 +307,7 @@ export default defineComponent({
     const focusedItem = shallowRef(-1);
     const hasFocus = shallowRef(false);
     const menuOpen = shallowRef(false);
+    const menu = shallowRef<ComponentPublicInstance | null>(null);
     const select = shallowRef<HTMLDivElement | null>(null);
     const selectInput = shallowRef<HTMLSelectElement | null>(null);
 
@@ -348,8 +348,11 @@ export default defineComponent({
       menuOpen.value = false;
     }
 
+    /**
+     * Make sure that blur isn't registered if they've clicked inside the faux menu
+     */
     function handleBlur(e: FocusEvent) {
-      if (!select.value?.contains(e.relatedTarget as NodeOrNull)) {
+      if (!menu.value?.$el.contains(e.relatedTarget as NodeOrNull)) {
         hasFocus.value = false;
         menuOpen.value = false;
       }
@@ -439,6 +442,7 @@ export default defineComponent({
       handleUp,
       handleTab,
       hasFocus,
+      menu,
       menuOpen,
       select,
       selectInput,
@@ -492,12 +496,6 @@ export default defineComponent({
 
   &__placeholder {
     color: rgba(var(--fora_neutral-7), 1);
-  }
-
-  &__menu {
-    left: 0;
-    position: absolute;
-    top: calc(100% + 0.25rem);
   }
 }
 </style>

@@ -4,6 +4,10 @@
     class="fd-menu"
     :class="{
       'fd-menu--global': menuPlacement === 'global',
+      'fd-menu--top': direction === 'top',
+    }"
+    :style="{
+      ...(width ? [width] : []),
     }"
     @click.stop="$emit('menu:click')"
   >
@@ -52,12 +56,17 @@ import FdIcon from '../Icon';
 import { MenuPlacement } from '../../types/common';
 import { SelectOption } from '../../types/forms';
 import { onDocumentClick } from '../../utils/document';
+import { onWindowEvent } from '../../utils/window';
 import { getIconSize } from '../../utils/icons';
 
 export default defineComponent({
   name: 'FdMenu',
   components: { FdIcon },
   props: {
+    direction: {
+      type: String as PropType<'top' | 'bottom'>,
+      default: 'bottom',
+    },
     focusItem: {
       type: Number,
       default: -1,
@@ -78,6 +87,9 @@ export default defineComponent({
       type: Object as PropType<HTMLElement | null>,
       required: true,
     },
+    /**
+     * TODO: build out size attr - how many items we show in the menu at one time
+     */
     size: {
       type: Number,
       default: 7,
@@ -85,6 +97,10 @@ export default defineComponent({
     small: {
       type: Boolean,
       default: false,
+    },
+    width: {
+      type: String,
+      default: undefined,
     }
   },
   setup(props, { emit }) {
@@ -99,42 +115,52 @@ export default defineComponent({
       emit('item:click', val);
     }
 
-    onDocumentClick((e?: Event) => {
-      emit('document:click', e);
-    });
+    /**
+     * Moves the menu to the global context if it should be global
+     */
+    function yoinkGlobalMenu() {
+      if (props.menuPlacement === 'global' && app?.value && menu?.value && props.parent) {
+        app.value.appendChild(menu.value);
+      }
+    }
 
-    onMounted(() => {
-      /** 
-       * TODO: Position and size the menu for global
-       */
+    /**
+     * Places the menu where it should go if it should be global
+     */
+    function placeGlobalMenu() {
       if (props.menuPlacement === 'global' && app?.value && menu?.value && props.parent) {
         const appVals = app.value.getBoundingClientRect();
         const menuVals = menu.value.getBoundingClientRect();
         const parentVals = props.parent.getBoundingClientRect();
 
-        app.value.appendChild(menu.value);
-        menu.value.style.width = `${parentVals.width}px`;
+        menu.value.style.width = props.width ? props.width : `${parentVals.width}px`;
 
         // check if there's enough space for the menu below the parent
         if (appVals.height - (parentVals.height + props.parent.offsetTop) > menuVals.height) {
-          console.log('there is space');
-          menu.value.style.top = `${props.parent.offsetTop + parentVals.height}px`;
+          // there is space under the menu
+          menu.value.style.top = `${props.parent.offsetTop + parentVals.height + 4}px`;
         } else {
-          console.log('there is no space');
-          menu.value.style.top = `${props.parent.offsetTop - menuVals.height}px`;
+          // there is no space under the menu, so show above
+          menu.value.style.top = `${props.parent.offsetTop - menuVals.height - 4}px`;
         }
 
         menu.value.style.left = `${parentVals.x}px`;
       }
+    }
 
-      /**
-       * TODO: change menu size/placement on window resizing
-       */
+    onDocumentClick((e?: Event) => {
+      emit('document:click', e);
+    });
+
+    onMounted(() => {
+      yoinkGlobalMenu();
+      placeGlobalMenu();
     });
 
     /**
-     * TODO: Size the menu - do we want to default to 100% with overflow on options or default to largest option size?
+     * TODO: change menu size/placement on window resizing
      */
+    onWindowEvent('resize', placeGlobalMenu);
 
     return {
       getIconSize,
@@ -154,8 +180,11 @@ export default defineComponent({
   background-color: rgba(var(--fora_white), 1);
   border-radius: $border-radius;
   box-shadow: $shadow-md;
+  left: 0;
+  width: 100%;
   padding: 0.125rem 0;
-  min-width: 100%;
+  position: absolute;
+  top: calc(100% + 0.25rem);
   z-index: 10;
 
   &__button {
@@ -208,7 +237,12 @@ export default defineComponent({
   }
 
   &--global {
-    min-width: auto;
+    width: auto;
+  }
+
+  &--top {
+    top: auto;
+    bottom: calc(100% + 0.25rem);
   }
 }
 </style>
