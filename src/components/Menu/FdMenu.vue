@@ -7,45 +7,50 @@
       'fd-menu--top': direction === 'top',
     }"
     :style="{
-      ...(width ? [width] : []),
+      width: width ? width : '100%',
     }"
     @click.stop="$emit('menu:click')"
   >
     <div
-      v-for="(item, i) of items"
-      :key="item.text || item.slotName"
-      class="fd-menu__item"
+      ref="itemContainer"
+      class="fd-menu__items"
     >
-      <button
-        class="fd-menu__button"
-        :class="{
-          'fd-menu__button--focused': i === focusItem,
-          'fd-menu__button--small': small,
-          'fd-menu__button--selected': modelValue?.includes(item.value),
-        }"
-        @keydown.tab.prevent.stop="handleBlur"
-        @click.stop.prevent="handleClick(item.value)"
+      <div
+        v-for="(item, i) of items"
+        :key="item.text || item.slotName"
+        class="fd-menu__item"
       >
-        <fd-icon
-          v-if="item.icon"
-          class="fd-menu__button-icon"
-          :icon="item.icon"
-          :size="getIconSize('sm')"
-        />
-        <span class="fd-menu__button-text">
-          <slot :name="item.slotName">
-            {{ item.text }}
-          </slot>
-        </span>
-        <transition name="fade">
+        <button
+          class="fd-menu__button"
+          :class="{
+            'fd-menu__button--focused': i === focusItem,
+            'fd-menu__button--small': small,
+            'fd-menu__button--selected': modelValue?.includes(item.value),
+          }"
+          @keydown.tab.prevent.stop="handleTab"
+          @click.stop.prevent="handleClick(item.value)"
+        >
           <fd-icon
-            v-if="modelValue?.includes(item.value)"
-            class="fd-menu__button-check"
-            :icon="CheckIcon"
+            v-if="item.icon"
+            class="fd-menu__button-icon"
+            :icon="item.icon"
             :size="getIconSize('sm')"
           />
-        </transition>
-      </button>
+          <span class="fd-menu__button-text">
+            <slot :name="item.slotName">
+              {{ item.text }}
+            </slot>
+          </span>
+          <transition name="fade">
+            <fd-icon
+              v-if="modelValue?.includes(item.value)"
+              class="fd-menu__button-check"
+              :icon="CheckIcon"
+              :size="getIconSize('sm')"
+            />
+          </transition>
+        </button>
+      </div>
     </div>
   </div>
 </template>
@@ -53,18 +58,34 @@
 import { defineComponent, inject, shallowRef, PropType, onMounted, ShallowRef } from 'vue';
 import { CheckIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
-import { MenuPlacement } from '../../types/common';
+import { MenuDirection, MenuPlacement } from '../../types/common';
 import { SelectOption } from '../../types/forms';
 import { onDocumentClick } from '../../utils/document';
 import { onWindowEvent } from '../../utils/window';
 import { getIconSize } from '../../utils/icons';
 
+/**
+ * Menu
+ * 
+ * @param {MenuDirection} direction - To open the menu up or down by default
+ * @param {number} focusItem - The currently focused item index
+ * @param {SelectOption[]} - Array of menu items
+ * @param {MenuPlacement} - Whether the menu should open inline ('attached') or above all page content ('global')
+ * @param {string[]} - Array of values of currently selected item(s)
+ * @param {HTMLElement} - The parent element of the menu, used for placement
+ * @param {number} size - Number of menu items to show by default before scrolling
+ * @param {boolean} small - Whether the menu should be small
+ * @param {string} width - Valid CSS width to be used for the menu
+ */
 export default defineComponent({
   name: 'FdMenu',
   components: { FdIcon },
   props: {
+    /**
+     * TODO: Should allow left/right attach point as well
+     */
     direction: {
-      type: String as PropType<'top' | 'bottom'>,
+      type: String as PropType<MenuDirection>,
       default: 'bottom',
     },
     focusItem: {
@@ -87,9 +108,6 @@ export default defineComponent({
       type: Object as PropType<HTMLElement | null>,
       required: true,
     },
-    /**
-     * TODO: build out size attr - how many items we show in the menu at one time
-     */
     size: {
       type: Number,
       default: 7,
@@ -104,15 +122,45 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const menu = shallowRef<HTMLDivElement | null>(null);
     const app = inject<ShallowRef<HTMLDivElement | null>>('app');
-
-    function handleBlur(e: Event) {
-      emit('blur', e);
+    const globalSpace = shallowRef<boolean | null>(null);
+    const itemContainer = shallowRef<HTMLDivElement | null>(null);
+    const menu = shallowRef<HTMLDivElement | null>(null);
+    
+    /**
+     * Handle tab event in the off chance it occurs
+     */
+    function handleTab(e: Event) {
+      emit('tab', e);
     }
 
+    /**
+     * Handle menu item click
+     */
     function handleClick(val: string) {
       emit('item:click', val);
+    }
+
+    /**
+     * If we're using width, make sure the menu doesn't run off the screen
+     */
+     async function checkWidthSpacing() {
+      if (props.parent && menu.value && props.width && app?.value) {
+        const rightSpace = (app.value.clientWidth - props.parent.getBoundingClientRect().x) - menu.value.offsetWidth;
+        const parentRightOffset = app.value.clientWidth - (props.parent?.getBoundingClientRect().x + props.parent?.offsetWidth);
+
+        if (rightSpace < 16) {
+          menu.value.style.left = 'auto';
+          menu.value.style.right = (props.menuPlacement === 'global') ? `${parentRightOffset}px` : '0';
+        } else {
+          menu.value.style.left = '';
+          menu.value.style.right = '';
+        }
+
+        if (props.menuPlacement === 'global' && !menu.value.style.left) {
+          menu.value.style.left = `${props.parent.getBoundingClientRect().x}px`;
+        }
+      }
     }
 
     /**
@@ -132,19 +180,59 @@ export default defineComponent({
         const appVals = app.value.getBoundingClientRect();
         const menuVals = menu.value.getBoundingClientRect();
         const parentVals = props.parent.getBoundingClientRect();
+        const pageTop = window.scrollY + parentVals.y;
 
         menu.value.style.width = props.width ? props.width : `${parentVals.width}px`;
 
         // check if there's enough space for the menu below the parent
-        if (appVals.height - (parentVals.height + props.parent.offsetTop) > menuVals.height) {
+        if (
+          props.direction === 'bottom' &&
+            appVals.height - (parentVals.height + pageTop) > menuVals.height
+        ) {
           // there is space under the menu
-          menu.value.style.top = `${props.parent.offsetTop + parentVals.height + 4}px`;
-        } else {
-          // there is no space under the menu, so show above
-          menu.value.style.top = `${props.parent.offsetTop - menuVals.height - 4}px`;
+          if (globalSpace.value === null || !globalSpace.value) {
+            menu.value.style.top = `${pageTop + parentVals.height + 4}px`;
+          }
+        } else if (props.direction === 'bottom') {
+          // set to 'top' because there is no space under the menu, so show above
+          if (globalSpace.value === null || globalSpace.value) {
+            menu.value.style.top = `${pageTop - menuVals.height - 4}px`;
+          }
         }
 
-        menu.value.style.left = `${parentVals.x}px`;
+        if (
+          props.direction === 'top' &&
+            menuVals.height < window.scrollY + parentVals.y
+        ) {
+          // there is space above the menu
+          if (globalSpace.value === null || !globalSpace.value) {
+            menu.value.style.top = `${pageTop - menuVals.height - 4}px`;
+          }
+        } else if (props.direction === 'top') {
+          // set to 'bottom' because there is not space above the menu
+          menu.value.style.top = `${pageTop + parentVals.height + 4}px`;
+        }
+
+        if (!menu.value.style.left) {
+          menu.value.style.left = `${parentVals.x}px`;
+        }
+      }
+    }
+
+    /**
+     * Set the height of the menu based on the size
+     */
+    function setMenuSize() {
+      if (menu.value && itemContainer.value) {
+        const size = Math.min(props.size, props.items.length);
+        let itemsHeight = 0;
+        
+        for (let i = 0; i < size; i += 1) {
+          // @ts-ignore: This is safe because we check for the existance of menu.value above
+          itemsHeight += menu.value.querySelector(`.fd-menu__item:nth-child(${i + 1})`).offsetHeight;
+        }
+
+        itemContainer.value.style.maxHeight = `${itemsHeight}px`;
       }
     }
 
@@ -155,17 +243,20 @@ export default defineComponent({
     onMounted(() => {
       yoinkGlobalMenu();
       placeGlobalMenu();
+      checkWidthSpacing();
+      setMenuSize();
     });
 
-    /**
-     * TODO: change menu size/placement on window resizing
-     */
-    onWindowEvent('resize', placeGlobalMenu);
+    onWindowEvent('resize', () => {
+      placeGlobalMenu();
+      checkWidthSpacing();
+    });
 
     return {
       getIconSize,
-      handleBlur,
       handleClick,
+      handleTab,
+      itemContainer,
       menu,
       CheckIcon,
     }
@@ -187,6 +278,10 @@ export default defineComponent({
   top: calc(100% + 0.25rem);
   z-index: 10;
 
+  &__items {
+    overflow: auto;
+  }
+
   &__button {
     align-items: center;
     background-color: transparent;
@@ -195,10 +290,11 @@ export default defineComponent({
     display: inline-flex;
     font-size: $font-sm;
     justify-content: space-between;
-    width: 100%;
+    line-height: 1.25rem;
     min-height: 2.5rem;
     padding: $form-field_padding-y $form-field_padding-x;
     transition: $transition-timing color, $transition-timing background-color, $transition-timing box-shadow;
+    width: 100%;
 
     &:hover {
       background-color: rgba(var(--fora_neutral-3), 1);
@@ -223,11 +319,11 @@ export default defineComponent({
 
     &-icon {
       color: rgba(var(--fora_neutral-7), 1);
-      margin-right: 0.625rem;
+      margin-right: 0.5rem;
     }
 
     &-check {
-      margin-left: 0.625rem;
+      margin-left: 0.5rem;
     }
 
     &-text {
@@ -241,8 +337,8 @@ export default defineComponent({
   }
 
   &--top {
-    top: auto;
     bottom: calc(100% + 0.25rem);
+    top: auto;
   }
 }
 </style>

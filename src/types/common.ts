@@ -20,6 +20,7 @@ export interface ComponentWithText {
 
 export type SlotOrText = ComponentWithSlot | ComponentWithText;
 
+export type MenuDirection = 'top' | 'bottom';
 export type MenuPlacement = 'attached' | 'global';
 
 export type NodeOrNull = Node | null;

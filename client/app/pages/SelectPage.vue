@@ -98,6 +98,28 @@
     />
     <br><br>
 
+    <h4 class="mb-4">Many Items</h4>
+    <fd-select
+      id="test-overflow"
+      :items="itemsLong"
+      label="Example Select"
+      placeholder="Placeholder text here"
+      :size="6"
+      :small="small"
+    />
+    <br><br>
+
+    <h4 class="mb-4">Custom Width</h4>
+    <fd-select
+      id="test-overflow"
+      :items="itemsLong"
+      label="Example Select"
+      menu-width="15rem"
+      placeholder="Placeholder text here"
+      :small="small"
+    />
+    <br><br>
+    
     <h4 class="mb-4">Disabled</h4>
     <fd-select
       id="test-disabled"
@@ -238,6 +260,8 @@
     </div>
     <br><br>
 
+    <div class="box-spacer" />
+
   </div>
 </template>
 
@@ -282,6 +306,45 @@ export default defineComponent({
       {
         text: 'Zillow',
         value: 'zillow'
+      },
+    ]);
+
+    const itemsLong = shallowRef([
+      {
+        text: 'Bartholomew',
+        value: 'bartholomew'
+      },
+      {
+        text: 'Test',
+        value: 'test'
+      },
+      {
+        text: 'Testy',
+        value: 'testy'
+      },
+      {
+        text: 'Zillow',
+        value: 'zillow'
+      },
+      {
+        text: 'Yams',
+        value: 'yams'
+      },
+      {
+        text: 'Doggy',
+        value: 'doggy'
+      },
+      {
+        text: 'Mammals',
+        value: 'mammals'
+      },
+      {
+        text: 'Pillow',
+        value: 'pillow'
+      },
+      {
+        text: 'Zig Zag',
+        value: 'zig-zag'
       },
     ]);
 
@@ -346,6 +409,7 @@ export default defineComponent({
       testTel,
       testUrl,
       items,
+      itemsLong,
     };
   },
 })
@@ -357,9 +421,14 @@ export default defineComponent({
   background: rgba(var(--fora_neutral-2), 1);
   border: 1px solid rgba(var(--fora_neutral-5), 1);
   border-radius: 8px;
+  max-width: 100%;
   padding: 2rem;
   overflow: hidden;
-  width: 50%;
+  width: 500px;
+}
+
+@media (min-width: 700px) {
+  .box-spacer { height: 500px; }
 }
 
 </style>
