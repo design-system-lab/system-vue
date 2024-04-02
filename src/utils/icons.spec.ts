@@ -1,4 +1,4 @@
-import { getIconSize } from "./icons";
+import { getIconSize } from './icons';
 
 describe('Icon functions', () => {
   test('correct icon size returned by passing t-shirt size', () => {

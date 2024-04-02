@@ -23,6 +23,9 @@ module.exports = {
     quotes: ["error", "single"],
     "prefer-template": "error",
     "template-curly-spacing": ["error", "never"],
-    "@typescript-eslint/ban-ts-comment": "allow-with-description"
+    '@typescript-eslint/ban-ts-comment': [
+      'error',
+      {'ts-ignore': 'allow-with-description'},
+    ],
   },
 }

@@ -1,5 +1,4 @@
-import { fireEvent, render } from '@testing-library/vue'
-import userEvent from '@testing-library/user-event';
+import { render } from '@testing-library/vue'
 import FdSelect from './FdSelect.vue'
 import { CubeTransparentIcon } from '@heroicons/vue/24/solid';
 
@@ -38,10 +37,8 @@ const namedSlots = {
 }
 
 test('renders default input with label and assistive text', async () => {
-  const user = userEvent.setup();
   const initItem = props.items[0];
-  const nextItem = props.items[1];
-  const { getByTestId, getByText, getByDisplayValue } = render(FdSelect, { props: { ...props, modelValue: [initItem.value], errors: [] } });
+  const { getByText } = render(FdSelect, { props: { ...props, modelValue: [initItem.value], errors: [] } });
 
   getByText(props.label);
   getByText(props.assistiveText);

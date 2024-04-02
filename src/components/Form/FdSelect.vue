@@ -159,7 +159,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, shallowRef, watch, PropType, ComponentPublicInstance, Component } from 'vue';
+import { computed, defineComponent, shallowRef, watch, PropType, ComponentPublicInstance } from 'vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
