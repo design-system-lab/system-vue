@@ -164,8 +164,8 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
 import FdMenu from '../Menu';
-import { getIconSize } from '../../utils/icons';
 import { filterSlots } from '../../utils/components';
+import { getIconSize } from '../../utils/icons';
 import { ErrorMessages, Icon, MenuDirection, MenuPlacement, NodeOrNull } from '../../types/common';
 import { SelectOption } from '../../types/forms';
 

@@ -59,11 +59,11 @@
 import { defineComponent, inject, shallowRef, PropType, onMounted, ShallowRef } from 'vue';
 import { CheckIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon';
+import { onDocumentClick } from '../../utils/document';
+import { getIconSize } from '../../utils/icons';
+import { onWindowEvent } from '../../utils/window';
 import { MenuDirection, MenuPlacement } from '../../types/common';
 import { SelectOption } from '../../types/forms';
-import { onDocumentClick } from '../../utils/document';
-import { onWindowEvent } from '../../utils/window';
-import { getIconSize } from '../../utils/icons';
 
 /**
  * Menu
