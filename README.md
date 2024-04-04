@@ -35,15 +35,26 @@ Fora uses the [Heroicons](https://github.com/tailwindlabs/heroicons) icon librar
 
 Fora uses a consistent naming schema across both the design and development libraries:
 
-`[component]` `_` `[heirarchy]` `_` `[semantics]` `_` `[property]` `--` `[modifier]`
+`[component]` `_` `[heirarchy]` `_` `[sub-component/element]` `_` `[semantics]` `_` `[property]` `--` `[modifier]`
 
 For example:
 `input-field_primary_error_border--hover`
+`table_table-header_bg--focus`
 
 - Component: Optional (doesn't apply to global variables), this is a hyphen separated component name, for example: `input-field`
 - Heirarchy: Describes how the component relates to alternate versions of the component, for example: `primary` or `xs`
+- Sub-Component/Element: When variables are needed for a sub-component or child element. This could go before or after semanitics depending on if the semantics describe the component or sub-component/element.
 - Semantics: This is the current state of the component, for example: `error` or `readonly`
 - Property: Typically a keyword correlated to the CSS property using the variable, for example: `bg` or `border`
 - Modifier: This describes ephemeral states, for example: `hover` or `focus`
 
 To reduce confusion and maintain parity between developers and designers, the system uses the same variable names in both Figma and the development kit.
+
+# Z-Index Chart
+All items with a z-index should be listed here for reference:
+
+| Component | z-index | Description |
+| --------- | ------- | ----------- |
+| FdGroup   | 1       | z-index of 1 given to the current item in focus, so that the focus ring will appear above it's siblings |
+| Form Inputs | 1     | z-index given to form inputs so that error states will transition behind them |
+| FdMenu    | 10      | menu z-index, needs to sit above all other indexs so that it can appear above them when set to global |

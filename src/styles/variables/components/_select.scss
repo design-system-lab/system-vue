@@ -1,0 +1,11 @@
+// Variables specific to FbSelect
+
+// colors for theming, must be duplicated in theme map
+
+
+// default style vars
+$select_text_width: calc(100% - 1.75rem);
+
+
+// theme map, must replicate colors
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)

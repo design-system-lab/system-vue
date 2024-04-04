@@ -20,7 +20,12 @@ $border-radius: 8px !default;
 
 // elevation
 
-$elevation-1: 0 1px 2px rgba(var(--fora-neutral-10), 0.15) !default;
+$shadow-xs: 0 0 8px rgba(var(--fora_black), 0.15) !default;
+$shadow-sm: 0 0 12px rgba(var(--fora_black), 0.18) !default;
+$shadow-md: 0 0 24px rgba(var(--fora_black), 0.21) !default;
+$shadow-lg: 0 0 32px rgba(var(--fora_black), 0.24) !default;
+$shadow-xl: 0 0 40px rgba(var(--fora_black), 0.27) !default;
+
 
 // layout
 // these breakpoints sit between the design layouts/screen sizes so that the layout has wiggle room on either side of the breakpoint
