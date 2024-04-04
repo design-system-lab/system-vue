@@ -523,15 +523,15 @@ export default defineComponent({
 
   &__faux-input {
     cursor: pointer;
-    font-size: $font-sm;
-    max-width: calc(100% - 1.75rem);
+    font-size: $form-field_input_size;
+    max-width: $select_text_width;
     text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
   }
 
   &__placeholder {
-    color: rgba(var(--fora_neutral-7), 1);
+    color: rgba(var(--fora_form-field_placeholder_color), 1);
   }
 }
 </style>
