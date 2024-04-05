@@ -60,9 +60,9 @@
             @blur="handleBlur"
             @input="handleInput"
             @focus="hasFocus = true"
-            @keydown.down="handleDown"
+            @keydown.down.prevent="handleDown"
             @keydown.enter="handleEnter"
-            @keydown.up="handleUp"
+            @keydown.up.prevent="handleUp"
             @keydown.space.prevent="handleClick"
             @keydown.tab="handleTab"
             @mousedown.prevent
@@ -373,6 +373,7 @@ export default defineComponent({
     function handleDown() {
       if (focusedItem.value < props.items.length - 1) {
         focusedItem.value += 1;
+        emit('update:modelValue', props.items[focusedItem.value].value);
       }
     }
 
@@ -382,6 +383,7 @@ export default defineComponent({
     function handleUp() {
       if (focusedItem.value > 0) {
         focusedItem.value -= 1;
+        emit('update:modelValue', props.items[focusedItem.value].value);
       }
     }
 
