@@ -5,8 +5,17 @@
   outline: none;
 }
 
+@mixin focus-primary-inset-styles {
+  box-shadow: inset 0 0 0 4px rgba(var(--fora_primary-6), 0.61) !important;
+}
+
 @mixin focus-danger-styles {
   box-shadow: 0 0 0 4px rgba(var(--fora_danger-6), 0.6) !important;
+  outline: none;
+}
+
+@mixin focus-danger-inset-styles {
+  box-shadow: inset 0 0 0 4px rgba(var(--fora_danger-6), 0.6) !important;
   outline: none;
 }
 
@@ -55,4 +64,86 @@
   font-size: $font-xs;
   font-weight: $font-regular;
   margin-top: 0.25rem;
+}
+
+@mixin form-field-common {
+  width: 100%;
+
+  &__label {
+    display: block;
+    font-size: $form-field_label_size;
+    font-weight: $form-field_label_weight;
+    line-height: $form-field_label_line-height;
+    margin-bottom: $form-field_vertical_spacer;
+  }
+
+  &__prepend-icon {
+    color: rgba(var(--fora_form-field_icon_color));
+    flex: 0 0 auto;
+    margin-right: 0.5rem;
+  }
+
+  &__append-icon {
+    color: rgba(var(--fora_form-field_icon_color));
+    flex: 0 0 auto;
+    margin-left: 0.5rem;
+  }
+
+  &__input-field {
+    background-color: rgba(var(--fora_form-field_input_bg));
+    border: $form-field_border;
+    border-color: rgba(var(--fora_form-field_border-color));
+    border-radius: $form-field_border-radius;
+    line-height: 1.25rem;
+    padding: calc($form-field_padding-y - $form-field_border_size) calc($form-field_padding-x - $form-field_border_size);
+    position: relative;
+    transition: border .35s ease, box-shadow .35s ease;
+    z-index: 1;
+
+    &--focused {
+      @include focus-primary-styles;
+      border-color: rgba(var(--fora_form-field_border-color--focus));
+    }
+
+    &:hover {
+      border-color: rgba(var(--fora_form-field_border-color--hover));
+    }
+
+    &--small {
+      padding: calc($form-field_sm_padding-y - $form-field_border_size) calc($form-field_sm_padding-x - $form-field_border_size);
+    }
+
+    &--disabled:hover,
+    &--readonly:hover {
+      border-color: rgba(var(--fora_form-field_border-color));
+    }
+
+    &--readonly {
+      background-color: rgba(var(--fora_form-field_readonly_bg));
+    }
+
+    &--error {
+      border-color: rgba(var(--fora_form-field_error_border-color));
+
+      &:hover {
+        border-color: rgba(var(--fora_form-field_error_border-color--hover))
+      }
+    }
+
+    &--focused-error {
+      @include focus-danger-styles;
+      border-color: rgba(var(--fora_form-field_error_border-color--focus));
+    }
+
+    &--disabled {
+      background-color: rgba(var(--fora_form-field_disabled_bg));
+      border-color: rgba(var(--fora_form-field_disabled_border-color));
+      color: rgba(var(--fora_form-field_disabled_color));
+      cursor: default;
+    }
+  }
+
+  &__input-container {
+    display: flex;
+  }
 }

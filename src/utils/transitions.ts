@@ -70,8 +70,11 @@ export function slideInOutContent(phase: Phase, el: HTMLElement) {
     case 'leave':
       onLeave();
       break;
-    default:
+    case 'after-leave':
       onAfterLeave();
+      break;
+    default:
+      break;
   }
 }
 
@@ -144,7 +147,10 @@ export function swapContent(phase: Phase, el: HTMLElement, parent?: HTMLElement 
     case 'leave':
       onLeave();
       break;
-    default:
+    case 'after-leave':
       onAfterLeave();
+      break;
+    default:
+      break;
   }
 }

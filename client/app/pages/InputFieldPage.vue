@@ -227,8 +227,8 @@
       persistent-assistive-text
       :small="small"
     >
-      <template #prepend-icon><fd-icon :size="20"><cube-transparent-icon /></fd-icon></template>
-      <template #append-icon><fd-icon :size="20"><cube-transparent-icon /></fd-icon></template>
+      <template #prepend-icon><cube-transparent-icon /></template>
+      <template #append-icon><cube-transparent-icon /></template>
       <template #label>What is the Best Horse</template>
       <template #error-text>You should really check on that</template>
       <template #assistive-text>This is a descriptive area for the input</template>
