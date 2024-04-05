@@ -86,4 +86,5 @@ $defaultThemes: (
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-buttons);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-form);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-menu);
-$defaultThemes: map-merge($defaultThemes, 'default', $theme-switch);
+$defaultThemes: map-merge($defaultThemes, 'default', $theme-toggle);
+

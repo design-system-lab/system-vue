@@ -1,0 +1,33 @@
+// Variables specific to Fdtoggle
+
+// colors for theming, must duplicate in theme map
+$toggle_active_bg: $primary-6, 1 !default;
+$toggle_active_bg--hover: $primary-8, 1 !default;
+$toggle_active_bg--pressed: $primary-9, 1 !default;
+$toggle_inactive_bg: $neutral-6, 1 !default;
+$toggle_inactive_bg--hover: $neutral-7, 1 !default;
+$toggle_inactive_bg--pressed: $neutral-8, 1 !default;
+$toggle_knob_bg: $white;
+
+// default style vars
+$toggle_control_height: 1.75rem;
+$toggle_control_width: 3.5rem;
+$toggle_knob_height: 1.5rem;
+$toggle_knob_width: 1.5rem;
+$toggle_label_size: $form-field_label_size;
+$toggle_label_weight: $form-field_label_weight;
+$toggle_transition: $transition-timing background, $transition-timing left !default;
+$toggle_value_size: $form-field_auxillary-text_size;
+$toggle_value_weight: $form-field_auxillary-text_weight;
+
+// theme map, must replicate colors
+// when using, add --fora- before the key as the css variable, for example: var(--fora-toggle-primary)
+$theme-toggle: (
+  toggle_active_bg: $toggle_active_bg,
+  toggle_active_bg--hover: $toggle_active_bg--hover,
+  toggle_active_bg--pressed: $toggle_active_bg--pressed,
+  toggle_inactive_bg: $toggle_inactive_bg,
+  toggle_inactive_bg--hover: $toggle_inactive_bg--hover,
+  toggle_inactive_bg--pressed: $toggle_inactive_bg--pressed,
+  toggle_knob_bg: $toggle_knob_bg,
+);
