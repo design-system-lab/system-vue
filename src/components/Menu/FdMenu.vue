@@ -273,10 +273,11 @@ export default defineComponent({
   border-radius: $menu_border-radius;
   box-shadow: $menu_box-shadow;
   left: 0;
-  width: 100%;
+  overflow: hidden;
   padding: $menu_padding;
   position: absolute;
   top: $menu_top;
+  width: 100%;
   z-index: $menu_z-index;
 
   &__items {

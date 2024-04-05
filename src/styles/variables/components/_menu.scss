@@ -2,7 +2,7 @@
 
 // colors for theming, must be duplicated in theme map
 $menu_bg: $white !default;
-$menu_button_bg--hover: $neutral-3, 1 !default;
+$menu_button_bg--hover: $primary-6, 1 !default;
 $menu_button_color--selected: $primary-8, 1 !default;
 $menu_button-icon_color: $neutral-7, 1 !default;
 $menu_button-check_color: $primary-6, 1 !default;
@@ -20,7 +20,7 @@ $menu_button-check_margin-left: 0.5rem !default;
 $menu_border-radius: $border-radius !default;
 $menu_bottom: calc(100% + 0.25rem) !default;
 $menu_box-shadow: $shadow-md !default;
-$menu_padding: 0.125rem 0 !default;
+$menu_padding: 0.5rem 0 !default;
 $menu_top: calc(100% + 0.25rem) !default;
 $menu_z-index: 10 !default;
 
