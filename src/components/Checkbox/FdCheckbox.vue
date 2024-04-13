@@ -25,7 +25,17 @@
       :for="id"
     >
       <fd-checkbox-base
-        v-bind="{ disabled, errors, id, indeterminate, inputAttrs, modelValue, readonly, small, value }"
+        v-bind="{
+          disabled,
+          errors,
+          id,
+          indeterminate,
+          inputAttrs,
+          modelValue,
+          readonly,
+          small,
+          value
+        }"
         @blur="hasFocus = false"
         @focus="hasFocus = true"
         @update:model-value="onChange"
@@ -35,7 +45,7 @@
   </div>
 </template>
 <script lang="ts">
-import { PropType, defineComponent, shallowRef } from 'vue';
+import { defineComponent, shallowRef, PropType } from 'vue';
 import FdCheckboxBase from './FdCheckboxBase.vue';
 
 /**
@@ -97,10 +107,10 @@ export default defineComponent({
       required: true,
     },
   },
-  setup(props, { emit }) {
+  setup(_, { emit }) {
     const hasFocus = shallowRef(false);
 
-    const onChange = (event: Event) => {
+    const onChange = (event: boolean) => {
       emit('update:modelValue', event);
     };
 
@@ -123,8 +133,8 @@ export default defineComponent({
   &__label {
     align-items: center;
     border-radius: $checkbox_border-radius;
-    display: flex;
     cursor: pointer;
+    display: flex;
     font-size: $checkbox_size;
     gap: $checkbox_gap;
     line-height: 1.25rem;
@@ -173,8 +183,8 @@ export default defineComponent({
   }
 
   &--disabled {
-    cursor: not-allowed;
     color: rgba(var(--fora_checkbox_disabled_color));
+    cursor: not-allowed;
   }
 
   &--readonly {

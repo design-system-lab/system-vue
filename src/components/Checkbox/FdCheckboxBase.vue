@@ -17,12 +17,16 @@
       <fd-icon :icon="CheckIcon" :size="small ? 16 : 20" />
     </div>
     <div
-      v-show="!modelValue && indeterminate"
+      v-show="indeterminate && !modelValue"
       class="fd-checkbox-base__indeterminate"
     >
-      <fd-icon :icon="MinusIcon" :size="small ? 16 : 20" />
+      <fd-icon
+        :icon="MinusIcon"
+        :size="small ? 16 : 20"
+      />
     </div>
-    <input type="checkbox"
+    <input
+      :id="id"
       class="fd-checkbox-base__input"
       :class="{
         'fd-checkbox-base__input--disabled': disabled,
@@ -31,11 +35,11 @@
         'fd-checkbox-base__input--selected': modelValue,
         'fd-checkbox-base__input--small': small,
       }"
-      :id="id"
       :checked="modelValue"
       :disabled="disabled"
       :indeterminate="indeterminate"
       :readonly="readonly"
+      type="checkbox"
       :value="value"
       @blur="$emit('blur', $event)"
       @change="onChange"
@@ -44,7 +48,7 @@
   </div>
 </template>
 <script lang="ts">
-import { PropType, defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import { CheckIcon, MinusIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon/FdIcon.vue';
 
@@ -137,16 +141,6 @@ export default defineComponent({
     border-color:rgba(var(--fora_checkbox-base_border-color--hover));
   }
 
-  &--selected {
-    background-color: rgba(var(--fora_checkbox-base_bg--selected));
-    border-color: rgba(var(--fora_checkbox-base_border-color--selected));
-    color: rgba(var(--fora_checkbox-base_color--selected));
-
-    &:hover:not(.fd-checkbox-base--readonly) {
-      box-shadow: $checkbox-base_box-shadow rgba(var(--fora_checkbox-base_box-shadow--hover--selected));
-    }
-  }
-
   &--indeterminate {
     background-color: rgba(var(--fora_checkbox-base_bg--indeterminate));
     border-color: rgba(var(--fora_checkbox-base_border-color--indeterminate));
@@ -157,14 +151,19 @@ export default defineComponent({
     }
   }
 
+  &--selected {
+    background-color: rgba(var(--fora_checkbox-base_bg--selected));
+    border-color: rgba(var(--fora_checkbox-base_border-color--selected));
+    color: rgba(var(--fora_checkbox-base_color--selected));
+
+    &:hover:not(.fd-checkbox-base--readonly) {
+      box-shadow: $checkbox-base_box-shadow rgba(var(--fora_checkbox-base_box-shadow--hover--selected));
+    }
+  }
+
   &--readonly {
     background-color: rgba(var(--fora_checkbox-base_readonly_bg));
     border-color: rgba(var(--fora_checkbox-base_readonly_border-color));
-  }
-
-  &--readonly#{&}--selected {
-    background-color: rgba(var(--fora_checkbox-base_readonly_bg--selected));
-    border-color: rgba(var(--fora_checkbox-base_readonly_border-color--selected));
   }
 
   &--readonly#{&}--indeterminate {
@@ -172,14 +171,14 @@ export default defineComponent({
     border-color: rgba(var(--fora_checkbox-base_readonly_border-color--indeterminate));
   }
 
+  &--readonly#{&}--selected {
+    background-color: rgba(var(--fora_checkbox-base_readonly_bg--selected));
+    border-color: rgba(var(--fora_checkbox-base_readonly_border-color--selected));
+  }
+
   &--disabled {
     background-color: rgba(var(--fora_checkbox-base_disabled_bg));
     border-color: rgba(var(--fora_checkbox-base_disabled_border-color));
-  }
-
-  &--disabled#{&}--selected {
-    background-color: rgba(var(--fora_checkbox-base_disabled_bg--selected));
-    border-color: rgba(var(--fora_checkbox-base_disabled_border-color--selected));
   }
 
   &--disabled#{&}--indeterminate {
@@ -187,17 +186,14 @@ export default defineComponent({
     border-color: rgba(var(--fora_checkbox-base_disabled_border-color--indeterminate));
   }
 
+  &--disabled#{&}--selected {
+    background-color: rgba(var(--fora_checkbox-base_disabled_bg--selected));
+    border-color: rgba(var(--fora_checkbox-base_disabled_border-color--selected));
+  }
+
   &--error,
   &--error:hover {
     border-color: rgba(var(--fora_checkbox-base_error_border-color));
-  }
-
-  &--error#{&}--selected {
-    background-color: rgba(var(--fora_checkbox-base_error_border-color--selected));
-
-    &:hover {
-      box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--selected));
-    }
   }
 
   &--error#{&}--indeterminate {
@@ -205,6 +201,14 @@ export default defineComponent({
 
     &:hover {
       box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--indeterminate));
+    }
+  }
+
+  &--error#{&}--selected {
+    background-color: rgba(var(--fora_checkbox-base_error_border-color--selected));
+
+    &:hover {
+      box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--selected));
     }
   }
 
@@ -221,8 +225,8 @@ export default defineComponent({
   &__input {
     cursor: pointer;
     height: 100%;
-    position: absolute;
     opacity: 0;
+    position: absolute;
     width: 100%;
   }
 }

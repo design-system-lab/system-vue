@@ -4,7 +4,10 @@
       :id="id"
       class="fd-checkbox-group__fieldset"
     >
-      <legend v-if="label || $slots.label" class="fd-checkbox-group__legend">
+      <legend
+        v-if="label || $slots.label"
+        class="fd-checkbox-group__legend"
+      >
         <slot name="label">
           {{ label }}
         </slot>
@@ -24,7 +27,7 @@
           :small="checkbox.small"
           :value="checkbox.value"
         >
-          <slot :name="checkbox.slotName"/>
+          <slot :name="checkbox.slotName" />
         </fd-checkbox>
       </slot>
       <fd-input-post-text
@@ -49,7 +52,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, shallowRef, PropType } from 'vue';
+import { defineComponent } from 'vue';
 import FdCheckbox from '../Checkbox';
 import FdInputPostText from '../Form/FdInputPostText.vue';
 import { checkboxGroupProps } from '../../composables/group';
