@@ -16,31 +16,33 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent } from 'vue';
+import { PropType, computed, defineComponent } from 'vue';
 import FdButtonGroup from '../ButtonGroup';
-import { buttonGroupProps } from '../../composables/group';
+import FdCheckboxGroup from '../CheckboxGroup/FdCheckboxGroup.vue';
+import { buttonGroupProps, checkboxGroupProps } from '../../composables/group';
+import { GroupType } from '../../types/group';
 
 export default defineComponent({
   name: 'FdGroup',
-  components: { FdButtonGroup },
+  components: { FdButtonGroup, FdCheckboxGroup },
   props: {
     ...buttonGroupProps,
+    ...checkboxGroupProps,
+    type: {
+      type: String as PropType<GroupType>,
+      default: 'default',
+    },
   },
   setup(props) {
-    const groupType = computed(() => {
-      if (props.buttons.length !== 0) {
-        return 'button'
-      }
-
-      return 'default';
-    });
-
     const getComponent = computed(() => {
-      if (groupType.value === 'button') {
-        return 'fd-button-group';
+      switch (props.type) {
+        case 'button':
+          return 'fd-button-group';
+        case 'checkbox':
+          return 'fd-checkbox-group';
+        case 'default':
+          return 'div';
       }
-
-      return 'div';
     });
 
     return { getComponent };
@@ -55,22 +57,22 @@ export default defineComponent({
   white-space: nowrap;
 }
 
-:deep(:focus-visible) {
-  position: relative;
-  z-index: 1;
-}
-
 :deep(.fd-button) {
   border-radius: 0;
 
+  &:focus-visible {
+    position: relative;
+    z-index: 1;
+  }
+
   &:first-child {
-    border-radius: $border-radius;
+    border-radius: $border-radius_md;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
 
   &:last-child {
-    border-radius: $border-radius;
+    border-radius: $border-radius_md;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }

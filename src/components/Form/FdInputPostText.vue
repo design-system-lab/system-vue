@@ -20,7 +20,7 @@
         class="fd-input-post-text__errors"
       >
         <div
-          :id="`${id}__error-text`"
+          :id="id && `${id}__error-text`"
           class="fd-input-post-text__errors-text"
         >
           <fd-icon
@@ -46,7 +46,7 @@
         class="fd-input-post-text__assistive"
       >
         <div
-          :id="`${id}__assistive-text`"
+          :id="id && `${id}__assistive-text`"
           class="fd-input-post-text__assistive-text"
         >
           <slot name="assistive-text">
@@ -70,7 +70,7 @@
         class="fd-input-post-text__errors"
       >
         <div
-          :id="`${id}__error-text`"
+          :id="id && `${id}__error-text`"
           class="fd-input-post-text__errors-text"
         >
           <fd-icon
@@ -97,7 +97,7 @@
         class="fd-input-post-text__assistive"
       >
         <div
-          :id="`${id}__assistive-text`"
+          :id="id && `${id}__assistive-text`"
           class="fd-input-post-text__assistive-text"
         >
           <slot name="assistive-text">
@@ -122,7 +122,7 @@ import { ErrorMessages } from '../../types/common';
  * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
  * @param {array} errors - The keys of the error messages for the errors that are in effect
  * @param {ErrorMessages} errorMessages - Key:value pairs for possible errors, where the value is the error message displayed
- * @param {string} id - Required id for the input, used to correlate the label, hint text, and error message
+ * @param {string} id - Id for the input, used to correlate the label, hint text, and error message
  * @param {boolean} persistentAssistiveText - Whether to show the assistive text while displaying errors
  */
 export default defineComponent({
@@ -145,7 +145,7 @@ export default defineComponent({
     },
     id: {
       type: String,
-      required: true,
+      default: undefined,
     },
     persistentAssistiveText: {
       type: Boolean,

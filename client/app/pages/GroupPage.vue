@@ -3,7 +3,7 @@
     <h1>Buttons</h1>
     <br>
     <h4 class="mb-4">Default Button Group</h4>
-    <fd-group>
+    <fd-group type="button">
       <fd-button>
         Example one
       </fd-button>
@@ -20,7 +20,14 @@
 
     <br><br>
 
-    <fd-group v-model="active" :buttons="buttons" kind="secondary" size="xs" radio>
+    <fd-group
+      v-model="active"
+      :buttons="buttons"
+      kind="secondary"
+      size="xs"
+      radio
+      type="button"
+    >
       <template #third>
         Third Button
       </template>
@@ -28,7 +35,7 @@
 
     <br><br>
 
-    <fd-group>
+    <fd-group type="button">
       <fd-button kind="tertiary">
         Example one
       </fd-button>
@@ -45,7 +52,7 @@
 
     <br><br>
 
-    <fd-group>
+    <fd-group type="button">
       <fd-button kind="tertiary-neutral">
         Example one
       </fd-button>
@@ -62,7 +69,7 @@
 
     <br><br>
 
-    <fd-group>
+    <fd-group type="button">
       <fd-button kind="link" size="lg">
         Example one
       </fd-button>

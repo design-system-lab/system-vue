@@ -17,7 +17,7 @@ $menu_button_min-height: 2.5rem !default;
 $menu_button_transition: $transition-timing color, $transition-timing background-color, $transition-timing box-shadow !default;
 $menu_button-icon_margin-right: 0.5rem !default;
 $menu_button-check_margin-left: 0.5rem !default;
-$menu_border-radius: $border-radius !default;
+$menu_border-radius: $border-radius_md !default;
 $menu_bottom: calc(100% + 0.25rem) !default;
 $menu_box-shadow: $shadow-md !default;
 $menu_padding: 0.5rem 0 !default;

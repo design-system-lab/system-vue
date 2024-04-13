@@ -1,0 +1,85 @@
+// Variables specific to FdCheckbox
+
+// colors for theming, must be duplicated in theme map
+$checkbox_disabled_color: $neutral-5, 1;
+$checkbox_label_bg--hover: $primary-1, 1;
+$checkbox_label_error_bg--hover: $danger-1, 1;
+$checkbox_readonly_color: $neutral-11, 1;
+
+$checkbox-base_bg: $white, 1;
+$checkbox-base_bg--indeterminate: $primary-6, 1;
+$checkbox-base_bg--selected: $primary-6, 1;
+$checkbox-base_border-color: $neutral-7, 1;
+$checkbox-base_border-color--hover: $primary-6, 1;
+$checkbox-base_border-color--indeterminate: $primary-6, 1;
+$checkbox-base_border-color--selected: $primary-6, 1;
+$checkbox-base_box-shadow-color--hover--indeterminate: $primary-3, 1;
+$checkbox-base_box-shadow-color--hover--selected: $primary-3, 1;
+$checkbox-base_color--indeterminate: $white, 1;
+$checkbox-base_color--selected: $white, 1;
+$checkbox-base_disabled_bg: $neutral-3, 1;
+$checkbox-base_disabled_bg--indeterminate: $neutral-4, 1;
+$checkbox-base_disabled_bg--selected: $neutral-4, 1;
+$checkbox-base_disabled_border-color: $neutral-4, 1;
+$checkbox-base_disabled_border-color--indeterminate: $neutral-4, 1;
+$checkbox-base_disabled_border-color--selected: $neutral-4, 1;
+$checkbox-base_error_border-color: $danger-7, 1;
+$checkbox-base_error_border-color--indeterminate: $danger-7, 1;
+$checkbox-base_error_border-color--selected: $danger-7, 1;
+$checkbox-base_error_box-shadow-color--hover--indeterminate: $danger-3, 1;
+$checkbox-base_error_box-shadow-color--hover--selected: $danger-3, 1;
+$checkbox-base_readonly_bg: $neutral-3, 1;
+$checkbox-base_readonly_bg--indeterminate: $neutral-6, 1;
+$checkbox-base_readonly_bg--selected: $neutral-6, 1;
+$checkbox-base_readonly_border-color: $neutral-7, 1;
+$checkbox-base_readonly_border-color--indeterminate: $neutral-6, 1;
+$checkbox-base_readonly_border-color--selected: $neutral-6, 1;
+
+// default style vars
+$checkbox-base_border: 1px solid;
+$checkbox-base_border-radius: $border-radius_sm;
+$checkbox-base_box-shadow: 0 0 0 2px;
+$checkbox-base_height: 1.5rem;
+$checkbox-base_width: 1.5rem;
+$checkbox_border-radius: $border-radius_md;
+$checkbox_gap: 0.75rem;
+// $checkbox_height: 
+$checkbox_size: $form-field_input_size;
+
+// theme map, must replicate colors
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-checkbox: (
+  checkbox_disabled_color: $checkbox_disabled_color,
+  checkbox_label_bg--hover: $checkbox_label_bg--hover,
+  checkbox_label_error_bg--hover: $checkbox_label_error_bg--hover,
+  checkbox_readonly_color: $checkbox_readonly_color,
+
+  checkbox-base_bg: $checkbox-base_bg,
+  checkbox-base_bg--indeterminate: $checkbox-base_bg--indeterminate,
+  checkbox-base_bg--selected: $checkbox-base_bg--selected,
+  checkbox-base_border-color: $checkbox-base_border-color,
+  checkbox-base_border-color--hover: $checkbox-base_border-color--hover,
+  checkbox-base_border-color--indeterminate: $checkbox-base_border-color--indeterminate,
+  checkbox-base_border-color--selected: $checkbox-base_border-color--selected,
+  checkbox-base_box-shadow-color--hover--indeterminate: $checkbox-base_box-shadow-color--hover--indeterminate,
+  checkbox-base_box-shadow-color--hover--selected: $checkbox-base_box-shadow-color--hover--selected,
+  checkbox-base_color--indeterminate: $checkbox-base_color--indeterminate,
+  checkbox-base_color--selected: $checkbox-base_color--selected,
+  checkbox-base_disabled_bg: $checkbox-base_disabled_bg,
+  checkbox-base_disabled_bg--indeterminate: $checkbox-base_disabled_bg--indeterminate,
+  checkbox-base_disabled_bg--selected: $checkbox-base_disabled_bg--selected,
+  checkbox-base_disabled_border-color: $checkbox-base_disabled_border-color,
+  checkbox-base_disabled_border-color--indeterminate: $checkbox-base_disabled_border-color--indeterminate,
+  checkbox-base_disabled_border-color--selected: $checkbox-base_disabled_border-color--selected,
+  checkbox-base_error_border-color: $checkbox-base_error_border-color,
+  checkbox-base_error_border-color--indeterminate: $checkbox-base_error_border-color--indeterminate,
+  checkbox-base_error_border-color--selected: $checkbox-base_error_border-color--selected,
+  checkbox-base_error_box-shadow-color--hover--indeterminate: $checkbox-base_error_box-shadow-color--hover--indeterminate,
+  checkbox-base_error_box-shadow-color--hover--selected: $checkbox-base_error_box-shadow-color--hover--selected,
+  checkbox-base_readonly_bg: $checkbox-base_readonly_bg,
+  checkbox-base_readonly_bg--indeterminate: $checkbox-base_readonly_bg--indeterminate,
+  checkbox-base_readonly_bg--selected: $checkbox-base_readonly_bg--selected,
+  checkbox-base_readonly_border-color: $checkbox-base_readonly_border-color,
+  checkbox-base_readonly_border-color--indeterminate: $checkbox-base_readonly_border-color--indeterminate,
+  checkbox-base_readonly_border-color--selected: $checkbox-base_readonly_border-color--selected,
+);
