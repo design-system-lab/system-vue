@@ -173,7 +173,7 @@ export default defineComponent({
       @include focus-danger-styles;
     }
 
-    &--error:hover {
+    &--error:hover:not(#{&}--readonly) {
       background-color: rgba(var(--fora_checkbox_label_error_bg--hover));
 
       .fd-checkbox-base {

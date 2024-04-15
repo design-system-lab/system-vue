@@ -86,6 +86,7 @@ export default defineComponent({
 
   &__legend {
     font-size: $form-field_input_size;
+    font-weight: $font-medium;
     margin-bottom: 0.5rem;
   }
 }

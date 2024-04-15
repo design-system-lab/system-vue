@@ -2,8 +2,8 @@
 
 // colors for theming, must be duplicated in theme map
 $checkbox_disabled_color: $neutral-5, 1;
-$checkbox_label_bg--hover: $primary-1, 1;
-$checkbox_label_error_bg--hover: $danger-1, 1;
+$checkbox_label_bg--hover: $primary-6, 0.1;
+$checkbox_label_error_bg--hover: $danger-6, 0.1;
 $checkbox_readonly_color: $neutral-11, 1;
 
 $checkbox-base_bg: $white, 1;
@@ -13,8 +13,8 @@ $checkbox-base_border-color: $neutral-7, 1;
 $checkbox-base_border-color--hover: $primary-6, 1;
 $checkbox-base_border-color--indeterminate: $primary-6, 1;
 $checkbox-base_border-color--selected: $primary-6, 1;
-$checkbox-base_box-shadow-color--hover--indeterminate: $primary-3, 1;
-$checkbox-base_box-shadow-color--hover--selected: $primary-3, 1;
+$checkbox-base_box-shadow-color--hover--indeterminate: $primary-6, 0.35;
+$checkbox-base_box-shadow-color--hover--selected: $primary-6, 0.35;
 $checkbox-base_color--indeterminate: $white, 1;
 $checkbox-base_color--selected: $white, 1;
 $checkbox-base_disabled_bg: $neutral-3, 1;
@@ -26,8 +26,8 @@ $checkbox-base_disabled_border-color--selected: $neutral-4, 1;
 $checkbox-base_error_border-color: $danger-7, 1;
 $checkbox-base_error_border-color--indeterminate: $danger-7, 1;
 $checkbox-base_error_border-color--selected: $danger-7, 1;
-$checkbox-base_error_box-shadow-color--hover--indeterminate: $danger-3, 1;
-$checkbox-base_error_box-shadow-color--hover--selected: $danger-3, 1;
+$checkbox-base_error_box-shadow-color--hover--indeterminate: $danger-6, 0.4;
+$checkbox-base_error_box-shadow-color--hover--selected: $danger-6, 0.4;
 $checkbox-base_readonly_bg: $neutral-3, 1;
 $checkbox-base_readonly_bg--indeterminate: $neutral-6, 1;
 $checkbox-base_readonly_bg--selected: $neutral-6, 1;
