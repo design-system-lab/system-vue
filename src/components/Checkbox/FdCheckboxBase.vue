@@ -35,6 +35,7 @@
         'fd-checkbox-base__input--selected': modelValue,
         'fd-checkbox-base__input--small': small,
       }"
+      v-bind="inputAttrs"
       :checked="modelValue"
       :disabled="disabled"
       :indeterminate="indeterminate"
