@@ -3,10 +3,10 @@
     <input
       type="radio"
       v-bind="inputAttrs"
-      :name="name"
-      :value="value"
       :checked="modelValue === value"
       :disabled="disabled"
+      :name="name"
+      :value="value"
       @change="$emit('update:modelValue', value)"
     />
     <div
@@ -45,8 +45,8 @@ export default defineComponent({
       default: () => ({}),
     },
     modelValue: {
-      type: [String, Number, Boolean],
-      default: null,
+      type: String,
+      default: undefined,
     },
     name: {
       type: String,
@@ -57,7 +57,7 @@ export default defineComponent({
       default: false,
     },
     value: {
-      type: [String, Number, Boolean],
+      type: String,
       default: null,
     },
   },
@@ -71,3 +71,7 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+
+</style>
