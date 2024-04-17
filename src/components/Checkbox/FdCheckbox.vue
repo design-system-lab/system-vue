@@ -1,5 +1,5 @@
 <template>
-  <div
+  <label
     class="fd-checkbox"
     :class="{
       'fd-checkbox--disabled': disabled,
@@ -10,39 +10,27 @@
       'fd-checkbox--readonly': readonly,
       'fd-checkbox--small': small,
     }"
+    :for="id"
     :inert="disabled"
   >
-    <label
-      class="fd-checkbox__label"
-      :class="{
-        'fd-checkbox__label--disabled': disabled,
-        'fd-checkbox__label--error': (errors.length || $slots['error-text']),
-        'fd-checkbox__label--focused': hasFocus,
-        'fd-checkbox__label--focused-error': (errors.length && hasFocus),
-        'fd-checkbox__label--readonly': readonly,
-        'fd-checkbox__label--small': small,
+    <fd-checkbox-base
+      v-bind="{
+        disabled,
+        errors,
+        id,
+        indeterminate,
+        inputAttrs,
+        modelValue,
+        readonly,
+        small,
+        value
       }"
-      :for="id"
-    >
-      <fd-checkbox-base
-        v-bind="{
-          disabled,
-          errors,
-          id,
-          indeterminate,
-          inputAttrs,
-          modelValue,
-          readonly,
-          small,
-          value
-        }"
-        @blur="hasFocus = false"
-        @focus="hasFocus = true"
-        @update:model-value="onChange"
-      />
-      <slot>{{ label }}</slot>
-    </label>
-  </div>
+      @blur="hasFocus = false"
+      @focus="hasFocus = true"
+      @update:model-value="onChange"
+    />
+    <slot>{{ label }}</slot>
+  </label>
 </template>
 <script lang="ts">
 import { defineComponent, shallowRef, PropType } from 'vue';
@@ -126,55 +114,53 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-checkbox {
-  &--disabled {
-    pointer-events: none;
-  }
+  align-items: center;
+  border-radius: $checkbox_border-radius;
+  cursor: pointer;
+  display: flex;
+  font-size: $checkbox_size;
+  gap: $checkbox_gap;
+  line-height: 1.25rem;
+  padding: 0.25rem;
+  transition: $transition-timing background-color;
 
-  &__label {
-    align-items: center;
-    border-radius: $checkbox_border-radius;
-    cursor: pointer;
-    display: flex;
-    font-size: $checkbox_size;
-    gap: $checkbox_gap;
-    line-height: 1.25rem;
-    padding: 0.25rem;
-    transition: $transition-timing background-color;
+  &:hover:not(#{&}--readonly) {
+    background-color: rgba(var(--fora_checkbox_bg--hover));
 
-    &:hover:not(#{&}--readonly) {
-      background-color: rgba(var(--fora_checkbox_label_bg--hover));
+    .fd-checkbox-base {
+      border-color: rgba(var(--fora_checkbox-base_border-color--hover));
 
-      .fd-checkbox-base {
-        border-color: rgba(var(--fora_checkbox-base_border-color--hover));
+      &--selected {
+        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_box-shadow-color--hover--selected));
+      }
 
-        &--selected {
-          box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_box-shadow-color--hover--selected));
-        }
+      &--indeterminate {
+        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_box-shadow-color--hover--indeterminate));
+      }
 
-        &--indeterminate {
-          box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_box-shadow-color--hover--indeterminate));
-        }
+      &--error.fd-checkbox-base--selected {
+        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--selected));
+      }
 
-        &--error.fd-checkbox-base--selected {
-          box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--selected));
-        }
-
-        &--error.fd-checkbox-base--indeterminate {
-          box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--indeterminate));
-        }
+      &--error.fd-checkbox-base--indeterminate {
+        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--indeterminate));
       }
     }
+  }
 
-    &--focused {
-      @include focus-primary-styles;
-    }
+  &--focused {
+    @include focus-primary-styles;
+  }
 
-    &--focused-error {
-      @include focus-danger-styles;
-    }
+  &--focused-error {
+    @include focus-danger-styles;
+  }
 
-    &--error:hover:not(#{&}--readonly) {
-      background-color: rgba(var(--fora_checkbox_label_error_bg--hover));
+  &--error {
+    color: rgba(var(--fora_checkbox_error_color));
+
+    &:hover:not(#{&}--readonly) {
+      background-color: rgba(var(--fora_checkbox_error_bg--hover));
 
       .fd-checkbox-base {
         border-color: rgba(var(--fora_checkbox-base_error_border-color));
@@ -182,13 +168,13 @@ export default defineComponent({
     }
   }
 
+  &--readonly {
+    color: rgba(var(--fora_checkbox_readonly_color));
+  }
+
   &--disabled {
     color: rgba(var(--fora_checkbox_disabled_color));
     cursor: not-allowed;
-  }
-
-  &--readonly {
-    color: rgba(var(--fora_checkbox_readonly_color));
   }
 }
 

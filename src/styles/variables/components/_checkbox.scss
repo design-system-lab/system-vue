@@ -2,8 +2,9 @@
 
 // colors for theming, must be duplicated in theme map
 $checkbox_disabled_color: $neutral-5, 1;
-$checkbox_label_bg--hover: $primary-6, 0.1;
-$checkbox_label_error_bg--hover: $danger-6, 0.1;
+$checkbox_bg--hover: $primary-6, 0.1;
+$checkbox_error_bg--hover: $danger-6, 0.1;
+$checkbox_error_color: $danger-7, 1;
 $checkbox_readonly_color: $neutral-11, 1;
 
 $checkbox-base_bg: $white, 1;
@@ -50,8 +51,9 @@ $checkbox_size: $form-field_input_size;
 // when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
 $theme-checkbox: (
   checkbox_disabled_color: $checkbox_disabled_color,
-  checkbox_label_bg--hover: $checkbox_label_bg--hover,
-  checkbox_label_error_bg--hover: $checkbox_label_error_bg--hover,
+  checkbox_bg--hover: $checkbox_bg--hover,
+  checkbox_error_bg--hover: $checkbox_error_bg--hover,
+  checkbox_error_color: $checkbox_error_color,
   checkbox_readonly_color: $checkbox_readonly_color,
 
   checkbox-base_bg: $checkbox-base_bg,
