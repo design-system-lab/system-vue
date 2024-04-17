@@ -8,8 +8,8 @@
       :name="name"
       :value="value"
       @blur="$emit('blur')"
-      @focus="$emit('focus')"
       @change="$emit('update:modelValue', value)"
+      @focus="$emit('focus')"
     />
     <div
       class="fd-radio-base__indicator"
@@ -96,12 +96,12 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-right: 8px;
+    margin-right: 0.75rem;
     transition: $transition-timing border-color;
 
     &--disabled {
-      border-color: #ccc;
-      background-color: #ccc;
+      border-color: rgba(var(--fora_neutral-4), 1);
+      background-color: rgba(var(--fora_neutral-3), 1);
     }
 
     &--focused {
@@ -109,12 +109,12 @@ export default defineComponent({
     }
 
     &--error {
-      border-color: red;
+      border-color: rgba(var(--fora_danger-7), 1);
     }
 
     &--readonly {
-      border-color: #000;
-      background-color: #000;
+      border-color: rgba(var(--fora_neutral-7), 1);
+      background-color: rgba(var(--fora_neutral-3), 1);
     }
 
     .fd-radio-base__indicator-inner {

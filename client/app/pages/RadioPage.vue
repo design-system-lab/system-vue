@@ -19,7 +19,12 @@
 
 
     <h4 class="mt-4">Radio Group</h4>
-    <fd-radio-group v-model="val" id="radio-group" name="radio-group">
+    <fd-radio-group
+      v-model="val"
+      id="radio-group"
+      label="Radio Group Label"
+      name="radio-group"
+    >
       <fd-radio value="radio-1">Radio 1</fd-radio>
       <fd-radio value="radio-2">Radio 2</fd-radio>
       <fd-radio value="radio-3">Radio 3</fd-radio>

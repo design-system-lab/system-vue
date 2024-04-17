@@ -5,8 +5,9 @@
       'fd-radio--disabled': disabled,
       'fd-radio--error': errors.length,
       'fd-radio--focused': focused,
+      'fd-radio--focused-error': focused && errors.length,
       'fd-radio--readonly': readonly,
-      'fd-radio--selected': modelValue === value,
+      'fd-radio--selected': (modelValue || groupModelValue) === value,
     }"
   >
     <fd-radio-base
@@ -20,8 +21,8 @@
         value
       }"
       @blur="focused = false"
-      @focus="focused = true"
       @update:modelValue="handleChange"
+      @focus="focused = true"
     />
     <slot>{{ label }}</slot>
   </label>
@@ -100,20 +101,52 @@ export default defineComponent({
   padding: 0.25rem;
   border-radius: $border-radius_md;
   transition: background-color $transition-timing;
+  font-size: $font-sm;
+
+  &:hover {
+    background-color: rgba(var(--fora_primary-6), 0.1);
+  }
+
+  &--selected {
+    &:hover {
+      &:deep(.fd-radio-base__indicator) {
+        box-shadow: 0 0 0 2px rgba(var(--fora_primary-6), 0.35);
+      }
+    }
+  }
+
+  &--readonly {
+    color: rgba(var(--fora_neutral-11), 1);
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
 
   &--disabled {
+    color: rgba(var(--fora_neutral-5), 1);
     cursor: not-allowed;
-    opacity: 0.5;
+
+    &:hover {
+      background-color: transparent;
+    }
   }
 
   &--error {
-    // something
+    color: rgba(var(--fora_danger-7), 1);
+
+    &:hover {
+      background-color: rgba(var(--fora_danger-6), 0.1);
+    }
   }
 
   &--focused {
     @include focus-primary-styles;
   }
 
+  &--focused-error {
+    @include focus-danger-styles;
+  }
 }
 
 </style>

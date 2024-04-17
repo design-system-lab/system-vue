@@ -129,3 +129,26 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+@import '../../styles/required';
+
+.fd-radio-group {
+  .fd-radio-group__fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .fd-radio-group__legend {
+    font-size: $font-sm;
+    font-weight: $font-medium;
+    margin-bottom: 0.5rem;
+  }
+
+  &:deep(.fd-radio) {
+    margin-bottom: 0.5rem;
+  }
+}
+
+</style>
