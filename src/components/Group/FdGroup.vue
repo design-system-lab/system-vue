@@ -40,9 +40,9 @@ export default defineComponent({
           return 'fd-button-group';
         case 'checkbox':
           return 'fd-checkbox-group';
-        case 'default':
-          return 'div';
       }
+
+      return 'div';
     });
 
     return { getComponent };
