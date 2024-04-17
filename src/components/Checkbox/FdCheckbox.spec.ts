@@ -15,7 +15,7 @@ test('renders checkbox text', () => {
 });
 
 // write unit test for disabled FdCheckbox component
-test('renders disabled checkbox', () => {``
+test('renders disabled checkbox', () => {
   const { getByText } = render(FdCheckbox, {
     props: {
       id: 'checkbox',

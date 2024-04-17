@@ -14,7 +14,10 @@
       v-show="modelValue"
       class="fd-checkbox-base__check"
     >
-      <fd-icon :icon="CheckIcon" :size="small ? 16 : 20" />
+      <fd-icon
+        :icon="CheckIcon"
+        :size="small ? 16 : 20"
+      />
     </div>
     <div
       v-show="indeterminate && !modelValue"
@@ -45,7 +48,7 @@
       @blur="$emit('blur', $event)"
       @change="onChange"
       @focus="$emit('focus', $event)"
-    />
+    >
   </div>
 </template>
 <script lang="ts">
@@ -113,7 +116,7 @@ export default defineComponent({
       if (props.disabled || props.readonly) return;
 
       emit('update:modelValue', (event.target as HTMLInputElement).checked);
-    };
+    }
 
     return { onChange, CheckIcon, MinusIcon };
   },
