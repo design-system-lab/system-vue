@@ -64,13 +64,13 @@ export default defineComponent({
   border-radius: 0;
 
   &:first-child {
-    border-radius: $border-radius;
+    border-radius: $border-radius_md;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
 
   &:last-child {
-    border-radius: $border-radius;
+    border-radius: $border-radius_md;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
   }

@@ -10,15 +10,25 @@
     }"
   >
     <fd-radio-base
-      v-bind="{ disabled, errors, inputAttrs, modelValue, name, readonly, value }"
+      v-bind="{
+        disabled,
+        errors,
+        inputAttrs,
+        modelValue: modelValue || groupModelValue,
+        name: name || groupName,
+        readonly,
+        value
+      }"
+      @blur="focused = false"
+      @focus="focused = true"
       @update:modelValue="handleChange"
     />
-    <slot name="label">{{ label }}</slot>
+    <slot>{{ label }}</slot>
   </label>
 </template>
 
 <script lang="ts">
-import { defineComponent, readonly, shallowRef } from 'vue';
+import { defineComponent, inject, readonly, shallowRef } from 'vue';
 import FdRadioBase from './FdRadioBase.vue';
 
 export default defineComponent({
@@ -47,7 +57,7 @@ export default defineComponent({
     },
     name: {
       type: String,
-      default: null,
+      default: undefined,
     },
     readonly: {
       type: Boolean,
@@ -55,21 +65,55 @@ export default defineComponent({
     },
     value: {
       type: String,
-      default: undefined,
+      required: true,
     },
   },
   emits: ['update:modelValue'],
   setup(_, { emit }) {
     const focused = shallowRef(false);
+    const groupName = inject('groupName', '');
+    const groupModelValue = inject('groupModelValue', '');
+    const groupHandleModelValue = inject('groupHandleModelValue', (val: string): void => {});
 
     const handleChange = (value: string) => {
       emit('update:modelValue', value);
+      groupHandleModelValue(value);
     };
     
     return {
       focused,
+      groupName,
+      groupModelValue,
       handleChange,
     };
   },
 });
 </script>
+
+<style lang="scss" scoped>
+@import '../../styles/required';
+
+.fd-radio {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  border-radius: $border-radius_md;
+  transition: background-color $transition-timing;
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &--error {
+    // something
+  }
+
+  &--focused {
+    @include focus-primary-styles;
+  }
+
+}
+
+</style>
