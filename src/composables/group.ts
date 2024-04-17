@@ -2,7 +2,8 @@ import { PropType } from 'vue';
 import { tshirt } from '../utils/validators';
 import { ButtonKind } from '../types/button';
 import { ButtonGroupButton } from '../types/button';
-import { TshirtSize } from '../types/common';
+import { ErrorMessages, TshirtSize } from '../types/common';
+import { CheckboxGroupCheckbox } from '../types/forms';
 
 export const buttonGroupProps = {
   buttons: {
@@ -27,5 +28,36 @@ export const buttonGroupProps = {
     type: String as PropType<TshirtSize>,
     default: 'md',
     validator: (opt: string) => tshirt(opt),
+  },
+};
+
+export const checkboxGroupProps = {
+  assistiveText: {
+    type: String,
+    default: undefined,
+  },
+  checkboxes: {
+    type: Array as PropType<CheckboxGroupCheckbox[]>,
+    default: () => [],
+  },
+  errors: {
+    type: Array as PropType<string[]>,
+    default: () => [],
+  },
+  errorMessages: {
+    type: Object as PropType<ErrorMessages>,
+    default: () => ({}),
+  },
+  id: {
+    type: String,
+    required: true,
+  },
+  label: {
+    type: String,
+    default: undefined,
+  },
+  persistentAssistiveText: {
+    type: Boolean,
+    default: false,
   },
 };

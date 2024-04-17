@@ -1,5 +1,7 @@
-@import './components/button';
+// form goes first, other components use it
 @import './components/form';
+@import './components/button';
+@import './components/checkbox';
 @import './components/menu';
 @import './components/select';
 @import './components/toggle';
