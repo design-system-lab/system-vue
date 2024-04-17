@@ -23,6 +23,13 @@
     >
       <div
         class="fd-radio-base__indicator-inner"
+        :class="{
+        'fd-radio-base__indicator-inner--disabled': disabled,
+        'fd-radio-base__indicator-inner--focused': focused,
+        'fd-radio-base__indicator-inner--error': errors.length,
+        'fd-radio-base__indicator-inner--readonly': readonly,
+        'fd-radio-base__indicator-inner--selected': modelValue === value,
+      }"
       />
     </div>
   </div>
@@ -89,6 +96,7 @@ export default defineComponent({
 
   .fd-radio-base__indicator {
     background-color: rgba(var(--fora_white), 1);
+    box-shadow: 0 0 0 2px transparent;
     width: 1.5rem;
     height: 1.5rem;
     border-radius: 50%;
@@ -97,19 +105,10 @@ export default defineComponent({
     align-items: center;
     justify-content: center;
     margin-right: 0.75rem;
-    transition: $transition-timing border-color;
-
-    &--disabled {
-      border-color: rgba(var(--fora_neutral-4), 1);
-      background-color: rgba(var(--fora_neutral-3), 1);
-    }
+    transition: $transition-timing border-color, $transition-timing box-shadow;
 
     &--focused {
       border-color: #000;
-    }
-
-    &--error {
-      border-color: rgba(var(--fora_danger-7), 1);
     }
 
     &--readonly {
@@ -124,6 +123,10 @@ export default defineComponent({
       background-color: rgba(var(--fora_primary-6), 1);
       opacity: 0;
       transition: $transition-timing opacity;
+
+      &--error {
+        background-color: rgba(var(--fora_danger-7), 1);
+      }
     }
 
     &--selected {
@@ -132,6 +135,15 @@ export default defineComponent({
       .fd-radio-base__indicator-inner {
         opacity: 1;
       }
+    }
+
+    &--error {
+      border-color: rgba(var(--fora_danger-7), 1);
+    }
+
+    &--disabled {
+      border-color: rgba(var(--fora_neutral-4), 1);
+      background-color: rgba(var(--fora_neutral-3), 1);
     }
   }
 }

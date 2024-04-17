@@ -11,8 +11,9 @@
     <h4 class="mt-4">Radio with Label</h4>
     <fd-radio label="Radio Label" value="label" />
 
-    <h4 class="mt-4">Radio with Error</h4>
+    <h4 class="mt-4">Radios with Error</h4>
     <fd-radio :errors="['test']" value="error">This is a Radio</fd-radio>
+    <fd-radio :errors="['test']" value="error" model-value="error">This is a Radio</fd-radio>
 
     <h4 class="mt-4">Readonly Radio</h4>
     <fd-radio readonly value="readonly">This is a Radio</fd-radio>

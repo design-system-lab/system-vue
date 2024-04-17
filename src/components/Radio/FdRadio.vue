@@ -123,20 +123,28 @@ export default defineComponent({
     }
   }
 
+  &--error {
+    color: rgba(var(--fora_danger-7), 1);
+
+    &:hover {
+      background-color: rgba(var(--fora_danger-6), 0.1);
+    }
+  }
+
+  &--error {
+    &:hover {
+      &:deep(.fd-radio-base__indicator) {
+        box-shadow: 0 0 0 2px rgba(var(--fora_danger-6), 0.4);
+      }
+    }
+  }
+
   &--disabled {
     color: rgba(var(--fora_neutral-5), 1);
     cursor: not-allowed;
 
     &:hover {
       background-color: transparent;
-    }
-  }
-
-  &--error {
-    color: rgba(var(--fora_danger-7), 1);
-
-    &:hover {
-      background-color: rgba(var(--fora_danger-6), 0.1);
     }
   }
 
