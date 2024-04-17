@@ -10,7 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, inject, provide, shallowRef } from 'vue';
-import { ThemeSupport } from '../../utils/theme';
+import { ThemeSupport } from '../../utils';
 
 export default defineComponent({
   name: 'FdApp',

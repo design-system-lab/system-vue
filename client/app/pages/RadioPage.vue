@@ -19,27 +19,28 @@
 
 
     <h4 class="mt-4">Radio Group</h4>
-    <fd-radio-group
+    <fd-group
       v-model="val"
       id="radio-group"
       label="Radio Group Label"
       name="radio-group"
+      type="radio"
     >
       <fd-radio value="radio-1">Radio 1</fd-radio>
       <fd-radio value="radio-2">Radio 2</fd-radio>
       <fd-radio value="radio-3">Radio 3</fd-radio>
-    </fd-radio-group>
+    </fd-group>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, shallowRef } from 'vue';
 import FdRadio from '../../../src/components/Radio';
-import FdRadioGroup from '../../../src/components/RadioGroup';
+import FdGroup from '../../../src/components/Group';
 
 export default defineComponent({
   name: 'RadioPage',
-  components: { FdRadio, FdRadioGroup },
+  components: { FdRadio, FdGroup },
   setup () {
     const val = shallowRef('');
 

@@ -57,8 +57,8 @@
 import { defineComponent, provide, PropType, watch, toRefs, shallowRef } from 'vue';
 import FdRadio from '../Radio';
 import FdInputPostText from '../Form/FdInputPostText.vue';
-import { filterSlots } from '../../utils/components';
-import { ErrorMessages } from '../../types/common';
+import { filterSlots } from '../../utils';
+import { ErrorMessages } from '../../types';
 
 export default defineComponent({
   name: 'FdRadioGroup',
