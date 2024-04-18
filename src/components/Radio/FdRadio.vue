@@ -115,6 +115,7 @@ export default defineComponent({
   cursor: pointer;
   display: flex;
   font-size: $font-sm;
+  gap: $radio_gap;
   padding: 0.25rem;
   border-radius: $radio_border-radius;
   transition: background-color $transition-timing;

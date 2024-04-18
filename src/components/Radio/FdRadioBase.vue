@@ -113,51 +113,45 @@ export default defineComponent({
   }
 
   &__indicator {
-    background-color: rgba(var(--fora_white), 1);
-    box-shadow: 0 0 0 2px transparent;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 50%;
-    border: 1px solid rgba(var(--fora_neutral-7), 1);
-    display: flex;
     align-items: center;
+    background-color: rgba(var(--fora_radio-base_indicator_bg));
+    border: 1px solid rgba(var(--fora_radio-base_indicator_border-color));
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px transparent;
+    display: flex;
+    height: $radio-base_indicator_height;
     justify-content: center;
-    margin-right: 0.75rem;
     transition: $transition-timing border-color, $transition-timing box-shadow;
-
-    &--focused {
-      border-color: #000;
-    }
+    width: $radio-base_indicator_width;
 
     &--readonly {
-      border-color: rgba(var(--fora_neutral-7), 1);
-      background-color: rgba(var(--fora_neutral-3), 1);
-
+      border-color: rgba(var(--fora_radio-base_readonly_border-color));
+      background-color: rgba(var(--fora_radio-base_readonly_bg));
     }
 
     &-inner {
-      width: 1rem;
-      height: 1rem;
       border-radius: 50%;
-      background-color: rgba(var(--fora_primary-6), 1);
+      background-color: rgba(var(--fora_radio-base_indicator-inner_bg));
+      height: $radio-base_indicator-inner_height;
       opacity: 0;
       transition: $transition-timing opacity;
+      width: $radio-base_indicator-inner_width;
 
       &--readonly {
-        background-color: rgba(var(--fora_neutral-6), 1);
+        background-color: rgba(var(--fora_radio-base_indicator-inner_readonly_bg));
       }
 
       &--error {
-        background-color: rgba(var(--fora_danger-7), 1);
+        background-color: rgba(var(--fora_radio-base_error_bg));
       }
 
       &--disabled {
-        background-color: rgba(var(--fora_neutral-4), 1);
+        background-color: rgba(var(--fora_radio-base_disabled_bg));
       }
     }
 
     &--selected {
-      border: 2px solid rgba(var(--fora_primary-6), 1);
+      border: 2px solid rgba(var(--fora_radio-base_indicator_border-color--selected));
 
       .fd-radio-base__indicator-inner {
         opacity: 1;
@@ -165,22 +159,22 @@ export default defineComponent({
     }
 
     &--selected#{&}--readonly {
-      border-color: rgba(var(--fora_neutral-6), 1);
+      border-color: rgba(var(--fora_radio-base_indicator_readonly_border-color--selected));
     }
 
     &--error {
-      border-color: rgba(var(--fora_danger-7), 1);
+      border-color: rgba(var(--fora_radio-base_indicator_error_border-color));
     }
 
     &--disabled {
-      border-color: rgba(var(--fora_neutral-4), 1);
-      background-color: rgba(var(--fora_neutral-3), 1);
+      border-color: rgba(var(--fora_radio-base_indicator_disabled_border-color));
+      background-color: rgba(var(--fora_radio-base_indicator_disabled_bg));
       cursor: not-allowed;
     }
 
     // selected bg goes last because it applies to all
     &--selected {
-      background-color: rgba(var(--fora_white), 1);
+      background-color: rgba(var(--fora_radio-base_indicator_bg));
     }
   }
 }

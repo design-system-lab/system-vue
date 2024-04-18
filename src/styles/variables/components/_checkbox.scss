@@ -37,15 +37,15 @@ $checkbox-base_readonly_border-color--indeterminate: $neutral-6, 1;
 $checkbox-base_readonly_border-color--selected: $neutral-6, 1;
 
 // default style vars
+$checkbox_border-radius: $border-radius_md;
+$checkbox_gap: 0.75rem;
+$checkbox_size: $form-field_input_size;
+
 $checkbox-base_border: 1px solid;
 $checkbox-base_border-radius: $border-radius_sm;
 $checkbox-base_box-shadow: 0 0 0 2px;
 $checkbox-base_height: 1.5rem;
 $checkbox-base_width: 1.5rem;
-$checkbox_border-radius: $border-radius_md;
-$checkbox_gap: 0.75rem;
-// $checkbox_height: 
-$checkbox_size: $form-field_input_size;
 
 // theme map, must replicate colors
 // when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)

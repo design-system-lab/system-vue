@@ -168,7 +168,7 @@ export default defineComponent({
   }
 
   .fd-radio-group__legend {
-    font-size: $font-sm;
+    font-size: $form-field_label_size;
     font-weight: $font-medium;
     margin-bottom: 0.5rem;
   }
