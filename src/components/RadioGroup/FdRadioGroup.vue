@@ -3,6 +3,7 @@
     <fieldset
       :id="id"
       class="fd-radio-group__fieldset"
+      :disabled="disabled"
     >
       <legend
         v-if="label || $slots.label"
@@ -16,7 +17,7 @@
         <fd-radio
           v-for="radio in radios"
           :key="radio.id"
-          :disabled="radio.disabled"
+          :disabled="disabled || radio.disabled"
           :errors="errors"
           :id="radio.id"
           :indeterminate="radio.indeterminate"
@@ -107,22 +108,35 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const poop = shallowRef(props.modelValue);
+    const currentVal = shallowRef(props.modelValue);
+    const currentErrors = shallowRef(props.errors);
+    const currentDisabled = shallowRef(props.disabled);
 
     function handleModelValue(value: string) {
       emit('update:modelValue', value);
     }
 
-    provide('groupName', props.name);
-    provide('groupModelValue', poop);
+    
+    provide('groupErrors', currentErrors);
+    provide('groupDisabled', currentDisabled);
     provide('groupHandleModelValue', handleModelValue);
+    provide('groupModelValue', currentVal);
+    provide('groupName', props.name);
 
     watch(() => props.modelValue, (value) => {
-      poop.value = value;
+      currentVal.value = value;
+    });
+
+    watch(() => props.errors, (value) => {
+      currentErrors.value = value;
+    });
+
+    watch(() => props.disabled, (value) => {
+      currentDisabled.value = value;
     });
 
     return {
-      poop,
+      currentVal,
       filterSlots,
       handleModelValue,
     };

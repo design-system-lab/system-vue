@@ -3,6 +3,7 @@
     <fieldset
       :id="id"
       class="fd-checkbox-group__fieldset"
+      :disabled="disabled"
     >
       <legend
         v-if="label || $slots.label"
@@ -17,7 +18,7 @@
           v-for="checkbox in checkboxes"
           v-model="checkbox.modelValue"
           :key="checkbox.id"
-          :disabled="checkbox.disabled"
+          :disabled="disabled || checkbox.disabled"
           :errors="errors"
           :id="checkbox.id"
           :indeterminate="checkbox.indeterminate"
@@ -69,6 +70,10 @@ export default defineComponent({
     checkboxes: {
       type: Array as PropType<CheckboxGroupCheckbox[]>,
       default: () => [],
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     errors: {
       type: Array as PropType<string[]>,

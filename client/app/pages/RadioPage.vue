@@ -19,7 +19,7 @@
     <fd-radio readonly value="readonly">This is a Radio</fd-radio>
 
 
-    <h4 class="mt-4">Radio Group</h4>
+    <h4 class="mt-4 mb-2">Radio Group</h4>
     <fd-group
       v-model="val"
       id="radio-group"
@@ -30,6 +30,35 @@
       <fd-radio value="radio-1">Radio 1</fd-radio>
       <fd-radio value="radio-2">Radio 2</fd-radio>
       <fd-radio value="radio-3">Radio 3</fd-radio>
+    </fd-group>
+
+    <h4 class="mt-4 mb-2">Radio Group Disabled</h4>
+    <fd-group
+      v-model="valDisabled"
+      id="radio-group-disabled"
+      disabled
+      label="These are Disabled"
+      name="radio-group-disabled"
+      type="radio"
+    >
+      <fd-radio value="radio-3">Radio 1</fd-radio>
+      <fd-radio value="radio-4">Radio 2</fd-radio>
+      <fd-radio value="radio-5">Radio 3</fd-radio>
+    </fd-group>
+
+    <h4 class="mt-4 mb-2">Radio Group Error</h4>
+    <fd-group
+      v-model="valError"
+      id="radio-group-error"
+      :errors="['test']"
+      :error-messages="{ test: 'This is an error, and a test' }"
+      name="radio-group-disabled"
+      type="radio"
+    >
+      <template #label>These are Erroneous</template>
+      <fd-radio value="radio-3">Radio 1</fd-radio>
+      <fd-radio value="radio-4">Radio 2</fd-radio>
+      <fd-radio value="radio-5">Radio 3</fd-radio>
     </fd-group>
   </div>
 </template>
@@ -44,8 +73,10 @@ export default defineComponent({
   components: { FdRadio, FdGroup },
   setup () {
     const val = shallowRef('');
+    const valDisabled = shallowRef('');
+    const valError = shallowRef('');
 
-    return { val };
+    return { val, valDisabled, valError};
   },
 })
 </script>

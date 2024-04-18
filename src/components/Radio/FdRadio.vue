@@ -2,18 +2,18 @@
   <label
     class="fd-radio"
     :class="{
-      'fd-radio--disabled': disabled,
-      'fd-radio--error': errors.length,
+      'fd-radio--disabled': disabled || groupDisabled,
+      'fd-radio--error': errors.length || groupErrors.length,
       'fd-radio--focused': focused,
-      'fd-radio--focused-error': focused && errors.length,
+      'fd-radio--focused-error': focused && (errors.length || groupErrors.length),
       'fd-radio--readonly': readonly,
       'fd-radio--selected': (modelValue || groupModelValue) === value,
     }"
   >
     <fd-radio-base
       v-bind="{
-        disabled,
-        errors,
+        disabled: disabled || groupDisabled,
+        errors: errors.length ? errors : groupErrors,
         inputAttrs,
         modelValue: modelValue || groupModelValue,
         name: name || groupName,
@@ -72,9 +72,11 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(_, { emit }) {
     const focused = shallowRef(false);
-    const groupName = inject('groupName', '');
-    const groupModelValue = inject('groupModelValue', '');
+    const groupDisabled = inject('groupDisabled', false);
+    const groupErrors = inject('groupErrors', []);
     const groupHandleModelValue = inject('groupHandleModelValue', (val: string): void => {});
+    const groupModelValue = inject('groupModelValue', '');
+    const groupName = inject('groupName', '');
 
     const handleChange = (value: string) => {
       emit('update:modelValue', value);
@@ -83,9 +85,11 @@ export default defineComponent({
     
     return {
       focused,
-      groupName,
-      groupModelValue,
+      groupDisabled,
+      groupErrors,
       handleChange,
+      groupModelValue,
+      groupName,
     };
   },
 });
