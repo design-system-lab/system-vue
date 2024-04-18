@@ -1,6 +1,10 @@
 <template>
-  <div class="fd-radio-base">
+  <div
+    class="fd-radio-base"
+    :class="{ 'fd-radio-base--disabled': disabled }"
+  >
     <input
+      class="fd-radio-base__input"
       type="radio"
       v-bind="inputAttrs"
       :checked="modelValue === value"
@@ -90,7 +94,11 @@ export default defineComponent({
   cursor: pointer;
   position: relative;
 
-  input {
+  &--disabled {
+    cursor: not-allowed;
+  }
+
+  &__input {
     @include visually-hidden;
   }
 
@@ -144,6 +152,7 @@ export default defineComponent({
     &--disabled {
       border-color: rgba(var(--fora_neutral-4), 1);
       background-color: rgba(var(--fora_neutral-3), 1);
+      cursor: not-allowed;
     }
   }
 }

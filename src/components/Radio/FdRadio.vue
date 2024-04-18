@@ -99,28 +99,28 @@ export default defineComponent({
 @import '../../styles/required';
 
 .fd-radio {
+  align-items: center;
   cursor: pointer;
   display: flex;
-  align-items: center;
-  padding: 0.25rem;
-  border-radius: $border-radius_md;
-  transition: background-color $transition-timing;
   font-size: $font-sm;
+  padding: 0.25rem;
+  border-radius: $radio_border-radius;
+  transition: background-color $transition-timing;
 
   &:hover {
-    background-color: rgba(var(--fora_primary-6), 0.1);
+    background-color: rgba(var(--fora_radio_bg--hover));
   }
 
   &--selected {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
-        box-shadow: 0 0 0 2px rgba(var(--fora_primary-6), 0.35);
+        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_box-shadow-color--hover));
       }
     }
   }
 
   &--readonly {
-    color: rgba(var(--fora_neutral-11), 1);
+    color: rgba(var(--fora_radio_readonly_color));
 
     &:hover {
       background-color: transparent;
@@ -128,23 +128,23 @@ export default defineComponent({
   }
 
   &--error {
-    color: rgba(var(--fora_danger-7), 1);
+    color: rgba(var(--fora_radio_error_color));
 
     &:hover {
-      background-color: rgba(var(--fora_danger-6), 0.1);
+      background-color: rgba(var(--fora_radio_error_bg--hover));
     }
   }
 
   &--error {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
-        box-shadow: 0 0 0 2px rgba(var(--fora_danger-6), 0.4);
+        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_error_box-shadow-color--hover--selected));
       }
     }
   }
 
   &--disabled {
-    color: rgba(var(--fora_neutral-5), 1);
+    color: rgba(var(--fora_disabled_color));
     cursor: not-allowed;
 
     &:hover {
