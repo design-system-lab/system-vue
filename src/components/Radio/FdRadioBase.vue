@@ -29,10 +29,8 @@
         class="fd-radio-base__indicator-inner"
         :class="{
         'fd-radio-base__indicator-inner--disabled': disabled,
-        'fd-radio-base__indicator-inner--focused': focused,
         'fd-radio-base__indicator-inner--error': errors.length,
         'fd-radio-base__indicator-inner--readonly': readonly,
-        'fd-radio-base__indicator-inner--selected': modelValue === value,
       }"
       />
     </div>
@@ -42,6 +40,18 @@
 <script lang="ts">
 import { defineComponent, readonly, shallowRef } from 'vue';
 
+/**
+ * FdRadioBase
+ * Radio input base component
+ * 
+ * @param {Boolean} disabled - Whether the radio is disabled
+ * @param {Array} errors - Array of keys for error messages
+ * @param {Object} inputAttrs - Additional attributes applied to the radio input
+ * @param {String} modelValue - The model value for the radio
+ * @param {String} name - The name for the radio, used to connect radio inputs
+ * @param {Boolean} readonly - Whether the radio is readonly
+ * @param {String} value - The value for the radio
+ */
 export default defineComponent({
   name: 'FdRadioBase',
   props: {
@@ -102,7 +112,7 @@ export default defineComponent({
     @include visually-hidden;
   }
 
-  .fd-radio-base__indicator {
+  &__indicator {
     background-color: rgba(var(--fora_white), 1);
     box-shadow: 0 0 0 2px transparent;
     width: 1.5rem;
@@ -122,9 +132,10 @@ export default defineComponent({
     &--readonly {
       border-color: rgba(var(--fora_neutral-7), 1);
       background-color: rgba(var(--fora_neutral-3), 1);
+
     }
 
-    .fd-radio-base__indicator-inner {
+    &-inner {
       width: 1rem;
       height: 1rem;
       border-radius: 50%;
@@ -132,8 +143,16 @@ export default defineComponent({
       opacity: 0;
       transition: $transition-timing opacity;
 
+      &--readonly {
+        background-color: rgba(var(--fora_neutral-6), 1);
+      }
+
       &--error {
         background-color: rgba(var(--fora_danger-7), 1);
+      }
+
+      &--disabled {
+        background-color: rgba(var(--fora_neutral-4), 1);
       }
     }
 
@@ -145,6 +164,10 @@ export default defineComponent({
       }
     }
 
+    &--selected#{&}--readonly {
+      border-color: rgba(var(--fora_neutral-6), 1);
+    }
+
     &--error {
       border-color: rgba(var(--fora_danger-7), 1);
     }
@@ -153,6 +176,11 @@ export default defineComponent({
       border-color: rgba(var(--fora_neutral-4), 1);
       background-color: rgba(var(--fora_neutral-3), 1);
       cursor: not-allowed;
+    }
+
+    // selected bg goes last because it applies to all
+    &--selected {
+      background-color: rgba(var(--fora_white), 1);
     }
   }
 }

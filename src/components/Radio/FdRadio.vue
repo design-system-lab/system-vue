@@ -32,6 +32,18 @@
 import { defineComponent, inject, readonly, shallowRef } from 'vue';
 import FdRadioBase from './FdRadioBase.vue';
 
+/**
+ * FdRadio
+ * 
+ * @param {Boolean} disabled - Whether the radio is disabled
+ * @param {Array} errors - Array of keys for error messages
+ * @param {Object} inputAttrs - Additional attributes applied to the radio input
+ * @param {String} label - The label for the radio
+ * @param {String} modelValue - The model value for the radio
+ * @param {String} name - The name for the radio, used to connect radio inputs
+ * @param {Boolean} readonly - Whether the radio is readonly
+ * @param {String} value - The value for the radio
+ */
 export default defineComponent({
   name: 'FdRadio',
   components: { FdRadioBase },
@@ -114,7 +126,7 @@ export default defineComponent({
   &--selected {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
-        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_box-shadow-color--hover));
+        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_box-shadow-color--hover--selected));
       }
     }
   }
@@ -135,7 +147,7 @@ export default defineComponent({
     }
   }
 
-  &--error {
+  &--error#{&}--selected {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
         box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_error_box-shadow-color--hover--selected));
@@ -144,7 +156,7 @@ export default defineComponent({
   }
 
   &--disabled {
-    color: rgba(var(--fora_disabled_color));
+    color: rgba(var(--fora_radio_disabled_color));
     cursor: not-allowed;
 
     &:hover {

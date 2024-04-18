@@ -7,6 +7,7 @@
 
     <h4 class="mt-8">Disabled Radio</h4>
     <fd-radio disabled value="disabled">This is a Radio</fd-radio>
+    <fd-radio disabled value="disabled" model-value="disabled">This is a Radio</fd-radio>
 
     <h4 class="mt-8">Radio with Label</h4>
     <fd-radio label="Radio Label" value="label" />
@@ -17,6 +18,7 @@
 
     <h4 class="mt-8">Readonly Radio</h4>
     <fd-radio readonly value="readonly">This is a Radio</fd-radio>
+    <fd-radio readonly value="readonly" model-value="readonly">This is a Radio</fd-radio>
 
 
     <h4 class="mt-8 mb-2">Radio Group</h4>
@@ -50,7 +52,7 @@
     <fd-group
       v-model="valError"
       id="radio-group-error"
-      :errors="['test']"
+      :errors="valError === '' ? ['test'] : []"
       :error-messages="{ test: 'This is an error, and a test' }"
       name="radio-group-disabled"
       type="radio"

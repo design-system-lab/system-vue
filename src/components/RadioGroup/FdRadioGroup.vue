@@ -61,6 +61,20 @@ import FdInputPostText from '../Form/FdInputPostText.vue';
 import { filterSlots } from '../../utils';
 import { ErrorMessages } from '../../types';
 
+/**
+ * FdRadioGroup
+ * 
+ * @param {string} assistiveText - The assistive text for the radio group
+ * @param {boolean} disabled - Whether the radio group is disabled
+ * @param {string[]} errors - Array of keys for error messages
+ * @param {ErrorMessages} errorMessages - The error messages for the radio group
+ * @param {string} id - The id for the radio group
+ * @param {string} label - The label for the radio group
+ * @param {string} modelValue - The model value for the radio group
+ * @param {string} name - The name for the radio group
+ * @param {boolean} persistentAssistiveText - Whether the assistive text is persistent
+ * @param {typeof FdRadio[]} radios - The radios for the radio group
+ */
 export default defineComponent({
   name: 'FdRadioGroup',
   components: { FdRadio, FdInputPostText },
@@ -108,31 +122,30 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const currentVal = shallowRef(props.modelValue);
-    const currentErrors = shallowRef(props.errors);
     const currentDisabled = shallowRef(props.disabled);
+    const currentErrors = shallowRef(props.errors);
+    const currentVal = shallowRef(props.modelValue);
 
     function handleModelValue(value: string) {
       emit('update:modelValue', value);
     }
 
-    
     provide('groupErrors', currentErrors);
     provide('groupDisabled', currentDisabled);
     provide('groupHandleModelValue', handleModelValue);
     provide('groupModelValue', currentVal);
     provide('groupName', props.name);
 
-    watch(() => props.modelValue, (value) => {
-      currentVal.value = value;
+    watch(() => props.disabled, (value) => {
+      currentDisabled.value = value;
     });
 
     watch(() => props.errors, (value) => {
       currentErrors.value = value;
     });
 
-    watch(() => props.disabled, (value) => {
-      currentDisabled.value = value;
+    watch(() => props.modelValue, (value) => {
+      currentVal.value = value;
     });
 
     return {
