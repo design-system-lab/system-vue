@@ -3,6 +3,7 @@
     <fieldset
       :id="id"
       class="fd-checkbox-group__fieldset"
+      :disabled="disabled"
     >
       <legend
         v-if="label || $slots.label"
@@ -17,7 +18,7 @@
           v-for="checkbox in checkboxes"
           v-model="checkbox.modelValue"
           :key="checkbox.id"
-          :disabled="checkbox.disabled"
+          :disabled="disabled || checkbox.disabled"
           :errors="errors"
           :id="checkbox.id"
           :indeterminate="checkbox.indeterminate"
@@ -52,17 +53,48 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import FdCheckbox from '../Checkbox';
 import FdInputPostText from '../Form/FdInputPostText.vue';
-import { checkboxGroupProps } from '../../composables/group';
-import { filterSlots } from '../../utils/components';
+import { filterSlots } from '../../utils';
+import { CheckboxGroupCheckbox, ErrorMessages } from '../../types';
 
 export default defineComponent({
   name: 'FdCheckboxGroup',
   components: { FdCheckbox, FdInputPostText },
   props: {
-    ...checkboxGroupProps
+    assistiveText: {
+      type: String,
+      default: undefined,
+    },
+    checkboxes: {
+      type: Array as PropType<CheckboxGroupCheckbox[]>,
+      default: () => [],
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
+    errors: {
+      type: Array as PropType<string[]>,
+      default: () => [],
+    },
+    errorMessages: {
+      type: Object as PropType<ErrorMessages>,
+      default: () => ({}),
+    },
+    id: {
+      type: String,
+      required: true,
+    },
+    label: {
+      type: String,
+      default: undefined,
+    },
+    persistentAssistiveText: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup() {
     return { filterSlots };

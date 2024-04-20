@@ -19,15 +19,13 @@
 import { PropType, computed, defineComponent } from 'vue';
 import FdButtonGroup from '../ButtonGroup';
 import FdCheckboxGroup from '../CheckboxGroup/FdCheckboxGroup.vue';
-import { buttonGroupProps, checkboxGroupProps } from '../../composables/group';
-import { GroupType } from '../../types/group';
+import FdRadioGroup from '../RadioGroup/FdRadioGroup.vue';
+import { GroupType } from '../../types';
 
 export default defineComponent({
   name: 'FdGroup',
-  components: { FdButtonGroup, FdCheckboxGroup },
+  components: { FdButtonGroup, FdCheckboxGroup, FdRadioGroup },
   props: {
-    ...buttonGroupProps,
-    ...checkboxGroupProps,
     type: {
       type: String as PropType<GroupType>,
       default: 'default',
@@ -40,6 +38,8 @@ export default defineComponent({
           return 'fd-button-group';
         case 'checkbox':
           return 'fd-checkbox-group';
+        case 'radio':
+          return 'fd-radio-group';
       }
 
       return 'div';

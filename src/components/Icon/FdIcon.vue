@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { Icon } from '../../types/common';
+import { Icon } from '../../types';
 
 export default defineComponent({
   name: 'FdIcon',

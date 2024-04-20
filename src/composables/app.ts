@@ -1,4 +1,4 @@
-import { TranslationKeys } from '../utils/i18n';
+import { TranslationKeys } from '../utils';
 
 export type ForaOptions = {
   rtl?: boolean;
