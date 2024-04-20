@@ -12,6 +12,7 @@
     <ul>
       <li><router-link :to="{ name: 'Buttons' }">Buttons</router-link></li>
       <li><router-link :to="{ name: 'Checkbox' }">Checkbox</router-link></li>
+      <li><router-link :to="{ name: 'Chips' }">Chips</router-link></li>
       <li><router-link :to="{ name: 'Grid' }">Grid</router-link></li>
       <li><router-link :to="{ name: 'Group' }">Groups</router-link></li>
       <li><router-link :to="{ name: 'InputField' }">Input Fields</router-link></li>
