@@ -14,7 +14,7 @@
       @blur="$emit('blur')"
       @change="$emit('update:modelValue', value)"
       @focus="$emit('focus')"
-    />
+    >
     <div
       class="fd-radio-base__indicator"
       :class="{
@@ -28,17 +28,17 @@
       <div
         class="fd-radio-base__indicator-inner"
         :class="{
-        'fd-radio-base__indicator-inner--disabled': disabled,
-        'fd-radio-base__indicator-inner--error': errors.length,
-        'fd-radio-base__indicator-inner--readonly': readonly,
-      }"
+          'fd-radio-base__indicator-inner--disabled': disabled,
+          'fd-radio-base__indicator-inner--error': errors.length,
+          'fd-radio-base__indicator-inner--readonly': readonly,
+        }"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, readonly, shallowRef } from 'vue';
+import { defineComponent, shallowRef } from 'vue';
 
 /**
  * FdRadioBase
@@ -85,7 +85,7 @@ export default defineComponent({
     },
   },
   emits: ['update:modelValue', 'blur', 'focus'],
-  setup(_, { emit }) {
+  setup() {
     const focused = shallowRef(false);
 
     return {

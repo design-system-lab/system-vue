@@ -23,7 +23,7 @@
           :indeterminate="radio.indeterminate"
           :input-attrs="radio.inputAttrs"
           :label="radio.label"
-          :modelValue="modelValue"
+          :model-value="modelValue"
           :readonly="radio.readonly"
           :small="radio.small"
           :value="radio.value"
@@ -41,12 +41,12 @@
         :persistent-assistive-text="persistentAssistiveText"
       >
         <template
-          v-for="(_, name) in filterSlots($slots, ['error-text', 'assistive-text'])"
-          #[name]="slotData"
+          v-for="(_, slotName) in filterSlots($slots, ['error-text', 'assistive-text'])"
+          #[slotName]="slotData"
         >
           <slot
             v-bind="slotData"
-            :name="name"
+            :name="slotName"
           />
         </template>
       </fd-input-post-text>
@@ -55,7 +55,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, provide, PropType, watch, toRefs, shallowRef } from 'vue';
+import { defineComponent, provide, PropType, watch, shallowRef } from 'vue';
 import FdRadio from '../Radio';
 import FdInputPostText from '../Form/FdInputPostText.vue';
 import { filterSlots } from '../../utils';
@@ -93,7 +93,7 @@ export default defineComponent({
     },
     errorMessages: {
       type: Object as PropType<ErrorMessages>,
-      default: () => [],
+      default: () => ({}),
     },
     id: {
       type: String,

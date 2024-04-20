@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, readonly, shallowRef } from 'vue';
+import { defineComponent, inject, shallowRef } from 'vue';
 import FdRadioBase from './FdRadioBase.vue';
 
 /**
@@ -86,13 +86,13 @@ export default defineComponent({
     const focused = shallowRef(false);
     const groupDisabled = inject('groupDisabled', false);
     const groupErrors = inject('groupErrors', []);
-    const groupHandleModelValue = inject('groupHandleModelValue', (val: string): void => {});
+    const groupHandleModelValue = inject<(val: string) => {}>('groupHandleModelValue');
     const groupModelValue = inject('groupModelValue', '');
     const groupName = inject('groupName', '');
 
     const handleChange = (value: string) => {
       emit('update:modelValue', value);
-      groupHandleModelValue(value);
+      if (groupHandleModelValue) groupHandleModelValue(value);
     };
     
     return {
