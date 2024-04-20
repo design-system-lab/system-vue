@@ -86,7 +86,7 @@ export default defineComponent({
     const focused = shallowRef(false);
     const groupDisabled = inject('groupDisabled', false);
     const groupErrors = inject('groupErrors', []);
-    const groupHandleModelValue = inject<(val: string) => {}>('groupHandleModelValue');
+    const groupHandleModelValue = inject<(val: string) => void>('groupHandleModelValue');
     const groupModelValue = inject('groupModelValue', '');
     const groupName = inject('groupName', '');
 
