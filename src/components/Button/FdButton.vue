@@ -42,11 +42,8 @@
 import { computed, defineComponent, PropType } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 import FdIcon from '../Icon';
-import { getButtonElement } from '../../utils/buttons';
-import { getIconSize } from '../../utils/icons';
-import { tshirt } from '../../utils/validators';
-import { ButtonKind } from '../../types/button';
-import { TshirtSize, Icon } from '../../types/common';
+import { getButtonElement, getIconSize, tshirt } from '../../utils';
+import { ButtonKind, Icon, TshirtSize } from '../../types';
 
 export default defineComponent({
   name: 'FdButton',

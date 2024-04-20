@@ -1,0 +1,59 @@
+// Variables specific to FdRadio
+
+// colors for theming, must be duplicated in theme map
+$radio_bg--hover: $primary-6, 0.1;
+$radio_disabled_color: $neutral-5, 1;
+$radio_readonly_color: $neutral-11, 1;
+$radio_error_bg--hover: $danger-6, 0.1;
+$radio_error_color: $danger-7, 1;
+
+$radio-base_box-shadow-color--hover--selected: $primary-6, 0.35;
+$radio-base_disabled_bg: $neutral-3, 1;
+$radio-base_error_box-shadow-color--hover--selected: $danger-6, 0.4;
+$radio-base_error_bg: $danger-7, 1;
+$radio-base_indicator_bg: $white, 1;
+$radio-base_indicator_border-color: $neutral-7, 1;
+$radio-base_indicator_border-color--selected: $primary-6, 1;
+$radio-base_indicator_disabled_bg: $neutral-3, 1;
+$radio-base_indicator_disabled_border-color: $neutral-4, 1;
+$radio-base_indicator_error_border-color: $danger-7, 1;
+$radio-base_indicator_readonly_border-color--selected: $neutral-6, 1;
+$radio-base_indicator-inner_bg: $primary-6, 1;
+$radio-base_indicator-inner_readonly_bg: $neutral-6, 1;
+$radio-base_readonly_bg: $neutral-3, 1;
+$radio-base_readonly_border-color: $neutral-7, 1;
+
+// default style vars
+$radio_border-radius: $border-radius_md;
+$radio_gap: 0.75rem;
+
+$radio-base_indicator_height: 1.5rem;
+$radio-base_indicator_width: 1.5rem;
+$radio-base_indicator-inner_height: 1rem;
+$radio-base_indicator-inner_width: 1rem;
+
+// theme map, must replicate colors
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-radio: (
+  radio_bg--hover: $radio_bg--hover,
+  radio_disabled_color: $radio_disabled_color,
+  radio_error_bg--hover: $radio_error_bg--hover,
+  radio_error_color: $radio_error_color,
+  radio_readonly_color: $radio_readonly_color,
+
+  radio-base_box-shadow-color--hover--selected: $radio-base_box-shadow-color--hover--selected,
+  radio-base_disabled_bg: $radio-base_disabled_bg,
+  radio-base_error_box-shadow-color--hover--selected: $radio-base_error_box-shadow-color--hover--selected,
+  radio-base_error_bg: $radio-base_error_bg,
+  radio-base_indicator_bg: $radio-base_indicator_bg,
+  radio-base_indicator_border-color: $radio-base_indicator_border-color,
+  radio-base_indicator_border-color--selected: $radio-base_indicator_border-color--selected,
+  radio-base_indicator_disabled_bg: $radio-base_indicator_disabled_bg,
+  radio-base_indicator_disabled_border-color: $radio-base_indicator_disabled_border-color,
+  radio-base_indicator_error_border-color: $radio-base_indicator_error_border-color,
+  radio-base_indicator_readonly_border-color--selected: $radio-base_indicator_readonly_border-color--selected,
+  radio-base_indicator-inner_bg: $radio-base_indicator-inner_bg,
+  radio-base_indicator-inner_readonly_bg: $radio-base_indicator-inner_readonly_bg,
+  radio-base_readonly_bg: $radio-base_readonly_bg,
+  radio-base_readonly_border-color: $radio-base_readonly_border-color
+);

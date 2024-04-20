@@ -227,11 +227,7 @@ export default defineComponent({
   }
 
   &__input {
-    cursor: pointer;
-    height: 100%;
-    opacity: 0;
-    position: absolute;
-    width: 100%;
+    @include visually-hidden;
   }
 }
 

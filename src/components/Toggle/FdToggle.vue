@@ -52,7 +52,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, inject } from 'vue';
-import { TranslationSupport } from '../../../src/utils/i18n';
+import { TranslationSupport } from '../../../src/utils';
 
 /**
  * Toggle Switch

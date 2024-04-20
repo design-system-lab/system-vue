@@ -25,15 +25,38 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, PropType } from 'vue';
 import FdButton from '../Button/FdButton.vue';
-import { buttonGroupProps } from '../../composables/group';
+import { tshirt } from '../../utils';
+import { ButtonGroupButton, ButtonKind, TshirtSize } from '../../types';
 
 export default defineComponent({
   name: 'FdButtonGroup',
   components: { FdButton },
   props: {
-    ...buttonGroupProps,
+    buttons: {
+      type: Array as PropType<ButtonGroupButton[]>,
+      default: () => [],
+    },
+    kind:  {
+      type: String as PropType<ButtonKind>,
+      default: 'primary',
+    },
+    modelValue: {
+      type: Number,
+      default: -1,
+    },
+    // radio functions like a true radio, where once it's on it doesn't turn off
+    // alternately you could handle it with all the buttons set to toggle
+    radio: {
+      type: Boolean,
+      default: false,
+    },
+    size: {
+      type: String as PropType<TshirtSize>,
+      default: 'md',
+      validator: (opt: string) => tshirt(opt),
+    },
   },
   setup(props, { emit }) {
     const handleClick = (i: number, e: MouseEvent) => {

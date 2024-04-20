@@ -112,9 +112,8 @@
 import { defineComponent, PropType, shallowRef } from 'vue';
 import { ExclamationTriangleIcon } from '@heroicons/vue/20/solid';
 import FdIcon from '../Icon';
-import { getIconSize } from '../../utils/icons';
-import { slideInOutContent, swapContent } from '../../utils/transitions';
-import { ErrorMessages } from '../../types/common';
+import { getIconSize, slideInOutContent, swapContent } from '../../utils';
+import { ErrorMessages } from '../../types';
 
 /**
  * Post text (error and assistive text) for input fields

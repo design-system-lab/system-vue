@@ -89,9 +89,8 @@
 import { defineComponent, shallowRef, PropType } from 'vue';
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
-import { filterSlots } from '../../utils/components';
-import { getIconSize } from '../../utils/icons';
-import { Icon, ErrorMessages } from '../../types/common';
+import { filterSlots, getIconSize } from '../../utils';
+import { ErrorMessages, Icon } from '../../types';
 
 /**
  * Input Field
