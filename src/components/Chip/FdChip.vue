@@ -1,5 +1,32 @@
 <template>
-
+  <div
+    class="fd-chip"
+    :class="{
+      'fd-chip--dismissible': dismissible,
+      'fd-chip--danger': status === 'danger',
+      'fd-chip--info': status === 'info',
+      'fd-chip--interactive': interactive,
+      'fd-chip--outlined': outlined,
+      'fd-chip--selected': selected,
+      'fd-chip--success': status === 'success',
+      'fd-chip--warning': status === 'warning',
+    }"
+  >
+    <span
+      v-if="icon || $slots['icon']"
+      class="fd-chip__icon"
+    >
+      {{ icon }}
+    </span>
+    <slot />
+    <span
+      v-if="dismissible"
+      class="fd-chip__close"
+      @click="onClose"
+    >
+      
+    </span>
+  </div>
 </template>
 
 <script lang="ts">
@@ -33,10 +60,10 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    state: {
-      type: String as PropType<StopLight>,
-      default: ''
-    }
+    status: {
+      type: String as PropType<StopLight | undefined>,
+      default: undefined,
+    },
   },
     setup(props, { emit }) {
         const onClose = () => {
@@ -49,3 +76,16 @@ export default defineComponent({
     }
 });
 </script>
+
+<style lang="scss" scoped>
+@import '../../styles/required';
+
+.fd-chip {
+  background-color: rgba(var(--fora_neutral-3), 1);
+  border-radius: 1000px;
+  display: inline-flex;
+  font-size: $font-sm;
+  line-height: 1.25rem;
+  padding: 0.25rem 0.75rem;
+}
+</style>
