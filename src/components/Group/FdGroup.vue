@@ -19,12 +19,13 @@
 import { PropType, computed, defineComponent } from 'vue';
 import FdButtonGroup from '../ButtonGroup';
 import FdCheckboxGroup from '../CheckboxGroup/FdCheckboxGroup.vue';
+import FdChipGroup from '../ChipGroup/FdChipGroup.vue';
 import FdRadioGroup from '../RadioGroup/FdRadioGroup.vue';
 import { GroupType } from '../../types';
 
 export default defineComponent({
   name: 'FdGroup',
-  components: { FdButtonGroup, FdCheckboxGroup, FdRadioGroup },
+  components: { FdButtonGroup, FdCheckboxGroup, FdChipGroup, FdRadioGroup },
   props: {
     type: {
       type: String as PropType<GroupType>,
@@ -38,6 +39,8 @@ export default defineComponent({
           return 'fd-button-group';
         case 'checkbox':
           return 'fd-checkbox-group';
+        case 'chip':
+          return 'fd-chip-group';
         case 'radio':
           return 'fd-radio-group';
       }

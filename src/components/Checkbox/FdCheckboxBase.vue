@@ -108,7 +108,7 @@ export default defineComponent({
     },
     value: {
       type: String,
-      default: 'on',
+      default: undefined,
     },
   },
   setup(props, { emit }) {

@@ -76,7 +76,7 @@ export default defineComponent({
     },
     label: {
       type: String,
-      required: true,
+      default: undefined,
     },
     modelValue: {
       type: Boolean,
@@ -92,7 +92,7 @@ export default defineComponent({
     },
     value: {
       type: String,
-      required: true,
+      default: undefined,
     },
   },
   setup(_, { emit }) {

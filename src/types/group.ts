@@ -1,1 +1,1 @@
-export type GroupType = 'checkbox' | 'radio' | 'button' | 'default';
+export type GroupType = 'button' | 'checkbox' | 'chip' | 'radio' | 'default';

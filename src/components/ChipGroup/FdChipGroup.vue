@@ -40,3 +40,11 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.fd-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+</style>

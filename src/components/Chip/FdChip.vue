@@ -31,7 +31,12 @@
       class="fd-chip__icon"
       data-testid="fd-chip__icon"
     >
-      {{ icon }}
+      <slot name="icon">
+        <fd-icon
+          :icon="icon"
+          :size="size === 'lg' ? 20 : 16"
+        />
+      </slot>
     </span>
     <slot>
       {{ text }}
@@ -42,7 +47,7 @@
     >
       <fd-icon
         :icon="CheckIcon"
-        :size="small ? 16 : 20"
+        :size="size === 'lg' ? 20 : 16"
       />
     </span>
     <button
@@ -53,7 +58,7 @@
     >
       <fd-icon
         :icon="XMarkIcon"
-        :size="small ? 16 : 20"
+        :size="size === 'lg' ? 20 : 16"
       />
     </button>
   </component>
@@ -93,8 +98,8 @@ export default defineComponent({
       type: Boolean,
       default: false
     },
-    small: {
-      type: Boolean,
+    size: {
+      type: String as PropType<'sm' | 'md' | 'lg'>,
       default: false
     },
     status: {
@@ -181,18 +186,22 @@ export default defineComponent({
   padding: 0.25rem 0.75rem;
   transition: $transition-timing background-color;
 
+  &:focus-visible {
+    @include focus-primary-styles;
+  }
 
   &--outlined {
     background-color: transparent;
     border: 1px solid rgba(var(--fora_neutral-5), 1);
+    padding: calc(0.25rem - 1px) calc(0.75rem - 1px);
 
     .fd-chip__close {
       &:hover {
-        background-color: rgba(var(--fora_neutral-4), 1);
+        background-color: rgba(var(--fora_neutral-3), 1);
       }
 
       &:active {
-        background-color: rgba(var(--fora_neutral-5), 1);
+        background-color: rgba(var(--fora_neutral-4), 1);
       }
     }
   }
@@ -236,6 +245,10 @@ export default defineComponent({
     padding-right: 0.5rem;
   }
 
+  &--dismissible#{&}--outlined {
+    padding-right: calc(0.5rem - 1px);
+  }
+
   &__close,
   &__selected {
     background: none;
@@ -262,6 +275,10 @@ export default defineComponent({
     &:active {
       background-color: rgba(var(--fora_neutral-5), 1);
     }
+
+    &:focus-visible {
+      @include focus-primary-styles;
+    }
   }
 
   &--interactive &__close {
@@ -272,6 +289,15 @@ export default defineComponent({
     &:active {
       background-color: rgba(var(--fora_neutral-2), 1);
     }
-  } 
+  }
+
+  &__icon {
+    display: block;
+    margin-left: -0.5rem;
+
+    &:deep(.fd-icon) {
+      display: block;
+    }
+  }
 }
 </style>
