@@ -15,16 +15,18 @@
     @click="handleClick"
   >
     <span
-      v-if="avatarImg || $slots['avatarImg']"
-      class="fd-chip__avatar"
-      data-testid="fd-chip__avatar"
+      v-if="avatarImg || $slots['avatar-img']"
+      class="fd-chip__avatar-container"
+      data-testid="fd-chip__avatar-container"
     >
-      <slot name="avatarImg">
-        <img
-          :src="avatarImg"
-          aria-hidden="true"
-        />
-      </slot>
+      <div class="fd-chip__avatar">
+        <slot name="avatar-img">
+          <img
+            :src="avatarImg"
+            aria-hidden="true"
+          />
+        </slot>
+      </div>
     </span>
     <span
       v-if="icon || $slots['icon']"
@@ -177,13 +179,14 @@ export default defineComponent({
 
 .fd-chip {
   background-color: rgba(var(--fora_neutral-3), 1);
-  border: 0;
+  border: 1px solid rgba(var(--fora_neutral-6), 1);
   border-radius: 1000px;
+  color: rgba(var(--fora_neutral-13), 1);
   display: inline-flex;
   font-size: $font-sm;
   gap: 0.25rem;
   line-height: 1.25rem;
-  padding: 0.25rem 0.75rem;
+  padding: calc(0.25rem - 1px) calc(0.75rem - 1px);
   transition: $transition-timing background-color;
 
   &:focus-visible {
@@ -192,8 +195,7 @@ export default defineComponent({
 
   &--outlined {
     background-color: transparent;
-    border: 1px solid rgba(var(--fora_neutral-5), 1);
-    padding: calc(0.25rem - 1px) calc(0.75rem - 1px);
+    border: 1px solid rgba(var(--fora_neutral-8), 1);
 
     .fd-chip__close {
       &:hover {
@@ -242,10 +244,6 @@ export default defineComponent({
   }
 
   &--dismissible {
-    padding-right: 0.5rem;
-  }
-
-  &--dismissible#{&}--outlined {
     padding-right: calc(0.5rem - 1px);
   }
 
@@ -297,6 +295,30 @@ export default defineComponent({
 
     &:deep(.fd-icon) {
       display: block;
+    }
+  }
+
+  &__avatar-container {
+    display: block;
+    height: 1.25rem;
+    margin-left: -0.625rem;
+    margin-right: 0.25rem;
+    margin-top: -0.125rem;
+    width: 1.25rem;
+  }
+
+  &__avatar {
+    border-radius: 1000px;
+    display: block;
+    height: 1.5rem;
+    overflow: hidden;
+    width: 1.5rem;
+
+    img {
+      display: block;
+      height: 100%;
+      object-fit: cover;
+      width: 100%;
     }
   }
 }

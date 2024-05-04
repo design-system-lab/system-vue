@@ -144,14 +144,14 @@
             outlined,
             status: showStatus ? statusType[0] : undefined,
             tag: showTag ? tagType : undefined,
-            value: 'test-1',
           }"
           :size="size[0]"
           @click="counter++"
           @dismiss="dismissCount++"
+          @update:modelValue="val = $event"
         >
           <template v-if="showAvatar" #avatar-img>
-            <img src="https://placeimg.com/100/100/people" alt="avatar" />
+            <img src="https://i.pravatar.cc/48" alt="avatar" />
           </template>
           <template v-if="showIcon" #icon>
             <fd-icon
@@ -163,6 +163,7 @@
         </fd-chip>
         <fd-chip
           v-bind="{
+            avatarImg: showAvatar ? 'https://i.pravatar.cc/48' : undefined,
             dismissible,
             icon: showIcon ? CubeTransparentIconSm : undefined,
             interactive,
@@ -171,11 +172,11 @@
             status: showStatus ? statusType[0] : undefined,
             tag: showTag ? tagType : undefined,
             text,
-            value: 'test-1'
           }"
           :size="size[0]"
           @click="counter++"
           @dismiss="dismissCount++"
+          @update:modelValue="val = $event"
         />
       </fd-group>
       <p class="aux-text">Times clicked: {{ counter }}</p>
