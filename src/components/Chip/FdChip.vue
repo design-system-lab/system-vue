@@ -29,11 +29,23 @@
       </div>
     </span>
     <span
-      v-if="icon || $slots['icon']"
+      v-if="icon || $slots['icon'] || status"
       class="fd-chip__icon"
       data-testid="fd-chip__icon"
     >
-      <slot name="icon">
+      <slot
+        v-if="status"
+        name="status-icon"
+      >
+        <fd-icon
+          :icon="getStatusIcon"
+          :size="size === 'lg' ? 20 : 16"
+        />
+      </slot>
+      <slot
+        v-else  
+        name="icon"
+      >
         <fd-icon
           :icon="icon"
           :size="size === 'lg' ? 20 : 16"
@@ -68,7 +80,7 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
-import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid';
+import { CheckCircleIcon, CheckIcon, ExclamationCircleIcon, InformationCircleIcon, XCircleIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 import FdIcon from '../Icon/FdIcon.vue';
 import { Icon, StopLight } from '../../types';
 
@@ -135,6 +147,19 @@ export default defineComponent({
       return 'div';
     });
 
+    const getStatusIcon = computed((): Icon => {
+      switch (props.status) {
+        case 'danger':
+          return XCircleIcon;
+        case 'success':
+          return CheckCircleIcon;
+        case 'warning':
+          return ExclamationCircleIcon;
+        default:
+          return InformationCircleIcon;
+      }
+    });
+
     const isSelected = computed((): boolean => {
       if (typeof props.modelValue === 'object') {
         return props.modelValue.includes(props.value);
@@ -164,6 +189,7 @@ export default defineComponent({
 
     return {
       chipType,
+      getStatusIcon,
       handleClick,
       isSelected,
       onDismiss,
@@ -290,6 +316,7 @@ export default defineComponent({
   }
 
   &__icon {
+    color: rgba(var(--fora_neutral-8), 1);
     display: block;
     margin-left: -0.5rem;
 
@@ -320,6 +347,163 @@ export default defineComponent({
       object-fit: cover;
       width: 100%;
     }
+  }
+
+  // status
+  &--danger {
+    background-color: rgba(var(--fora_danger-1), 1);
+    border-color: rgba(var(--fora_danger-6), 1);
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_danger-2), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_danger-3), 1);
+      }
+    }
+  }
+
+  &--danger#{&}--interactive {
+    &:hover {
+      background-color: rgba(var(--fora_danger-2), 1);
+    }
+
+    &:active {
+      background-color: rgba(var(--fora_danger-3), 1);
+    }
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_danger-1), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_white), 1);
+      }
+    }
+  }
+
+  &--danger &__icon {
+    color: rgba(var(--fora_danger-6), 1);
+  }
+
+  &--success {
+    background-color: rgba(var(--fora_success-1), 1);
+    border-color: rgba(var(--fora_success-6), 1);
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_success-2), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_success-3), 1);
+      }
+    }
+  }
+
+  &--success#{&}--interactive {
+    &:hover {
+      background-color: rgba(var(--fora_success-2), 1);
+    }
+
+    &:active {
+      background-color: rgba(var(--fora_success-3), 1);
+    }
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_success-1), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_white), 1);
+      }
+    }
+  }
+
+  &--success &__icon {
+    color: rgba(var(--fora_success-6), 1);
+  }
+
+  &--warning {
+    background-color: rgba(var(--fora_warning-1), 1);
+    border-color: rgba(var(--fora_warning-8), 1);
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_warning-2), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_warning-3), 1);
+      }
+    }
+  }
+
+  &--warning#{&}--interactive {
+    &:hover {
+      background-color: rgba(var(--fora_warning-2), 1);
+    }
+
+    &:active {
+      background-color: rgba(var(--fora_warning-3), 1);
+    }
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_warning-1), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_white), 1);
+      }
+    }
+  }
+
+  &--warning &__icon {
+    color: rgba(var(--fora_warning-7), 1);
+  }
+
+  &--info {
+    background-color: rgba(var(--fora_secondary-1), 1);
+    border-color: rgba(var(--fora_secondary-6), 1);
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_secondary-2), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_secondary-3), 1);
+      }
+    }
+  }
+
+  &--info#{&}--interactive {
+    &:hover {
+      background-color: rgba(var(--fora_secondary-2), 1);
+    }
+
+    &:active {
+      background-color: rgba(var(--fora_secondary-3), 1);
+    }
+
+    .fd-chip__close {
+      &:hover {
+        background-color: rgba(var(--fora_secondary-1), 1);
+      }
+
+      &:active {
+        background-color: rgba(var(--fora_white), 1);
+      }
+    }
+  }
+
+  &--info &__icon {
+    color: rgba(var(--fora_secondary-6), 1);
   }
 }
 </style>

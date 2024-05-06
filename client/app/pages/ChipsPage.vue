@@ -20,8 +20,8 @@
               value: 'warning'
             },
             {
-              text: 'Error',
-              value: 'error'
+              text: 'Danger',
+              value: 'danger'
             },
             {
               text: 'Info',
