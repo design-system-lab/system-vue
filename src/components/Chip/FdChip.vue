@@ -301,7 +301,8 @@ export default defineComponent({
       display: block;
     }
 
-    &--sm {
+    &--sm,
+    &--md {
       height: 1rem;
       width: 1rem;
     }
@@ -322,6 +323,10 @@ export default defineComponent({
     }
 
     &--sm {
+      margin-right: -0.375rem;
+    }
+
+    &--md {
       margin-right: -0.375rem;
     }
   }
@@ -392,9 +397,16 @@ export default defineComponent({
     width: 1.25rem;
 
     &--sm {
+      height: 1rem;
+      margin-left: -0.375rem;
+      margin-right: 0;
+      width: 1rem;
+    }
+
+    &--md {
       height: 1.25rem;
       margin-left: -0.5rem;
-      margin-right: -0.125rem;
+      margin-right: 0;
       width: 1.25rem;
     }
   }
@@ -409,6 +421,11 @@ export default defineComponent({
     &--sm {
       height: 1rem;
       width: 1rem;
+    }
+
+    &--md {
+      height: 1.25rem;
+      width: 1.25rem;
     }
 
     img {
