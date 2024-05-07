@@ -2,24 +2,28 @@
   <component
     :is="chipType"
     class="fd-chip"
-    :class="{
-      'fd-chip--dismissible': dismissible,
-      'fd-chip--danger': status === 'danger',
-      'fd-chip--info': status === 'info',
-      'fd-chip--interactive': interactive,
-      'fd-chip--outlined': outlined,
-      'fd-chip--selected': isSelected,
-      'fd-chip--success': status === 'success',
-      'fd-chip--warning': status === 'warning',
-    }"
+    :class="[
+      `fd-chip--${size}`,
+      `${status ? `fd-chip--${status}` : ''}`,
+      {
+        'fd-chip--dismissible': dismissible,
+        'fd-chip--interactive': interactive,
+        'fd-chip--outlined': outlined,
+        'fd-chip--selected': isSelected,
+      }
+    ]"
     @click="handleClick"
   >
     <span
       v-if="avatarImg || $slots['avatar-img']"
       class="fd-chip__avatar-container"
+      :class="[`fd-chip__avatar-container--${size}`]"
       data-testid="fd-chip__avatar-container"
     >
-      <div class="fd-chip__avatar">
+      <div
+        class="fd-chip__avatar"
+        :class="[`fd-chip__avatar--${size}`]"
+      >
         <slot name="avatar-img">
           <img
             :src="avatarImg"
@@ -31,6 +35,11 @@
     <span
       v-if="icon || $slots['icon'] || status"
       class="fd-chip__icon"
+      :class="[
+        `fd-chip__icon--${size}`,
+        `${status ? `fd-chip__icon--status` : ''}`,
+        `${status ? `fd-chip__icon--${status}` : ''}`,
+      ]"
       data-testid="fd-chip__icon"
     >
       <slot
@@ -39,7 +48,7 @@
       >
         <fd-icon
           :icon="getStatusIcon"
-          :size="size === 'lg' ? 20 : 16"
+          :size="20"
         />
       </slot>
       <slot
@@ -58,6 +67,7 @@
     <span
       v-if="isSelected"
       class="fd-chip__selected"
+      :class="[`fd-chip__selected--${size}`]"
     >
       <fd-icon
         :icon="CheckIcon"
@@ -67,6 +77,7 @@
     <button
       v-if="dismissible"
       class="fd-chip__close"
+      :class="[`fd-chip__close--${size}`]"
       data-testid="fd-chip__close"
       @click.stop="onDismiss"
     >
@@ -204,6 +215,7 @@ export default defineComponent({
 @import '../../styles/required';
 
 .fd-chip {
+  align-items: center;
   background-color: rgba(var(--fora_neutral-3), 1);
   border: 1px solid rgba(var(--fora_neutral-6), 1);
   border-radius: 1000px;
@@ -288,6 +300,11 @@ export default defineComponent({
     .fd-icon {
       display: block;
     }
+
+    &--sm {
+      height: 1rem;
+      width: 1rem;
+    }
   }
 
   &__close {
@@ -302,6 +319,10 @@ export default defineComponent({
 
     &:focus-visible {
       @include focus-primary-styles;
+    }
+
+    &--sm {
+      margin-right: -0.375rem;
     }
   }
 
@@ -323,23 +344,72 @@ export default defineComponent({
     &:deep(.fd-icon) {
       display: block;
     }
+
+    &--sm {
+      height: 1rem;
+      margin-left: -0.25rem;
+      width: 1rem;
+    }
+
+    &--md {
+      margin-left: -0.375rem;
+    }
+
+    &--danger {
+      color: rgba(var(--fora_danger-6), 1);
+    }
+
+    &--info {
+      color: rgba(var(--fora_secondary-6), 1);
+    }
+
+    &--success {
+      color: rgba(var(--fora_success-6), 1);
+    }
+
+    &--warning {
+      color: rgba(var(--fora_warning-7), 1);
+    }
+  }
+
+  &__icon--status#{&}__icon--sm {
+    height: 1.25rem;
+    margin-left: -0.5rem;
+    width: 1.25rem;
+  }
+
+  &__icon--status#{&}__icon--md {
+    margin-left: -0.5rem;
   }
 
   &__avatar-container {
-    display: block;
+    align-items: center;
+    display: flex;
     height: 1.25rem;
-    margin-left: -0.625rem;
-    margin-right: 0.25rem;
-    margin-top: -0.125rem;
+    justify-content: center;
+    margin-left: -0.5rem;
+    margin-right: 0.125rem;
     width: 1.25rem;
+
+    &--sm {
+      height: 1.25rem;
+      margin-left: -0.5rem;
+      margin-right: -0.125rem;
+      width: 1.25rem;
+    }
   }
 
   &__avatar {
     border-radius: 1000px;
-    display: block;
+    flex: 0 0 auto;
     height: 1.5rem;
     overflow: hidden;
     width: 1.5rem;
+
+    &--sm {
+      height: 1rem;
+      width: 1rem;
+    }
 
     img {
       display: block;
@@ -385,10 +455,6 @@ export default defineComponent({
     }
   }
 
-  &--danger &__icon {
-    color: rgba(var(--fora_danger-6), 1);
-  }
-
   &--success {
     background-color: rgba(var(--fora_success-1), 1);
     border-color: rgba(var(--fora_success-6), 1);
@@ -422,10 +488,6 @@ export default defineComponent({
         background-color: rgba(var(--fora_white), 1);
       }
     }
-  }
-
-  &--success &__icon {
-    color: rgba(var(--fora_success-6), 1);
   }
 
   &--warning {
@@ -463,10 +525,6 @@ export default defineComponent({
     }
   }
 
-  &--warning &__icon {
-    color: rgba(var(--fora_warning-7), 1);
-  }
-
   &--info {
     background-color: rgba(var(--fora_secondary-1), 1);
     border-color: rgba(var(--fora_secondary-6), 1);
@@ -502,8 +560,18 @@ export default defineComponent({
     }
   }
 
-  &--info &__icon {
-    color: rgba(var(--fora_secondary-6), 1);
+  &--sm {
+    font-size: $font-xs;
+    font-weight: $font-regular;
+    height: 1.25rem;
+    padding: 0 calc(0.5rem - 1px);
+  }
+
+  &--md {
+    font-size: $font-sm;
+    font-weight: $font-regular;
+    height: 1.5rem;
+    padding: calc(0.125rem - 1px) calc(0.625rem - 1px);
   }
 }
 </style>
