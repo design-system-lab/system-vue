@@ -5,31 +5,6 @@
     <div class="control-panel">
       <div>
         <fd-select
-          v-model="statusType"
-          id="status-type"
-          class="mb-4"
-          label="Status"
-          small
-          :items="[
-            {
-              text: 'Success',
-              value: 'success'
-            },
-            {
-              text: 'Warning',
-              value: 'warning'
-            },
-            {
-              text: 'Danger',
-              value: 'danger'
-            },
-            {
-              text: 'Info',
-              value: 'info'
-            }
-          ]"
-        />
-        <fd-select
           v-model="size"
           id="size-type"
           class="mb-4"
@@ -80,20 +55,10 @@
             Hide / Show
           </template>
           <fd-checkbox
-            v-model="showAvatar"
-            id="avatar"
-            value="avatar"
-          >Show Avatar</fd-checkbox>
-          <fd-checkbox
             v-model="showIcon"
             id="icon"
             value="icon"
           >Show Icon</fd-checkbox>
-          <fd-checkbox
-            v-model="showStatus"
-            id="status"
-            value="status"
-          >Show Status</fd-checkbox>
           <fd-checkbox
             v-model="showTag"
             id="tag"
@@ -119,17 +84,12 @@
             id="interactive"
             value="interactive"
           >Interactive</fd-checkbox>
-          <fd-checkbox
-            v-model="outlined"
-            id="outlined"
-            value="outlined"
-          >Outlined</fd-checkbox>
         </fd-group>
       </div>
     </div>
 
     <div
-      class="display-panel"
+      class="display-panel mb-4"
       :style="{ backgroundColor: bg }"
     >
       <fd-group
@@ -141,18 +101,13 @@
             dismissible,
             interactive,
             modelValue: val,
-            outlined,
-            status: showStatus ? statusType[0] : undefined,
             tag: showTag ? tagType : undefined,
           }"
           :size="size[0]"
-          @click="counter++"
+          @click="handleChipClick"
           @dismiss="dismissCount++"
           @update:modelValue="val = $event"
         >
-          <template v-if="showAvatar" #avatar-img>
-            <img src="https://i.pravatar.cc/48" alt="avatar" />
-          </template>
           <template v-if="showIcon" #icon>
             <fd-icon
               :icon="CubeTransparentIconSm"
@@ -163,24 +118,145 @@
         </fd-chip>
         <fd-chip
           v-bind="{
-            avatarImg: showAvatar ? 'https://i.pravatar.cc/48' : undefined,
             dismissible,
             icon: showIcon ? CubeTransparentIconSm : undefined,
             interactive,
-            modelValue: val,
-            outlined,
-            status: showStatus ? statusType[0] : undefined,
+            modelValue: val2,
             tag: showTag ? tagType : undefined,
             text,
           }"
           :size="size[0]"
           @click="counter++"
           @dismiss="dismissCount++"
-          @update:modelValue="val = $event"
+          @update:modelValue="val2 = $event"
+        />
+        <fd-chip
+          v-bind="{
+            dismissible,
+            icon: showIcon ? CubeTransparentIconSm : undefined,
+            interactive,
+            modelValue: val3,
+            tag: showTag ? tagType : undefined,
+            text,
+          }"
+          :size="size[0]"
+          @click="counter++"
+          @dismiss="dismissCount++"
+          @update:modelValue="val3 = $event"
         />
       </fd-group>
       <p class="aux-text">Times clicked: {{ counter }}</p>
       <p class="aux-text">Times dismissed: {{ dismissCount }}</p>
+    </div>
+
+    <div
+      class="display-panel"
+      :style="{ backgroundColor: bg }"
+    >
+      <h5 class="mb-4">Chips as Radio</h5>
+      <fd-group
+        class="mb-4"
+        type="chip"
+      >
+        <fd-chip
+          v-model="radioChips"
+          interactive
+          :size="size[0]"
+          value="option-1"
+        >
+          Option 01
+        </fd-chip>
+        <fd-chip
+          v-model="radioChips"
+          interactive
+          :size="size[0]"
+          value="option-2"
+        >
+          Option 02
+        </fd-chip>
+        <fd-chip
+          v-model="radioChips"
+          interactive
+          :size="size[0]"
+          value="option-3"
+        >
+          Option 03
+        </fd-chip>
+        <fd-chip
+          v-model="radioChips"
+          interactive
+          :size="size[0]"
+          value="option-4"
+        >
+          Option 04
+        </fd-chip>
+      </fd-group>
+      <p class="aux-text">Current Value: {{ radioChips }}</p>
+    </div>
+    <div
+      class="display-panel"
+      :style="{ backgroundColor: bg }"
+    >
+      <h5 class="mb-4">Chips as Multi-Select</h5>
+      <fd-group
+        v-model="multiSelectChips"
+        class="mb-4"
+        type="chip"
+      >
+        <fd-chip
+          interactive
+          :size="size[0]"
+          value="option-1"
+        >
+          Option 01
+        </fd-chip>
+        <fd-chip
+          interactive
+          :size="size[0]"
+          value="option-2"
+        >
+          Option 02
+        </fd-chip>
+        <fd-chip
+          interactive
+          :size="size[0]"
+          value="option-3"
+        >
+          Option 03
+        </fd-chip>
+        <fd-chip
+          interactive
+          :size="size[0]"
+          value="option-4"
+        >
+          Option 04
+        </fd-chip>
+      </fd-group>
+      <p class="aux-text">Current Value: {{ multiSelectChips }}</p>
+    </div>
+    <div
+      class="display-panel"
+      :style="{ backgroundColor: bg }"
+    >
+      <h5 class="mb-4">Programmatic Chips as Radio</h5>
+      <fd-group
+        v-model="progRadioChips"
+        class="mb-4"
+        :chips="chips"
+        type="chip"
+      />
+    </div>
+    <div
+      class="display-panel"
+      :style="{ backgroundColor: bg }"
+    >
+      <h5 class="mb-4">Programmatic Chips as Multi-Select</h5>
+      <fd-group
+        v-model="progMultiChips"
+        class="mb-4"
+        :chips="chips"
+        type="chip"
+      />
     </div>
   </div>
 </template>
@@ -198,14 +274,10 @@ export default defineComponent({
   name: 'ChipPage',
   components: { FdCheckbox, FdChip, FdGroup, FdIcon, FdInputField, FdSelect },
   setup() {
-    const showAvatar = shallowRef(false);
     const dismissible = shallowRef(false);
     const showIcon = shallowRef(false);
     const interactive = shallowRef(false);
-    const outlined = shallowRef(false);
     const size = shallowRef(['lg']);
-    const showStatus = shallowRef(false);
-    const statusType = shallowRef(['success']);
     const showTag = shallowRef(false);
     const tagType = shallowRef('span');
     const bg = shallowRef('#fff');
@@ -214,25 +286,66 @@ export default defineComponent({
     const dismissCount = shallowRef(0);
     const show = shallowRef(true);
     const val = shallowRef(false);
+    const val2 = shallowRef(false);
+    const val3 = shallowRef(false);
+    const radioChips = shallowRef<string>('');
+    const testVal = shallowRef<string>('');
+    const multiSelectChips = shallowRef<string[]>([]);
+    const progMultiChips = shallowRef<string[]>([]);
+    const progRadioChips = shallowRef<string>('');
+
+    const chips = [
+      {
+        text: 'Option 01',
+        interactive: true,
+        value: 'option-1',
+      },
+      {
+        text: 'Option 02',
+        interactive: true,
+        value: 'option-2',
+      },
+      {
+        text: 'Option 03',
+        interactive: true,
+        value: 'option-3',
+      },
+      {
+        text: 'Option 04',
+        interactive: true,
+        value: 'option-4',
+      },
+    ];
+
+    function handleChipClick(e) {
+      console.log(e);
+      console.log('Chip clicked');
+      counter.value += 1;
+    }
 
     return {
       bg,
-      showAvatar,
       dismissible,
       showIcon,
       interactive,
-      outlined,
       size,
-      showStatus,
-      statusType,
       showTag,
       tagType,
       counter,
       dismissCount,
+      radioChips,
       show,
       text,
       val,
+      val2,
+      val3,
+      multiSelectChips,
       CubeTransparentIconSm,
+      testVal,
+      progMultiChips,
+      progRadioChips,
+      chips,
+      handleChipClick,
     };
   }
 })
