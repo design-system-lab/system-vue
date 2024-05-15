@@ -284,12 +284,10 @@ export default defineComponent({
     const text = shallowRef('Chip Text');
     const counter = shallowRef(0);
     const dismissCount = shallowRef(0);
-    const show = shallowRef(true);
     const val = shallowRef(false);
     const val2 = shallowRef(false);
     const val3 = shallowRef(false);
     const radioChips = shallowRef<string>('');
-    const testVal = shallowRef<string>('');
     const multiSelectChips = shallowRef<string[]>([]);
     const progMultiChips = shallowRef<string[]>([]);
     const progRadioChips = shallowRef<string>('');
@@ -325,27 +323,25 @@ export default defineComponent({
 
     return {
       bg,
-      dismissible,
-      showIcon,
-      interactive,
-      size,
-      showTag,
-      tagType,
+      chips,
       counter,
       dismissCount,
+      dismissible,
+      handleChipClick,
+      interactive,
+      multiSelectChips,
+      progMultiChips,
+      progRadioChips,
       radioChips,
-      show,
+      showIcon,
+      showTag,
+      size,
+      tagType,
       text,
       val,
       val2,
       val3,
-      multiSelectChips,
       CubeTransparentIconSm,
-      testVal,
-      progMultiChips,
-      progRadioChips,
-      chips,
-      handleChipClick,
     };
   }
 })

@@ -15,6 +15,7 @@
       v-if="icon || $slots.icon"
       class="fd-chip__icon"
       :class="[`fd-chip__icon--${size}`]"
+      data-testid="fd-chip__icon"
     >
       <slot name="icon">
         <fd-icon
@@ -26,23 +27,24 @@
     <slot>
       {{ text }}
     </slot>
-    <transition name="fade-in-left">
-      <div
-        v-if="isSelected"
-        class="fd-chip__selected"
-      >
-        <slot name="selected-icon">
-          <fd-icon
-            :icon="CheckIcon"
-            :size="getIconSize"
-          />
-        </slot>
-      </div>
-    </transition>
+    <div
+      v-if="isSelected"
+      class="fd-chip__selected"
+      :class="[`fd-chip__selected--${size}`]"
+      data-testid="fd-chip__selected"
+    >
+      <slot name="selected-icon">
+        <fd-icon
+          :icon="CheckIcon"
+          :size="getIconSize"
+        />
+      </slot>
+    </div>
     <button
       v-if="dismissible"
       class="fd-chip__dismiss"
       :class="[`fd-chip__dismiss--${size}`]"
+      data-testid="fd-chip__dismiss"
       @click.stop.prevent="$emit('dismiss')"
     >
       <slot name="dismiss-icon">
@@ -232,7 +234,15 @@ export default defineComponent({
   }
 
   &__selected {
+    display: flex;
     flex: 0 0 auto;
+    height: 1rem;
+    width: 1rem;
+
+    &--lg {
+      height: 1.25rem;
+      width: 1.25rem;
+    }
   }
 
   &__dismiss {
@@ -265,5 +275,4 @@ export default defineComponent({
     }
   }
 }
-
 </style>
