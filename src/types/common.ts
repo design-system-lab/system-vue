@@ -1,6 +1,5 @@
-import type { FunctionalComponent, HTMLAttributes, Slot, VNodeProps } from 'vue';
+import type { FunctionalComponent, HTMLAttributes, VNodeProps } from 'vue';
 import FdChip from '../components/Chip';
-import Chip from '../components/Chip';
 
 export type ErrorMessages = {
   [key: string]: string; 

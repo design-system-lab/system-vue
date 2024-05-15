@@ -1,5 +1,4 @@
 import { render } from '@testing-library/vue'
-import userEvent from '@testing-library/user-event';
 import FdChip from './FdChip.vue'
 import { CubeTransparentIcon } from '@heroicons/vue/24/solid';
 
@@ -38,9 +37,8 @@ test('renders chip with dismiss button', () => {
   getByTestId('fd-chip__dismiss');
 });
 
-test('renders interactive chip', async () => {
-  const user = userEvent.setup();
-  const { getByText, getByTestId } = render(FdChip, {
+test('renders interactive chip with checkmark', async () => {
+  const { getByTestId } = render(FdChip, {
     props: {
       text: 'Chip Label',
       interactive: true,

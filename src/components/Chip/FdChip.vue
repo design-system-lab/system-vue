@@ -114,7 +114,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const groupHandleModelValue = inject<(val: string | string[]) => void>('groupHandleModelValue', (val: string | string[]) => {});
+    const groupHandleModelValue = inject<((val: string | string[]) => void) | null>('groupHandleModelValue', null);
     const groupModelValue = inject('groupModelValue', shallowRef(null));
 
     const chipModelValue = computed<boolean | string | string[]>(() => {
@@ -161,7 +161,7 @@ export default defineComponent({
     function handleClick() {
       if (props.interactive) {
         emit('update:modelValue', getReturnValue.value);
-        groupHandleModelValue((getReturnValue.value as string | string[]));
+        if (groupHandleModelValue) groupHandleModelValue((getReturnValue.value as string | string[]));
       }
     }
 
