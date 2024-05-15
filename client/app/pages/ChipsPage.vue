@@ -92,59 +92,54 @@
       class="display-panel mb-4"
       :style="{ backgroundColor: bg }"
     >
-      <fd-group
-        class="mb-4"
-        type="chip"
+      <fd-chip
+        v-bind="{
+          dismissible,
+          interactive,
+          modelValue: val,
+          tag: showTag ? tagType : undefined,
+        }"
+        :size="size[0]"
+        @click="handleChipClick"
+        @dismiss="dismissCount++"
+        @update:modelValue="val = $event"
       >
-        <fd-chip
-          v-bind="{
-            dismissible,
-            interactive,
-            modelValue: val,
-            tag: showTag ? tagType : undefined,
-          }"
-          :size="size[0]"
-          @click="handleChipClick"
-          @dismiss="dismissCount++"
-          @update:modelValue="val = $event"
-        >
-          <template v-if="showIcon" #icon>
-            <fd-icon
-              :icon="CubeTransparentIconSm"
-              :size="size[0] === 'lg' ? 20 : 16"
-            />
-          </template>
-          {{ text }}
-        </fd-chip>
-        <fd-chip
-          v-bind="{
-            dismissible,
-            icon: showIcon ? CubeTransparentIconSm : undefined,
-            interactive,
-            modelValue: val2,
-            tag: showTag ? tagType : undefined,
-            text,
-          }"
-          :size="size[0]"
-          @click="counter++"
-          @dismiss="dismissCount++"
-          @update:modelValue="val2 = $event"
-        />
-        <fd-chip
-          v-bind="{
-            dismissible,
-            icon: showIcon ? CubeTransparentIconSm : undefined,
-            interactive,
-            modelValue: val3,
-            tag: showTag ? tagType : undefined,
-            text,
-          }"
-          :size="size[0]"
-          @click="counter++"
-          @dismiss="dismissCount++"
-          @update:modelValue="val3 = $event"
-        />
-      </fd-group>
+        <template v-if="showIcon" #icon>
+          <fd-icon
+            :icon="CubeTransparentIconSm"
+            :size="size[0] === 'lg' ? 20 : 16"
+          />
+        </template>
+        {{ text }}
+      </fd-chip>
+      <fd-chip
+        v-bind="{
+          dismissible,
+          icon: showIcon ? CubeTransparentIconSm : undefined,
+          interactive,
+          modelValue: val2,
+          tag: showTag ? tagType : undefined,
+          text,
+        }"
+        :size="size[0]"
+        @click="counter++"
+        @dismiss="dismissCount++"
+        @update:modelValue="val2 = $event"
+      />
+      <fd-chip
+        v-bind="{
+          dismissible,
+          icon: showIcon ? CubeTransparentIconSm : undefined,
+          interactive,
+          modelValue: val3,
+          tag: showTag ? tagType : undefined,
+          text,
+        }"
+        :size="size[0]"
+        @click="counter++"
+        @dismiss="dismissCount++"
+        @update:modelValue="val3 = $event"
+      />
       <p class="aux-text">Times clicked: {{ counter }}</p>
       <p class="aux-text">Times dismissed: {{ dismissCount }}</p>
     </div>
@@ -316,8 +311,6 @@ export default defineComponent({
     ];
 
     function handleChipClick(e) {
-      console.log(e);
-      console.log('Chip clicked');
       counter.value += 1;
     }
 

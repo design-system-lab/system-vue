@@ -9,7 +9,7 @@
         'fd-chip--interactive': interactive,
       }
     ]"
-    @click.stop.prevent="handleClick"
+    @click="handleClick"
   >
     <div
       v-if="icon || $slots.icon"
@@ -62,7 +62,18 @@ import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid';
 import FdIcon from '../Icon/FdIcon.vue';
 import { Icon } from '../../types';
 
-
+/**
+ * Chips
+ * 
+ * @param {boolean} dismissible - Adds a dismiss button to the chip and emits `dismiss` event when clicked
+ * @param {Icon} icon - Icon to display on the chip
+ * @param {boolean} interactive - Makes the chip interactive (clickable) and emits `update:modelValue` event when clicked
+ * @param {string | string[] | boolean} modelValue - Value of the chip, can function like a checkbox, radio, or multi-select based on the value type
+ * @param {'sm' | 'md' | 'lg'} size - Size of the chip
+ * @param {string} tag - Optional HTML tag to use for the chip, will default to div for non-interactive chips and button for interactive chips
+ * @param {string} text - Text to display in the chip
+ * @param {string} value - Value to use for the chip, used for radio or multi-select chips
+ */
 export default defineComponent({
   name: 'FdChip',
   components: {
@@ -103,8 +114,8 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
+    const groupHandleModelValue = inject<(val: string | string[]) => void>('groupHandleModelValue', (val: string | string[]) => {});
     const groupModelValue = inject('groupModelValue', shallowRef(null));
-    const groupHandleModelValue = inject<(val: string | string[]) => void>('groupHandleModelValue');
 
     const chipModelValue = computed<boolean | string | string[]>(() => {
       return groupModelValue.value ?? props.modelValue;
@@ -150,9 +161,7 @@ export default defineComponent({
     function handleClick() {
       if (props.interactive) {
         emit('update:modelValue', getReturnValue.value);
-
-        // if used within a group and group model value exists, we can assume the type
-        if (groupModelValue !== null && groupHandleModelValue) groupHandleModelValue((getReturnValue.value as string | string[]));
+        groupHandleModelValue((getReturnValue.value as string | string[]));
       }
     }
 
@@ -174,104 +183,104 @@ export default defineComponent({
 
 .fd-chip {
   align-items: center;
-  background-color: rgba(var(--fora_neutral-3), 1);
-  border: 1px solid rgba(#000, 0.1);
-  border-radius: 1000px;
+  background-color: rgba(var(--fora_chip_bg));
+  border: $chip_border rgba(var(--fora_chip_border-color));
+  border-radius: $border-radius_full;
   box-sizing: border-box;
-  color: rgba(var(--fora_neutral-13), 1);
+  color: rgba(var(--fora_chip_color));
   display: inline-flex;
-  font-size: $font-sm;
-  gap: 0.25rem;
-  height: 1.75rem;
+  font-size: $chip_font-size;
+  gap: $chip_gap;
+  height: $chip_height;
   justify-content: center;
-  line-height: 1.25rem;
-  padding: 0.25rem calc(0.75rem - 1px);
+  line-height: $chip_line-height;
+  padding: $chip_padding-y calc($chip_padding-x - 1px);
   transition: $transition-timing background-color, $transition-timing border-color;
 
   &--md {
-    height: 1.5rem;
-    padding: 0.125rem calc(0.625rem - 1px);
+    height: $chip_md_height;
+    padding: $chip_md_padding-y calc($chip_md_padding-x - 1px);
   }
 
   &--sm {
-    font-size: $font-xs;
-    height: 1.25rem;
-    padding: 0 calc(0.5rem - 1px);
+    font-size: $chip_sm_size;
+    height: $chip_sm_height;
+    padding: $chip_sm_padding-y calc($chip_sm_padding-x - 1px);
   }
 
   &--dismissible {
-    padding-right: calc(0.25rem - 1px);
+    padding-right: calc($chip_dismissible_padding-right - 1px);
   }
 
   &--interactive {
-    background-color: rgba(var(--fora_neutral-2), 1);
-    border-color: rgba(#000, 0.5);
+    background-color: rgba(var(--fora_chip_interactive_bg));
+    border-color: rgba(var(--fora_chip_interactive_border-color));
 
     &:hover {
-      background-color: rgba(var(--fora_neutral-3), 1);
+      background-color: rgba(var(--fora_chip_interactive_bg--hover));
     }
 
     &:active {
-      background-color: rgba(var(--fora_neutral-4), 1);
+      background-color: rgba(var(--fora_chip_interactive_bg--pressed));
     }
   }
 
   &--selected {
-    background-color: (rgba(var(--fora_neutral-4), 1));
+    background-color: (rgba(var(--fora_chip_selected_bg)));
   }
 
   &__icon {
-    color: rgba(var(--fora_neutral-8), 1);
+    color: rgba(var(--fora_chip_icon_color));
     display: flex;
     flex: 0 0 auto;
-    height: 1rem;
-    width: 1rem;
+    height: $chip_icon_width;
+    width: $chip_line-height;
 
     &--lg {
-      height: 1.25rem;
-      width: 1.25rem;
+      height: $chip_lg_icon_height;
+      width: $chip_lg_icon_width;
     }
   }
 
   &__selected {
     display: flex;
     flex: 0 0 auto;
-    height: 1rem;
-    width: 1rem;
+    height: $chip_selected_height;
+    width: $chip_selected_width;
 
     &--lg {
-      height: 1.25rem;
-      width: 1.25rem;
+      height: $chip_lg_selected_height;
+      width: $chip_lg_selected_width;
     }
   }
 
   &__dismiss {
     background: none;
     border: none;
-    border-radius: 1000px;
+    border-radius: $border-radius_full;
     cursor: pointer;
     display: flex;
     flex: 0 0 auto;
-    height: 1rem;
+    height: $chip_dismiss_height;
     padding: 0;
     transition: $transition-timing background-color;
-    width: 1rem;
+    width: $chip_dismiss_width;
 
     &:hover {
-      background-color: rgba(#000, 0.1);
+      background-color: rgba(var(--fora_chip_dismiss_bg--hover));
     }
 
     &:active {
-      background-color: rgba(#000, 0.2);
+      background-color: rgba(var(--fora_chip_dismiss_bg--pressed));
     }
 
     &--lg {
-      height: 1.25rem;
-      width: 1.25rem;
+      height: $chip_lg_dismiss_height;
+      width: $chip_lg_dismiss_width;
     }
 
     &--sm {
-      margin-right: -0.125rem;
+      margin-right: $chip_sm_dismiss_margin-right;
     }
   }
 }
