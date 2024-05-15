@@ -1,4 +1,5 @@
 import type { FunctionalComponent, HTMLAttributes, VNodeProps } from 'vue';
+import FdChip from '../components/Chip';
 
 export type ErrorMessages = {
   [key: string]: string; 
@@ -24,3 +25,8 @@ export type MenuDirection = 'top' | 'bottom';
 export type MenuPlacement = 'attached' | 'global';
 
 export type NodeOrNull = Node | null;
+
+export type StopLight = 'info' | 'success' | 'warning' | 'danger';
+
+type FdChipType = typeof FdChip;
+export type ChipGroupChip = FdChipType & SlotOrText;

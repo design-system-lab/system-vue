@@ -1,6 +1,7 @@
 import Home from '../pages/HomePage.vue';
 import ButtonPage from '../pages/ButtonPage.vue';
 import CheckboxPage from '../pages/CheckboxPage.vue';
+import ChipsPage from '../pages/ChipsPage.vue';
 import ColorsPage from '../pages/ColorsPage.vue';
 import GridPage from '../pages/GridPage.vue';
 import GroupPage from '../pages/GroupPage.vue';
@@ -15,6 +16,7 @@ export default [
   { path: '/', name: 'Home', component: Home },
   { path: '/buttons', name: 'Buttons', component: ButtonPage },
   { path: '/checkbox', name: 'Checkbox', component: CheckboxPage },
+  { path: '/chips', name: 'Chips', component: ChipsPage },
   { path: '/colors', name: 'Colors', component: ColorsPage },
   { path: '/grid', name: 'Grid', component: GridPage },
   { path: '/group', name: 'Group', component: GroupPage },
