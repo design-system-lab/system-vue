@@ -28,6 +28,7 @@
             'fd-menu__button--selected': modelValue?.includes(item.value),
           }"
           :data-testid="item.value"
+          tabindex="0"
           @keydown.tab.prevent.stop="handleTab"
           @click.stop.prevent="handleClick(item.value)"
         >

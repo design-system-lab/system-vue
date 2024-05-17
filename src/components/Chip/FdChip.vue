@@ -85,7 +85,7 @@ export default defineComponent({
       default: false,
     },
     icon: {
-      type: Object as PropType<Icon>,
+      type: Function as PropType<Icon>,
       default: undefined,
     },
     interactive: {
