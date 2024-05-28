@@ -260,7 +260,60 @@
     </div>
     <br><br>
 
-    <div class="box-spacer" />
+    <h2>Multi Select</h2>
+
+    <h4 class="mb-4">Default Multi Select</h4>
+    <fd-select
+      v-model="multiVal"
+      id="test-multi-default"
+      :items="items"
+      label="Example Select"
+      placeholder="Select an option"
+      :small="small"
+      multiple
+    />
+    <br><br>
+
+    <h4 class="mb-4">Multi Select (Checkboxes on Right)</h4>
+    <fd-select
+      v-model="multiVal"
+      id="test-multi-default"
+      checkbox-end
+      :items="items"
+      label="Example Select"
+      placeholder="Select an option"
+      :small="small"
+      multiple
+    />
+    <br><br>
+
+    <h4 class="mb-4">Multi Select with Chips</h4>
+    <fd-select
+      v-model="multiVal"
+      id="test-multi-default"
+      chips
+      :items="items"
+      label="Example Select"
+      placeholder="Select an option"
+      :small="small"
+      multiple
+    />
+    <br><br>
+
+    <h4 class="mb-4">Multi Select with CSV</h4>
+    <fd-select
+      v-model="multiVal"
+      id="test-multi-default"
+      csv
+      :items="items"
+      label="Example Select"
+      placeholder="Select an option"
+      :small="small"
+      multiple
+    />
+    <br><br>
+
+    <div class="box-spacer"></div>
 
   </div>
 </template>
@@ -289,6 +342,7 @@ export default defineComponent({
     const testTel = shallowRef([]);
     const testUrl = shallowRef([]);
     const allSlotsVal = shallowRef([]);
+    const multiVal = shallowRef([]);
 
     const items = shallowRef([
       {
@@ -401,6 +455,7 @@ export default defineComponent({
       appendPrependIconVal,
       CubeTransparentIcon,
       itemsAlt,
+      multiVal,
       prependIconVal,
       small,
       testVal,

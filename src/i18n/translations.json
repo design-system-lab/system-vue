@@ -1,5 +1,7 @@
 {
   "close": "Close",
+  "field-value:multiple-text__singular": "1 Item Selected",
+  "field-value:multiple-text__plural": "{1} Items Selected",
   "toggle:false": "Off",
   "toggle:true": "On"
 }
