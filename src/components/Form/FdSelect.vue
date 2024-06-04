@@ -62,10 +62,13 @@
             @input="handleInput"
             @focus="hasFocus = true"
             @keydown.down.exact.prevent="handleDown"
-            @keydown.down.shift.prevent="handleDownShift"
+            @keydown.down.meta.exact.prevent="handleDownCtrl"
+            @keydown.down.shift.exact.prevent="handleDownShift"
             @keydown.enter="handleEnter"
             @keydown.up.exact.prevent="handleUp"
-            @keydown.space.prevent="handleClick"
+            @keydown.up.meta.exact.prevent="handleUpCtrl"
+            @keydown.up.shift.exact.prevent="handleUpShift"
+            @keydown.space.prevent="handleSpace"
             @keydown.tab="handleTab"
             @mousedown.prevent
           >
@@ -313,6 +316,7 @@ export default defineComponent({
   emits: ['item:click', 'update:modelValue'],
   setup(props, { emit }) {
     const focusedItem = shallowRef(-1);
+    const focusStart = shallowRef(-1);
     const hasFocus = shallowRef(false);
     const menu = shallowRef<ComponentPublicInstance | null>(null);
     const menuOpen = shallowRef(false);
@@ -388,6 +392,7 @@ export default defineComponent({
       const target = (e.target as HTMLSelectElement);
 
       focusedItem.value = props.items.findIndex((val) => val.value === target?.value);
+      focusStart.value = focusedItem.value;
       emit('update:modelValue', props.multiple ? getMultipleValue(target.value) : [target?.value]);
     }
 
@@ -397,14 +402,36 @@ export default defineComponent({
     function handleDown() {
       if (focusedItem.value < props.items.length - 1) {
         focusedItem.value += 1;
+        focusStart.value = focusedItem.value;
         emit('update:modelValue', [props.items[focusedItem.value].value]);
       }
     }
 
-    function handleDownShift() {
+    function handleDownCtrl() {
       if (focusedItem.value < props.items.length - 1) {
         focusedItem.value += 1;
-        emit('update:modelValue', getMultipleValue(props.items[focusedItem.value].value));
+        focusStart.value = focusedItem.value;
+      }
+    }
+
+    function handleDownShift() {
+      if (props.multiple && focusedItem.value < props.items.length - 1) {
+        if (focusStart.value === focusedItem.value) {
+          emit('update:modelValue', [
+            props.items[focusedItem.value].value, 
+            props.items[focusedItem.value + 1].value,
+          ]);
+
+          focusedItem.value += 1;
+        } else {
+          focusedItem.value += 1;
+
+          emit('update:modelValue', getMultipleValue(
+            focusStart.value < focusedItem.value
+              ? props.items[focusedItem.value].value
+              : props.items[focusedItem.value - 1].value,
+          ));
+        }
       }
     }
 
@@ -414,7 +441,37 @@ export default defineComponent({
     function handleUp() {
       if (focusedItem.value > 0) {
         focusedItem.value -= 1;
+        focusStart.value = focusedItem.value;
         emit('update:modelValue', [props.items[focusedItem.value].value]);
+      }
+    }
+
+    function handleUpCtrl() {
+      console.log('ctrl')
+      if (focusedItem.value > 0) {
+        focusedItem.value -= 1;
+        focusStart.value = focusedItem.value;
+      }
+    }
+
+    function handleUpShift() {
+      if (props.multiple && focusedItem.value > 0) {
+        if (focusStart.value === focusedItem.value) {
+          emit('update:modelValue', [
+            props.items[focusedItem.value].value, 
+            props.items[focusedItem.value - 1].value,
+          ]);
+
+          focusedItem.value -= 1;
+        } else {
+          focusedItem.value -= 1;
+
+          emit('update:modelValue', getMultipleValue(
+            focusStart.value > focusedItem.value
+              ? props.items[focusedItem.value].value
+              : props.items[focusedItem.value + 1].value,
+          ));
+        }
       }
     }
 
@@ -426,6 +483,18 @@ export default defineComponent({
 
       if (menuOpen.value) {
         menuOpen.value = false;
+      }
+    }
+
+    function handleSpace(e: KeyboardEvent) {
+      if (!props.multiple) {
+        handleClick(e);
+      } else {
+        if (menuOpen.value && focusedItem.value !== -1) {
+          emit('update:modelValue', getMultipleValue(props.items[focusedItem.value].value));
+        } else {
+          menuOpen.value = !menuOpen.value;
+        }
       }
     }
 
@@ -453,6 +522,7 @@ export default defineComponent({
      */
     function handleMenuItemClick(val: string) {
       focusedItem.value = props.items.findIndex((item) => item.value === val);
+      focusStart.value = focusedItem.value;
       emit('update:modelValue', props.multiple ? getMultipleValue(val) : [val]);
       menuOpen.value = props.multiple ? true : false;
       selectInput.value?.focus();
@@ -503,6 +573,8 @@ export default defineComponent({
           } else {
             focusedItem.value = -1;
           }
+
+          focusStart.value = focusedItem.value;
         }
       },
     );
@@ -518,6 +590,7 @@ export default defineComponent({
       handleClick,
       handleDocumentClick,
       handleDown,
+      handleDownCtrl,
       handleDownShift,
       handleEnter,
       handleFieldItemClick,
@@ -526,7 +599,10 @@ export default defineComponent({
       handleMenuItemClick,
       handleMenuTab,
       handleMenuClick,
+      handleSpace,
       handleUp,
+      handleUpCtrl,
+      handleUpShift,
       handleTab,
       hasFocus,
       menu,

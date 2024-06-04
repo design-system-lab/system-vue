@@ -26,10 +26,12 @@
         value
       }"
       @blur="hasFocus = false"
-      @focus="hasFocus = true"
+      @focus="handleFocus"
       @update:model-value="onChange"
     />
-    <slot>{{ label }}</slot>
+    <span class="fd-checkbox__text">
+      <slot>{{ label }}</slot>
+    </span>
   </label>
 </template>
 <script lang="ts">
@@ -102,8 +104,15 @@ export default defineComponent({
       emit('update:modelValue', event);
     };
 
+    const handleFocus = (e: FocusEvent) => {
+      if ((e.target as HTMLElement).matches(':focus-visible')) {
+        hasFocus.value = true;
+      }
+    };
+
     return {
       hasFocus,
+      handleFocus,
       onChange,
     };
   },
@@ -120,7 +129,6 @@ export default defineComponent({
   display: flex;
   font-size: $checkbox_size;
   gap: $checkbox_gap;
-  line-height: 1.25rem;
   padding: 0.25rem;
   transition: $transition-timing background-color;
 
@@ -150,6 +158,7 @@ export default defineComponent({
 
   &--focused {
     @include focus-primary-styles;
+    transition: $transition-timing box-shadow;
   }
 
   &--focused-error {
@@ -175,6 +184,11 @@ export default defineComponent({
   &--disabled {
     color: rgba(var(--fora_checkbox_disabled_color));
     cursor: not-allowed;
+  }
+
+  &__text {
+    line-height: 1.25rem;
+    padding: 0.125rem 0;
   }
 }
 

@@ -4,8 +4,8 @@
     :class="{
       'fd-radio--disabled': disabled || groupDisabled,
       'fd-radio--error': errors.length || groupErrors.length,
-      'fd-radio--focused': focused,
-      'fd-radio--focused-error': focused && (errors.length || groupErrors.length),
+      'fd-radio--focused': hasFocus,
+      'fd-radio--focused-error': hasFocus && (errors.length || groupErrors.length),
       'fd-radio--readonly': readonly,
       'fd-radio--selected': (modelValue || groupModelValue) === value,
     }"
@@ -20,9 +20,9 @@
         readonly,
         value
       }"
-      @blur="focused = false"
+      @blur="hasFocus = false"
       @update:modelValue="handleChange"
-      @focus="focused = true"
+      @focus="handleFocus"
     />
     <slot>{{ label }}</slot>
   </label>
@@ -83,7 +83,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(_, { emit }) {
-    const focused = shallowRef(false);
+    const hasFocus = shallowRef(false);
     const groupDisabled = inject('groupDisabled', false);
     const groupErrors = inject('groupErrors', []);
     const groupHandleModelValue = inject<(val: string) => void>('groupHandleModelValue');
@@ -94,12 +94,19 @@ export default defineComponent({
       emit('update:modelValue', value);
       if (groupHandleModelValue) groupHandleModelValue(value);
     };
+
+    const handleFocus = (e: FocusEvent) => {
+      if ((e.target as HTMLElement).matches(':focus-visible')) {
+        hasFocus.value = true;
+      }
+    };
     
     return {
-      focused,
       groupDisabled,
       groupErrors,
       handleChange,
+      handleFocus,
+      hasFocus,
       groupModelValue,
       groupName,
     };
