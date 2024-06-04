@@ -277,7 +277,7 @@
     <h4 class="mb-4">Multi Select (Checkboxes on Right)</h4>
     <fd-select
       v-model="multiVal"
-      id="test-multi-default"
+      id="test-multi-right"
       checkbox-end
       :items="items"
       label="Example Select"
@@ -290,7 +290,7 @@
     <h4 class="mb-4">Multi Select with Chips</h4>
     <fd-select
       v-model="multiVal"
-      id="test-multi-default"
+      id="test-multi-chips"
       chips
       :items="items"
       label="Example Select"
@@ -303,7 +303,7 @@
     <h4 class="mb-4">Multi Select with CSV</h4>
     <fd-select
       v-model="multiVal"
-      id="test-multi-default"
+      id="test-multi-csv"
       csv
       :items="items"
       label="Example Select"

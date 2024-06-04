@@ -356,6 +356,7 @@ export default defineComponent({
      * @param {FocusEvent} e The event emitted from blur
      */
     function handleBlur(e: FocusEvent) {
+      console.log('blur')
       if (!menu.value?.$el.contains(e.relatedTarget as NodeOrNull)) {
         hasFocus.value = false;
         menuOpen.value = false;
@@ -370,6 +371,7 @@ export default defineComponent({
      * Focus the select field, then open/close the menu (unless it's readonly or disabled)
      */
     function handleClick(e: Event) {
+      console.log('click')
       selectInput.value?.focus();
 
       if (!props.readonly && !props.disabled) {
@@ -629,6 +631,7 @@ export default defineComponent({
   }
 
   &__input {
+    appearance: none; // necessary for safari
     cursor: pointer;
     height: 100%;
     left: 0;
@@ -658,11 +661,14 @@ export default defineComponent({
 
   &__faux-input {
     cursor: pointer;
+    display: flex;
     font-size: $form-field_input_size;
     max-width: $select_text_width;
+    pointer-events: none;
     position: relative;
     text-overflow: ellipsis;
     overflow: hidden;
+    width: 100%;
   }
 
   &__placeholder {

@@ -87,11 +87,23 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .fd-select-value {
+  pointer-events: none;
+  width: 100%;
+
   &--chips {
     display: inline-flex;
     align-items: top;
     justify-content: start;
     gap: 0.25rem;
+    pointer-events: none;
+  }
+
+  &__placeholder {
+    pointer-events: none;
+  }
+
+  &__chip {
+    pointer-events: auto;
   }
 }
 </style>
