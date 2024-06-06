@@ -27,7 +27,9 @@
             'fd-menu__button--small': small,
             'fd-menu__button--selected': modelValue?.includes(item.value),
           }"
+          :aria-selected="modelValue?.includes(item.value)"
           :data-testid="item.value"
+          role="option"
           tabindex="0"
           @keydown.tab.prevent.stop="handleTab"
           @click.stop.prevent="handleClick(item.value)"

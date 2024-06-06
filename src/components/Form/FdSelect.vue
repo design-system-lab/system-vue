@@ -53,10 +53,10 @@
             v-bind="inputAttrs"
             :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
             :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
+            :aria-multiselectable="multiple"
             :disabled="disabled"
-            :multiple="multiple"
             :readonly="readonly"
-            :title="activeItems.map(a => a.text).join(', ')"
+            :title="activeItems.length ? `${t('select:selected-prefix')} ${activeItems.map(a => a.text).join(', ')}` : undefined"
             :value="modelValue"
             @blur="handleBlur"
             @input="handleInput"
@@ -96,7 +96,7 @@
             :inert="chips ? false : true"
           >
             <fd-field-value
-              v-bind="{ chips, chipsInteractive, csv, modelValue: activeItems, multiple}"
+              v-bind="{ chips, chipsInteractive, csv, modelValue: activeItems, multiple }"
               @item:click="handleFieldItemClick"
               @item:dismiss="handleFieldItemDismiss"
             >
@@ -166,8 +166,9 @@ import FdFieldValue from './FdSelectValue.vue';
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
 import FdMenu from '../Menu';
-import { filterSlots, getIconSize } from '../../utils';
+import { filterSlots, getIconSize, TranslationSupport } from '../../utils';
 import { ErrorMessages, Icon, MenuDirection, MenuPlacement, NodeOrNull, SelectOption } from '../../types';
+import { wrap } from 'module';
 
 /**
  * Input Field
@@ -315,6 +316,7 @@ export default defineComponent({
   },
   emits: ['item:click', 'update:modelValue'],
   setup(props, { emit }) {
+    const { t } = inject('i18n') as TranslationSupport;
     const focusedItem = shallowRef(-1);
     const focusStart = shallowRef(-1);
     const hasFocus = shallowRef(false);
@@ -399,7 +401,7 @@ export default defineComponent({
     }
 
     /**
-     * Change the focused item when the user presses down arrow
+     * Change the focused and selected item when the user presses down arrow
      */
     function handleDown() {
       if (focusedItem.value < props.items.length - 1) {
@@ -409,6 +411,9 @@ export default defineComponent({
       }
     }
 
+    /**
+     * Change the focused item when the user presses down arrow + ctrl
+     */
     function handleDownCtrl() {
       if (focusedItem.value < props.items.length - 1) {
         focusedItem.value += 1;
@@ -416,6 +421,9 @@ export default defineComponent({
       }
     }
 
+    /**
+     * Select a range of items when the user presses down arrow + shift
+     */
     function handleDownShift() {
       if (props.multiple && focusedItem.value < props.items.length - 1) {
         if (focusStart.value === focusedItem.value) {
@@ -438,7 +446,7 @@ export default defineComponent({
     }
 
     /**
-     * Change the focused item when the user presses up arrow
+     * Change the focused and selected item when the user presses up arrow
      */
     function handleUp() {
       if (focusedItem.value > 0) {
@@ -448,6 +456,9 @@ export default defineComponent({
       }
     }
 
+    /**
+     * Change the focused item when the user presses up arrow + ctrl
+     */
     function handleUpCtrl() {
       console.log('ctrl')
       if (focusedItem.value > 0) {
@@ -456,6 +467,9 @@ export default defineComponent({
       }
     }
 
+    /**
+     * Select a range of items when the user presses up arrow + shift
+     */
     function handleUpShift() {
       if (props.multiple && focusedItem.value > 0) {
         if (focusStart.value === focusedItem.value) {
@@ -488,6 +502,11 @@ export default defineComponent({
       }
     }
 
+    /**
+     * If the menu is multi-select, open the menu (if closed) or toggle on/off the currently focused item (if open), otherwise open/close the menu
+     * 
+     * @param e Keyboard event (spacebar)
+     */
     function handleSpace(e: KeyboardEvent) {
       if (!props.multiple) {
         handleClick(e);
@@ -568,10 +587,10 @@ export default defineComponent({
     // set initial focused item when menu is opened
     watch(
       menuOpen,
-      (newVal) => {
+      (newVal: boolean) => {
         if (newVal) {
           if (props.modelValue.length) {
-            focusedItem.value = props.items.findIndex((val) => val.value === props.modelValue[0]);
+            focusedItem.value = props.items.findIndex((val: SelectOption) => val.value === props.modelValue[0]);
           } else {
             focusedItem.value = -1;
           }
@@ -611,6 +630,7 @@ export default defineComponent({
       menuOpen,
       select,
       selectInput,
+      t,
     };
   }
 });
@@ -666,7 +686,6 @@ export default defineComponent({
     max-width: $select_text_width;
     pointer-events: none;
     position: relative;
-    text-overflow: ellipsis;
     overflow: hidden;
     width: 100%;
   }

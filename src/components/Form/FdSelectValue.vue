@@ -1,5 +1,6 @@
 <template>
   <div
+    ref="field"
     class="fd-select-value"
     :class="{
       'fd-select-value--chips': chips,
@@ -17,11 +18,11 @@
         v-for="(item, i) in modelValue"
         :key="item.value"
       >
-        <span v-if="!chips">
+        <template v-if="!chips">
           <slot :name="item.slotName">
             {{ item.text }}{{ i < modelValue.length - 1 ? ', ' : '' }}
           </slot>
-        </span>
+        </template>
         <template v-else>
           <fd-chip
             class="fd-select-value__chip"
@@ -35,20 +36,19 @@
           </fd-chip>
         </template>
       </template>
-      <span v-else>
+      <template v-else>
         <slot name="multiple-text" :count="modelValue.length">
           {{ t(modelValue.length > 1 ? 'field-value:multiple-text__plural' : 'field-value:multiple-text__singular', modelValue.length) }}
         </slot>
-      </span>
+      </template>
     </template>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, inject, PropType } from 'vue';
+import { defineComponent, inject, PropType, shallowRef, watch } from 'vue';
 import FdChip from '../Chip/FdChip.vue';
 import { TranslationSupport } from '../../utils';
 import { SelectOption } from '../../types';
-import { m } from 'vitest/dist/index-761e769b';
 
 export default defineComponent({
   name: 'FdSelectValue',
@@ -74,11 +74,20 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    /**
+     * TODO: Build out the wrap functionality
+     */
+    wrap: {
+      type: Boolean,
+      default: true,
+    },
   },
-  setup() {
+  setup(props) {
     const { t } = inject('i18n') as TranslationSupport;
+    const field = shallowRef<HTMLDivElement | null>(null);
 
     return {
+      field,
       t,
     };
   },
@@ -91,8 +100,9 @@ export default defineComponent({
   width: 100%;
 
   &--chips {
-    display: inline-flex;
-    align-items: top;
+    align-items: flex-start;
+    display: flex;
+    flex-wrap: wrap;
     justify-content: start;
     gap: 0.25rem;
     pointer-events: none;
