@@ -36,30 +36,34 @@ const namedSlots = {
   'assistive-text': 'ASSISTIVE_TEXT',
 }
 
+const provide = {
+  i18n: { t: (key: string) => key },
+};
+
 test('renders default input with label and assistive text', async () => {
   const initItem = props.items[0];
-  const { getByText } = render(FdSelect, { props: { ...props, modelValue: [initItem.value], errors: [] } });
+  const { getByText } = render(FdSelect, { props: { ...props, modelValue: [initItem.value], errors: [] }, global: { provide } });
 
   getByText(props.label);
   getByText(props.assistiveText);
 });
 
 test('renders default input with label, error, and assistive text', async () => {
-  const { getByText, queryByText } = render(FdSelect, { props });
+  const { getByText, queryByText } = render(FdSelect, { props, global: { provide } });
 
   expect(queryByText(props.assistiveText)).toBeNull()
   getByText(props.errorMessages.format);
 });
 
 test('renders default input with label, error, and persistent assistive text', async () => {
-  const { getByText } = render(FdSelect, { props: { ...props, persistentAssistiveText: true } });
+  const { getByText } = render(FdSelect, { props: { ...props, persistentAssistiveText: true }, global: { provide } });
 
   getByText(props.assistiveText)
   getByText(props.errorMessages.format);
 });
 
 test('renders named slots text', () => {
-  const { getByText } = render(FdSelect, { props: { ...props, persistentAssistiveText: true }, slots: namedSlots });
+  const { getByText } = render(FdSelect, { props: { ...props, persistentAssistiveText: true }, slots: namedSlots, global: { provide } });
 
   getByText(namedSlots['assistive-text'], {exact: false});
   getByText(namedSlots['error-text'], {exact: false});
@@ -68,7 +72,7 @@ test('renders named slots text', () => {
 });
 
 test('passes input attributes to input element', () => {
-  const { getByTestId } = render(FdSelect, { props });
+  const { getByTestId } = render(FdSelect, { props, global: { provide } });
 
   getByTestId(props.inputAttrs['data-testid']);
 });

@@ -53,17 +53,22 @@
             v-bind="inputAttrs"
             :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
             :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
+            :aria-multiselectable="multiple"
             :disabled="disabled"
             :readonly="readonly"
-            :title="activeItems.map(a => a.text).join(', ')"
+            :title="activeItems.length ? `${t('select:selected-prefix')} ${activeItems.map(a => a.text).join(', ')}` : undefined"
             :value="modelValue"
             @blur="handleBlur"
             @input="handleInput"
             @focus="hasFocus = true"
-            @keydown.down.prevent="handleDown"
+            @keydown.down.exact.prevent="handleDown"
+            @keydown.down.meta.exact.prevent="handleDownCtrl"
+            @keydown.down.shift.exact.prevent="handleDownShift"
             @keydown.enter="handleEnter"
-            @keydown.up.prevent="handleUp"
-            @keydown.space.prevent="handleClick"
+            @keydown.up.exact.prevent="handleUp"
+            @keydown.up.meta.exact.prevent="handleUpCtrl"
+            @keydown.up.shift.exact.prevent="handleUpShift"
+            @keydown.space.prevent="handleSpace"
             @keydown.tab="handleTab"
             @mousedown.prevent
           >
@@ -88,24 +93,19 @@
           </select>
           <div
             class="fd-select__faux-input"
-            inert
+            :inert="chips ? false : true"
           >
-            <span
-              v-if="modelValue.length === 0"
-              class="fd-select__placeholder"
+            <fd-field-value
+              v-bind="{ chips, chipsInteractive, csv, modelValue: activeItems, multiple }"
+              @item:click="handleFieldItemClick"
+              @item:dismiss="handleFieldItemDismiss"
             >
-              {{ placeholder }}
-            </span>
-            <span v-else>
-              <span
-                v-for="item in activeItems"
-                :key="item.value"
-              >
-                <slot :name="item.slotName">
-                  {{ item.text }}
+              <template #placeholder>
+                <slot name="placeholder">
+                  {{ placeholder }}
                 </slot>
-              </span>
-            </span>
+              </template>
+            </fd-field-value>
           </div>
           <fd-icon
             class="fd-select__append-icon"
@@ -114,6 +114,7 @@
             }"
             :icon="ChevronDownIcon"
             :size="getIconSize('sm')"
+            inert
           />
         </div>
       </div>
@@ -121,14 +122,14 @@
         v-if="menuOpen"
         ref="menu"
         class="fd-select__menu"
-        v-bind="{ direction, focusItem: focusedItem, items, menuPlacement, modelValue, parent: select, size, small, width: menuWidth }"
+        v-bind="{ checkboxEnd, direction, focusItem: focusedItem, items, menuPlacement, modelValue, multiple, parent: select, size, small, width: menuWidth }"
         @document:click="handleDocumentClick"
         @item:click="handleMenuItemClick"
         @menu:click="handleMenuClick"
         @tab="handleMenuTab"
       >
         <template
-          v-for="(_, name) in $slots"
+          v-for="(_, name) in ($slots as Record<string, Function>)"
           #[name]="slotData"
         >
           <slot
@@ -159,19 +160,23 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, shallowRef, watch, PropType, ComponentPublicInstance } from 'vue';
+import { computed, defineComponent, inject, shallowRef, watch, PropType, ComponentPublicInstance } from 'vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
+import FdFieldValue from './FdSelectValue.vue';
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
 import FdMenu from '../Menu';
-import { filterSlots, getIconSize } from '../../utils';
+import { filterSlots, getIconSize, TranslationSupport } from '../../utils';
 import { ErrorMessages, Icon, MenuDirection, MenuPlacement, NodeOrNull, SelectOption } from '../../types';
 
 /**
  * Input Field
  * 
  * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
+ * @param {boolean} checkboxEnd - Whether the checkbox should appear at the end of the input field
  * @param {boolean} chips - Whether multiple inputs should be displayed as chips in the field
+ * @param {boolean} chipsInteractive - Whether the chips should be interactive (clickable)
+ * @param {boolean} csv - Whether to display the selected items as a comma-separated list
  * @param {string} describedby - Optional. When using descriptive text for the input outside of the component, supply this prop with the id of the descriptive text element
  * @param {boolean} disabled - Whether the component is disabled
  * @param {MenuDirection} direction - Either 'top' or 'bottom', defaults to 'bottom'
@@ -186,7 +191,7 @@ import { ErrorMessages, Icon, MenuDirection, MenuPlacement, NodeOrNull, SelectOp
  * @param {MenuPlacement} menuPlacement - Whether the menu should be appear inline or above all content
  * @param {string} menuWidth - A CSS value for the width of the menu, defaults to width of select field
  * @param {array} modelValue - Array of strings representing the values of the selected items
- * @param {boolean} mulitple - Whether to allow multiple items to be selected
+ * @param {boolean} multiple - Whether to allow multiple items to be selected
  * @param {boolean} persistentAssistiveText - Whether to show the assistive text while displaying errors
  * @param {string} placeholder - Placeholder text for the input
  * @param {Icon} prependIcon - An icon component to use within FdIcon, comes before the text within the input field
@@ -197,6 +202,7 @@ import { ErrorMessages, Icon, MenuDirection, MenuPlacement, NodeOrNull, SelectOp
 export default defineComponent({
   name: 'FdSelect',
   components: {
+    FdFieldValue,
     FdIcon,
     FdInputPostText,
     FdMenu,
@@ -206,10 +212,19 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    /**
-     * TODO: Build out chips
-     */
+    checkboxEnd: {
+      type: Boolean,
+      default: false,
+    },
     chips: {
+      type: Boolean,
+      default: false,
+    },
+    chipsInteractive: {
+      type: Boolean,
+      default: false,
+    },
+    csv: {
       type: Boolean,
       default: false,
     },
@@ -269,9 +284,6 @@ export default defineComponent({
       type: Array as PropType<string[]>,
       default: () => [],
     },
-    /**
-     * TODO: Build out multiple
-     */
     multiple: {
       type: Boolean,
       default: false,
@@ -301,9 +313,11 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['update:modelValue'],
+  emits: ['item:click', 'update:modelValue'],
   setup(props, { emit }) {
+    const { t } = inject('i18n') as TranslationSupport;
     const focusedItem = shallowRef(-1);
+    const focusStart = shallowRef(-1);
     const hasFocus = shallowRef(false);
     const menu = shallowRef<ComponentPublicInstance | null>(null);
     const menuOpen = shallowRef(false);
@@ -323,6 +337,19 @@ export default defineComponent({
 
       return props.prependIcon;
     })
+    
+    /**
+     * Returns the updated array after adding or removing the value provided, only for multiple select
+     * 
+     * @param value Item value to add or remove from the modelValue array
+     */
+    function getMultipleValue(value: string): string[] {
+      if (props.modelValue.includes(value)) {
+        return props.modelValue.filter((val) => val !== value);
+      }
+
+      return [...props.modelValue, value];
+    }
 
     /**
      * Handling select element blur: make sure that blur isn't registered if they've clicked inside the faux menu
@@ -330,6 +357,7 @@ export default defineComponent({
      * @param {FocusEvent} e The event emitted from blur
      */
     function handleBlur(e: FocusEvent) {
+      console.log('blur')
       if (!menu.value?.$el.contains(e.relatedTarget as NodeOrNull)) {
         hasFocus.value = false;
         menuOpen.value = false;
@@ -341,12 +369,17 @@ export default defineComponent({
 
     /**
      * What to do when the select field is clicked, or the spacebar is pressed while select is focused
-     * Focus the select field, then open the menu (unless it's readonly or disabled)
+     * Focus the select field, then open/close the menu (unless it's readonly or disabled)
      */
-    function handleClick() {
+    function handleClick(e: Event) {
+      console.log('click')
       selectInput.value?.focus();
 
       if (!props.readonly && !props.disabled) {
+        if (props.multiple && menu.value?.$el.contains(e.target as NodeOrNull)) {
+          return;
+        }
+
         menuOpen.value = !menuOpen.value;
       }
     }
@@ -362,26 +395,98 @@ export default defineComponent({
       const target = (e.target as HTMLSelectElement);
 
       focusedItem.value = props.items.findIndex((val) => val.value === target?.value);
-      emit('update:modelValue', [target?.value]);
+      focusStart.value = focusedItem.value;
+      emit('update:modelValue', props.multiple ? getMultipleValue(target.value) : [target?.value]);
     }
 
     /**
-     * Change the focused item when the user presses down arrow
+     * Change the focused and selected item when the user presses down arrow
      */
     function handleDown() {
       if (focusedItem.value < props.items.length - 1) {
         focusedItem.value += 1;
-        emit('update:modelValue', props.items[focusedItem.value].value);
+        focusStart.value = focusedItem.value;
+        emit('update:modelValue', [props.items[focusedItem.value].value]);
       }
     }
 
     /**
-     * Change the focused item when the user presses up arrow
+     * Change the focused item when the user presses down arrow + ctrl
+     */
+    function handleDownCtrl() {
+      if (focusedItem.value < props.items.length - 1) {
+        focusedItem.value += 1;
+        focusStart.value = focusedItem.value;
+      }
+    }
+
+    /**
+     * Select a range of items when the user presses down arrow + shift
+     */
+    function handleDownShift() {
+      if (props.multiple && focusedItem.value < props.items.length - 1) {
+        if (focusStart.value === focusedItem.value) {
+          emit('update:modelValue', [
+            props.items[focusedItem.value].value, 
+            props.items[focusedItem.value + 1].value,
+          ]);
+
+          focusedItem.value += 1;
+        } else {
+          focusedItem.value += 1;
+
+          emit('update:modelValue', getMultipleValue(
+            focusStart.value < focusedItem.value
+              ? props.items[focusedItem.value].value
+              : props.items[focusedItem.value - 1].value,
+          ));
+        }
+      }
+    }
+
+    /**
+     * Change the focused and selected item when the user presses up arrow
      */
     function handleUp() {
       if (focusedItem.value > 0) {
         focusedItem.value -= 1;
-        emit('update:modelValue', props.items[focusedItem.value].value);
+        focusStart.value = focusedItem.value;
+        emit('update:modelValue', [props.items[focusedItem.value].value]);
+      }
+    }
+
+    /**
+     * Change the focused item when the user presses up arrow + ctrl
+     */
+    function handleUpCtrl() {
+      console.log('ctrl')
+      if (focusedItem.value > 0) {
+        focusedItem.value -= 1;
+        focusStart.value = focusedItem.value;
+      }
+    }
+
+    /**
+     * Select a range of items when the user presses up arrow + shift
+     */
+    function handleUpShift() {
+      if (props.multiple && focusedItem.value > 0) {
+        if (focusStart.value === focusedItem.value) {
+          emit('update:modelValue', [
+            props.items[focusedItem.value].value, 
+            props.items[focusedItem.value - 1].value,
+          ]);
+
+          focusedItem.value -= 1;
+        } else {
+          focusedItem.value -= 1;
+
+          emit('update:modelValue', getMultipleValue(
+            focusStart.value > focusedItem.value
+              ? props.items[focusedItem.value].value
+              : props.items[focusedItem.value + 1].value,
+          ));
+        }
       }
     }
 
@@ -393,6 +498,23 @@ export default defineComponent({
 
       if (menuOpen.value) {
         menuOpen.value = false;
+      }
+    }
+
+    /**
+     * If the menu is multi-select, open the menu (if closed) or toggle on/off the currently focused item (if open), otherwise open/close the menu
+     * 
+     * @param e Keyboard event (spacebar)
+     */
+    function handleSpace(e: KeyboardEvent) {
+      if (!props.multiple) {
+        handleClick(e);
+      } else {
+        if (menuOpen.value && focusedItem.value !== -1) {
+          emit('update:modelValue', getMultipleValue(props.items[focusedItem.value].value));
+        } else {
+          menuOpen.value = !menuOpen.value;
+        }
       }
     }
 
@@ -420,8 +542,9 @@ export default defineComponent({
      */
     function handleMenuItemClick(val: string) {
       focusedItem.value = props.items.findIndex((item) => item.value === val);
-      emit('update:modelValue', [val]);
-      menuOpen.value = false;
+      focusStart.value = focusedItem.value;
+      emit('update:modelValue', props.multiple ? getMultipleValue(val) : [val]);
+      menuOpen.value = props.multiple ? true : false;
       selectInput.value?.focus();
     }
 
@@ -431,6 +554,24 @@ export default defineComponent({
     function handleMenuTab() {
       selectInput.value?.focus();
       menuOpen.value = false;
+    }
+
+    /**
+     * Handles an interactive chip click
+     * 
+     * @param item The item that was clicked in the field - only applicable for chips
+     */
+    function handleFieldItemClick(item: SelectOption) {
+      emit('item:click', item);
+    }
+
+    /**
+     * Removes the dismissed item from the modelValue array
+     * 
+     * @param item The item that was dismissed in the field - only applicable for chips
+     */
+    function handleFieldItemDismiss(item: SelectOption) {
+      emit('update:modelValue', getMultipleValue(item.value));
     }
 
     /**
@@ -445,13 +586,15 @@ export default defineComponent({
     // set initial focused item when menu is opened
     watch(
       menuOpen,
-      (newVal) => {
+      (newVal: boolean) => {
         if (newVal) {
           if (props.modelValue.length) {
-            focusedItem.value = props.items.findIndex((val) => val.value === props.modelValue[0]);
+            focusedItem.value = props.items.findIndex((val: SelectOption) => val.value === props.modelValue[0]);
           } else {
             focusedItem.value = -1;
           }
+
+          focusStart.value = focusedItem.value;
         }
       },
     );
@@ -467,18 +610,26 @@ export default defineComponent({
       handleClick,
       handleDocumentClick,
       handleDown,
+      handleDownCtrl,
+      handleDownShift,
       handleEnter,
-      handleMenuItemClick,
+      handleFieldItemClick,
+      handleFieldItemDismiss,
       handleInput,
+      handleMenuItemClick,
       handleMenuTab,
       handleMenuClick,
+      handleSpace,
       handleUp,
+      handleUpCtrl,
+      handleUpShift,
       handleTab,
       hasFocus,
       menu,
       menuOpen,
       select,
       selectInput,
+      t,
     };
   }
 });
@@ -490,6 +641,7 @@ export default defineComponent({
   @include form-field-common;
 
   &__append-icon {
+    margin-left: auto;
     transition: $transition-timing transform;
 
     &--open {
@@ -498,6 +650,7 @@ export default defineComponent({
   }
 
   &__input {
+    appearance: none; // necessary for safari
     cursor: pointer;
     height: 100%;
     left: 0;
@@ -517,15 +670,21 @@ export default defineComponent({
     }
   }
 
+  &__input-container {
+    justify-content: space-between;
+  }
+
   &__input-menu-container {
     position: relative;
   }
 
   &__faux-input {
     cursor: pointer;
+    display: flex;
     font-size: $form-field_input_size;
     max-width: $select_text_width;
-    text-overflow: ellipsis;
+    pointer-events: none;
+    position: relative;
     overflow: hidden;
     width: 100%;
   }

@@ -47,6 +47,10 @@ $checkbox-base_box-shadow: 0 0 0 2px;
 $checkbox-base_height: 1.5rem;
 $checkbox-base_width: 1.5rem;
 
+// different sizes
+$checkbox-base_sm_height: 1.25rem;
+$checkbox-base_sm_width: 1.25rem;
+
 // theme map, must replicate colors
 // when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
 $theme-checkbox: (

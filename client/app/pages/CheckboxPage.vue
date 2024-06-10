@@ -65,7 +65,7 @@
 
     <h4>Small Checkbox</h4>
 
-    <fd-checkbox id="small-checkbox" small value="sm-checkbox">
+    <fd-checkbox v-model="smVal" id="small-checkbox" small value="sm-checkbox">
       Slotted Label Text
     </fd-checkbox>
     
@@ -90,6 +90,7 @@ export default defineComponent({
     const val3 = shallowRef(false);
     const valReadonly = shallowRef(false);
     const valDisabled = shallowRef(true);
+    const smVal = shallowRef(false);
 
     const checkboxes = ref([
       {
@@ -112,7 +113,7 @@ export default defineComponent({
       },
     ]);
 
-    return { checkboxes, val, valError, valIndeterminate, val1, val2, val3, valReadonly, valDisabled};
+    return { checkboxes, val, valError, valIndeterminate, val1, val2, val3, valReadonly, valDisabled, smVal };
   }
 })
 </script>

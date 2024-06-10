@@ -27,11 +27,21 @@
             'fd-menu__button--small': small,
             'fd-menu__button--selected': modelValue?.includes(item.value),
           }"
+          :aria-selected="modelValue?.includes(item.value)"
           :data-testid="item.value"
+          role="option"
           tabindex="0"
           @keydown.tab.prevent.stop="handleTab"
           @click.stop.prevent="handleClick(item.value)"
         >
+          <fd-checkbox-base
+            v-if="multiple && !checkboxEnd"
+            :id="`checkbox--${item.value}`"
+            class="fd-menu__checkbox fd-menu__checkbox--start"
+            small
+            :model-value="modelValue?.includes(item.value)"
+            @update:modelValue="handleClick(item.value)"
+          />
           <fd-icon
             v-if="item.icon"
             class="fd-menu__button-icon"
@@ -43,9 +53,17 @@
               {{ item.text }}
             </slot>
           </span>
+          <fd-checkbox-base
+            v-if="multiple && checkboxEnd"
+            :id="`checkbox--${item.value}`"
+            class="fd-menu__checkbox fd-menu__checkbox--end"
+            small
+            :model-value="modelValue?.includes(item.value)"
+            @update:modelValue="handleClick(item.value)"
+          />
           <transition name="fade">
             <fd-icon
-              v-if="modelValue?.includes(item.value)"
+              v-if="!multiple && modelValue?.includes(item.value)"
               class="fd-menu__button-check"
               :icon="CheckIcon"
               :size="getIconSize('sm')"
@@ -59,6 +77,7 @@
 <script lang="ts">
 import { defineComponent, inject, shallowRef, PropType, onMounted, ShallowRef } from 'vue';
 import { CheckIcon } from '@heroicons/vue/20/solid'
+import FdCheckboxBase from '../Checkbox/FdCheckboxBase.vue';
 import FdIcon from '../Icon';
 import { getIconSize, onDocumentClick, onWindowEvent } from '../../utils';
 import { MenuDirection, MenuPlacement, SelectOption } from '../../types';
@@ -78,11 +97,15 @@ import { MenuDirection, MenuPlacement, SelectOption } from '../../types';
  */
 export default defineComponent({
   name: 'FdMenu',
-  components: { FdIcon },
+  components: { FdCheckboxBase, FdIcon },
   props: {
     /**
      * TODO: Should allow left/right attach point as well
      */
+    checkboxEnd: {
+      type: Boolean,
+      default: false,
+    },
     direction: {
       type: String as PropType<MenuDirection>,
       default: 'bottom',
@@ -102,6 +125,10 @@ export default defineComponent({
     modelValue: {
       type: Array as PropType<string[]>,
       default: undefined,
+    },
+    multiple: {
+      type: Boolean,
+      default: false,
     },
     parent: {
       type: Object as PropType<HTMLElement | null>,
@@ -298,6 +325,10 @@ export default defineComponent({
 
     &:hover {
       background-color: rgba(var(--fora_menu_button_bg--hover));
+
+      .fd-menu__checkbox {
+        border-color: rgba(var(--fora_checkbox-base_border-color--hover));
+      }
     }
 
     &--focused {
@@ -340,6 +371,14 @@ export default defineComponent({
   &--top {
     bottom: $menu_bottom;
     top: auto;
+  }
+
+  &__checkbox {
+    pointer-events: none;
+
+    &--start {
+      margin-right: 0.5rem;
+    }
   }
 }
 </style>

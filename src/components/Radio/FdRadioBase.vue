@@ -13,7 +13,7 @@
       :value="value"
       @blur="$emit('blur')"
       @change="$emit('update:modelValue', value)"
-      @focus="$emit('focus')"
+      @focus="(e) => $emit('focus', e)"
     >
     <div
       class="fd-radio-base__indicator"

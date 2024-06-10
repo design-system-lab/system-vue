@@ -13,6 +13,9 @@
     <div
       v-show="modelValue"
       class="fd-checkbox-base__check"
+      :class="{
+        'fd-checkbox-base__check--small': small,
+      }"
     >
       <fd-icon
         :icon="CheckIcon"
@@ -224,10 +227,20 @@ export default defineComponent({
     &:deep(.fd-icon) {
       display: block;
     }
+
+    &--small {
+      height: 1rem;
+      width: 1rem;
+    }
   }
 
   &__input {
     @include visually-hidden;
+  }
+
+  &--small {
+    height: $checkbox-base_sm_height;
+    width: $checkbox-base_sm_width;
   }
 }
 
