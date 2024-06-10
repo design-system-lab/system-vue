@@ -2,9 +2,6 @@
   <div
     ref="field"
     class="fd-select-value"
-    :class="{
-      'fd-select-value--chips': chips,
-    }"
   >
     <span
       v-if="modelValue.length === 0"
@@ -12,11 +9,15 @@
     >
       <slot name="placeholder" />
     </span>
-    <template v-else>
+    <span
+      v-if="modelValue.length !== 0 && (csv || chips || !multiple)"
+      class="fd-select-value__text"
+      :class="{
+        'fd-select-value__text--chips': chips,
+      }"
+    >
       <template
-        v-if="csv || chips || !multiple"
         v-for="(item, i) in modelValue"
-        :key="item.value"
       >
         <template v-if="!chips">
           <slot :name="item.slotName">
@@ -27,6 +28,7 @@
           <fd-chip
             class="fd-select-value__chip"
             dismissible
+            :key="item.value"
             :interactive="chipsInteractive"
             size="sm"
             @click.stop="() => chipsInteractive && $emit('item:click', item)"
@@ -36,16 +38,22 @@
           </fd-chip>
         </template>
       </template>
-      <template v-else>
-        <slot name="multiple-text" :count="modelValue.length">
-          {{ t(modelValue.length > 1 ? 'field-value:multiple-text__plural' : 'field-value:multiple-text__singular', modelValue.length) }}
-        </slot>
-      </template>
-    </template>
+    </span>
+    <span
+      v-if="modelValue.length !== 0 && (!csv && !chips && multiple)"
+      class="fd-select-value__text"
+    >
+      <slot
+        name="multiple-text"
+        :count="modelValue.length"
+      >
+        {{ t(modelValue.length > 1 ? 'field-value:multiple-text__plural' : 'field-value:multiple-text__singular', modelValue.length) }}
+      </slot>
+    </span>
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, inject, PropType, shallowRef, watch } from 'vue';
+import { defineComponent, inject, PropType, shallowRef } from 'vue';
 import FdChip from '../Chip/FdChip.vue';
 import { TranslationSupport } from '../../utils';
 import { SelectOption } from '../../types';
@@ -99,21 +107,25 @@ export default defineComponent({
   pointer-events: none;
   width: 100%;
 
-  &--chips {
-    align-items: flex-start;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: start;
-    gap: 0.25rem;
-    pointer-events: none;
-  }
-
   &__placeholder {
     pointer-events: none;
   }
 
   &__chip {
     pointer-events: auto;
+  }
+
+  &__text {
+    pointer-events: none;
+
+    &--chips {
+      align-items: flex-start;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: start;
+      gap: 0.25rem;
+      pointer-events: none;
+    }
   }
 }
 </style>

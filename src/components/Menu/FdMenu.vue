@@ -39,7 +39,7 @@
             :id="`checkbox--${item.value}`"
             class="fd-menu__checkbox fd-menu__checkbox--start"
             small
-            :modelValue="modelValue?.includes(item.value)"
+            :model-value="modelValue?.includes(item.value)"
             @update:modelValue="handleClick(item.value)"
           />
           <fd-icon
@@ -58,7 +58,7 @@
             :id="`checkbox--${item.value}`"
             class="fd-menu__checkbox fd-menu__checkbox--end"
             small
-            :modelValue="modelValue?.includes(item.value)"
+            :model-value="modelValue?.includes(item.value)"
             @update:modelValue="handleClick(item.value)"
           />
           <transition name="fade">
