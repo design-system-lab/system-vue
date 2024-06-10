@@ -82,7 +82,7 @@ export default defineComponent({
       default: true,
     },
   },
-  setup(props) {
+  setup() {
     const { t } = inject('i18n') as TranslationSupport;
     const field = shallowRef<HTMLDivElement | null>(null);
 

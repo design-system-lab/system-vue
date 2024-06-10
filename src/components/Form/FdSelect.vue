@@ -168,7 +168,6 @@ import FdInputPostText from './FdInputPostText.vue';
 import FdMenu from '../Menu';
 import { filterSlots, getIconSize, TranslationSupport } from '../../utils';
 import { ErrorMessages, Icon, MenuDirection, MenuPlacement, NodeOrNull, SelectOption } from '../../types';
-import { wrap } from 'module';
 
 /**
  * Input Field
