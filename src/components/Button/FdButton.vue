@@ -12,7 +12,7 @@
         'fd-button--toggle': toggle,
       }
     ]"
-    :is="buttonType"
+    :is="getButtonType"
     :disabled="disabled || undefined"
     @click="handleClick"
   >
@@ -105,7 +105,7 @@ export default defineComponent({
     },
   },
   setup(props, { emit }) {
-    const buttonType = computed((): string => {
+    const getButtonType = computed((): string => {
       if (props.tag) return props.tag;
       return getButtonElement(props.href, props.to);
     });
@@ -116,7 +116,7 @@ export default defineComponent({
       }
     }
 
-    return { buttonType, getIconSize, handleClick };
+    return { getButtonType, getIconSize, handleClick };
   }
 });
 </script>
