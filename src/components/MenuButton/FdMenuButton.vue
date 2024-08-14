@@ -6,6 +6,7 @@
     class="fd-menu-button"
     :append-icon="!icon ? ChevronDownIcon : undefined"
     toggle
+    @click="handleMenuClick"
     @keydown.down.prevent="handleDown"
     @keydown.up.prevent="handleUp"
     @keydown.enter.prevent="handleToggle"
@@ -27,18 +28,20 @@
       :items="items"
       menu-placement="global"
       :parent="button.$el"
+      :show-focus="showFocus"
       @document:click="handleDocumentClick"
+      @item:click="handleOptionClick"
     />
   </fd-button>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, shallowRef, PropType } from 'vue';
+import { defineComponent, ref, shallowRef, watch, PropType, ComponentPublicInstance } from 'vue';
 import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdButton from '../Button/FdButton.vue';
 import FdIcon from '../Icon/FdIcon.vue';
 import FdMenu from '../Menu/FdMenu.vue';
-import { MenuDirection, MenuPlacement, SelectOption } from '../../types';
+import { MenuDirection, NodeOrNull, SelectOption } from '../../types';
 
 export default defineComponent({
   name: 'FdMenuButton',
@@ -46,7 +49,7 @@ export default defineComponent({
   props: {
     alignment: {
       type: String as PropType<'left' | 'right'>,
-      default: 'left',
+      default: 'right',
     },
     direction: {
       type: String as PropType<MenuDirection>,
@@ -62,10 +65,15 @@ export default defineComponent({
     }
   },
   setup(props, { emit }) {
-    const button = ref<FdButton>(null);
+    const button = ref<typeof FdButton>();
     const focusedItem = ref(0);
     const menu = shallowRef<ComponentPublicInstance | null>(null);
     const modelValue = shallowRef(false);
+    const showFocus = shallowRef(false);
+
+    function handleMenuClick() {
+      emit('click:menu');
+    }
 
     /**
      * We check to see if the document click happened in a child of the button or menu, if not close the menu
@@ -103,9 +111,9 @@ export default defineComponent({
     }
 
     // enter/space key counts as click and closes the menu
-    function handleOptionClick(i?: number) {
+    function handleOptionClick(val?: string) {
       modelValue.value = false;
-      emit('click:option', i ? props.items[i] : focusedItem.value);
+      emit('click:option', val ? val : props.items[focusedItem.value].value);
     }
 
     // tab key / esc closes the menu without counting the click
@@ -113,25 +121,32 @@ export default defineComponent({
     /**
      * If the menu is open, prevent tabbing, and close the menu to emulate default select functionality
      */
-     function handleTab(e: Event) {
+    function handleTab(e: Event) {
       if (modelValue.value) {
         e.preventDefault();
         modelValue.value = false;
-        button.value?.focus();
+        button.value?.$el.focus();
       }
     }
+
+    // watcher on model value to show or hide visible focus
+    watch(modelValue, () => {
+      showFocus.value = (button.value?.$el as HTMLElement).matches(':focus-visible');
+    });
 
     return {
       button,
       focusedItem,
       handleDocumentClick,
       handleDown,
+      handleMenuClick,
       handleOptionClick,
       handleUp,
       handleTab,
       handleToggle,
       menu,
       modelValue,
+      showFocus,
       ChevronDownIcon,
     };
   },

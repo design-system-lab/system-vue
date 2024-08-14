@@ -44,18 +44,46 @@
             'value': 'option-3',
           },
         ]"
+        @click:menu="console.log('menu clicked')"
+        @click:option="e => console.log('option clicked', e)"
       />
+      <br>
+      <br>
+
+      <h5 class="mb-4">Split Button</h5>
+      <fd-group type="button">
+        <fd-button>Option Prime</fd-button>
+        <fd-menu-button
+          icon
+          :items="[
+            {
+              'text': 'Option 01',
+              'value': 'option-1',
+            },
+            {
+              'text': 'Option 02',
+              'value': 'option-2',
+            },
+            {
+              'text': 'Option 03',
+              'value': 'option-3',
+            },
+          ]"
+        />
+      </fd-group>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, shallowRef } from 'vue';
+import FdButton from '../../../src/components/Button/FdButton.vue';
 import FdMenuButton from '../../../src/components/MenuButton/FdMenuButton.vue';
+import FdGroup from '../../../src/components/Group/FdGroup.vue';
 
 export default defineComponent({
   name: 'ChipPage',
-  components: { FdMenuButton },
+  components: { FdMenuButton, FdGroup, FdButton },
   setup() {
 
     return {

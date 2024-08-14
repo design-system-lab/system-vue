@@ -11,7 +11,7 @@
     ]"
     :style="{
       minWidth: minWidth,
-      width: width ? width : '100%',
+      width: calculatedWidth,
     }"
     @click.stop="$emit('menu:click')"
   >
@@ -27,7 +27,7 @@
         <button
           class="fd-menu__button"
           :class="{
-            'fd-menu__button--focused': i === focusItem,
+            'fd-menu__button--focused': (showFocus && i === focusItem),
             'fd-menu__button--small': small,
             'fd-menu__button--selected': modelValue?.includes(item.value),
           }"
@@ -147,6 +147,10 @@ export default defineComponent({
       type: Object as PropType<HTMLElement | null>,
       required: true,
     },
+    showFocus: {
+      type: Boolean,
+      default: false,
+    },
     size: {
       type: Number,
       default: 7,
@@ -163,6 +167,7 @@ export default defineComponent({
   emits: ['document:click', 'item:click', 'menu:click', 'tab'],
   setup(props, { emit }) {
     const app = inject<ShallowRef<HTMLDivElement | null>>('app');
+    const calculatedWidth = shallowRef(props.width ? props.width : '100%');
     const globalSpace = shallowRef<boolean | null>(null);
     const itemContainer = shallowRef<HTMLDivElement | null>(null);
     const menu = shallowRef<HTMLDivElement | null>(null);
@@ -216,7 +221,9 @@ export default defineComponent({
         const parentVals = props.parent.getBoundingClientRect();
         const pageTop = window.scrollY + parentVals.y;
 
-        menu.value.style.width = props.width ? props.width : `${parentVals.width}px`;
+        const menuWidth = props.width ? menu.value?.offsetWidth : parentVals.width;
+
+        calculatedWidth.value = `${menuWidth}px`;
 
         if (
           props.direction === 'bottom' &&
@@ -247,7 +254,7 @@ export default defineComponent({
         }
 
         if (props.alignment === 'right') {
-          if ((menu.value.offsetWidth + 16) < (parentVals.x +  parentVals.width)) {
+          if ((menuWidth + 16) < (parentVals.x +  parentVals.width)) {
             // enough space to the left
             menu.value.style.right = `${appVals.width - (parentVals.x + parentVals.width)}px`;
             menu.value.style.left = 'auto';
@@ -256,7 +263,7 @@ export default defineComponent({
             menu.value.style.right = 'auto';
           }
         } else {
-          if ((menu.value.offsetWidth + 16) < (appVals.width - parentVals.x)) {
+          if ((menuWidth + 16) < (appVals.width - parentVals.x)) {
             // enough space to the right
             menu.value.style.left = `${parentVals.x}px`;
             menu.value.style.right = 'auto';
@@ -290,7 +297,6 @@ export default defineComponent({
     });
 
     onMounted(() => {
-      console.log('mounted');
       yoinkGlobalMenu();
       placeGlobalMenu();
       checkWidthSpacing();
@@ -298,12 +304,12 @@ export default defineComponent({
     });
 
     onWindowEvent('resize', () => {
-      console.log('resize');
       placeGlobalMenu();
       checkWidthSpacing();
     });
 
     return {
+      calculatedWidth,
       getIconSize,
       handleClick,
       handleTab,
