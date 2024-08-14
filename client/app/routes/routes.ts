@@ -7,8 +7,10 @@ import GridPage from '../pages/GridPage.vue';
 import GroupPage from '../pages/GroupPage.vue';
 import IconPage from '../pages/IconPage.vue';
 import InputFieldPage from '../pages/InputFieldPage.vue';
+import MenuButtonPage from '../pages/MenuButtonPage.vue';
 import RadioPage from '../pages/RadioPage.vue';
 import SelectPage from '../pages/SelectPage.vue';
+import SplitButtonPage from '../pages/SplitButtonPage.vue';
 import TogglePage from '../pages/TogglePage.vue';
 import TypographyPage from '../pages/TypographyPage.vue';
 
@@ -22,8 +24,10 @@ export default [
   { path: '/group', name: 'Group', component: GroupPage },
   { path: '/icons', name: 'Icons', component: IconPage },
   { path: '/input-field', name: 'InputField', component: InputFieldPage },
+  { path: '/menu-button', name: 'MenuButton', component: MenuButtonPage },
   { path: '/radio', name: 'Radio', component: RadioPage },
   { path: '/select', name: 'Select', component: SelectPage },
+  { path: '/split-button', name: 'SplitButton', component: SplitButtonPage },
   { path: '/toggle', name: 'Toggle', component: TogglePage },
   { path: '/typography', name: 'Typography', component: TypographyPage },
 ]
