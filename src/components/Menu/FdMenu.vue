@@ -13,7 +13,7 @@
       minWidth: minWidth,
       width: calculatedWidth,
     }"
-    @click.stop="$emit('menu:click')"
+    @click.stop="$emit('click:menu')"
   >
     <div
       ref="itemContainer"
@@ -164,7 +164,7 @@ export default defineComponent({
       default: undefined,
     }
   },
-  emits: ['document:click', 'item:click', 'menu:click', 'tab'],
+  emits: ['click:document', 'click:item', 'click:menu', 'tab'],
   setup(props, { emit }) {
     const app = inject<ShallowRef<HTMLDivElement | null>>('app');
     const calculatedWidth = shallowRef(props.width ? props.width : '100%');
@@ -183,7 +183,7 @@ export default defineComponent({
      * Handle menu item click
      */
     function handleClick(val: string) {
-      emit('item:click', val);
+      emit('click:item', val);
     }
 
     /**
@@ -293,7 +293,7 @@ export default defineComponent({
     }
 
     onDocumentClick((e?: Event) => {
-      emit('document:click', e);
+      emit('click:document', e);
     });
 
     onMounted(() => {

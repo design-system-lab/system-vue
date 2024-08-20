@@ -97,7 +97,7 @@
           >
             <fd-field-value
               v-bind="{ chips, chipsInteractive, csv, modelValue: activeItems, multiple }"
-              @item:click="handleFieldItemClick"
+              @click:item="handleFieldItemClick"
               @item:dismiss="handleFieldItemDismiss"
             >
               <template #placeholder>
@@ -123,9 +123,9 @@
         ref="menu"
         class="fd-select__menu"
         v-bind="{ checkboxEnd, direction, focusItem: focusedItem, items, menuPlacement, modelValue, multiple, parent: select, size, small, width: menuWidth }"
-        @document:click="handleDocumentClick"
-        @item:click="handleMenuItemClick"
-        @menu:click="handleMenuClick"
+        @click:document="handleDocumentClick"
+        @click:item="handleMenuItemClick"
+        @click:menu="handleMenuClick"
         @tab="handleMenuTab"
       >
         <template
@@ -313,7 +313,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['item:click', 'update:modelValue'],
+  emits: ['click:item', 'update:modelValue'],
   setup(props, { emit }) {
     const { t } = inject('i18n') as TranslationSupport;
     const focusedItem = shallowRef(-1);
@@ -562,7 +562,7 @@ export default defineComponent({
      * @param item The item that was clicked in the field - only applicable for chips
      */
     function handleFieldItemClick(item: SelectOption) {
-      emit('item:click', item);
+      emit('click:item', item);
     }
 
     /**

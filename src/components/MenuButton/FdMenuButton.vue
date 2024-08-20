@@ -29,8 +29,8 @@
       menu-placement="global"
       :parent="button.$el"
       :show-focus="showFocus"
-      @document:click="handleDocumentClick"
-      @item:click="handleOptionClick"
+      @click:document="handleDocumentClick"
+      @click:item="handleOptionClick"
     />
   </fd-button>
 </template>
@@ -42,6 +42,12 @@ import FdButton from '../Button/FdButton.vue';
 import FdIcon from '../Icon/FdIcon.vue';
 import FdMenu from '../Menu/FdMenu.vue';
 import { MenuDirection, NodeOrNull, SelectOption } from '../../types';
+
+/**
+ * Menu button component
+ * 
+ * 
+ */
 
 export default defineComponent({
   name: 'FdMenuButton',
@@ -64,6 +70,7 @@ export default defineComponent({
       default: () => [],
     }
   },
+  emits: ['click:menu', 'click:option'],
   setup(props, { emit }) {
     const button = ref<typeof FdButton>();
     const focusedItem = ref(0);

@@ -31,7 +31,7 @@
             :key="item.value"
             :interactive="chipsInteractive"
             size="sm"
-            @click.stop="() => chipsInteractive && $emit('item:click', item)"
+            @click.stop="() => chipsInteractive && $emit('click:item', item)"
             @dismiss="$emit('item:dismiss', item)"
           >
             {{ item.text }}
