@@ -357,7 +357,6 @@ export default defineComponent({
      * @param {FocusEvent} e The event emitted from blur
      */
     function handleBlur(e: FocusEvent) {
-      console.log('blur')
       if (!menu.value?.$el.contains(e.relatedTarget as NodeOrNull)) {
         hasFocus.value = false;
         menuOpen.value = false;
@@ -372,7 +371,6 @@ export default defineComponent({
      * Focus the select field, then open/close the menu (unless it's readonly or disabled)
      */
     function handleClick(e: Event) {
-      console.log('click')
       selectInput.value?.focus();
 
       if (!props.readonly && !props.disabled) {
@@ -459,7 +457,6 @@ export default defineComponent({
      * Change the focused item when the user presses up arrow + ctrl
      */
     function handleUpCtrl() {
-      console.log('ctrl')
       if (focusedItem.value > 0) {
         focusedItem.value -= 1;
         focusStart.value = focusedItem.value;

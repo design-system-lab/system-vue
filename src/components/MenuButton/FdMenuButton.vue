@@ -117,6 +117,9 @@ export default defineComponent({
       }
     }
 
+    /**
+     * On enter or space when the button is focused, toggle the menu
+     */
     function handleToggle() {
       if (modelValue.value) {
         handleOptionClick();
@@ -125,13 +128,14 @@ export default defineComponent({
       }
     }
 
-    // enter/space key counts as click and closes the menu
+    /**
+     * Close the menu and emit the option clicked
+     * @param val - The value of the option clicked
+     */
     function handleOptionClick(val?: string) {
       modelValue.value = false;
       emit('click:option', val ? val : props.items[focusedItem.value].value);
     }
-
-    // tab key / esc closes the menu without counting the click
 
     /**
      * If the menu is open, prevent tabbing, and close the menu to emulate default select functionality
@@ -144,7 +148,9 @@ export default defineComponent({
       }
     }
 
-    // watcher on model value to show or hide visible focus
+    /**
+     * When the model value changes, check if the button has visible focus and set the showFocus value
+     */
     watch(modelValue, () => {
       showFocus.value = (button.value?.$el as HTMLElement).matches(':focus-visible');
     });
