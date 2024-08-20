@@ -98,7 +98,7 @@
             <fd-field-value
               v-bind="{ chips, chipsInteractive, csv, modelValue: activeItems, multiple }"
               @click:item="handleFieldItemClick"
-              @item:dismiss="handleFieldItemDismiss"
+              @dismiss:item="handleFieldItemDismiss"
             >
               <template #placeholder>
                 <slot name="placeholder">

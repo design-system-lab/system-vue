@@ -102,6 +102,7 @@ export default defineComponent({
       default: undefined,
     },
   },
+  emits: ['update:modelValue'],
   setup(props) {
     const { t } = inject('i18n') as TranslationSupport;
 

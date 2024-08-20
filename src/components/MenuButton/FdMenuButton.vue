@@ -41,12 +41,16 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdButton from '../Button/FdButton.vue';
 import FdIcon from '../Icon/FdIcon.vue';
 import FdMenu from '../Menu/FdMenu.vue';
-import { MenuDirection, NodeOrNull, SelectOption } from '../../types';
+import { MenuDirection, NodeOrNull, SelectOption, Icon } from '../../types';
 
 /**
  * Menu button component
  * 
- * 
+ * @param {string} alignment - Alignment of the menu (left or right)
+ * @param {string} direction - Direction of the menu (top or bottom)
+ * @param {boolean} icon - Whether the button should only display the chevron icon
+ * @param {SelectOption[]} items - The items to display in the menu
+ * @param {Icon} prependIcon - The icon to prepend to the button
  */
 
 export default defineComponent({
@@ -68,7 +72,11 @@ export default defineComponent({
     items: {
       type: Array as PropType<SelectOption[]>,
       default: () => [],
-    }
+    },
+    prependIcon: {
+      type: Function as PropType<Icon>,
+      default: undefined,
+    },
   },
   emits: ['click:menu', 'click:option'],
   setup(props, { emit }) {

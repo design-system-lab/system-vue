@@ -32,7 +32,7 @@
             :interactive="chipsInteractive"
             size="sm"
             @click.stop="() => chipsInteractive && $emit('click:item', item)"
-            @dismiss="$emit('item:dismiss', item)"
+            @dismiss="$emit('dismiss:item', item)"
           >
             {{ item.text }}
           </fd-chip>
@@ -90,6 +90,7 @@ export default defineComponent({
       default: true,
     },
   },
+  emits: ['click:item', 'dismiss:item'],
   setup() {
     const { t } = inject('i18n') as TranslationSupport;
     const field = shallowRef<HTMLDivElement | null>(null);

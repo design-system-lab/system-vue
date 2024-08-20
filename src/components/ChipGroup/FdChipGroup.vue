@@ -44,7 +44,7 @@ export default defineComponent({
       default: null,
     },
   },
-
+  emits: ['dismiss', 'update:modelValue'],
   setup(props, { emit }) {
     const currentVal = shallowRef(props.modelValue);
 
