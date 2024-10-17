@@ -78,7 +78,7 @@
 <script lang="ts">
 import { defineComponent, shallowRef } from 'vue';
 import FdButton from '../../../src/components/Button/FdButton.vue';
-import FdMenuButton from '../../../src/components/MenuButton/FdMenuButton.vue';
+import FdMenuButton from '../../../src/components/MenuButton';
 import FdGroup from '../../../src/components/Group/FdGroup.vue';
 
 export default defineComponent({

@@ -1,1 +1,1 @@
-export { default } from './MenuButton.vue';
+export { default } from './FdMenuButton.vue';
