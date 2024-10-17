@@ -84,7 +84,7 @@ export default defineComponent({
       default: null,
     },
   },
-  emits: ['update:modelValue', 'blur', 'focus'],
+  emits: ['blur', 'focus', 'update:modelValue'],
   setup() {
     const focused = shallowRef(false);
 

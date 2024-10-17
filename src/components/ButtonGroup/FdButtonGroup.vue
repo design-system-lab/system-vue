@@ -58,6 +58,7 @@ export default defineComponent({
       validator: (opt: string) => tshirt(opt),
     },
   },
+  emits: ['click', 'update:modelValue'],
   setup(props, { emit }) {
     const handleClick = (i: number, e: MouseEvent) => {
       if (props.radio) {

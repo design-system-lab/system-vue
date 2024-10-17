@@ -104,6 +104,7 @@ export default defineComponent({
       default: false,
     },
   },
+  emits: ['update:modelValue'],
   setup(props, { emit }) {
     const buttonType = computed((): string => {
       if (props.tag) return props.tag;

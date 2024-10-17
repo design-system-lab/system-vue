@@ -113,6 +113,7 @@ export default defineComponent({
       default: undefined,
     },
   },
+  emits: ['dismiss', 'update:modelValue'],
   setup(props, { emit }) {
     const groupHandleModelValue = inject<((val: string | string[]) => void) | null>('groupHandleModelValue', null);
     const groupModelValue = inject('groupModelValue', shallowRef(null));

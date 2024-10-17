@@ -114,6 +114,7 @@ export default defineComponent({
       default: undefined,
     },
   },
+  emits: ['blur', 'focus', 'update:modelValue'],
   setup(props, { emit }) {
     function onChange(event: Event) {
       if (props.disabled || props.readonly) return;

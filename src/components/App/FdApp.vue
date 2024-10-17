@@ -24,3 +24,9 @@ export default defineComponent({
   },
 });
 </script>
+
+<style lang="scss" scoped>
+.fd-app {
+  min-height: 100vh;
+}
+</style>

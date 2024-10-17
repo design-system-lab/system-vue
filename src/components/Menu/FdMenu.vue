@@ -2,14 +2,18 @@
   <div
     ref="menu"
     class="fd-menu"
-    :class="{
-      'fd-menu--global': menuPlacement === 'global',
-      'fd-menu--top': direction === 'top',
-    }"
+    :class="[
+      `fd-menu--${alignment}`,
+      {
+        'fd-menu--global': menuPlacement === 'global',
+        'fd-menu--top': direction === 'top',
+      }
+    ]"
     :style="{
-      width: width ? width : '100%',
+      minWidth: minWidth,
+      width: calculatedWidth,
     }"
-    @click.stop="$emit('menu:click')"
+    @click.stop="$emit('click:menu')"
   >
     <div
       ref="itemContainer"
@@ -23,7 +27,7 @@
         <button
           class="fd-menu__button"
           :class="{
-            'fd-menu__button--focused': i === focusItem,
+            'fd-menu__button--focused': (showFocus && i === focusItem),
             'fd-menu__button--small': small,
             'fd-menu__button--selected': modelValue?.includes(item.value),
           }"
@@ -85,12 +89,16 @@ import { MenuDirection, MenuPlacement, SelectOption } from '../../types';
 /**
  * Menu
  * 
+ * @param {string} alignment - Whether the menu should be anchored to the left or right edge of the parent
+ * @param {boolean} checkboxEnd - Whether the checkbox should be at the end of the menu item
  * @param {MenuDirection} direction - To open the menu up or down by default
  * @param {number} focusItem - The currently focused item index
- * @param {SelectOption[]} - Array of menu items
- * @param {MenuPlacement} - Whether the menu should open inline ('attached') or above all page content ('global')
- * @param {string[]} - Array of values of currently selected item(s)
- * @param {HTMLElement} - The parent element of the menu, used for placement
+ * @param {SelectOption[]} items - Array of menu items
+ * @param {MenuPlacement} menuPlacement - Whether the menu should open inline ('attached') or above all page content ('global')
+ * @param {string} minWidth - Valid CSS width to be used as the min-width of the menu, defaults to 148px
+ * @param {string[]} modelValue - Array of values of currently selected item(s)
+ * @param {boolean} multiple - Whether the menu should allow multiple selections
+ * @param {HTMLElement} parent - The parent element of the menu, used for placement
  * @param {number} size - Number of menu items to show by default before scrolling
  * @param {boolean} small - Whether the menu should be small
  * @param {string} width - Valid CSS width to be used for the menu
@@ -99,9 +107,10 @@ export default defineComponent({
   name: 'FdMenu',
   components: { FdCheckboxBase, FdIcon },
   props: {
-    /**
-     * TODO: Should allow left/right attach point as well
-     */
+    alignment: {
+      type: String as PropType<'left' | 'right'>,
+      default: 'left',
+    },
     checkboxEnd: {
       type: Boolean,
       default: false,
@@ -122,6 +131,10 @@ export default defineComponent({
       type: String as PropType<MenuPlacement>,
       default: 'attached',
     },
+    minWidth: {
+      type: String,
+      default: '148px',
+    },
     modelValue: {
       type: Array as PropType<string[]>,
       default: undefined,
@@ -133,6 +146,10 @@ export default defineComponent({
     parent: {
       type: Object as PropType<HTMLElement | null>,
       required: true,
+    },
+    showFocus: {
+      type: Boolean,
+      default: false,
     },
     size: {
       type: Number,
@@ -147,8 +164,10 @@ export default defineComponent({
       default: undefined,
     }
   },
+  emits: ['click:document', 'click:item', 'click:menu', 'tab'],
   setup(props, { emit }) {
     const app = inject<ShallowRef<HTMLDivElement | null>>('app');
+    const calculatedWidth = shallowRef(props.width ? props.width : '100%');
     const globalSpace = shallowRef<boolean | null>(null);
     const itemContainer = shallowRef<HTMLDivElement | null>(null);
     const menu = shallowRef<HTMLDivElement | null>(null);
@@ -164,27 +183,21 @@ export default defineComponent({
      * Handle menu item click
      */
     function handleClick(val: string) {
-      emit('item:click', val);
+      emit('click:item', val);
     }
 
     /**
      * If we're using width, make sure the menu doesn't run off the screen
      */
      async function checkWidthSpacing() {
-      if (props.parent && menu.value && props.width && app?.value) {
+      if (props.parent && menu.value && props.width && app?.value && props.menuPlacement !== 'global') {
         const rightSpace = (app.value.clientWidth - props.parent.getBoundingClientRect().x) - menu.value.offsetWidth;
-        const parentRightOffset = app.value.clientWidth - (props.parent?.getBoundingClientRect().x + props.parent?.offsetWidth);
 
         if (rightSpace < 16) {
           menu.value.style.left = 'auto';
-          menu.value.style.right = (props.menuPlacement === 'global') ? `${parentRightOffset}px` : '0';
         } else {
           menu.value.style.left = '';
           menu.value.style.right = '';
-        }
-
-        if (props.menuPlacement === 'global' && !menu.value.style.left) {
-          menu.value.style.left = `${props.parent.getBoundingClientRect().x}px`;
         }
       }
     }
@@ -208,9 +221,10 @@ export default defineComponent({
         const parentVals = props.parent.getBoundingClientRect();
         const pageTop = window.scrollY + parentVals.y;
 
-        menu.value.style.width = props.width ? props.width : `${parentVals.width}px`;
+        const menuWidth = props.width ? menu.value?.offsetWidth : parentVals.width;
 
-        // check if there's enough space for the menu below the parent
+        calculatedWidth.value = `${menuWidth}px`;
+
         if (
           props.direction === 'bottom' &&
             appVals.height - (parentVals.height + pageTop) > menuVals.height
@@ -239,8 +253,24 @@ export default defineComponent({
           menu.value.style.top = `${pageTop + parentVals.height + 4}px`;
         }
 
-        if (!menu.value.style.left) {
-          menu.value.style.left = `${parentVals.x}px`;
+        if (props.alignment === 'right') {
+          if ((menuWidth + 16) < (parentVals.x +  parentVals.width)) {
+            // enough space to the left
+            menu.value.style.right = `${appVals.width - (parentVals.x + parentVals.width)}px`;
+            menu.value.style.left = 'auto';
+          } else {
+            menu.value.style.left = '16px';
+            menu.value.style.right = 'auto';
+          }
+        } else {
+          if ((menuWidth + 16) < (appVals.width - parentVals.x)) {
+            // enough space to the right
+            menu.value.style.left = `${parentVals.x}px`;
+            menu.value.style.right = 'auto';
+          } else {
+            menu.value.style.right = '16px';
+            menu.value.style.left = 'auto';
+          }
         }
       }
     }
@@ -263,7 +293,7 @@ export default defineComponent({
     }
 
     onDocumentClick((e?: Event) => {
-      emit('document:click', e);
+      emit('click:document', e);
     });
 
     onMounted(() => {
@@ -279,6 +309,7 @@ export default defineComponent({
     });
 
     return {
+      calculatedWidth,
       getIconSize,
       handleClick,
       handleTab,
@@ -304,6 +335,11 @@ export default defineComponent({
   top: $menu_top;
   width: 100%;
   z-index: $menu_z-index;
+
+  &--right {
+    left: auto;
+    right: 0;
+  }
 
   &__items {
     overflow: auto;

@@ -97,6 +97,7 @@ export default defineComponent({
       default: undefined,
     },
   },
+  emits: ['update:modelValue'],
   setup(_, { emit }) {
     const hasFocus = shallowRef(false);
 

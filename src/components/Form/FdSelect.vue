@@ -97,8 +97,8 @@
           >
             <fd-field-value
               v-bind="{ chips, chipsInteractive, csv, modelValue: activeItems, multiple }"
-              @item:click="handleFieldItemClick"
-              @item:dismiss="handleFieldItemDismiss"
+              @click:item="handleFieldItemClick"
+              @dismiss:item="handleFieldItemDismiss"
             >
               <template #placeholder>
                 <slot name="placeholder">
@@ -123,9 +123,9 @@
         ref="menu"
         class="fd-select__menu"
         v-bind="{ checkboxEnd, direction, focusItem: focusedItem, items, menuPlacement, modelValue, multiple, parent: select, size, small, width: menuWidth }"
-        @document:click="handleDocumentClick"
-        @item:click="handleMenuItemClick"
-        @menu:click="handleMenuClick"
+        @click:document="handleDocumentClick"
+        @click:item="handleMenuItemClick"
+        @click:menu="handleMenuClick"
         @tab="handleMenuTab"
       >
         <template
@@ -313,7 +313,7 @@ export default defineComponent({
       default: false,
     },
   },
-  emits: ['item:click', 'update:modelValue'],
+  emits: ['click:item', 'update:modelValue'],
   setup(props, { emit }) {
     const { t } = inject('i18n') as TranslationSupport;
     const focusedItem = shallowRef(-1);
@@ -357,7 +357,6 @@ export default defineComponent({
      * @param {FocusEvent} e The event emitted from blur
      */
     function handleBlur(e: FocusEvent) {
-      console.log('blur')
       if (!menu.value?.$el.contains(e.relatedTarget as NodeOrNull)) {
         hasFocus.value = false;
         menuOpen.value = false;
@@ -372,7 +371,6 @@ export default defineComponent({
      * Focus the select field, then open/close the menu (unless it's readonly or disabled)
      */
     function handleClick(e: Event) {
-      console.log('click')
       selectInput.value?.focus();
 
       if (!props.readonly && !props.disabled) {
@@ -459,7 +457,6 @@ export default defineComponent({
      * Change the focused item when the user presses up arrow + ctrl
      */
     function handleUpCtrl() {
-      console.log('ctrl')
       if (focusedItem.value > 0) {
         focusedItem.value -= 1;
         focusStart.value = focusedItem.value;
@@ -562,7 +559,7 @@ export default defineComponent({
      * @param item The item that was clicked in the field - only applicable for chips
      */
     function handleFieldItemClick(item: SelectOption) {
-      emit('item:click', item);
+      emit('click:item', item);
     }
 
     /**
