@@ -1,0 +1,28 @@
+// Variables specific to FdButton
+
+// colors for theming, must be duplicated in theme map
+
+$close-button_bg: transparent !default;
+$close-button_bg--hover: $black, 0.1 !default;
+$close-button_bg--pressed: $black, 0.2 !default;
+$close-button_bg--focus: $black, 0.1 !default;
+$close-button_color: $neutral-13, 1 !default;
+$close-button_color--disabled: $black, 0.3 !default;
+
+// default style vars
+
+$close-button_border: none !default;
+$close-button_border-radius: $border-radius_sm !default;
+$close-button_border-radius--round: $border-radius_full !default;
+$close-button_transition: $transition-timing background, $transition-timing box-shadow, $transition-timing color !default;
+
+// theme map, must replicate colors
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-close-button: (
+  close-button_bg: $close-button_bg,
+  close-button_bg--hover: $close-button_bg--hover,
+  close-button_bg--pressed: $close-button_bg--pressed,
+  close-button_bg--focus: $close-button_bg--focus,
+  close-button_color: $close-button_color,
+  close-button_color--disabled: $close-button_color--disabled,
+);
