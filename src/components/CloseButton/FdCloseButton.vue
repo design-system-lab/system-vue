@@ -1,29 +1,32 @@
 <template>
   <button
-    class="fd-button"
+    class="fd-close-button"
     :class="[
       {
-        'fd-button--disabled': disabled,
-        'fd-button--round': round,
-        'fd-button--lg': size === 'lg',
-        'fd-button--sm': size === 'sm',
+        'fd-close-button--disabled': disabled,
+        'fd-close-button--round': round,
+        'fd-close-button--lg': size === 'lg',
+        'fd-close-button--sm': size === 'sm',
       }
     ]"
+    :aria-label="t('close')"
     :disabled="disabled"
   >
     <fd-icon
       :icon="icon"
       :size="getSize"
+      :data-testid="`fd-close-button__icon--${size}`"
     />
   </button>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { computed, defineComponent, inject, PropType } from 'vue';
 import { XMarkIcon as XMarkIconLg } from '@heroicons/vue/24/solid'
 import { XMarkIcon } from '@heroicons/vue/20/solid';
 import { XMarkIcon as XMarkIconSm } from '@heroicons/vue/16/solid';
 import FdIcon from '../Icon';
+import { TranslationSupport } from '../../utils';
 
 export default defineComponent({
   name: 'FdCloseButton',
@@ -43,6 +46,8 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const { t } = inject('i18n') as TranslationSupport;
+
     const icon = computed(() => {
       switch (props.size) {
         case 'lg':
@@ -65,7 +70,7 @@ export default defineComponent({
       }
     });
 
-    return { getSize, icon };
+    return { getSize, icon, t };
   }
 });
 </script>
@@ -73,7 +78,7 @@ export default defineComponent({
 <style lang="scss" scoped>
 @import "@/styles/required";
 
-.fd-button {
+.fd-close-button {
   background-color: rgba(var(--fora_close-button_bg));
   border: $close-button_border;
   border-radius: $close-button_border-radius;
