@@ -255,12 +255,24 @@
     <br><br>
     <fd-button>Button element</fd-button>
     <br><br>
+
+    <h4 class="mb-4">Close Button</h4>
+    <div class="close-container">
+      <fd-close-button size="lg" /><fd-close-button /><fd-close-button size="sm" />
+    </div>
+    <div class="close-container">
+      <fd-close-button size="lg" round /><fd-close-button round /><fd-close-button size="sm" round />
+    </div>
+    <div class="close-container">
+      <fd-close-button size="lg" disabled /><fd-close-button disabled /><fd-close-button size="sm" disabled />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, shallowRef, inject } from 'vue';
 import FdButton from '../../../src/components/Button';
+import FdCloseButton from '../../../src/components/CloseButton';
 import { ThemeSupport } from '../../../src/utils/theme';
 import { TranslationSupport } from '../../../src/utils/i18n';
 import FdIcon from '../../../src/components/Icon';
@@ -269,7 +281,7 @@ import { CubeTransparentIcon as CubeTransparentIconSm } from '@heroicons/vue/20/
 
 export default defineComponent({
   name: 'ButtonPage',
-  components: { FdButton, FdIcon },
+  components: { FdButton, FdCloseButton, FdIcon },
   setup () {
     const testVal = shallowRef(false);
     const { theme, updateTheme } = inject('theme') as ThemeSupport;
@@ -279,3 +291,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.close-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+</style>
