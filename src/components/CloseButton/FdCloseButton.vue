@@ -15,7 +15,7 @@
     <fd-icon
       :icon="icon"
       :size="getSize"
-      :data-testid="`fd-close-button__icon--${size}`"
+      :data-testid="`fd-close-button__icon--${getSize}`"
     />
   </button>
 </template>
