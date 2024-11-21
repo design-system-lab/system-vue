@@ -3,7 +3,7 @@ import FdCloseButton from './FdCloseButton.vue'
 
 const provide = {
   i18n: { t: (key: string) => key },
-};``
+};
 
 // write unit tests for FdCloseButton component checking all props, slots and events
 test('renders default close button', () => {
