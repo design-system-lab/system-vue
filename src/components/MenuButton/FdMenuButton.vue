@@ -24,7 +24,7 @@
       v-if="modelValue"
       ref="menu"
       :alignment="alignment"
-      :focusItem="focusedItem"
+      :focus-item="focusedItem"
       :items="items"
       menu-placement="global"
       :parent="button.$el"
