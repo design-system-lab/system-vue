@@ -1,0 +1,63 @@
+// Variables specific to FdAlert
+
+// colors for theming, must be duplicated in theme map
+$alert_bg: $secondary-1, 1 !default;
+$alert_border-color: $secondary-6, 1 !default;
+$alert_color: $secondary-6, 1 !default;
+$alert_danger_bg: $danger-1, 1 !default;
+$alert_danger_border-color: $danger-6, 1 !default;
+$alert_danger_color: $danger-6, 1 !default;
+$alert_heading_color: $neutral-13, 1 !default;
+$alert_link_color: $primary-6, 1 !default;
+$alert_neutral_bg: $neutral-1, 1 !default;
+$alert_neutral_border-color: $neutral-6, 1 !default;
+$alert_neutral_color: $neutral-6, 1 !default;
+$alert_success_bg: $success-1, 1 !default;
+$alert_success_border-color: $success-6, 1 !default;
+$alert_success_color: $success-6, 1 !default;
+$alert_text_color: $neutral-8, 1 !default;
+$alert_warning_bg: $warning-1, 1 !default;
+$alert_warning_border-color: $warning-6, 1 !default;
+$alert_warning_color: $warning-6, 1 !default;
+
+
+// default style vars
+$alert_border: 1px solid;
+$alert_border-radius: 0 !default;
+$alert_content_gap: 0.5rem !default;
+$alert_gap: 0.75rem !default;
+$alert_heading_font-size: $font-sm !default;
+$alert_heading_font-weight: $font-medium !default;
+$alert_heading_line-height: 1.25rem !default;
+$alert_link_font-size: $font-sm !default;
+$alert_link_font-weight: $font-medium !default;
+$alert_link_line-height: 1.25rem !default;
+$alert_link_padding: 0 !default;
+$alert_link_margin: 0 !default;
+$alert_padding: 0.75rem !default;
+$alert_text_font-size: $font-sm !default;
+$alert_text_font-weight: $font-regular !default;
+$alert_text_line-height: 1.25rem !default;
+
+// theme map, must replicate colors
+// when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-alert: (
+  alert_bg: $alert_bg,
+  alert_border-color: $alert_border-color,
+  alert_color: $alert_color,
+  alert_danger_bg: $alert_danger_bg,
+  alert_danger_border-color: $alert_danger_border-color,
+  alert_danger_color: $alert_danger_color,
+  alert_heading_color: $alert_heading_color,
+  alert_link_color: $alert_link_color,
+  alert_neutral_bg: $alert_neutral_bg,
+  alert_neutral_border-color: $alert_neutral_border-color,
+  alert_neutral_color: $alert_neutral_color,
+  alert_success_bg: $alert_success_bg,
+  alert_success_border-color: $alert_success_border-color,
+  alert_success_color: $alert_success_color,
+  alert_text_color: $alert_text_color,
+  alert_warning_bg: $alert_warning_bg,
+  alert_warning_border-color: $alert_warning_border-color,
+  alert_warning_color: $alert_warning_color,
+);

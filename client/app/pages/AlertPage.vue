@@ -21,7 +21,14 @@
         <fd-input-field
           v-model="bg"
           id="bg"
+          class="mb-4"
           label="Background Color"
+          small
+        />
+        <fd-input-field
+          v-model="linkText"
+          id="link"
+          label="Link Text"
           small
         />
       </div>
@@ -51,23 +58,58 @@
       class="display-panel mb-4"
       :style="{ backgroundColor: bg }"
     >
-      <fd-alert :dismissible="dismissible" :icon="customIcon ? CubeTransparentIcon : undefined">
+      <p>
+        Dismiss clicked {{ counter }} times!
+        <br>
+        Link clicked {{ linkCounter }} times!
+      </p>
+      <fd-alert
+        :dismissible="dismissible"
+        :icon="customIcon ? CubeTransparentIcon : undefined"
+        :link-text="linkText"
+        @click:link="linkCounter += 1"
+        @dismiss="counter += 1"
+      >
         <template #heading>{{ headingText }}</template>
         {{ text }}
       </fd-alert>
-      <fd-alert :dismissible="dismissible" kind="neutral" :icon="customIcon ? CubeTransparentIcon : undefined">
+      <fd-alert
+        :dismissible="dismissible" kind="neutral"
+        :icon="customIcon ? CubeTransparentIcon : undefined"
+        :link-text="linkText"
+        @click:link="linkCounter += 1"
+        @dismiss="counter += 1"
+      >
         <template #heading>{{ headingText }}</template>
         {{ text }}
       </fd-alert>
-      <fd-alert :dismissible="dismissible" kind="success" :icon="customIcon ? CubeTransparentIcon : undefined">
+      <fd-alert
+        :dismissible="dismissible" kind="success"
+        :icon="customIcon ? CubeTransparentIcon : undefined"
+        :link-text="linkText"
+        @click:link="linkCounter += 1"
+        @dismiss="counter += 1"
+      >
         <template #heading>{{ headingText }}</template>
         {{ text }}
       </fd-alert>
-      <fd-alert :dismissible="dismissible" kind="warning" :icon="customIcon ? CubeTransparentIcon : undefined">
+      <fd-alert
+        :dismissible="dismissible" kind="warning"
+        :icon="customIcon ? CubeTransparentIcon : undefined"
+        :link-text="linkText"
+        @click:link="linkCounter += 1"
+        @dismiss="counter += 1"
+      >
         <template #heading>{{ headingText }}</template>
         {{ text }}
       </fd-alert>
-      <fd-alert :dismissible="dismissible" kind="danger" :icon="customIcon ? CubeTransparentIcon : undefined">
+      <fd-alert
+        :dismissible="dismissible" kind="danger"
+        :icon="customIcon ? CubeTransparentIcon : undefined"
+        :link-text="linkText"
+        @click:link="linkCounter += 1"
+        @dismiss="counter += 1"
+      >
         <template #heading>{{ headingText }}</template>
         {{ text }}
       </fd-alert>
@@ -89,17 +131,20 @@ export default defineComponent({
   name: 'AlertPage',
   components: { FdAlert, FdCheckbox, FdGroup, FdInputField, FdSelect },
   setup() {
-    const dismissible = shallowRef(false);
+    const dismissible = shallowRef(true);
     const text = shallowRef('Use up to 200 characters to tell the user why they\'re receiving an alert and if they need to take action. Include a link if needed. The warning message can be generic or specific.');
     const headingText = shallowRef('Your warning message - keep it short n’ sweet');
     const counter = shallowRef(0);
     const dismissCount = shallowRef(0);
+    const linkCounter = shallowRef(0);
     const kind = shallowRef('info');
     const customIcon = shallowRef(false);
+    const showLink = shallowRef(false);
+    const linkText = shallowRef('Link Text');
 
     const bg = shallowRef('#fff');
 
-    function handleAlertClick(e) {
+    function handleDismissClick(e) {
       counter.value += 1;
     }
 
@@ -109,9 +154,12 @@ export default defineComponent({
       customIcon,
       dismissCount,
       dismissible,
-      handleAlertClick,
+      handleDismissClick,
       headingText,
+      linkCounter,
+      linkText,
       kind,
+      showLink,
       text,
       CubeTransparentIcon,
     };

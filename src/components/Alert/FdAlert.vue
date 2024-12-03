@@ -1,15 +1,36 @@
 <template>
-  <div class="fd-alert" :class="[`fd-alert--${kind}`]">
+  <div
+    class="fd-alert"
+    :class="[`fd-alert--${kind}`]"
+  >
     <div class="fd-alert__icon">
       <fd-icon :icon="getIcon" />
     </div>
     <div class="fd-alert__content">
-      <p class="fd-alert__heading"><slot name="heading"></slot></p>
-      <p class="fd-alert__text"><slot></slot></p>
-      <button v-if="showLink" class="fd-alert__link fd-link" @click="$emit('click:link')">Link</button>
+      <p class="fd-alert__heading">
+        <slot name="heading" />
+      </p>
+      <p class="fd-alert__text">
+        <slot />
+      </p>
+      <slot name="link">
+        <button
+          v-if="linkText"
+          class="fd-alert__link fd-link"
+          @click="$emit('click:link')"
+        >
+          {{ linkText }}
+        </button>
+      </slot>
     </div>
-    <div v-if="dismissible" class="fd-alert__close">
-      <fd-close-button size="lg" @click="$emit('dismiss')" />
+    <div
+      v-if="dismissible"
+      class="fd-alert__close"
+    >
+      <fd-close-button
+        size="lg"
+        @click="$emit('dismiss')"
+      />
     </div>
   </div>
 </template>
@@ -40,9 +61,9 @@ export default defineComponent({
       type: String as PropType<'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
       default: 'info',
     },
-    showLink: {
-      type: Boolean,
-      default: false,
+    linkText: {
+      type: String,
+      default: undefined,
     },
   },
   setup(props) {
@@ -72,13 +93,13 @@ export default defineComponent({
 
 .fd-alert {
   align-items: flex-start;
-  background-color: rgba(var(--fora_secondary-1), 1);
-  border: 1px solid rgba(var(--fora_secondary-3), 1);
-  border-radius: 0;
-  color: rgba(var(--fora_secondary-6), 1);
+  background-color: rgba(var(--fora_alert_bg));
+  border: $alert_border rgba(var(--fora_alert_border-color));
+  border-radius: $alert_border-radius;
+  color: rgba(var(--fora_alert_color));
   display: flex;
-  gap: 0.75rem;
-  padding: 0.75rem;
+  gap: $alert_gap;
+  padding: $alert_padding;
 
   &__icon {
     align-items: center;
@@ -89,44 +110,60 @@ export default defineComponent({
   &__content {
     flex: 1 1 0;
     padding: 0.125rem 0;
+    display: flex;
+    flex-direction: column;
+    gap: $alert_content_gap;
   }
 
   &__heading {
-    color: rgba(var(--fora_neutral-13), 1);
-    font-size: $font-sm;
-    font-weight: $font-medium;
-    line-height: 1.25rem;
+    color: rgba(var(--fora_alert_heading_color));
+    font-size: $alert_heading_font-size;
+    font-weight: $alert_heading_font-weight;
+    line-height: $alert_heading_line-height;
   }
 
   &__text {
-    color: rgba(var(--fora_neutral-8), 1);
-    font-size: $font-sm;
-    font-weight: $font-regular;
-    line-height: 1.25rem;
+    color: rgba(var(--fora_alert_text_color));
+    font-size: $alert_text_font-size;
+    font-weight: $alert_text_font-weight;
+    line-height: $alert_text_line-height;
   }
 
   &--neutral {
-    background-color: rgba(var(--fora_neutral-1), 1);
-    border-color: rgba(var(--fora_neutral-3), 1);
-    color: rgba(var(--fora_neutral-6), 1);
+    background-color: rgba(var(--fora_alert_neutral_bg));
+    border-color: rgba(var(--fora_alert_neutral_border-color));
+    color: rgba(var(--fora_alert_neutral_color));
   }
 
   &--success {
-    background-color: rgba(var(--fora_success-1), 1);
-    border-color: rgba(var(--fora_success-3), 1);
-    color: rgba(var(--fora_success-6), 1);
+    background-color: rgba(var(--fora_alert_success_bg));
+    border-color: rgba(var(--fora_alert_success_border-color));
+    color: rgba(var(--fora_alert_success_color));
   }
 
   &--warning {
-    background-color: rgba(var(--fora_warning-1), 1);
-    border-color: rgba(var(--fora_warning-3), 1);
-    color: rgba(var(--fora_warning-6), 1);
+    background-color: rgba(var(--fora_alert_warning_bg));
+    border-color: rgba(var(--fora_alert_warning_border-color));
+    color: rgba(var(--fora_alert_warning_color));
   }
 
   &--danger {
-    background-color: rgba(var(--fora_danger-1), 1);
-    border-color: rgba(var(--fora_danger-3), 1);
-    color: rgba(var(--fora_danger-6), 1);
+    background-color: rgba(var(--fora_alert_danger_bg));
+    border-color: rgba(var(--fora_alert_danger_border-color));
+    color: rgba(var(--fora_alert_danger_color));
+  }
+
+  &__link {
+    display: inline-block;
+    border: none;
+    background: none;
+    color: rgba(var(--fora_alert_link_color));
+    font-size: $alert_link_font-size;
+    font-weight: $alert_link_font-weight;
+    line-height: $alert_link_line-height;
+    padding: $alert_link_padding;
+    margin: $alert_link_margin;
+    text-align: left;
   }
 }
 </style>
