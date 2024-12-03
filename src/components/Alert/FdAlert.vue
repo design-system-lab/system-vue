@@ -56,6 +56,7 @@ export default defineComponent({
     },
     icon: {
       type: Function as PropType<Icon>,
+      default: undefined,
     },
     kind: {
       type: String as PropType<'info' | 'success' | 'warning' | 'danger' | 'neutral'>,

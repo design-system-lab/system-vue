@@ -16,8 +16,8 @@ const slots = {
 };
 
 const namedSlots = {
-  'heading': 'HEADING_TEXT',
-  'link': 'LINK_TEXT',
+  heading: 'HEADING_TEXT',
+  link: 'LINK_TEXT',
 }
 
 test('renders alert text', () => {
