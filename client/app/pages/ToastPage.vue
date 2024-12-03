@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Alerts</h1>
+    <h1>Toasts</h1>
     <br>
     <div class="control-panel">
       <div>
@@ -8,7 +8,7 @@
           v-model="text"
           id="text"
           class="mb-4"
-          label="Alert Text"
+          label="toast Text"
           small
         />
         <fd-input-field
@@ -63,7 +63,7 @@
         <br>
         Link clicked {{ linkCounter }} times!
       </p>
-      <fd-alert
+      <fd-toast
         :dismissible="dismissible"
         :icon="customIcon ? CubeTransparentIcon : undefined"
         :link-text="linkText"
@@ -72,8 +72,8 @@
       >
         <template #heading>{{ headingText }}</template>
         {{ text }}
-      </fd-alert>
-      <fd-alert
+      </fd-toast>
+      <fd-toast
         :dismissible="dismissible" kind="neutral"
         :icon="customIcon ? CubeTransparentIcon : undefined"
         :link-text="linkText"
@@ -82,8 +82,8 @@
       >
         <template #heading>{{ headingText }}</template>
         {{ text }}
-      </fd-alert>
-      <fd-alert
+      </fd-toast>
+      <fd-toast
         :dismissible="dismissible" kind="success"
         :icon="customIcon ? CubeTransparentIcon : undefined"
         :link-text="linkText"
@@ -92,8 +92,8 @@
       >
         <template #heading>{{ headingText }}</template>
         {{ text }}
-      </fd-alert>
-      <fd-alert
+      </fd-toast>
+      <fd-toast
         :dismissible="dismissible" kind="warning"
         :icon="customIcon ? CubeTransparentIcon : undefined"
         :link-text="linkText"
@@ -102,8 +102,8 @@
       >
         <template #heading>{{ headingText }}</template>
         {{ text }}
-      </fd-alert>
-      <fd-alert
+      </fd-toast>
+      <fd-toast
         :dismissible="dismissible" kind="danger"
         :icon="customIcon ? CubeTransparentIcon : undefined"
         :link-text="linkText"
@@ -112,7 +112,7 @@
       >
         <template #heading>{{ headingText }}</template>
         {{ text }}
-      </fd-alert>
+      </fd-toast>
     </div>
 
     <!-- add custom icon version -->
@@ -122,17 +122,17 @@
 <script lang="ts">
 import { defineComponent, shallowRef } from 'vue';
 import { CubeTransparentIcon } from '@heroicons/vue/24/solid'
-import FdAlert from '../../../src/components/Alert';
+import FdToast from '../../../src/components/toast';
 import FdCheckbox from '../../../src/components/Checkbox';
 import FdGroup from '../../../src/components/Group';
 import { FdInputField, FdSelect } from '../../../src/components/Form';
 
 export default defineComponent({
-  name: 'AlertPage',
-  components: { FdAlert, FdCheckbox, FdGroup, FdInputField, FdSelect },
+  name: 'toastPage',
+  components: { FdToast, FdCheckbox, FdGroup, FdInputField, FdSelect },
   setup() {
     const dismissible = shallowRef(true);
-    const text = shallowRef('Use up to 200 characters to tell the user why they\'re receiving an alert and if they need to take action. Include a link if needed. The warning message can be generic or specific.');
+    const text = shallowRef('Use up to 200 characters to tell the user why they\'re receiving an toast and if they need to take action. Include a link if needed. The warning message can be generic or specific.');
     const headingText = shallowRef('Your warning message - keep it short n’ sweet');
     const counter = shallowRef(0);
     const dismissCount = shallowRef(0);
