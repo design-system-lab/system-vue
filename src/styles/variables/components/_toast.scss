@@ -10,12 +10,13 @@ $toast_danger_color: $danger-6, 1 !default;
 $toast_heading_color: $neutral-13, 1 !default;
 $toast_link_color: $primary-6, 1 !default;
 $toast_neutral_bg: $neutral-1, 1 !default;
-$toast_neutral_border-color: $neutral-6, 1 !default;
-$toast_neutral_color: $neutral-6, 1 !default;
+$toast_neutral_border-color: $neutral-8, 1 !default;
+$toast_neutral_color: $neutral-7, 1 !default;
 $toast_success_bg: $success-1, 1 !default;
 $toast_success_border-color: $success-6, 1 !default;
 $toast_success_color: $success-6, 1 !default;
 $toast_text_color: $neutral-8, 1 !default;
+$toast_timestamp_color: $neutral-8, 1 !default;
 $toast_warning_bg: $warning-1, 1 !default;
 $toast_warning_border-color: $warning-6, 1 !default;
 $toast_warning_color: $warning-6, 1 !default;
@@ -23,8 +24,9 @@ $toast_warning_color: $warning-6, 1 !default;
 
 // default style vars
 $toast_border: 1px solid;
-$toast_border-radius: 0 !default;
-$toast_content_gap: 0.5rem !default;
+$toast_border-radius: $border-radius_md !default;
+$toast_content_gap: 0.25rem !default;
+$toast_elevation: $shadow-sm !default;
 $toast_gap: 0.75rem !default;
 $toast_heading_font-size: $font-sm !default;
 $toast_heading_font-weight: $font-medium !default;
@@ -35,9 +37,13 @@ $toast_link_line-height: 1.25rem !default;
 $toast_link_padding: 0 !default;
 $toast_link_margin: 0 !default;
 $toast_padding: 0.75rem !default;
+$toast_tab_width: 4px !default;
 $toast_text_font-size: $font-sm !default;
 $toast_text_font-weight: $font-regular !default;
 $toast_text_line-height: 1.25rem !default;
+$toast_timestamp_font-size: $font-xs !default;
+$toast_timestamp_font-weight: $font-regular !default;
+$toast_timestamp_line-height: 1.25rem !default;
 
 // theme map, must replicate colors
 // when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
@@ -57,6 +63,7 @@ $theme-toast: (
   toast_success_border-color: $toast_success_border-color,
   toast_success_color: $toast_success_color,
   toast_text_color: $toast_text_color,
+  toast_timestamp_color: $toast_timestamp_color,
   toast_warning_bg: $toast_warning_bg,
   toast_warning_border-color: $toast_warning_border-color,
   toast_warning_color: $toast_warning_color,

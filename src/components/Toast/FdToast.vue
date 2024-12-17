@@ -8,18 +8,29 @@
     </div>
     <div class="fd-toast__content">
       <p class="fd-toast__heading">
-        <slot name="heading" />
+        <slot>{{ content }}</slot>
       </p>
-      <p class="fd-toast__text">
-        <slot />
+      <p
+        v-if="description || hasSlotContent($slots.description)"
+        class="fd-toast__description"
+      >
+        <slot name="description">{{ description }}</slot>
+      </p>
+      <p
+        v-if="showTimestamp || hasSlotContent($slots.timestamp)"
+        class="fd-toast__timestamp"
+      >
+        <slot name="timestamp">
+          <time>{{ new Date().toLocaleTimeString() }}</time>
+        </slot>
       </p>
       <slot name="link">
         <button
-          v-if="linkText"
+          v-if="linkText || hasSlotContent($slots.link)"
           class="fd-toast__link fd-link"
           @click="$emit('click:link')"
         >
-          {{ linkText }}
+          <slot name="link">{{ linkText }}</slot>
         </button>
       </slot>
     </div>
@@ -44,12 +55,21 @@ import {
 } from '@heroicons/vue/24/solid';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
+import { hasSlotContent } from '../../utils';
 import { Icon } from '../../types';
 
 export default defineComponent({
   name: 'Fdtoast',
   components: { FdCloseButton, FdIcon },
   props: {
+    content: {
+      type: String,
+      default: undefined,
+    },
+    description: {
+      type: String,
+      default: undefined,
+    },
     dismissible: {
       type: Boolean,
       default: false,
@@ -66,7 +86,12 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
+    showTimestamp: {
+      type: Boolean,
+      default: false,
+    },
   },
+  emits: ['click:link', 'dismiss'],
   setup(props) {
     const getIcon = computed(() => {
       if (props.icon) return props.icon;
@@ -85,7 +110,7 @@ export default defineComponent({
       }
     });
 
-    return { getIcon };
+    return { getIcon, hasSlotContent };
   }
 });
 </script>
@@ -95,8 +120,10 @@ export default defineComponent({
 .fd-toast {
   align-items: flex-start;
   background-color: rgba(var(--fora_toast_bg));
+  box-shadow: $shadow-sm;
   border: $toast_border rgba(var(--fora_toast_border-color));
   border-radius: $toast_border-radius;
+  border-left-width: $toast_tab_width;
   color: rgba(var(--fora_toast_color));
   display: flex;
   gap: $toast_gap;
@@ -123,11 +150,18 @@ export default defineComponent({
     line-height: $toast_heading_line-height;
   }
 
-  &__text {
+  &__description {
     color: rgba(var(--fora_toast_text_color));
     font-size: $toast_text_font-size;
     font-weight: $toast_text_font-weight;
     line-height: $toast_text_line-height;
+  }
+
+  &__timestamp {
+    color: rgba(var(--fora_toast_timestamp_color));
+    font-size: $toast_timestamp_font-size;
+    font-weight: $toast_timestamp_font-weight;
+    line-height: $toast_timestamp_line-height;
   }
 
   &--neutral {

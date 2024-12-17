@@ -5,17 +5,17 @@
     <div class="control-panel">
       <div>
         <fd-input-field
-          v-model="text"
-          id="text"
-          class="mb-4"
-          label="Alert Text"
-          small
-        />
-        <fd-input-field
           v-model="headingText"
           id="heading"
           class="mb-4"
           label="Heading Text"
+          small
+        />
+        <fd-input-field
+          v-model="text"
+          id="text"
+          class="mb-4"
+          label="Alert Text"
           small
         />
         <fd-input-field
@@ -70,8 +70,8 @@
         @click:link="linkCounter += 1"
         @dismiss="counter += 1"
       >
-        <template #heading>{{ headingText }}</template>
-        {{ text }}
+        <template #description>{{ text }}</template>
+        {{ headingText }}
       </fd-alert>
       <fd-alert
         :dismissible="dismissible" kind="neutral"
@@ -80,8 +80,8 @@
         @click:link="linkCounter += 1"
         @dismiss="counter += 1"
       >
-        <template #heading>{{ headingText }}</template>
-        {{ text }}
+        <template #description>{{ text }}</template>
+        {{ headingText }}
       </fd-alert>
       <fd-alert
         :dismissible="dismissible" kind="success"
@@ -90,8 +90,8 @@
         @click:link="linkCounter += 1"
         @dismiss="counter += 1"
       >
-        <template #heading>{{ headingText }}</template>
-        {{ text }}
+        <template #description>{{ text }}</template>
+        {{ headingText }}
       </fd-alert>
       <fd-alert
         :dismissible="dismissible" kind="warning"
@@ -100,8 +100,8 @@
         @click:link="linkCounter += 1"
         @dismiss="counter += 1"
       >
-        <template #heading>{{ headingText }}</template>
-        {{ text }}
+        <template #description>{{ text }}</template>
+        {{ headingText }}
       </fd-alert>
       <fd-alert
         :dismissible="dismissible" kind="danger"
@@ -110,8 +110,8 @@
         @click:link="linkCounter += 1"
         @dismiss="counter += 1"
       >
-        <template #heading>{{ headingText }}</template>
-        {{ text }}
+        <template #description>{{ text }}</template>
+        {{ headingText }}
       </fd-alert>
     </div>
 

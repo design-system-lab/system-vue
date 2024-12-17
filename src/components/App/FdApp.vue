@@ -5,22 +5,27 @@
     :data-theme="theme"
   >
     <slot />
+    <fd-toaster :toasts="toasts" />
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, provide, shallowRef } from 'vue';
-import { ThemeSupport } from '../../utils';
+import { defineComponent, inject, provide, shallowRef, ref } from 'vue';
+import FdToaster from '../Toast/FdToaster.vue';
+import { useToaster, type ThemeSupport } from '../../utils';
 
 export default defineComponent({
   name: 'FdApp',
+  components: { FdToaster },
   setup() {
     const { theme } = inject('theme') as ThemeSupport;
     const app = shallowRef<HTMLDivElement | null>(null);
+    const { deployToast, toasts } = useToaster();
 
     provide('app', app);
+    provide('deployToast', deployToast);
 
-    return { app, theme };
+    return { app, toasts, theme };
   },
 });
 </script>

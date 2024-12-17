@@ -8,10 +8,10 @@
     </div>
     <div class="fd-alert__content">
       <p class="fd-alert__heading">
-        <slot name="heading" />
-      </p>
-      <p class="fd-alert__text">
         <slot />
+      </p>
+      <p v-if="hasSlotContent($slots.description)" class="fd-alert__description">
+        <slot name="description" />
       </p>
       <slot name="link">
         <button
@@ -35,7 +35,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
+import { computed, defineComponent, shallowRef, PropType } from 'vue'
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
@@ -44,6 +44,7 @@ import {
 } from '@heroicons/vue/24/solid';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
+import { hasSlotContent } from '../../utils';
 import { Icon } from '../../types';
 
 export default defineComponent({
@@ -67,6 +68,7 @@ export default defineComponent({
       default: undefined,
     },
   },
+  emits: ['click:link', 'dismiss'],
   setup(props) {
     const getIcon = computed(() => {
       if (props.icon) return props.icon;
@@ -85,7 +87,7 @@ export default defineComponent({
       }
     });
 
-    return { getIcon };
+    return { getIcon, hasSlotContent };
   }
 });
 </script>
@@ -123,7 +125,7 @@ export default defineComponent({
     line-height: $alert_heading_line-height;
   }
 
-  &__text {
+  &__description {
     color: rgba(var(--fora_alert_text_color));
     font-size: $alert_text_font-size;
     font-weight: $alert_text_font-weight;
