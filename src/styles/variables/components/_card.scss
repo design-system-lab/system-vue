@@ -1,0 +1,39 @@
+// Variables specific to FdCard
+
+// colors for theming, must be duplicated in theme map
+$card_bg: $white, 1 !default;
+$card_border-color: $neutral-5, 1 !default;
+$card_overline_color: $neutral-8, 1 !default;
+$card_content_color: $neutral-8, 1 !default;
+$card_title_color: $neutral-13, 1 !default;
+
+
+// default style vars
+$card_action_gap: 0.5rem !default;
+$card_border: 1px solid;
+$card_border-radius: $border-radius_xl !default;
+$card_box-shadow: $shadow-sm !default;
+$card_content_gap: 0.75rem !default;
+$card_gap: 1.5rem !default;
+$card_header_gap: 0 !default;
+$card_image_border-radius: $border-radius_md !default;
+$card_overline_font-size: $font-base !default;
+$card_overline_font-weight: $font-regular !default;
+$card_overline_line-height: 1.5rem !default;
+$card_padding: 1.5rem !default;
+$card_content_font-size: $font-base !default;
+$card_content_font-weight: $font-regular !default;
+$card_content_line-height: 1.5rem !default;
+$card_title_font-size: $heading-5 !default;
+$card_title_font-weight: $font-semi-bold !default;
+$card_title_line-height: 2rem !default;
+
+// theme map, must replicate colors
+// when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-card: (
+  card_bg: $card_bg,
+  card_border-color: $card_border-color,
+  card_content_color: $card_content_color,
+  card_overline_color: $card_overline_color,
+  card_title_color: $card_title_color,
+);
