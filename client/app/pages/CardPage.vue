@@ -69,7 +69,7 @@
         <fd-col>
           <fd-card>
             <template v-if="showImage" #image>
-              <img src="https://placehold.co/600x400" alt="Placeholder" />
+              <img src="https://placehold.co/800x400" alt="Placeholder" />
             </template>
             <template #overline>
               {{ overlineText }}
