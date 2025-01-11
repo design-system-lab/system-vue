@@ -5,6 +5,8 @@ export * from './i18n';
 export * from './icons';
 export * from './objects';
 export * from './router';
+export * from './slots';
+export * from './toast';
 export * from './theme';
 export * from './transitions';
 export * from './validators';
