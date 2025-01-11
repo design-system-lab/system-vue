@@ -93,6 +93,8 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
+@import "@/styles/required";
+
 .fd-toaster {
   &__top-left,
   &__top-right,
