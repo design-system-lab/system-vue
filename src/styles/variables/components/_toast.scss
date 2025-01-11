@@ -45,6 +45,10 @@ $toast_timestamp_font-size: $font-xs !default;
 $toast_timestamp_font-weight: $font-regular !default;
 $toast_timestamp_line-height: 1.25rem !default;
 
+$toaster_edge-spacing: 1rem !default;
+$toaster_gap: 0.5rem !default;
+$toaster_max-width: min(calc(100% - 2rem), calc(30rem - 1.5rem)) !default;
+
 // theme map, must replicate colors
 // when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
 $theme-toast: (

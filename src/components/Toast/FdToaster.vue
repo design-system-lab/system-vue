@@ -55,6 +55,14 @@ import { defineComponent, shallowRef, watch, PropType } from 'vue';
 import { useToaster, Toast } from '../../utils';
 import FdToast from './FdToast.vue';
 
+/**
+ * Toaster component
+ * The toaster component is responsible for displaying toasts in the correct position
+ * 
+ * @param {string} position - The position of the toaster
+ * @param {Toast[]} toasts - The toasts to display
+ */
+
 export default defineComponent({
   name: 'FdToaster',
   components: { FdToast },
@@ -92,30 +100,30 @@ export default defineComponent({
   &__bottom-right {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: $toaster_gap;
     position: fixed;
-    max-width: min(calc(100% - 2rem), calc(30rem - 1.5rem));
+    max-width: $toaster_max-width;
     z-index: 9999;
   }
 
   &__top-left {
-    top: 1rem;
-    left: 1rem;
+    top: $toaster_edge-spacing;
+    left: $toaster_edge-spacing;
   }
 
   &__top-right {
-    top: 1rem;
-    right: 1rem;
+    top: $toaster_edge-spacing;
+    right: $toaster_edge-spacing;
   }
 
   &__bottom-left {
-    bottom: 1rem;
-    left: 1rem;
+    bottom: $toaster_edge-spacing;
+    left: $toaster_edge-spacing;
   }
 
   &__bottom-right {
-    bottom: 1rem;
-    right: 1rem;
+    bottom: $toaster_edge-spacing;
+    right: $toaster_edge-spacing;
   }
 }
 </style>

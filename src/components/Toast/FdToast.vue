@@ -58,6 +58,18 @@ import FdIcon from '../Icon';
 import { hasSlotContent } from '../../utils';
 import { Icon } from '../../types';
 
+/**
+ * Toast component
+ * 
+ * @param {string} content - The content of the toast
+ * @param {string} description - The description of the toast
+ * @param {boolean} dismissible - Whether the toast is dismissible
+ * @param {Icon} icon - The icon to display in the toast
+ * @param {string} kind - The kind of toast (info, success, warning, danger, neutral)
+ * @param {string} linkText - The text of the link
+ * @param {boolean} showTimestamp - Whether to show the timestamp
+ */
+
 export default defineComponent({
   name: 'Fdtoast',
   components: { FdCloseButton, FdIcon },
