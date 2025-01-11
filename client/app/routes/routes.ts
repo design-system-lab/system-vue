@@ -12,6 +12,7 @@ import MenuButtonPage from '../pages/MenuButtonPage.vue';
 import RadioPage from '../pages/RadioPage.vue';
 import SelectPage from '../pages/SelectPage.vue';
 import SplitButtonPage from '../pages/SplitButtonPage.vue';
+import TextareaPage from '../pages/TextareaPage.vue';
 import ToastPage from '../pages/ToastPage.vue';
 import TogglePage from '../pages/TogglePage.vue';
 import TypographyPage from '../pages/TypographyPage.vue';
@@ -31,6 +32,7 @@ export default [
   { path: '/radio', name: 'Radio', component: RadioPage },
   { path: '/select', name: 'Select', component: SelectPage },
   { path: '/split-button', name: 'SplitButton', component: SplitButtonPage },
+  { path: '/textarea', name: 'Textarea', component: TextareaPage },
   { path: '/toast', name: 'Toast', component: ToastPage },
   { path: '/toggle', name: 'Toggle', component: TogglePage },
   { path: '/typography', name: 'Typography', component: TypographyPage },
