@@ -16,7 +16,8 @@ const slots = {
 };
 
 const namedSlots = {
-  heading: 'HEADING_TEXT',
+  default: 'HEADING_TEXT',
+  description: 'DESCRIPTION_TEXT',
   link: 'LINK_TEXT',
 }
 
@@ -29,6 +30,7 @@ test('renders alert text', () => {
 test('renders named slots text', () => {
   const { getByText } = render(FdAlert, { props, slots: namedSlots, global: { provide } });
 
-  getByText(namedSlots['heading'], {exact: false});
+  getByText(namedSlots['default'], {exact: false});
+  getByText(namedSlots['description'], {exact: false});
   getByText(namedSlots['link'], {exact: false});
 });
