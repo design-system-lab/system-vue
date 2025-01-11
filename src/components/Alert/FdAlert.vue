@@ -10,7 +10,10 @@
       <p class="fd-alert__heading">
         <slot />
       </p>
-      <p v-if="hasSlotContent($slots.description)" class="fd-alert__description">
+      <p
+        v-if="hasSlotContent($slots.description)"
+        class="fd-alert__description"
+      >
         <slot name="description" />
       </p>
       <slot name="link">
@@ -35,7 +38,7 @@
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, shallowRef, PropType } from 'vue'
+import { computed, defineComponent, PropType } from 'vue'
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,

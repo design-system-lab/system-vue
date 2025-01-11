@@ -90,7 +90,10 @@
         </fd-input-post-text>
       </div>
       <div class="col-auto">
-        <div class="fd-textarea__count" v-if="count !== undefined">
+        <div
+          v-if="count !== undefined"
+          class="fd-textarea__count"
+        >
           {{ currentCount }}/{{ count }}
         </div>
       </div>

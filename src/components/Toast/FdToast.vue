@@ -14,7 +14,9 @@
         v-if="description || hasSlotContent($slots.description)"
         class="fd-toast__description"
       >
-        <slot name="description">{{ description }}</slot>
+        <slot name="description">
+          {{ description }}
+        </slot>
       </p>
       <p
         v-if="showTimestamp || hasSlotContent($slots.timestamp)"
@@ -30,7 +32,9 @@
           class="fd-toast__link fd-link"
           @click="$emit('click:link')"
         >
-          <slot name="link">{{ linkText }}</slot>
+          <slot name="link">
+            {{ linkText }}
+          </slot>
         </button>
       </slot>
     </div>
@@ -71,7 +75,7 @@ import { Icon } from '../../types';
  */
 
 export default defineComponent({
-  name: 'Fdtoast',
+  name: 'FdToast',
   components: { FdCloseButton, FdIcon },
   props: {
     content: {

@@ -1,11 +1,11 @@
-import { nextTick, ref } from "vue";
+import { nextTick, ref } from 'vue';
 
 export interface Toast {
   duration?: number,
   id?: string,
   offset?: number,
   position?: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left',
-  props?: Record<string, any>,
+  props?: Record<string, unknown>,
   onAppear?: () => void,
   onDismiss?: () => void,
   onClickLink?: () => void,
@@ -35,11 +35,11 @@ export function useToaster() {
     offset = 0,
     position = 'bottom-right',
     props = {},
-    duration = 30000,
-    onAppear = () => {},
-    onDismiss = () => {},
-    onClickLink = () => {},
-    onLeave = () => {}
+    duration = 5000,
+    onAppear,
+    onDismiss,
+    onClickLink,
+    onLeave,
   }: Toast): string {
     toasts.value = [...toasts.value, {
       id,
@@ -47,9 +47,9 @@ export function useToaster() {
       position,
       props,
       duration,
-      onAppear, 
+      onAppear,
       onDismiss: () => {
-        onDismiss();
+        onDismiss && onDismiss();
         dismissToast(id); 
       },
       onClickLink,
@@ -57,7 +57,7 @@ export function useToaster() {
     }];
 
     nextTick(() => {
-      onAppear();
+      onAppear && onAppear();
       setTimeout(() => {
         dismissToast(id);
       }, duration);

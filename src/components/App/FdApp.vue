@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, provide, shallowRef, ref } from 'vue';
+import { defineComponent, inject, provide, shallowRef } from 'vue';
 import FdToaster from '../Toast/FdToaster.vue';
 import { useToaster, type ThemeSupport } from '../../utils';
 

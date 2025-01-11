@@ -1,13 +1,14 @@
 // yoinked from the helpful folks on this thread:
 // https://github.com/vuejs/core/issues/4733
 
+
 import { Comment, Fragment, Text, type Slot, type VNode } from 'vue';
 
-export function hasSlotContent(slot: Slot | undefined | null, props: any = {}) {
+export function hasSlotContent(slot: Slot | undefined | null, props: unknown = {}) {
   return !isSlotEmpty(slot, props);
 }
 
-export function isSlotEmpty(slot: Slot | undefined | null, props: any = {}) {
+export function isSlotEmpty(slot: Slot | undefined | null, props: unknown = {}) {
   return isVNodeEmpty(slot?.(props));
 }
 
