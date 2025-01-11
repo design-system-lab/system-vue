@@ -222,6 +222,7 @@ export default defineComponent({
 
 .fd-input-post-text {
   position: relative;
+  width: 100%;
 
   &__assistive-text {
     color: rgba(var(--fora_form-field_assistive-text_color));

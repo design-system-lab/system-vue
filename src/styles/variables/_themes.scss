@@ -91,5 +91,6 @@ $defaultThemes: map-merge($defaultThemes, 'default', $theme-chips);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-form);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-menu);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-radio);
+$defaultThemes: map-merge($defaultThemes, 'default', $theme-textarea);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-toggle);
 
