@@ -32,6 +32,7 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .fd-app {
+  color: rgba(var(--fora_neutral-13), 1);
   min-height: 100vh;
 }
 </style>

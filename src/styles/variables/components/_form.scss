@@ -40,7 +40,7 @@ $form-field_sm_padding-y: 0.375rem !default;
 $form-field_sm_padding-x: 0.625rem !default;
 
 // theme map, must replicate colors
-// when using, add --fora- before the key as the css variable, for example: var(--fora-button-primary)
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
 $theme-form: (
   form-field_assistive-text_color: $form-field_assistive-text_color,
   form-field_border-color: $form-field_border-color,

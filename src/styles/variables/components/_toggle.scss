@@ -21,7 +21,7 @@ $toggle_value_size: $form-field_auxillary-text_size;
 $toggle_value_weight: $form-field_auxillary-text_weight;
 
 // theme map, must replicate colors
-// when using, add --fora- before the key as the css variable, for example: var(--fora-toggle-primary)
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_toggle-primary)
 $theme-toggle: (
   toggle_active_bg: $toggle_active_bg,
   toggle_active_bg--hover: $toggle_active_bg--hover,
