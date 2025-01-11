@@ -17,9 +17,22 @@
     <br><br>
     <p>Value: {{ testVal }}</p>
 
+    <h4 class="mb-4">Default Input</h4>
+    <fd-textarea
+      v-model="testCountVal"
+      :count="500"
+      id="test-count"
+      label="Example Input"
+      placeholder="Counting characters!"
+      :small="small"
+    />
+    <br><br>
+    <p>Value: {{ testVal }}</p>
+
     <h4 class="mb-4">Assistive Text</h4>
     <fd-textarea
       v-model="testVal"
+      :count="500"
       id="test-assistive"
       assistive-text="Please use the format MM/DD/YYYY"
       label="Example Input"
@@ -32,6 +45,7 @@
     <fd-textarea
       v-model="testVal"
       id="test-error"
+      :count="500"
       :errors="['format']"
       :errorMessages="{
         format: 'Incorrect date format, please use MM/DD/YYYY',
@@ -47,6 +61,7 @@
     <fd-textarea
       v-model="testVal"
       id="test-error-custom"
+      :count="500"
       assistive-text="Please use the format MM/DD/YYYY"
       :errors="(!testVal && ['required']) || []"
       :errorMessages="{
@@ -215,6 +230,7 @@ import FdIcon from '../../../src/components/Icon';
 import FdCol from '../../../src/components/Col';
 import FdRow from '../../../src/components/Row';
 import { CubeTransparentIcon } from '@heroicons/vue/20/solid'
+import { count } from 'console';
 
 export default defineComponent({
   name: 'TextareaPage',
@@ -229,6 +245,7 @@ export default defineComponent({
     const testEmail = shallowRef('');
     const testTel = shallowRef('');
     const testUrl = shallowRef('');
+    const testCountVal = shallowRef('');
 
     return {
       appendIconVal,
@@ -236,6 +253,7 @@ export default defineComponent({
       CubeTransparentIcon,
       prependIconVal,
       small,
+      testCountVal,
       testVal,
       testNumber,
       testEmail,

@@ -46,6 +46,7 @@
           :aria-describedby="((errors.length || $slots['error-text']) && `${id}__error-text`) || describedby || ((assistiveText || $slots['assistive-text']) && `${id}__assistive-text`)"
           :aria-labelledby="labelledby || ((label || $slots['label']) && `${id}__label`)"
           :disabled="disabled"
+          :maxlength="count && enforceCount ? count : undefined"
           :placeholder="placeholder"
           :readonly="readonly"
           :rows="rows"
@@ -67,29 +68,38 @@
         </fd-icon>
       </div>
     </div>
-    <fd-input-post-text
-      class="fd-textarea__post-text"
-      :assistive-text="assistiveText"
-      :error-messages="errorMessages"
-      :errors="errors"
-      :id="id"
-      :persistent-assistive-text="persistentAssistiveText"
-    >
-      <template
-        v-for="(_, name) in filterSlots($slots, ['error-text', 'assistive-text'])"
-        #[name]="slotData"
-      >
-        <slot
-          v-bind="slotData"
-          :name="name"
-        />
-      </template>
-    </fd-input-post-text>
+    <div class="fd-textarea__bottom row">
+      <div class="col">
+        <fd-input-post-text
+          class="fd-textarea__post-text"
+          :assistive-text="assistiveText"
+          :error-messages="errorMessages"
+          :errors="errors"
+          :id="id"
+          :persistent-assistive-text="persistentAssistiveText"
+        >
+          <template
+            v-for="(_, name) in filterSlots($slots, ['error-text', 'assistive-text'])"
+            #[name]="slotData"
+          >
+            <slot
+              v-bind="slotData"
+              :name="name"
+            />
+          </template>
+        </fd-input-post-text>
+      </div>
+      <div class="col-auto">
+        <div class="fd-textarea__count" v-if="count !== undefined">
+          {{ currentCount }}/{{ count }}
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef, PropType } from 'vue';
+import { defineComponent, shallowRef, watch, PropType } from 'vue';
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
 import { filterSlots, getIconSize } from '../../utils';
@@ -100,8 +110,10 @@ import { ErrorMessages, Icon } from '../../types';
  * 
  * @param {Icon} appendIcon - An icon component to use within FdIcon, comes after the text within the input field
  * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
+ * @param {number} count - The maximum number of characters allowed in the input field
  * @param {string} describedby - Optional. When using descriptive text for the input outside of the component, supply this prop with the id of the descriptive text element
  * @param {boolean} disabled - Whether the component is disabled
+ * @param {boolean} enforceCount - Whether to enforce the character count
  * @param {array} errors - The keys of the error messages for the errors that are in effect
  * @param {ErrorMessages} errorMessages - Key:value pairs for possible errors, where the value is the error message displayed
  * @param {string} id - Required id for the input, used to correlate the label, hint text, and error message
@@ -131,7 +143,7 @@ export default defineComponent({
       type: String,
       default: undefined,
     },
-    counter: {
+    count: {
       type: Number,
       default: undefined,
     },
@@ -142,6 +154,10 @@ export default defineComponent({
     disabled: {
       type: Boolean,
       default: false,
+    },
+    enforceCount: {
+      type: Boolean,
+      default: true,
     },
     errors: {
       type: Array as PropType<string[]>,
@@ -203,6 +219,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const hasFocus = shallowRef(false);
+    const currentCount = shallowRef(props.modelValue?.length || 0);
 
     /**
      * Handles the input event and emits the input value
@@ -213,7 +230,15 @@ export default defineComponent({
       emit('update:modelValue', (e.target as HTMLInputElement)?.value);
     }
 
+    watch(
+      () => props.modelValue,
+      (newVal) => {
+        currentCount.value = newVal?.length || 0;
+      }
+    );
+
     return {
+      currentCount,
       filterSlots,
       getIconSize,
       handleInput,
@@ -247,6 +272,14 @@ export default defineComponent({
     &:disabled {
       cursor: default;
     }
+  }
+
+  &__count {
+    color: rgba(var(--fora_textarea_count_color));
+    font-size: $textarea_count_size;
+    font-weight: $textarea_count_weight;
+    line-height: $textarea_count_line-height;
+    padding-top: 0.25rem;
   }
 }
 </style>

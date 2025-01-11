@@ -1,0 +1,16 @@
+// Variables specific to FdTextarea
+
+// colors for theming, must be duplicated in theme map
+$textarea_count_color: $neutral-7, 1 !default;
+
+// default style vars
+$textarea_count_size: $font-xs !default;
+$textarea_count_weight: $font-regular !default;
+$textarea_count_line-height: 1.25 !default;
+
+// theme map, must replicate colors
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+
+$theme-textarea: (
+  textarea_count_color: $textarea_count_color,
+);
