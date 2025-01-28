@@ -8,7 +8,7 @@
   >
     <div
       class="fd-modal__overlay"
-      @click="dismissible && $emit('close')"
+      @click.stop="dismissible && $emit('close')"
     >
       <div class="row justify-content-center">
         <div
@@ -85,13 +85,14 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const firstFocusableElement = shallowRef<HTMLElement>();
+    const focusableContent = shallowRef<NodeListOf<Element>>();
     const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+    const lastFocusableElement = shallowRef<HTMLElement>();
     const modal = shallowRef<HTMLDivElement>();
     const previouslyFocusedElement = shallowRef<HTMLElement | null>(null);
-    const focusableContent = shallowRef<NodeListOf<Element>>();
-    const firstFocusableElement = shallowRef<HTMLElement>();
-    const lastFocusableElement = shallowRef<HTMLElement>();
 
+    // Set up focus trap and focus on first focusable element
     function initCaptureFocus() {
       const modalElement = modal.value;
 
@@ -102,6 +103,7 @@ export default defineComponent({
       firstFocusableElement.value?.focus();
     };
 
+    // Ensure focus is trapped within modal while tabbing
     function handleTab(e: KeyboardEvent) {
       if (document.activeElement === lastFocusableElement.value) {
         firstFocusableElement.value?.focus();
@@ -109,6 +111,7 @@ export default defineComponent({
       }
     };
 
+    // Ensure focus is trapped within modal while shift-tabbing
     function handleTabShift(e: KeyboardEvent) {
       if (document.activeElement === firstFocusableElement.value) {
         lastFocusableElement.value?.focus();
@@ -116,6 +119,7 @@ export default defineComponent({
       }
     };
 
+    // Watch for modal visibility, then inititate focus trap when visible
     watch(() => props.visible, (newValue) => {
       if (newValue) {
         previouslyFocusedElement.value = document.activeElement as HTMLElement;
@@ -139,59 +143,58 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-modal {
+  height: 100vh;
+  left: 0;
   position: fixed;
   top: 0;
-  left: 0;
   width: 100vw;
-  height: 100vh;
   z-index: 9999;
 
   &__overlay {
-    align-items: center;
-    display: flex;
-    position: fixed;
-    padding: 1rem;
-    top: 0;
-    left: 0;
-    width: 100%;
+    background-color: rgba(var(--fora_modal_overlay_bg));
     height: 100%;
-    background-color: rgba(var(--fora_black), 0.5);
+    left: 0;
+    padding: $modal_overlay_padding;
+    position: fixed;
+    top: 0;
+    width: 100%;
   }
 
   &__container {
-    height: calc(100vh - 3rem);
-    padding-top: 1.5rem;
-    padding-bottom: 1.5rem;
+    height: calc(100vh - ($modal_container_padding * 2));
+    padding-bottom: $modal_container_padding;
+    padding-top: $modal_container_padding;
     position: relative;
   }
 
   &__panel {
-    background-color: rgb(var(--fora_white));
+    background-color: rgba(var(--fora_modal_panel_bg));
     border-radius: $border-radius_lg;
     box-shadow: $shadow-xl;
-    max-height: calc(100vh - 3rem);
-    padding: 1.5rem;
+    max-height: calc(100vh - ($modal_container_padding * 2));
+    padding: $modal_panel_padding;
     position: relative;
     overflow: auto;
     z-index: 9999;
   }
 
   &__title {
-    font-size: $heading-6;
-    font-weight: $font-semi-bold;
-    line-height: 1.75rem;
-    margin-bottom: 1rem;
+    color: rgba(var(--fora_modal_title_color));
+    font-size: $modal_title_size;
+    font-weight: $modal_title_weight;
+    line-height: $modal_title_line-height;
+    margin-bottom: $modal_title_margin-bottom;
   }
 
   &__content {
-    color: rgba(var(--fora_text_default), 1);
-    font-size: $font-base;
+    color: rgba(var(--fora_modal_content_color));
+    font-size: $modal_content_size;
   }
 
   &__close {
     position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
+    right: $modal_close_right;
+    top: $modal_close_top;
   }
 }
 </style>

@@ -70,10 +70,20 @@
         />
       </div>
     </div>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse venenatis magna vel risus luctus elementum. Sed laoreet laoreet nunc, ut pharetra ante euismod a. Etiam metus urna, consequat at purus vel, condimentum ultrices lectus. Suspendisse aliquam ultricies turpis, quis bibendum ipsum fringilla pharetra. Mauris non faucibus sem, gravida commodo neque. Nullam vel placerat dui. Nam blandit aliquam tortor, ac elementum nisi porttitor sed. Morbi eu consequat nibh. In auctor pellentesque euismod. Nam sapien dolor, mollis vel felis euismod, auctor mattis nisi. Nunc magna nunc, efficitur vel mi quis, consectetur semper velit.</p>
+
+    <p>Suspendisse mollis, turpis efficitur porttitor porta, augue quam porttitor est, sed lacinia elit libero et risus. Vivamus mollis, nunc eu sodales tristique, augue tortor fringilla magna, mattis ullamcorper velit libero sed nibh. Suspendisse in iaculis nunc. Phasellus ut imperdiet felis. Donec viverra varius nulla, sit amet consectetur dolor vulputate nec. Curabitur eget bibendum magna. Duis finibus vitae lorem vel hendrerit. Duis turpis mi, luctus ac egestas ac, pulvinar eget nisl. Nunc nec elit vestibulum, suscipit velit ut, semper massa. In maximus nulla eget blandit convallis.</p>
+
+    <p>Morbi sit amet tristique sem. Proin finibus, diam non consectetur vestibulum, turpis urna hendrerit ligula, vitae gravida mi sapien a metus. Curabitur malesuada dictum tortor, et ultricies erat egestas nec. Nunc rutrum ut eros at elementum. Fusce a varius velit, nec tempus augue. Nunc ante mi, ullamcorper a nisi ac, posuere scelerisque massa. Duis massa sapien, vehicula sed varius nec, rhoncus at ante. Phasellus sed augue scelerisque, pulvinar neque in, sagittis libero. Quisque rutrum in nunc a porta. Curabitur dictum faucibus justo, vitae vulputate orci elementum sed. Nam gravida lacinia placerat. Vestibulum quis felis tincidunt, malesuada enim non, gravida nulla.</p>
     <FdModal
       :align="align"
       :dismissible="dismissible"
       :visible="showModal"
+      :lg="lgSize"
+      :md="mdSize"
+      :sm="smSize"
+      :xs="xsSize"
+      :xl="xlSize"
       @close="showModal = false"
     >
       <template #title>
@@ -81,7 +91,8 @@
       </template>
       <template #content>
         <p>{{ text }}</p>
-        <div class="test mt-6">
+        <div class="mt-6">
+          <fd-button class="mr-2" kind="secondary" @click="showModal = false">Secondary Action</fd-button>
           <fd-button kind="primary" @click="showModal = false">Primary Action</fd-button>
         </div>
       </template>
