@@ -9,6 +9,7 @@ import GroupPage from '../pages/GroupPage.vue';
 import IconPage from '../pages/IconPage.vue';
 import InputFieldPage from '../pages/InputFieldPage.vue';
 import MenuButtonPage from '../pages/MenuButtonPage.vue';
+import ModalPage from '../pages/ModalPage.vue';
 import RadioPage from '../pages/RadioPage.vue';
 import SelectPage from '../pages/SelectPage.vue';
 import SplitButtonPage from '../pages/SplitButtonPage.vue';
@@ -29,6 +30,7 @@ export default [
   { path: '/icons', name: 'Icons', component: IconPage },
   { path: '/input-field', name: 'InputField', component: InputFieldPage },
   { path: '/menu-button', name: 'MenuButton', component: MenuButtonPage },
+  { path: '/modal', name: 'Modal', component: ModalPage },
   { path: '/radio', name: 'Radio', component: RadioPage },
   { path: '/select', name: 'Select', component: SelectPage },
   { path: '/split-button', name: 'SplitButton', component: SplitButtonPage },

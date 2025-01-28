@@ -62,6 +62,7 @@
 }
 
 [class^="col"],
+[class*=" col"],
 .col {
   align-items: flex-start;
   display: flex;
@@ -111,6 +112,7 @@
   }
 
   [class^="col"],
+  [class*=" col"],
   .col {
     padding: 0 calc($grid-gutter / 2);
   }

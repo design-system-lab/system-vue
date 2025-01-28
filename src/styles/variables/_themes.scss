@@ -78,7 +78,38 @@ $defaultThemes: (
     white: $white,
     black: $black,
 
-    // components
+    // Contextual Colors
+
+    primary: $primary,
+    primary--hover: $primary--hover,
+    primary--pressed: $primary--pressed,
+    primary_reduced: $primary_reduced,
+
+    danger: $danger,
+    danger--hover: $danger--hover,
+    danger--pressed: $danger--pressed,
+    danger_reduced: $danger_reduced,
+
+    success: $success,
+    success_reduced: $success_reduced,
+
+    warning: $warning,
+    warning_reduced: $warning_reduced,
+
+    informational: $informational,
+    informational_reduced: $informational_reduced,
+
+    neutral: $neutral,
+    neutral_reduced: $neutral_reduced,
+    neutral_reduced--hover: $neutral_reduced--hover,
+    neutral_reduced--pressed: $neutral_reduced--pressed,
+
+    text_intense: $text_intense,
+    text_default: $text_default,
+    text_reduced: $text_reduced,
+
+    disabled: $disabled,
+    disalbed_reduced: $disalbed_reduced,
   ),
 );
 
