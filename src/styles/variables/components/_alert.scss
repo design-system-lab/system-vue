@@ -1,24 +1,27 @@
 // Variables specific to FdAlert
 
 // colors for theming, must be duplicated in theme map
-$alert_bg: $secondary-1, 1 !default;
-$alert_border-color: $secondary-6, 1 !default;
-$alert_color: $secondary-6, 1 !default;
-$alert_danger_bg: $danger-1, 1 !default;
-$alert_danger_border-color: $danger-6, 1 !default;
-$alert_danger_color: $danger-6, 1 !default;
-$alert_heading_color: $neutral-13, 1 !default;
-$alert_link_color: $primary-6, 1 !default;
-$alert_neutral_bg: $neutral-1, 1 !default;
-$alert_neutral_border-color: $neutral-8, 1 !default;
-$alert_neutral_color: $neutral-7, 1 !default;
-$alert_success_bg: $success-1, 1 !default;
-$alert_success_border-color: $success-6, 1 !default;
-$alert_success_color: $success-6, 1 !default;
-$alert_text_color: $neutral-8, 1 !default;
-$alert_warning_bg: $warning-1, 1 !default;
-$alert_warning_border-color: $warning-6, 1 !default;
-$alert_warning_color: $warning-6, 1 !default;
+$alert_danger_bg: $danger_reduced, 1 !default;
+$alert_danger_border-color: $danger, 1 !default;
+$alert_danger_color: $danger, 1 !default;
+$alert_default_bg: $primary_reduced, 1 !default;
+$alert_default_border-color: $primary, 1 !default;
+$alert_default_color: $primary, 1 !default;
+$alert_heading_color: $text_intense, 1 !default;
+$alert_info_bg: $informational_reduced, 1 !default;
+$alert_info_border-color: $informational, 1 !default;
+$alert_info_color: $informational, 1 !default;
+$alert_link_color: $primary, 1 !default;
+$alert_neutral_bg: $neutral_reduced, 1 !default;
+$alert_neutral_border-color: $neutral, 1 !default;
+$alert_neutral_color: $neutral, 1 !default;
+$alert_success_bg: $success_reduced, 1 !default;
+$alert_success_border-color: $success, 1 !default;
+$alert_success_color: $success, 1 !default;
+$alert_text_color: $text_default, 1 !default;
+$alert_warning_bg: $warning_reduced, 1 !default;
+$alert_warning_border-color: $warning, 1 !default;
+$alert_warning_color: $warning, 1 !default;
 
 
 // default style vars
@@ -42,13 +45,16 @@ $alert_text_line-height: 1.25rem !default;
 // theme map, must replicate colors
 // when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
 $theme-alert: (
-  alert_bg: $alert_bg,
-  alert_border-color: $alert_border-color,
-  alert_color: $alert_color,
+  alert_default_bg: $alert_default_bg,
+  alert_default_border-color: $alert_default_border-color,
+  alert_default_color: $alert_default_color,
   alert_danger_bg: $alert_danger_bg,
   alert_danger_border-color: $alert_danger_border-color,
   alert_danger_color: $alert_danger_color,
   alert_heading_color: $alert_heading_color,
+  alert_info_bg: $alert_info_bg,
+  alert_info_border-color: $alert_info_border-color,
+  alert_info_color: $alert_info_color,
   alert_link_color: $alert_link_color,
   alert_neutral_bg: $alert_neutral_bg,
   alert_neutral_border-color: $alert_neutral_border-color,

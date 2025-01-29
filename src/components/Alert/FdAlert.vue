@@ -40,11 +40,12 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 import {
+  FlagIcon,
   CheckCircleIcon,
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
-} from '@heroicons/vue/24/solid';
+} from '@heroicons/vue/24/outline';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
 import { hasSlotContent } from '../../utils';
@@ -63,8 +64,8 @@ export default defineComponent({
       default: undefined,
     },
     kind: {
-      type: String as PropType<'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
-      default: 'info',
+      type: String as PropType<'default' | 'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
+      default: 'default',
     },
     linkText: {
       type: String,
@@ -85,6 +86,8 @@ export default defineComponent({
           return ExclamationTriangleIcon;
         case 'danger':
           return ExclamationCircleIcon;
+        case 'default':
+          return FlagIcon;
         default:
           return InformationCircleIcon;
       }
@@ -99,10 +102,10 @@ export default defineComponent({
 
 .fd-alert {
   align-items: flex-start;
-  background-color: rgba(var(--fora_alert_bg));
-  border: $alert_border rgba(var(--fora_alert_border-color));
+  background-color: rgba(var(--fora_alert_default_bg));
+  border: $alert_border rgba(var(--fora_alert_default_border-color));
   border-radius: $alert_border-radius;
-  color: rgba(var(--fora_alert_color));
+  color: rgba(var(--fora_alert_default_color));
   display: flex;
   gap: $alert_gap;
   padding: $alert_padding;
@@ -135,6 +138,12 @@ export default defineComponent({
     line-height: $alert_text_line-height;
   }
 
+  &--info {
+    background-color: rgba(var(--fora_alert_info_bg));
+    border-color: rgba(var(--fora_alert_info_border-color));
+    color: rgba(var(--fora_alert_info_color));
+  }
+  
   &--neutral {
     background-color: rgba(var(--fora_alert_neutral_bg));
     border-color: rgba(var(--fora_alert_neutral_border-color));
