@@ -10,7 +10,7 @@
       class="fd-modal__overlay"
       @click.stop="dismissible && $emit('close')"
     >
-      <div class="row justify-content-center">
+      <div class="fd-modal__row row">
         <div
           class="fd-modal__container"
           :class="[`col-${xs} col-sm-${sm} col-md-${md} col-lg-${lg} col-xl-${xl} align-items-${align}`]"
@@ -43,14 +43,24 @@
 import { defineComponent, nextTick, shallowRef, watch, PropType } from 'vue';
 import FdCloseButton from '../CloseButton';
 
+/**
+ * Modal component
+ * 
+ * @param {String} align - vertical position (anchored to top, bottom, or centered)
+ * @param {Boolean} dismissible - whether the modal can be dismissed by clicking outside of it
+ * @param {Number} lg - number of columns to span at large screen sizes
+ * @param {Number} md - number of columns to span at medium screen sizes
+ * @param {Number} sm - number of columns to span at small screen sizes
+ * @param {Boolean} visible - whether the modal is visible
+ * @param {Number} xl - number of columns to span at extra large screen sizes
+ * @param {Number} xs - number of columns to span at extra small screen sizes
+ */
 export default defineComponent({
   name: 'FdModal',
   components: {
     FdCloseButton,
   },
   props: {
-    // vertical position (anchored to top or centered)
-    // column width
     align: {
       type: String as PropType<'start' | 'center' | 'end'>,
       default: 'center',
@@ -75,13 +85,13 @@ export default defineComponent({
       type: Boolean,
       required: true,
     },
-    xs: {
-      type: Number,
-      default: 12,
-    },
     xl: {
       type: Number,
       default: 3,
+    },
+    xs: {
+      type: Number,
+      default: 12,
     },
   },
   setup(props) {
@@ -153,17 +163,17 @@ export default defineComponent({
   &__overlay {
     background-color: rgba(var(--fora_modal_overlay_bg));
     height: 100%;
-    left: 0;
-    padding: $modal_overlay_padding;
-    position: fixed;
-    top: 0;
     width: 100%;
+  }
+
+  &__row {
+    align-items: center;
+    height: 100%;
+    justify-content: center;
   }
 
   &__container {
     height: calc(100vh - ($modal_container_padding * 2));
-    padding-bottom: $modal_container_padding;
-    padding-top: $modal_container_padding;
     position: relative;
   }
 
@@ -171,7 +181,8 @@ export default defineComponent({
     background-color: rgba(var(--fora_modal_panel_bg));
     border-radius: $border-radius_lg;
     box-shadow: $shadow-xl;
-    max-height: calc(100vh - ($modal_container_padding * 2));
+    margin: 0 $modal_panel_margin;
+    max-height: 100%;
     padding: $modal_panel_padding;
     position: relative;
     overflow: auto;
