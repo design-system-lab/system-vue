@@ -23,7 +23,10 @@
               v-if="dismissible"
               class="fd-modal__close"
             >
-              <fd-close-button size="lg" @click="$emit('close')" />
+              <fd-close-button
+                size="lg"
+                @click="$emit('close')"
+              />
             </div>
             <slot>
               <h1 class="fd-modal__title">
@@ -111,7 +114,7 @@ export default defineComponent({
       lastFocusableElement.value = focusableContent.value?.[focusableContent.value.length - 1] as HTMLElement;
 
       firstFocusableElement.value?.focus();
-    };
+    }
 
     // Ensure focus is trapped within modal while tabbing
     function handleTab(e: KeyboardEvent) {
@@ -119,7 +122,7 @@ export default defineComponent({
         firstFocusableElement.value?.focus();
         e.preventDefault();
       }
-    };
+    }
 
     // Ensure focus is trapped within modal while shift-tabbing
     function handleTabShift(e: KeyboardEvent) {
@@ -127,7 +130,7 @@ export default defineComponent({
         lastFocusableElement.value?.focus();
         e.preventDefault();
       }
-    };
+    }
 
     // Watch for modal visibility, then inititate focus trap when visible
     watch(() => props.visible, (newValue) => {
