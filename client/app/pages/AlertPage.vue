@@ -74,6 +74,17 @@
         {{ headingText }}
       </fd-alert>
       <fd-alert
+        :dismissible="dismissible"
+        kind="info"
+        :icon="customIcon ? CubeTransparentIcon : undefined"
+        :link-text="linkText"
+        @click:link="linkCounter += 1"
+        @dismiss="counter += 1"
+      >
+        <template #description>{{ text }}</template>
+        {{ headingText }}
+      </fd-alert>
+      <fd-alert
         :dismissible="dismissible" kind="neutral"
         :icon="customIcon ? CubeTransparentIcon : undefined"
         :link-text="linkText"
