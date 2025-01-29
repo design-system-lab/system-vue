@@ -1,0 +1,28 @@
+// Variables specific to FdModal
+
+// colors for theming, must be duplicated in theme map
+$modal_content_color: $text_default, 1 !default;
+$modal_overlay_bg: $black, 0.5 !default;
+$modal_panel_bg: $white, 1 !default;
+$modal_title_color: $text-intense, 1 !default;
+
+// default style vars
+$modal_close_right: 1.5rem !default;
+$modal_close_top: 1.5rem !default;
+$modal_container_padding: 1.5rem !default;
+$modal_content_size: $font-base !default;
+$modal_panel_padding: 1.5rem !default;
+$modal_panel_margin: 1.5rem !default;
+$modal_title_line-height: 1.75rem !default;
+$modal_title_margin-bottom: 1rem !default;
+$modal_title_size: $heading-6 !default;
+$modal_title_weight: $font-semi-bold !default;
+
+// theme map, must replicate colors
+// when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-modal: (
+  modal_content_color: $modal_content_color,
+  modal_overlay_bg: $modal_overlay_bg,
+  modal_panel_bg: $modal_panel_bg,
+  modal_title_color: $modal_title_color,
+);

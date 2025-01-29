@@ -22,3 +22,7 @@ button,
 a {
   cursor: pointer;
 }
+
+p + p {
+  margin-top: 1rem;
+}
