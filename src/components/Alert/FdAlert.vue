@@ -128,6 +128,7 @@ export default defineComponent({
   &__heading-container {
     align-items: center;
     display: flex;
+    gap: $alert_heading-container_gap;
     justify-content: space-between;
   }
 
