@@ -137,12 +137,12 @@ export default defineComponent({
 
 .fd-toast {
   align-items: flex-start;
-  background-color: rgba(var(--fora_toast_bg));
+  background-color: rgba(var(--fora_toast_informational_bg));
   box-shadow: $shadow-sm;
-  border: $toast_border rgba(var(--fora_toast_border-color));
+  border: $toast_border rgba(var(--fora_toast_informational_border-color));
   border-radius: $toast_border-radius;
   border-left-width: $toast_tab_width;
-  color: rgba(var(--fora_toast_color));
+  color: rgba(var(--fora_toast_informational_color));
   display: flex;
   gap: $toast_gap;
   padding: $toast_padding;
