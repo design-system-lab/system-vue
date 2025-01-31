@@ -92,7 +92,7 @@
       <template #content>
         <p>{{ text }}</p>
         <div class="mt-6">
-          <fd-button class="mr-2" kind="secondary" @click="showModal = false">Secondary Action</fd-button>
+          <fd-button class="mr-2" kind="tertiary" @click="showModal = false">Secondary Action</fd-button>
           <fd-button kind="primary" @click="showModal = false">Primary Action</fd-button>
         </div>
       </template>

@@ -7,9 +7,20 @@
       <fd-icon :icon="getIcon" />
     </div>
     <div class="fd-alert__content">
-      <p class="fd-alert__heading">
-        <slot />
-      </p>
+      <div class="fd-alert__heading-container">
+        <p class="fd-alert__heading">
+          <slot />
+        </p>
+        <div
+          v-if="dismissible"
+          class="fd-alert__close"
+        >
+          <fd-close-button
+            size="lg"
+            @click="$emit('dismiss')"
+          />
+        </div>
+      </div>
       <p
         v-if="hasSlotContent($slots.description)"
         class="fd-alert__description"
@@ -25,15 +36,6 @@
           {{ linkText }}
         </button>
       </slot>
-    </div>
-    <div
-      v-if="dismissible"
-      class="fd-alert__close"
-    >
-      <fd-close-button
-        size="lg"
-        @click="$emit('dismiss')"
-      />
     </div>
   </div>
 </template>
@@ -118,10 +120,16 @@ export default defineComponent({
 
   &__content {
     flex: 1 1 0;
-    padding: 0.125rem 0;
     display: flex;
     flex-direction: column;
     gap: $alert_content_gap;
+  }
+
+  &__heading-container {
+    align-items: center;
+    display: flex;
+    gap: $alert_heading-container_gap;
+    justify-content: space-between;
   }
 
   &__heading {
@@ -129,6 +137,11 @@ export default defineComponent({
     font-size: $alert_heading_font-size;
     font-weight: $alert_heading_font-weight;
     line-height: $alert_heading_line-height;
+    padding: 0.125rem 0 0;
+  }
+
+  &__close {
+    margin-bottom: -0.125rem;
   }
 
   &__description {

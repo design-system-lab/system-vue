@@ -7,9 +7,20 @@
       <fd-icon :icon="getIcon" />
     </div>
     <div class="fd-toast__content">
-      <p class="fd-toast__heading">
-        <slot>{{ content }}</slot>
-      </p>
+      <div class="fd-toast__heading-container">
+        <p class="fd-toast__heading">
+          <slot>{{ content }}</slot>
+        </p>
+        <div
+          v-if="dismissible"
+          class="fd-toast__close"
+        >
+          <fd-close-button
+            size="lg"
+            @click="$emit('dismiss')"
+          />
+        </div>
+      </div>
       <p
         v-if="description || hasSlotContent($slots.description)"
         class="fd-toast__description"
@@ -38,15 +49,6 @@
         </button>
       </slot>
     </div>
-    <div
-      v-if="dismissible"
-      class="fd-toast__close"
-    >
-      <fd-close-button
-        size="lg"
-        @click="$emit('dismiss')"
-      />
-    </div>
   </div>
 </template>
 <script lang="ts">
@@ -56,7 +58,7 @@ import {
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
-} from '@heroicons/vue/24/solid';
+} from '@heroicons/vue/24/outline';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
 import { hasSlotContent } from '../../utils';
@@ -153,10 +155,16 @@ export default defineComponent({
 
   &__content {
     flex: 1 1 0;
-    padding: 0.125rem 0;
     display: flex;
     flex-direction: column;
     gap: $toast_content_gap;
+  }
+
+  &__heading-container {
+    align-items: center;
+    display: flex;
+    gap: $toast_heading-container_gap;
+    justify-content: space-between;
   }
 
   &__heading {
@@ -164,6 +172,11 @@ export default defineComponent({
     font-size: $toast_heading_font-size;
     font-weight: $toast_heading_font-weight;
     line-height: $toast_heading_line-height;
+    padding: 0.125rem 0 0;
+  }
+
+  &__close {
+    margin-bottom: -0.125rem;
   }
 
   &__description {
@@ -178,6 +191,7 @@ export default defineComponent({
     font-size: $toast_timestamp_font-size;
     font-weight: $toast_timestamp_font-weight;
     line-height: $toast_timestamp_line-height;
+    margin-top: 0;
   }
 
   &--neutral {
