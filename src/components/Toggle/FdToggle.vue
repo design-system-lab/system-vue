@@ -44,7 +44,6 @@
         <span
           v-if="showValue"
           class="fd-toggle__value"
-          :class="{ 'fd-toggle__value--reverse': reverseValue }"
           aria-hidden="true"
         >
           {{ getValue }}
@@ -67,7 +66,6 @@ import { TranslationSupport } from '../../utils';
  * @param {string} id - The html id used for the input and associating the label to the input
  * @param {boolean} modelValue - The value of the input
  * @param {boolean} reverseLabel - Whether to show the toggle before the label
- * @param {boolean} reverseValue - Whether to show the value before the toggle control when the value is shown
  * @param {boolean} showValue - Whether to show the current value of the input
  * @param {string} valueFalse - If showValue is false, this is the text to use for the off value, defaults to "Off"
  * @param {string} valueTrue - If showValue is true, this is the text to use for the on value, defaults to "On"
@@ -96,10 +94,6 @@ export default defineComponent({
       default: false,
     },
     reverseLabel: {
-      type: Boolean,
-      default: false,
-    },
-    reverseValue: {
       type: Boolean,
       default: false,
     },
@@ -216,10 +210,6 @@ export default defineComponent({
     font-size: $toggle_value_size;
     font-weight: $toggle_value_weight;
     margin: 0 0.375rem;
-
-    &--reverse {
-      order: -1;
-    }
   }
 }
 </style>

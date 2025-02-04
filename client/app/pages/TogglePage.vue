@@ -57,11 +57,6 @@
             value="show-value"
           >Show Value</fd-checkbox>
           <fd-checkbox
-            v-model="reverseValue"
-            id="reverse-value"
-            value="reverse-value"
-          >Reverse Value</fd-checkbox>
-          <fd-checkbox
             v-model="error"
             id="error-state"
             value="error-state"
@@ -111,7 +106,6 @@ export default defineComponent({
     const label = shallowRef('Example Label');
     const modelValue = shallowRef(false);
     const reverseLabel = shallowRef(false);
-    const reverseValue = shallowRef(false);
     const showValue = shallowRef(false);
     const valueFalse = shallowRef('Off');
     const valueTrue = shallowRef('On');
@@ -125,7 +119,6 @@ export default defineComponent({
       label,
       modelValue,
       reverseLabel,
-      reverseValue,
       showValue,
       valueFalse,
       valueTrue
