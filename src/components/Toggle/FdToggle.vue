@@ -1,5 +1,8 @@
 <template>
-  <div class="fd-toggle">
+  <div
+    class="fd-toggle"
+    :class="{ 'fd-toggle--error': error }"
+  >
     <div
       v-if="!hideLabel && showValue"
       class="fd-toggle__label mb-1"
@@ -41,6 +44,7 @@
         <span
           v-if="showValue"
           class="fd-toggle__value"
+          :class="{ 'fd-toggle__value--reverse': reverseValue }"
           aria-hidden="true"
         >
           {{ getValue }}
@@ -57,11 +61,13 @@ import { TranslationSupport } from '../../utils';
 /**
  * Toggle Switch
  * 
+ * @param {boolean} error - Whether to show the error state of the input
  * @param {boolean} hideLabel - Whether to hide the label of the toggle (only hides the label visually for accessibility)
  * @param {string} label - The label for the input
  * @param {string} id - The html id used for the input and associating the label to the input
  * @param {boolean} modelValue - The value of the input
  * @param {boolean} reverseLabel - Whether to show the toggle before the label
+ * @param {boolean} reverseValue - Whether to show the value before the toggle control when the value is shown
  * @param {boolean} showValue - Whether to show the current value of the input
  * @param {string} valueFalse - If showValue is false, this is the text to use for the off value, defaults to "Off"
  * @param {string} valueTrue - If showValue is true, this is the text to use for the on value, defaults to "On"
@@ -69,6 +75,10 @@ import { TranslationSupport } from '../../utils';
 export default defineComponent({
   name: 'FdToggle',
   props: {
+    error: {
+      type: Boolean,
+      default: false,
+    },
     hideLabel: {
       type: Boolean,
       default: false,
@@ -86,6 +96,10 @@ export default defineComponent({
       default: false,
     },
     reverseLabel: {
+      type: Boolean,
+      default: false,
+    },
+    reverseValue: {
       type: Boolean,
       default: false,
     },
@@ -145,7 +159,7 @@ export default defineComponent({
 
   &__control {
     background-color: rgba(var(--fora_toggle_inactive_bg));
-    border-radius: calc($toggle_control_height / 2);
+    border-radius: $toggle_control_border-radius;
     flex: 0 0 auto;
     height: $toggle_control_height;
     margin: 0 0.375rem;
@@ -153,30 +167,25 @@ export default defineComponent({
     transition: $toggle_transition;
     width: $toggle_control_width;
 
-    &:hover {
-      background-color: rgba(var(--fora_toggle_inactive_bg--hover));
-    }
+    &:hover .fd-toggle__knob {
+      height: $toggle_knob_height--hover;
+      left: calc(($toggle_control_height - $toggle_knob_height--hover) / 2);
+      top: calc(($toggle_control_height - $toggle_knob_height--hover) / 2);
+      width: $toggle_knob_width--hover;
 
-    &:active {
-      background-color: rgba(var(--fora_toggle_inactive_bg--pressed));
+      &--active {
+        left: calc(100% - $toggle_knob_width--hover - 0.125rem);
+      }
     }
 
     &--active {
       background-color: rgba(var(--fora_toggle_active_bg));
-
-      &:hover {
-        background-color: rgba(var(--fora_toggle_active_bg--hover));
-      }
-
-      &:active {
-        background-color: rgba(var(--fora_toggle_active_bg--pressed));
-      }
     }
   }
 
   &__knob {
     background-color: rgba(var(--fora_toggle_knob_bg));
-    border-radius: calc($toggle_knob_height / 2);
+    border-radius: $toggle_knob_border-radius;
     height: $toggle_knob_height;
     left: calc(($toggle_control_height - $toggle_knob_height) / 2);
     position: absolute;
@@ -185,7 +194,7 @@ export default defineComponent({
     width: $toggle_knob_width;
 
     &--active {
-      left: calc(100% - $toggle_knob_width - 0.125rem);
+      left: calc(100% - $toggle_knob_width - 0.25rem);
     }
   }
 
@@ -207,6 +216,10 @@ export default defineComponent({
     font-size: $toggle_value_size;
     font-weight: $toggle_value_weight;
     margin: 0 0.375rem;
+
+    &--reverse {
+      order: -1;
+    }
   }
 }
 </style>
