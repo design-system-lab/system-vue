@@ -115,6 +115,7 @@ $defaultThemes: (
 
 // for each component var, merge the keys into default
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-alert);
+$defaultThemes: map-merge($defaultThemes, 'default', $theme-banner);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-buttons);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-close-button);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-checkbox);

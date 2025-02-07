@@ -1,5 +1,6 @@
 import Home from '../pages/HomePage.vue';
 import AlertPage from '../pages/AlertPage.vue';
+import BannerPage from '../pages/BannerPage.vue';
 import ButtonPage from '../pages/ButtonPage.vue';
 import CheckboxPage from '../pages/CheckboxPage.vue';
 import ChipsPage from '../pages/ChipsPage.vue';
@@ -21,6 +22,7 @@ import TypographyPage from '../pages/TypographyPage.vue';
 export default [
   { path: '/', name: 'Home', component: Home },
   { path: '/alerts', name: 'Alerts', component: AlertPage },
+  { path: '/banners', name: 'Banners', component: BannerPage },
   { path: '/buttons', name: 'Buttons', component: ButtonPage },
   { path: '/checkbox', name: 'Checkbox', component: CheckboxPage },
   { path: '/chips', name: 'Chips', component: ChipsPage },

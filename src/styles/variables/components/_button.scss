@@ -31,9 +31,9 @@ $button_tertiary-neutral_border-color--pressed: $neutral-10, 1 !default;
 $button_tertiary-neutral_bg: $neutral-6, 0 !default;
 $button_tertiary-neutral_bg--hover: $neutral-6, 0.15 !default;
 $button_tertiary-neutral_bg--pressed: $neutral-6, 0.3 !default;
-$button_tertiary-neutral_color: $button_tertiary-neutral_border-color, 1 !default;
-$button_tertiary-neutral_color--hover: $button_tertiary-neutral_border-color--hover, 1 !default;
-$button_tertiary-neutral_color--pressed: $button_tertiary-neutral_border-color--pressed, 1 !default;
+$button_tertiary-neutral_color: $button_tertiary-neutral_border-color !default;
+$button_tertiary-neutral_color--hover: $button_tertiary-neutral_border-color--hover !default;
+$button_tertiary-neutral_color--pressed: $button_tertiary-neutral_border-color--pressed !default;
 
 $button_link_color: $primary-6, 1 !default;
 $button_link_color--hover: $primary-8, 1 !default;
