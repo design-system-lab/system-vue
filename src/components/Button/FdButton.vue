@@ -1,19 +1,20 @@
 <template>
   <component
+    :is="buttonType"
     class="fd-button"
     :class="[
-      `fd-button--${kind}`,
       `fd-button--${size}`,
+      `fd-button--${getButtonStyle}`,
       {
         'fd-button--block': block,
         'fd-button--disabled': disabled,
-        'fd-button--icon': icon,
+        'fd-button--icon': icon || $slots.icon,
         'fd-button--pressed': toggle && modelValue,
         'fd-button--toggle': toggle,
       }
     ]"
-    :is="buttonType"
     :disabled="disabled || undefined"
+    v-bind="buttonType === 'a' ? { href } : { to }"
     @click="handleClick"
   >
     <slot name="prepend-icon">
@@ -24,8 +25,18 @@
         :size="getIconSize(size)"
       />
     </slot>
-    <span class="fd-button__content">
+    <span
+      class="fd-button__content"
+    >
       <slot />
+      <slot name="icon">
+        <fd-icon
+          v-if="icon"
+          class="fd-button__icon"
+          :icon="icon"
+          :size="getIconSize(size)"
+        />
+      </slot>
     </span>
     <slot name="append-icon">
       <fd-icon
@@ -37,13 +48,12 @@
     </slot>
   </component>
 </template>
-
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 import { RouteLocationRaw } from 'vue-router';
 import FdIcon from '../Icon';
 import { getButtonElement, getIconSize, tshirt } from '../../utils';
-import { ButtonKind, Icon, TshirtSize } from '../../types';
+import { ButtonKind, ButtonMode, Icon, TshirtSize } from '../../types';
 
 export default defineComponent({
   name: 'FdButton',
@@ -66,8 +76,8 @@ export default defineComponent({
       default: undefined,
     },
     icon: {
-      type: Boolean,
-      default: false,
+      type: Function as PropType<Icon>,
+      default: undefined,
     },
     kind:  {
       type: String as PropType<ButtonKind>,
@@ -78,6 +88,10 @@ export default defineComponent({
     //   type: Boolean,
     //   default: false,
     // },
+    mode: {
+      type: String as PropType<ButtonMode>,
+      default: 'filled',
+    },
     modelValue: {
       type: Boolean,
       default: false,
@@ -111,17 +125,21 @@ export default defineComponent({
       return getButtonElement(props.href, props.to);
     });
 
+    const getButtonStyle = computed((): string => {
+      if (props.mode === 'text') return 'text';
+      return `${props.mode}-${props.kind}`;
+    });
+
     const handleClick = () => {
       if (props.toggle) {
         emit('update:modelValue', !props.modelValue);
       }
     }
 
-    return { buttonType, getIconSize, handleClick };
+    return { buttonType, getButtonStyle, getIconSize, handleClick };
   }
 });
 </script>
-
 <style lang="scss" scoped>
 @import "@/styles/required";
 
@@ -135,128 +153,185 @@ export default defineComponent({
   font-family: $button_font-family;
   font-size: $button_size;
   font-weight: $button_weight;
+  gap: $button_gap;
   height: $button_height;
   justify-content: center;
   line-height: 1.5rem;
   padding: 0 $button_padding;
   text-align: $button_text-align;
+  text-decoration: none;
   text-transform: $button_text-transform;
   transition: $button_transition;
   vertical-align: middle;
 
   @include focus-primary;
 
-  &--primary {
-    background-color: rgba(var(--fora_button_primary_bg));
-    color: rgba(var(--fora_button_primary_color));
+  &--filled {
+    &-primary {
+      background-color: rgba(var(--fora_button_primary_filled_bg));
+      color: rgba(var(--fora_button_filled_color));
 
-    &:hover {
-      background-color: rgba(var(--fora_button_primary_bg--hover));
-      color: rgba(var(--fora_button_primary_color--hover));
+      &:hover {
+        background-color: rgba(var(--fora_button_primary_filled_bg--hover));
+      }
+
+      &:active,
+      &.fd-button--pressed {
+        background-color: rgba(var(--fora_button_primary_filled_bg--pressed));
+        box-shadow: none;
+      }
     }
 
-    &:active,
-    &.fd-button--pressed {
-      background-color: rgba(var(--fora_button_primary_bg--pressed));
-      box-shadow: none;
-      color: rgba(var(--fora_button_primary_color--pressed));
-    }
-  }
+    &-danger {
+      background-color: rgba(var(--fora_button_danger_filled_bg));
+      color: rgba(var(--fora_button_filled_color));
 
-  &--secondary {
-    background-color: rgba(var(--fora_button_secondary_bg));
-    color: rgba(var(--fora_button_secondary_color));
+      &:hover {
+        background-color: rgba(var(--fora_button_danger_filled_bg--hover));
+      }
 
-    &:hover {
-      background-color: rgba(var(--fora_button_secondary_bg--hover));
-      color: rgba(var(--fora_button_secondary_color--hover));
+      &:active,
+      &.fd-button--pressed {
+        background-color: rgba(var(--fora_button_danger_filled_bg--pressed));
+        box-shadow: none;
+      }
     }
 
-    &:active,
-    &.fd-button--pressed {
-      background-color: rgba(var(--fora_button_secondary_bg--pressed));
-      box-shadow: none;
-      color: rgba(var(--fora_button_secondary_color--pressed));
-    }
-  }
+    &-neutral {
+      background-color: rgba(var(--fora_button_neutral_filled_bg));
+      color: rgba(var(--fora_button_filled_color));
 
-  &--tertiary {
-    background-color: rgba(var(--fora_button_tertiary_bg));
-    border: $button_outlined_border;
-    border-color: rgba(var(--fora_button_tertiary));
-    color: rgba(var(--fora_button_tertiary_color));
+      &:hover {
+        background-color: rgba(var(--fora_button_neutral_filled_bg--hover));
+      }
 
-    &:hover {
-      background-color: rgba(var(--fora_button_tertiary_bg--hover));
-      border-color: rgba(var(--fora_button_tertiary_border-color--hover));
-      color: rgba(var(--fora_button_tertiary_color--hover));
-    }
-
-    &:active,
-    &.fd-button--pressed {
-      background-color: rgba(var(--fora_button_tertiary_bg--pressed));
-      border-color: rgba(var(--fora_button_tertiary_border-color--pressed));
-      box-shadow: none;
-      color: rgba(var(--fora_button_tertiary_color--pressed));
+      &:active,
+      &.fd-button--pressed {
+        background-color: rgba(var(--fora_button_neutral_filled_bg--pressed));
+        box-shadow: none;
+      }
     }
   }
 
-  &--tertiary-neutral {
-    background-color: rgba(var(--fora_button_tertiary-neutral_bg));
-    border: $button_outlined_border;
-    border-color: rgba(var(--fora_button_tertiary-neutral_border-color));
-    color: rgba(var(--fora_button_tertiary-neutral_color));
+  &--outlined {
+    &-primary {
+      border: $button_outlined_border rgba(var(--fora_button_primary_outlined_border));
+      background-color: rgba(var(--fora_button_primary_outlined_bg));
+      color: rgba(var(--fora_button_primary_outlined_color));
 
-    &:hover {
-      background-color: rgba(var(--fora_button_tertiary-neutral_bg--hover));
-      border-color: rgba(var(--fora_button_tertiary-neutral_border-color--hover));
-      color: rgba(var(--fora_button_tertiary-neutral_color--hover));
+      &:hover {
+        background-color: rgba(var(--fora_button_primary_outlined_bg--hover));
+        border-color: rgba(var(--fora_button_primary_outlined_border--hover));
+        color: rgba(var(--fora_button_primary_outlined_color--hover));
+      }
+
+      &:active,
+      &.fd-button--pressed {
+        background-color: rgba(var(--fora_button_primary_outlined_bg--pressed));
+        border-color: rgba(var(--fora_button_primary_outlined_border--pressed));
+        box-shadow: none;
+        color: rgba(var(--fora_button_primary_outlined_color--pressed));
+      }
     }
 
-    &:active,
-    &.fd-button--pressed {
-      background-color: rgba(var(--fora_button_tertiary-neutral_bg--pressed));
-      border-color: rgba(var(--fora_button_tertiary-neutral_border-color--pressed));
-      box-shadow: none;
-      color: rgba(var(--fora_button_tertiary-neutral_color--pressed));
+    &-danger {
+      border: $button_outlined_border rgba(var(--fora_button_danger_outlined_border));
+      background-color: rgba(var(--fora_button_danger_outlined_bg));
+      color: rgba(var(--fora_button_danger_outlined_color));
+
+      &:hover {
+        background-color: rgba(var(--fora_button_danger_outlined_bg--hover));
+        border-color: rgba(var(--fora_button_danger_outlined_border--hover));
+        color: rgba(var(--fora_button_danger_outlined_color--hover));
+      }
+
+      &:active,
+      &.fd-button--pressed {
+        background-color: rgba(var(--fora_button_danger_outlined_bg--pressed));
+        border-color: rgba(var(--fora_button_danger_outlined_border--pressed));
+        box-shadow: none;
+        color: rgba(var(--fora_button_danger_outlined_color--pressed));
+      }
+    }
+
+    &-neutral {
+      border: $button_outlined_border rgba(var(--fora_button_neutral_outlined_border));
+      background-color: rgba(var(--fora_button_neutral_outlined_bg));
+      color: rgba(var(--fora_button_neutral_outlined_color));
+
+      &:hover {
+        background-color: rgba(var(--fora_button_neutral_outlined_bg--hover));
+        border-color: rgba(var(--fora_button_neutral_outlined_border--hover));
+        color: rgba(var(--fora_button_neutral_outlined_color--hover));
+      }
+
+      &:active,
+      &.fd-button--pressed {
+        background-color: rgba(var(--fora_button_neutral_outlined_bg--pressed));
+        border-color: rgba(var(--fora_button_neutral_outlined_border--pressed));
+        box-shadow: none;
+        color: rgba(var(--fora_button_neutral_outlined_color--pressed));
+      }
     }
   }
 
-  &--link {
-    background-color: rgba(var(--fora_button_link_bg));
+  &--text {
+    background-color: rgba(var(--fora_button_text_bg));
+    border-color: rgba(var(--fora_button_text_border));
     box-shadow: none;
-    color: rgba(var(--fora_button_link_color));
+    color: rgba(var(--fora_button_text_color));
 
     &:hover {
-      background-color: rgba(var(--fora_button_link_bg--hover));
-      color: rgba(var(--fora_button_link_color--hover));
+      background-color: rgba(var(--fora_button_text_bg--hover));
+      border-color: rgba(var(--fora_button_text_border--hover));
+      color: rgba(var(--fora_button_text_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora_button_link_bg--pressed));
+      background-color: rgba(var(--fora_button_text_bg--pressed));
+      border-color: rgba(var(--fora_button_text_border--pressed));
       box-shadow: none;
-      color: rgba(var(--fora_button_link_color--pressed));
+      color: rgba(var(--fora_button_text_color--pressed));
     }
   }
 
-  &--destructive {
-    background-color: rgba(var(--fora_button_destructive_bg));
-    color: rgba(var(--fora_button_destructive_color));
+  &__content {
+    display: inline-flex;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 
-    &:hover {
-      background-color: rgba(var(--fora_button_destructive_bg--hover));
-      color: rgba(var(--fora_button_destructive_color--hover));
-    }
+  &--xs {
+    font-size: $button_xs_size;
+    gap: $button_xs_gap;
+    height: $button_xs_height;
+    padding: 0 $button_xs_padding;
+  }
 
-    &:active,
-    &.fd-button--pressed {
-      background-color: rgba(var(--fora_button_destructive_bg--pressed));
-      box-shadow: none;
-      color: rgba(var(--fora_button_destructive_color--pressed));
-    }
+  &--sm {
+    font-size: $button_sm_size;
+    height: $button_sm_height;
+    padding: 0 $button_sm_padding;
+  }
 
-    @include focus-danger;
+  &--md {
+    font-size: $button_size;
+    height: $button_height;
+    padding: 0 $button_padding;
+  }
+
+  &--lg {
+    font-size: $button_lg_size;
+    height: $button_lg_height;
+    padding: 0 $button_lg_padding;
+  }
+
+  &--xl {
+    font-size: $button_xl_size;
+    height: $button_xl_height;
+    padding: 0 $button_xl_padding;
   }
 
   &--block {
@@ -266,100 +341,43 @@ export default defineComponent({
 
   &--icon {
     padding: 0;
-    width: $button_height;
-
-    :deep(.fd-icon) {
-      margin-top: -0.2em; // fix positioning for icon buttons
-    }
-  }
-
-  // include a content wrapper to help with vert align with icons
-  &__content {
-    display: inline-block;
-  }
-
-  &--xs {
-    font-size: $button_xs_size;
-    height: $button_xs_height;
-    line-height: 1.25rem;
-    padding: 0 $button_xs_padding;
-
-    &.fd-button--icon {
-      padding: 0;
+    
+    &[class*='xs'] {
       width: $button_xs_height;
     }
-  }
 
-  &--sm {
-    font-size: $button_sm_size;
-    height: $button_sm_height;
-    line-height: 1.25rem;
-    padding: 0 $button_sm_padding;
-    
-    &.fd-button--icon {
-      padding: 0;
+    &[class*='sm'] {
       width: $button_sm_height;
     }
-  }
 
-  &--md {
-    height: $button_height;
-  }
+    &[class*='md'] {
+      width: $button_height;
+    }
 
-  &--lg {
-    font-size: $button_lg_size;
-    height: $button_lg_height;
-    line-height: 1.5rem;
-    padding: 0 $button_lg_padding;
-    
-    &.fd-button--icon {
-      padding: 0;
+    &[class*='lg'] {
       width: $button_lg_height;
     }
-  }
 
-  &--xl {
-    font-size: $button_xl_size;
-    height: $button_xl_height;
-    line-height: 1.75rem;
-    padding: 0 $button_xl_padding;
-    
-    &.fd-button--icon {
-      padding: 0;
+    &[class*='xl'] {
       width: $button_xl_height;
     }
   }
 
-  &--disabled,
-  &:disabled {
-    background-color: rgba(var(--fora_button_disabled_bg));
-    color: rgba(var(--fora_button_disabled_color));
+  &--disabled {
     pointer-events: none;
 
-    &.fd-button--tertiary,
-    &.fd-button--tertiary-neutral {
+    &[class*='filled'] {
       background-color: rgba(var(--fora_button_disabled_bg));
-      border-color: rgba(var(--fora_button_disabled_border-color));
+      color: rgba(var(--fora_button_disabled_color));
     }
 
-    &.fd-button--link {
-      background-color: transparent;
+    &[class*='outlined'] {
+      border-color: rgba(var(--fora_button_disabled_border));
+      color: rgba(var(--fora_button_disabled_color));
     }
-  }
 
-  &__append-icon {
-    margin-left: 0.5rem;
-
-    .fd-button--xs & {
-      margin-left: 0.25rem;
-    }
-  }
-
-  &__prepend-icon {
-    margin-right: 0.5rem;
-
-    .fd-button--xs & {
-      margin-right: 0.25rem;
+    &[class*='text'] {
+      color: rgba(var(--fora_button_disabled_color));
     }
   }
 }

@@ -34,15 +34,18 @@
 
     <fd-button>Primary Button</fd-button>
     <br><br>
-    <fd-button kind="secondary">Secondary Button</fd-button>
+    <fd-button kind="danger">Secondary Button</fd-button>
     <br><br>
-    <fd-button kind="tertiary">Tertiary Button</fd-button>
+    <fd-button kind="neutral">Tertiary Button</fd-button>
     <br><br>
-    <fd-button kind="tertiary-neutral">Tertiary Neutral Button</fd-button>
+
+    <h4 class="mb-4">Button Modes</h4>
+
+    <fd-button>Filled Button</fd-button>
     <br><br>
-    <fd-button kind="link">Link Button</fd-button>
+    <fd-button mode="outlined">Secondary Button</fd-button>
     <br><br>
-    <fd-button kind="destructive">Destructive Button</fd-button>
+    <fd-button mode="text">Text Button</fd-button>
     <br><br>
 
     <h4 class="mb-4">Button Sizes</h4>
@@ -59,68 +62,54 @@
 
     <h4 class="mb-4">Icon Buttons</h4>
 
-    <fd-button class="mr-2" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
-    </fd-button>
-    <fd-button class="mr-2" kind="secondary" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
-    </fd-button>
-    <fd-button class="mr-2" kind="tertiary" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
-    </fd-button>
-    <fd-button class="mr-2" kind="tertiary-neutral" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
-    </fd-button>
-    <fd-button class="mr-2" kind="link" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
-    </fd-button>
-    <fd-button class="mr-2" kind="destructive" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
-    </fd-button>
+    <fd-button class="mr-2" :icon="CubeTransparentIcon" />
+    <fd-button class="mr-2" kind="danger" :icon="CubeTransparentIcon" />
+    <fd-button class="mr-2" kind="neutral" :icon="CubeTransparentIcon" />
+    <fd-button class="mr-2" mode="outlined" :icon="CubeTransparentIcon" />
+    <fd-button class="mr-2" kind="danger" mode="outlined" :icon="CubeTransparentIcon" />
+    <fd-button class="mr-2" kind="neutral" mode="outlined" :icon="CubeTransparentIcon" />
     <br><br>
 
-    <fd-button size="xs" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
+    <fd-button size="xs">
+      <template #icon>
+        <fd-icon
+          :icon="CubeTransparentIconSm"
+          :size="20"
+        />
+      </template>
     </fd-button>
     <br><br>
-    <fd-button size="sm" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
+    <fd-button size="sm">
+      <template #icon>
+        <fd-icon
+          :icon="CubeTransparentIconSm"
+          :size="20"
+        />
+      </template>
     </fd-button>
     <br><br>
-    <fd-button icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
+    <fd-button>
+      <template #icon>
+        <fd-icon
+          :icon="CubeTransparentIconSm"
+        />
+      </template>
     </fd-button>
     <br><br>
-    <fd-button size="lg" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
+    <fd-button size="lg">
+      <template #icon>
+        <fd-icon
+          :icon="CubeTransparentIconSm"
+        />
+      </template>
     </fd-button>
     <br><br>
-    <fd-button size="xl" icon>
-      <fd-icon
-        :icon="CubeTransparentIcon"
-      />
+    <fd-button size="xl">
+      <template #icon>
+        <fd-icon
+          :icon="CubeTransparentIconSm"
+        />
+      </template>
     </fd-button>
     <br><br>
 
@@ -196,55 +185,14 @@
 
     <h4 class="mb-4">Disabled buttons</h4>
 
-    <fd-button disabled>Primary</fd-button>
+    <fd-button disabled>Filled</fd-button>
     <br><br>
-    <fd-button disabled kind="secondary">Secondary</fd-button>
+    <fd-button disabled mode="outlined">Outlined</fd-button>
     <br><br>
-    <fd-button disabled kind="tertiary">Tertiary</fd-button>
-    <br><br>
-    <fd-button disabled kind="tertiary-neutral">Tertiary Neutral</fd-button>
-    <br><br>
-    <fd-button disabled kind="link">Link</fd-button>
-    <br><br>
-    <fd-button disabled kind="destructive">Destructive</fd-button>
+    <fd-button disabled mode="text">Text</fd-button>
     <br><br>
 
-    <fd-button disabled class="mr-2" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
-    </fd-button>
-    <fd-button disabled class="mr-2" kind="secondary" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
-    </fd-button>
-    <fd-button disabled class="mr-2" kind="tertiary" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
-    </fd-button>
-    <fd-button disabled class="mr-2" kind="tertiary-neutral" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
-    </fd-button>
-    <fd-button disabled class="mr-2" kind="link" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
-    </fd-button>
-    <fd-button disabled class="mr-2" kind="destructive" icon>
-      <fd-icon
-        :icon="CubeTransparentIconSm"
-        :size="20"
-      />
-    </fd-button>
+    <fd-button disabled class="mr-2" :icon="CubeTransparentIcon" />
     <br><br>
 
     <h4 class="mb-4">Button elements</h4>
