@@ -364,6 +364,7 @@ export default defineComponent({
   }
 
   &--disabled {
+    box-shadow: none;
     pointer-events: none;
 
     &[class*='filled'] {
