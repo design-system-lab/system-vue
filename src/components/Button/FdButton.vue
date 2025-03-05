@@ -1,6 +1,6 @@
 <template>
   <component
-    :is="buttonType"
+    :is="buttonEl"
     class="fd-button"
     :class="[
       `fd-button--${size}`,
@@ -14,7 +14,8 @@
       }
     ]"
     :disabled="disabled || undefined"
-    v-bind="buttonType === 'a' ? { href } : { to }"
+    :type="buttonType"
+    v-bind="buttonEl === 'a' ? { href } : { to }"
     @click="handleClick"
   >
     <slot name="prepend-icon">
@@ -54,6 +55,25 @@ import { RouteLocationRaw } from 'vue-router';
 import FdIcon from '../Icon';
 import { getButtonElement, getIconSize, tshirt } from '../../utils';
 import { ButtonKind, ButtonMode, Icon, TshirtSize } from '../../types';
+
+/**
+ * Button
+ * 
+ * @param {Function} appendIcon - The icon to append to the button
+ * @param {boolean} block - Whether the button should be block level
+ * @param {boolean} disabled - Whether the button is disabled
+ * @param {string} href - The href for the button
+ * @param {Function} icon - For icon buttons, the icon to display in the button
+ * @param {string} kind - The kind of button to display (primary, danger, neutral)
+ * @param {string} mode - The mode of the button (filled, outlined, text)
+ * @param {boolean} modelValue - The model value of the button (for toggle buttons)
+ * @param {Function} prependIcon - The icon to prepend to the button
+ * @param {string} size - The size of the button (xs, sm, md, lg, xl)
+ * @param {string} tag - The HTML tag to use for the button (overriding the tag can have unintended consequences)
+ * @param {string | Object} to - The route to navigate to
+ * @param {boolean} toggle - Whether the button is a toggle button
+ * @param {string} type - The html button type (button, submit, reset)
+ */
 
 export default defineComponent({
   name: 'FdButton',
@@ -117,12 +137,22 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    type: {
+      type: String as PropType<'button' | 'submit' | 'reset'>,
+      default: 'button',
+    },
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
-    const buttonType = computed((): string => {
+    const buttonEl = computed((): string => {
       if (props.tag) return props.tag;
       return getButtonElement(props.href, props.to);
+    });
+
+    const buttonType = computed((): string | undefined => {
+      if (props.type) return props.type;
+      if (buttonEl.value === 'button') return 'button';
+      return undefined;
     });
 
     const getButtonStyle = computed((): string => {
@@ -136,7 +166,7 @@ export default defineComponent({
       }
     }
 
-    return { buttonType, getButtonStyle, getIconSize, handleClick };
+    return { buttonEl, buttonType, getButtonStyle, getIconSize, handleClick };
   }
 });
 </script>
