@@ -1,7 +1,9 @@
 import { RouteLocationRaw } from 'vue-router';
 import { Icon } from './common';
 
-export type ButtonKind = 'primary' | 'secondary' | 'tertiary' | 'tertiary-neutral' | 'link' | 'destructive';
+export type ButtonKind = 'primary' | 'danger' | 'neutral';
+
+export type ButtonMode = 'filled' | 'outlined' | 'text';
 
 export type ButtonGroupButton = {
   appendIcon?: Icon;

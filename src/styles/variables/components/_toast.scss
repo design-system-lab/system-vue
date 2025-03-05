@@ -1,0 +1,75 @@
+// Variables specific to FdToast
+
+// colors for theming, must be duplicated in theme map
+$toast_informational_bg: $informational_reduced, 1 !default;
+$toast_informational_border-color: $informational, 1 !default;
+$toast_informational_color: $informational, 1 !default;
+$toast_danger_bg: $danger_reduced, 1 !default;
+$toast_danger_border-color: $danger, 1 !default;
+$toast_danger_color: $danger, 1 !default;
+$toast_heading_color: $text_intense, 1 !default;
+$toast_link_color: $primary, 1 !default;
+$toast_neutral_bg: $neutral_reduced, 1 !default;
+$toast_neutral_border-color: $neutral, 1 !default;
+$toast_neutral_color: $neutral, 1 !default;
+$toast_success_bg: $success_reduced, 1 !default;
+$toast_success_border-color: $success, 1 !default;
+$toast_success_color: $success, 1 !default;
+$toast_text_color: $text_default, 1 !default;
+$toast_timestamp_color: $text_default, 1 !default;
+$toast_warning_bg: $warning_reduced, 1 !default;
+$toast_warning_border-color: $warning, 1 !default;
+$toast_warning_color: $warning, 1 !default;
+
+
+// default style vars
+$toast_border: 1px solid;
+$toast_border-radius: $border-radius_md !default;
+$toast_content_gap: 0.25rem !default;
+$toast_elevation: $shadow-sm !default;
+$toast_gap: 0.75rem !default;
+$toast_heading_font-size: $font-sm !default;
+$toast_heading_font-weight: $font-medium !default;
+$toast_heading_line-height: 1.25rem !default;
+$toast_heading-container_gap: 0.25rem !default;
+$toast_link_font-size: $font-sm !default;
+$toast_link_font-weight: $font-medium !default;
+$toast_link_line-height: 1.25rem !default;
+$toast_link_padding: 0 !default;
+$toast_link_margin: 0 !default;
+$toast_padding: 0.75rem !default;
+$toast_tab_width: 4px !default;
+$toast_text_font-size: $font-sm !default;
+$toast_text_font-weight: $font-regular !default;
+$toast_text_line-height: 1.25rem !default;
+$toast_timestamp_font-size: $font-xs !default;
+$toast_timestamp_font-weight: $font-regular !default;
+$toast_timestamp_line-height: 1.25rem !default;
+
+$toaster_edge-spacing: 1rem !default;
+$toaster_gap: 0.5rem !default;
+$toaster_max-width: min(calc(100% - 2rem), calc(30rem - 1.5rem)) !default;
+
+// theme map, must replicate colors
+// when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-toast: (
+  toast_informational_bg: $toast_informational_bg,
+  toast_informational_border-color: $toast_informational_border-color,
+  toast_informational_color: $toast_informational_color,
+  toast_danger_bg: $toast_danger_bg,
+  toast_danger_border-color: $toast_danger_border-color,
+  toast_danger_color: $toast_danger_color,
+  toast_heading_color: $toast_heading_color,
+  toast_link_color: $toast_link_color,
+  toast_neutral_bg: $toast_neutral_bg,
+  toast_neutral_border-color: $toast_neutral_border-color,
+  toast_neutral_color: $toast_neutral_color,
+  toast_success_bg: $toast_success_bg,
+  toast_success_border-color: $toast_success_border-color,
+  toast_success_color: $toast_success_color,
+  toast_text_color: $toast_text_color,
+  toast_timestamp_color: $toast_timestamp_color,
+  toast_warning_bg: $toast_warning_bg,
+  toast_warning_border-color: $toast_warning_border-color,
+  toast_warning_color: $toast_warning_color,
+);

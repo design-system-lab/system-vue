@@ -1,7 +1,6 @@
 import type { App } from 'vue'
-import type { ForaOptions } from './composables/app';
-import { themeSupport } from './utils/theme';
-import { i18n, rtlSupport } from './utils/i18n';
+import { i18n, rtlSupport, themeSupport } from './utils';
+import type { ForaOptions } from './types';
 
 export default {
   install: (app: App, {

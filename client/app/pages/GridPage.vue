@@ -162,8 +162,8 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .box {
-  background-color: rgba(var(--fora-neutral-4));
-  border: 2px solid rgba(var(--fora-white));
+  background-color: rgba(var(--fora_neutral-4), 1);
+  border: 2px solid rgba(var(--fora_white), 1);
   min-height: 200px;
   padding: 1.5rem;
   width: 100%;
@@ -174,7 +174,7 @@ export default defineComponent({
 }
 
 .outlined {
-  border: 1px solid rgba(var(--fora-white));
+  border: 1px solid rgba(var(--fora_white), 1);
   margin-bottom: 2rem;
 }
 </style>

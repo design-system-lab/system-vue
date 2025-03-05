@@ -74,9 +74,35 @@ $black: 0, 0, 0 !default;
 
 $transparent: 255, 255, 255, 0;
 
-// Contextual Colors
+// Contextual Colors - USE THESE FIRST
 
-$text-light: 255, 255, 255 !default;
+$primary: $primary-6 !default;
+$primary--hover: $primary-8 !default;
+$primary--pressed: $primary-10 !default;
+$primary_reduced: $primary-1 !default;
 
-$disabled-text: $neutral-6, 1 !default;
-$disabled-bg: $neutral-3, 1 !default;
+$danger: $danger-6 !default;
+$danger--hover: $danger-8 !default;
+$danger--pressed: $danger-9 !default;
+$danger_reduced: $danger-1 !default;
+
+$success: $success-6 !default;
+$success_reduced: $success-1 !default;
+
+$warning: $warning-6 !default;
+$warning_reduced: $warning-1 !default;
+
+$informational: $secondary-6 !default;
+$informational_reduced: $secondary-1 !default;
+
+$neutral: $neutral-7 !default;
+$neutral_reduced: $neutral-2 !default;
+$neutral_reduced--hover: $neutral-3 !default;
+$neutral_reduced--pressed: $neutral-4 !default;
+
+$text_intense: $neutral-13 !default;
+$text_default: $neutral-9 !default;
+$text_reduced: $neutral-7 !default;
+
+$disabled: $neutral-4 !default;
+$disabled_reduced: $neutral-3 !default;

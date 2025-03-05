@@ -7,11 +7,25 @@
       <fd-icon :icon="getIcon" />
     </div>
     <div class="fd-alert__content">
-      <p class="fd-alert__heading">
-        <slot name="heading" />
-      </p>
-      <p class="fd-alert__text">
-        <slot />
+      <div class="fd-alert__heading-container">
+        <p class="fd-alert__heading">
+          <slot />
+        </p>
+        <div
+          v-if="dismissible"
+          class="fd-alert__close"
+        >
+          <fd-close-button
+            size="lg"
+            @click="$emit('dismiss')"
+          />
+        </div>
+      </div>
+      <p
+        v-if="hasSlotContent($slots.description)"
+        class="fd-alert__description"
+      >
+        <slot name="description" />
       </p>
       <slot name="link">
         <button
@@ -23,27 +37,20 @@
         </button>
       </slot>
     </div>
-    <div
-      v-if="dismissible"
-      class="fd-alert__close"
-    >
-      <fd-close-button
-        size="lg"
-        @click="$emit('dismiss')"
-      />
-    </div>
   </div>
 </template>
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue'
 import {
+  FlagIcon,
   CheckCircleIcon,
   ExclamationCircleIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
-} from '@heroicons/vue/24/solid';
+} from '@heroicons/vue/24/outline';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
+import { hasSlotContent } from '../../utils';
 import { Icon } from '../../types';
 
 export default defineComponent({
@@ -59,14 +66,15 @@ export default defineComponent({
       default: undefined,
     },
     kind: {
-      type: String as PropType<'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
-      default: 'info',
+      type: String as PropType<'default' | 'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
+      default: 'default',
     },
     linkText: {
       type: String,
       default: undefined,
     },
   },
+  emits: ['click:link', 'dismiss'],
   setup(props) {
     const getIcon = computed(() => {
       if (props.icon) return props.icon;
@@ -80,12 +88,14 @@ export default defineComponent({
           return ExclamationTriangleIcon;
         case 'danger':
           return ExclamationCircleIcon;
+        case 'default':
+          return FlagIcon;
         default:
           return InformationCircleIcon;
       }
     });
 
-    return { getIcon };
+    return { getIcon, hasSlotContent };
   }
 });
 </script>
@@ -94,10 +104,10 @@ export default defineComponent({
 
 .fd-alert {
   align-items: flex-start;
-  background-color: rgba(var(--fora_alert_bg));
-  border: $alert_border rgba(var(--fora_alert_border-color));
+  background-color: rgba(var(--fora_alert_default_bg));
+  border: $alert_border rgba(var(--fora_alert_default_border-color));
   border-radius: $alert_border-radius;
-  color: rgba(var(--fora_alert_color));
+  color: rgba(var(--fora_alert_default_color));
   display: flex;
   gap: $alert_gap;
   padding: $alert_padding;
@@ -110,10 +120,16 @@ export default defineComponent({
 
   &__content {
     flex: 1 1 0;
-    padding: 0.125rem 0;
     display: flex;
     flex-direction: column;
     gap: $alert_content_gap;
+  }
+
+  &__heading-container {
+    align-items: center;
+    display: flex;
+    gap: $alert_heading-container_gap;
+    justify-content: space-between;
   }
 
   &__heading {
@@ -121,15 +137,26 @@ export default defineComponent({
     font-size: $alert_heading_font-size;
     font-weight: $alert_heading_font-weight;
     line-height: $alert_heading_line-height;
+    padding: 0.125rem 0 0;
   }
 
-  &__text {
+  &__close {
+    margin-bottom: -0.125rem;
+  }
+
+  &__description {
     color: rgba(var(--fora_alert_text_color));
     font-size: $alert_text_font-size;
     font-weight: $alert_text_font-weight;
     line-height: $alert_text_line-height;
   }
 
+  &--info {
+    background-color: rgba(var(--fora_alert_info_bg));
+    border-color: rgba(var(--fora_alert_info_border-color));
+    color: rgba(var(--fora_alert_info_color));
+  }
+  
   &--neutral {
     background-color: rgba(var(--fora_alert_neutral_bg));
     border-color: rgba(var(--fora_alert_neutral_border-color));

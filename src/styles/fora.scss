@@ -14,7 +14,6 @@
 
 html,
 body {
-  color: rgba(var(--fora_neutral-13), 1);
   font-family: $font-family;
   font-size: 100%;
 }
@@ -22,4 +21,8 @@ body {
 button,
 a {
   cursor: pointer;
+}
+
+p + p {
+  margin-top: 1rem;
 }
