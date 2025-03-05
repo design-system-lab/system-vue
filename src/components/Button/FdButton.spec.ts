@@ -13,6 +13,7 @@ const slots = {
 
 const namedSlots = {
   'append-icon': 'APPEND_TEXT',
+  icon: 'ICON_TEXT',
   'prepend-icon': 'PREPEND_TEXT',
 }
 
@@ -26,5 +27,6 @@ test('renders named slots text', () => {
   const { getByText } = render(FdButton, { props, slots: namedSlots });
 
   getByText(namedSlots['append-icon'], {exact: false});
+  getByText(namedSlots['icon'], {exact: false});
   getByText(namedSlots['prepend-icon'], {exact: false});
 });
