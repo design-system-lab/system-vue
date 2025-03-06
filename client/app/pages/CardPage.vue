@@ -48,6 +48,11 @@
             Options
           </template>
           <fd-checkbox
+            v-model="showIcon"
+            id="show-icon"
+            value="show-icon"
+          >Show Icon</fd-checkbox>
+          <fd-checkbox
             v-model="showImage"
             id="show-image"
             value="show-image"
@@ -70,6 +75,9 @@
           <fd-card>
             <template v-if="showImage" #image>
               <img src="https://placehold.co/800x400" alt="Placeholder" />
+            </template>
+            <template v-if="showIcon" #icon>
+              <fd-icon :icon="CubeTransparentIcon" />
             </template>
             <template #overline>
               {{ overlineText }}
@@ -131,18 +139,20 @@ import FdButton from '../../../src/components/Button';
 import FdCard from '../../../src/components/Card';
 import FdCheckbox from '../../../src/components/Checkbox';
 import FdGroup from '../../../src/components/Group';
+import FdIcon from '../../../src/components/Icon/FdIcon.vue';
 import { FdInputField } from '../../../src/components/Form';
 import FdRow from '../../../src/components/Row';
 import FdCol from '../../../src/components/Col';
 
 export default defineComponent({
   name: 'AlertPage',
-  components: { FdAlert, FdButton, FdCard, FdCheckbox, FdCol, FdGroup, FdInputField, FdRow },
+  components: { FdAlert, FdButton, FdCard, FdCheckbox, FdCol, FdGroup, FdIcon, FdInputField, FdRow },
   setup() {
     const actionText = shallowRef('Action Text');
     const exampleInput = shallowRef('');
     const overlineText = shallowRef('Overline Text');
     const showAction = shallowRef(true);
+    const showIcon = shallowRef(true);
     const showImage = shallowRef(true);
     const titleText = shallowRef('Title Text');
     const contentText = shallowRef('Dive into the exciting realm of programming with our comprehensive courses. Whether you\'re a beginner or looking to enhance your skills, we offer a range of tutorials and projects to help you succeed.');
@@ -156,6 +166,7 @@ export default defineComponent({
       overlineText,
       showAction,
       showImage,
+      showIcon,
       contentText,
       titleText,
       CubeTransparentIcon,

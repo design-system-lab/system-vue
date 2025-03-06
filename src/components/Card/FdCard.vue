@@ -5,12 +5,15 @@
         <slot name="image"></slot>
       </div>
       <div class="fd-card__content-container">
+        <div class="fd-card__icon">
+          <slot name="icon"></slot>
+        </div>
         <div class="fd-card__header">
           <slot name="header">
             <div class="fd-card__overline">
               <slot name="overline"></slot>
             </div>
-            <h5 class="fd-card__title">
+            <h5 class="fd-card__heading">
               <slot name="title"></slot>
             </h5>
           </slot>
@@ -53,10 +56,16 @@ export default defineComponent({
     overflow: hidden;
   }
 
+  &__icon {
+    color: rgba(var(--fora_card_icon_color));
+    height: $card_icon_size;
+    width: $card_icon_size;
+  }
+
   &__content-container {
     display: flex;
     flex-direction: column;
-    gap: $card_content_gap;
+    gap: $card_gap;
   }
 
   &__header {
@@ -72,18 +81,18 @@ export default defineComponent({
     line-height: $card_overline_line-height;
   }
 
-  &__title {
-    color: rgba(var(--fora_card_title_color));
-    font-size: $card_title_font-size;
-    font-weight: $card_title_font-weight;
-    line-height: $card_title_line-height;
+  &__heading {
+    color: rgba(var(--fora_card_heading_color));
+    font-size: $card_heading_font-size;
+    font-weight: $card_heading_font-weight;
+    line-height: $card_heading_line-height;
   }
 
   &__content {
-    color: rgba(var(--fora_card_content_color));
-    font-size: $card_content_font-size;
-    font-weight: $card_content_font-weight;
-    line-height: $card_content_line-height;
+    color: rgba(var(--fora_card_text_color));
+    font-size: $card_text_font-size;
+    font-weight: $card_text_font-weight;
+    line-height: $card_text_line-height;
   }
 
   &__action {
