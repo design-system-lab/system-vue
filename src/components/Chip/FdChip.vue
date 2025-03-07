@@ -45,6 +45,7 @@
       v-if="dismissible"
       round
       :size="size === 'lg' ? 'md' : 'sm'"
+      data-testid="fd-chip__dismiss"
     />
   </component>
 </template>

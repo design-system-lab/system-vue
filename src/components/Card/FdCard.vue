@@ -2,38 +2,38 @@
   <section class="fd-card">
     <slot>
       <div class="fd-card__image">
-        <slot name="image"></slot>
+        <slot name="image" />
       </div>
       <div class="fd-card__content-container">
         <div class="fd-card__icon">
-          <slot name="icon"></slot>
+          <slot name="icon" />
         </div>
         <div class="fd-card__header">
           <slot name="header">
             <div class="fd-card__overline">
-              <slot name="overline"></slot>
+              <slot name="overline" />
             </div>
             <h5 class="fd-card__heading">
-              <slot name="title"></slot>
+              <slot name="title" />
             </h5>
           </slot>
         </div>
         <div class="fd-card__content">
-          <slot name="content"></slot>
+          <slot name="content" />
         </div>
       </div>
       <div class="fd-card__action">
-        <slot name="action"></slot>
+        <slot name="action" />
       </div>
     </slot>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: "FdCard",
+  name: 'FdCard',
 });
 </script>
 
