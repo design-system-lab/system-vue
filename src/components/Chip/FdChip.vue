@@ -7,6 +7,7 @@
       {
         'fd-chip--dismissible': dismissible,
         'fd-chip--interactive': interactive,
+        'fd-chip--selected': isSelected,
       }
     ]"
     @click="handleClick"
@@ -40,25 +41,18 @@
         />
       </slot>
     </div>
-    <button
+    <fd-close-button
       v-if="dismissible"
-      class="fd-chip__dismiss"
-      :class="[`fd-chip__dismiss--${size}`]"
+      round
+      :size="size === 'lg' ? 'md' : 'sm'"
       data-testid="fd-chip__dismiss"
-      @click.stop.prevent="$emit('dismiss')"
-    >
-      <slot name="dismiss-icon">
-        <fd-icon
-          :icon="XMarkIcon"
-          :size="getIconSize"
-        />
-      </slot>
-    </button>
+    />
   </component>
 </template>
 <script lang="ts">
 import { computed, defineComponent, inject, shallowRef, PropType } from 'vue';
 import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid';
+import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon/FdIcon.vue';
 import { Icon } from '../../types';
 
@@ -77,6 +71,7 @@ import { Icon } from '../../types';
 export default defineComponent({
   name: 'FdChip',
   components: {
+    FdCloseButton,
     FdIcon,
   },
   props: {
@@ -207,6 +202,10 @@ export default defineComponent({
     font-size: $chip_sm_size;
     height: $chip_sm_height;
     padding: $chip_sm_padding-y calc($chip_sm_padding-x - 1px);
+
+    .fd-close-button {
+      margin-right: -2px;
+    }
   }
 
   &--dismissible {
@@ -221,13 +220,14 @@ export default defineComponent({
       background-color: rgba(var(--fora_chip_interactive_bg--hover));
     }
 
-    &:active {
+    &:active,
+    &.fd-chip--selected {
       background-color: rgba(var(--fora_chip_interactive_bg--pressed));
     }
   }
 
   &--selected {
-    background-color: (rgba(var(--fora_chip_selected_bg)));
+    background-color: (rgba(var(--fora_chip_interactive_bg--pressed)));
   }
 
   &__icon {
@@ -252,36 +252,6 @@ export default defineComponent({
     &--lg {
       height: $chip_lg_selected_height;
       width: $chip_lg_selected_width;
-    }
-  }
-
-  &__dismiss {
-    background: none;
-    border: none;
-    border-radius: $border-radius_full;
-    cursor: pointer;
-    display: flex;
-    flex: 0 0 auto;
-    height: $chip_dismiss_height;
-    padding: 0;
-    transition: $transition-timing background-color;
-    width: $chip_dismiss_width;
-
-    &:hover {
-      background-color: rgba(var(--fora_chip_dismiss_bg--hover));
-    }
-
-    &:active {
-      background-color: rgba(var(--fora_chip_dismiss_bg--pressed));
-    }
-
-    &--lg {
-      height: $chip_lg_dismiss_height;
-      width: $chip_lg_dismiss_width;
-    }
-
-    &--sm {
-      margin-right: $chip_sm_dismiss_margin-right;
     }
   }
 }

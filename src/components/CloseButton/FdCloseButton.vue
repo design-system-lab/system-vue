@@ -120,7 +120,6 @@ export default defineComponent({
 
   &--round {
     border-radius: $close-button_border-radius--round;
-    padding: 0.125rem;
   }
 
   &--disabled,

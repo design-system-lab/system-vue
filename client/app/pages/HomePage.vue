@@ -12,6 +12,7 @@
     <ul>
       <li><router-link :to="{ name: 'Alerts' }">Alerts</router-link></li>
       <li><router-link :to="{ name: 'Buttons' }">Buttons</router-link></li>
+      <li><router-link :to="{ name: 'Card' }">Card</router-link></li>
       <li><router-link :to="{ name: 'Checkbox' }">Checkbox</router-link></li>
       <li><router-link :to="{ name: 'Chips' }">Chips</router-link></li>
       <li><router-link :to="{ name: 'Grid' }">Grid</router-link></li>
