@@ -1,4 +1,5 @@
 import Home from '../pages/HomePage.vue';
+import AccordionPage from '../pages/AccordionPage.vue';
 import AlertPage from '../pages/AlertPage.vue';
 import ButtonPage from '../pages/ButtonPage.vue';
 import CardPage from '../pages/CardPage.vue';
@@ -21,6 +22,7 @@ import TypographyPage from '../pages/TypographyPage.vue';
 
 export default [
   { path: '/', name: 'Home', component: Home },
+  { path: '/accordion', name: 'Accordion', component: AccordionPage },
   { path: '/alerts', name: 'Alerts', component: AlertPage },
   { path: '/buttons', name: 'Buttons', component: ButtonPage },
   { path: '/card', name: 'Card', component: CardPage },
