@@ -1,7 +1,7 @@
 <template>
   <div
     class="fd-toggle"
-    :class="{ 'fd-toggle--error': error }"
+    :class="{ 'fd-toggle--error': (errors.length || $slots['error-text']) }"
   >
     <div
       v-if="!hideLabel && showValue"
@@ -50,12 +50,32 @@
         </span>
       </label>
     </div>
+    <fd-input-post-text
+      class="fd-input-field__post-text"
+      :error-messages="errorMessages"
+      :errors="errors"
+      :id="id"
+      :persistent-assistive-text="persistentAssistiveText"
+    >
+      <template
+        v-for="(_, name) in filterSlots($slots, ['error-text', 'assistive-text'])"
+        #[name]="slotData"
+      >
+        <slot
+          v-bind="slotData"
+          :name="name"
+        />
+      </template>
+    </fd-input-post-text>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, inject } from 'vue';
+import { computed, defineComponent, inject, PropType } from 'vue';
 import { TranslationSupport } from '../../utils';
+import FdInputPostText from '../Form/FdInputPostText.vue';
+import { filterSlots } from '../../utils';
+import { ErrorMessages } from '../../types';
 
 /**
  * Toggle Switch
@@ -72,10 +92,15 @@ import { TranslationSupport } from '../../utils';
  */
 export default defineComponent({
   name: 'FdToggle',
+  components: { FdInputPostText },
   props: {
-    error: {
-      type: Boolean,
-      default: false,
+    errors: {
+      type: Array as PropType<string[]>,
+      default: () => [],
+    },
+    errorMessages: {
+      type: Object as PropType<ErrorMessages>,
+      default: () => ({}),
     },
     hideLabel: {
       type: Boolean,
@@ -93,6 +118,10 @@ export default defineComponent({
       type: Boolean,
       default: false,
     },
+    persistentAssistiveText: {
+      type: Boolean,
+      default: false,
+    },  
     reverseLabel: {
       type: Boolean,
       default: false,
@@ -125,7 +154,7 @@ export default defineComponent({
       );
     });
 
-    return { getValue, t };
+    return { filterSlots, getValue, t };
   }
 });
 </script>
@@ -152,7 +181,7 @@ export default defineComponent({
   }
 
   &__control {
-    background-color: rgba(var(--fora_toggle_inactive_bg));
+    background-color: rgba(var(--fora_toggle_off_bg));
     border-radius: $toggle_control_border-radius;
     flex: 0 0 auto;
     height: $toggle_control_height;
@@ -173,13 +202,14 @@ export default defineComponent({
     }
 
     &--active {
-      background-color: rgba(var(--fora_toggle_active_bg));
+      background-color: rgba(var(--fora_toggle_on_bg));
     }
   }
 
   &__knob {
     background-color: rgba(var(--fora_toggle_knob_bg));
     border-radius: $toggle_knob_border-radius;
+    box-shadow: $toggle_knob_box-shadow;
     height: $toggle_knob_height;
     left: calc(($toggle_control_height - $toggle_knob_height) / 2);
     position: absolute;
@@ -210,6 +240,17 @@ export default defineComponent({
     font-size: $toggle_value_size;
     font-weight: $toggle_value_weight;
     margin: 0 0.375rem;
+  }
+
+
+  &--error {
+    .fd-toggle__control {
+      background-color: rgba(var(--fora_toggle_off_bg--error));
+    }
+
+    .fd-toggle__control--active {
+      background-color: rgba(var(--fora_toggle_on_bg--error));
+    }
   }
 }
 </style>

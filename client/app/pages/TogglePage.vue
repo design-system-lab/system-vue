@@ -1,6 +1,8 @@
 <template>
   <div>
     <h1>Toggle Switch</h1>
+
+
     <br>
     <div class="control-panel">
       <div>
@@ -64,7 +66,6 @@
         </fd-group>
       </div>
     </div>
-
     <div
       class="display-panel mb-4"
       :style="{ backgroundColor: bg }"
@@ -73,16 +74,17 @@
         v-model="modelValue"
         id="example-val"
         v-bind="{
-          error,
+          errorMessages,
           hideLabel,
           label,
           reverseLabel,
-          reverseValue,
           showValue,
           valueTrue,
           valueFalse,
         }"
+        :errors="error ? ['example'] : []"
       />
+      
     </div>
 
     <!-- add custom icon version -->
@@ -91,17 +93,18 @@
 
 <script lang="ts">
 import { defineComponent, shallowRef } from 'vue';
+import FdInputPostText from '../../../src/components/Form/FdInputPostText.vue';
 import FdToggle from '../../../src/components/Toggle';
 import FdCheckbox from '../../../src/components/Checkbox';
 import FdGroup from '../../../src/components/Group';
 import { FdInputField, FdSelect } from '../../../src/components/Form';
-import { error } from 'console';
 
 export default defineComponent({
   name: 'AlertPage',
-  components: { FdToggle, FdCheckbox, FdGroup, FdInputField, FdSelect },
+  components: { FdInputPostText, FdToggle, FdCheckbox, FdGroup, FdInputField, FdSelect },
   setup() {
     const error = shallowRef(false);
+    const errorMessages = shallowRef({ example: 'Example error message' });
     const hideLabel = shallowRef(false);
     const label = shallowRef('Example Label');
     const modelValue = shallowRef(false);
@@ -115,6 +118,7 @@ export default defineComponent({
     return {
       bg,
       error,
+      errorMessages,
       hideLabel,
       label,
       modelValue,

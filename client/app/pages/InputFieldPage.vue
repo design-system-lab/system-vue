@@ -6,6 +6,16 @@
     <fd-button @click="small = !small">{{ small ? 'Make Default' : 'Make Small' }}</fd-button>
     <br><br>
 
+    <fd-checkbox v-model="showExample" />
+
+    <fd-input-post-text
+      id="test-post-text"
+      :errors="exampleError"
+      :errorMessages="{
+        example: 'This is an example error message.',
+      }"
+    />
+
     <h4 class="mb-4">Default Input</h4>
     <fd-input-field
       v-model="testVal"
@@ -47,7 +57,6 @@
     <fd-input-field
       v-model="testVal"
       id="test-error-custom"
-      assistive-text="Please use the format MM/DD/YYYY"
       :errors="(!testVal && ['required']) || []"
       :errorMessages="{
         example: 'Another message that won\'t show up.',
@@ -239,9 +248,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef } from 'vue';
+import { computed, defineComponent, shallowRef } from 'vue';
 import FdButton from '../../../src/components/Button';
+import FdCheckbox from '../../../src/components/Checkbox';
 import { FdInputField } from '../../../src/components/Form';
+import FdInputPostText from '../../../src/components/Form/FdInputPostText.vue';
 import FdIcon from '../../../src/components/Icon';
 import FdCol from '../../../src/components/Col';
 import FdRow from '../../../src/components/Row';
@@ -249,7 +260,7 @@ import { CubeTransparentIcon } from '@heroicons/vue/20/solid'
 
 export default defineComponent({
   name: 'InputFieldPage',
-  components: { FdInputField, FdButton, FdCol, FdRow, CubeTransparentIcon, FdIcon },
+  components: { FdCheckbox, FdInputField, FdInputPostText, FdButton, FdCol, FdRow, CubeTransparentIcon, FdIcon },
   setup () {
     const appendIconVal = shallowRef('');
     const appendPrependIconVal = shallowRef('');
@@ -260,6 +271,9 @@ export default defineComponent({
     const testEmail = shallowRef('');
     const testTel = shallowRef('');
     const testUrl = shallowRef('');
+
+    const showExample = shallowRef(false);
+    const exampleError = computed(() => showExample.value ? ['example'] : []);
 
     return {
       appendIconVal,
@@ -272,6 +286,9 @@ export default defineComponent({
       testEmail,
       testTel,
       testUrl,
+
+      showExample,
+      exampleError,
     };
   },
 })

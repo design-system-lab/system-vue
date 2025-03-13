@@ -1,9 +1,12 @@
 // Variables specific to Fdtoggle
 
 // colors for theming, must duplicate in theme map
-$toggle_active_bg: $primary, 1 !default;
-$toggle_error_bg: $danger, 1 !default;
-$toggle_inactive_bg: $neutral, 1 !default;
+$toggle_on_bg--error: $danger, 1 !default;
+$toggle_off_bg--error: $danger, 1 !default;
+$toggle_off_bg: $neutral, 1 !default;
+$toggle_off_bg--hover: $neutral, 1 !default;
+$toggle_on_bg: $primary, 1 !default;
+$toggle_on_bg--hover: $primary, 1 !default;
 $toggle_knob_bg: $white;
 
 // default style vars
@@ -11,6 +14,7 @@ $toggle_control_border-radius: $border-radius_full !default;
 $toggle_control_height: 1.75rem;
 $toggle_control_width: 3.5rem;
 $toggle_knob_border-radius: $border-radius_full !default;
+$toggle_knob_box-shadow: $shadow-xs !default;
 $toggle_knob_height: 1.25rem;
 $toggle_knob_height--hover: 1.5rem;
 $toggle_knob_width: 1.25rem;
@@ -24,8 +28,11 @@ $toggle_value_weight: $form-field_auxillary-text_weight;
 // theme map, must replicate colors
 // when using, add --fora_ before the key as the css variable, for example: var(--fora_toggle-primary)
 $theme-toggle: (
-  toggle_active_bg: $toggle_active_bg,
-  toggle_error_bg: $toggle_error_bg,
-  toggle_inactive_bg: $toggle_inactive_bg,
+  toggle_off_bg--error: $toggle_off_bg--error,
+  toggle_on_bg--error: $toggle_on_bg--error,
+  toggle_off_bg: $toggle_off_bg,
+  toggle_off_bg--hover: $toggle_off_bg--hover,
+  toggle_on_bg: $toggle_on_bg,
+  toggle_on_bg--hover: $toggle_on_bg--hover,
   toggle_knob_bg: $toggle_knob_bg,
 );
