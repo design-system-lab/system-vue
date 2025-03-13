@@ -47,11 +47,34 @@
       class="display-panel mb-4"
       :style="{ backgroundColor: bg }"
     >
-      <p>
+      <p class="mb-4">
         Accordion clicked {{ counter }} times!
       </p>
+
       <fd-accordion
-        v-model="showAccordion"
+        id="accordion"
+        :icon="showIcon ? CubeTransparentIcon : undefined"
+        open
+        @click="handleClick"
+      >
+        <template #heading>
+          {{ headingText }}
+        </template>
+
+        <p>{{ text }}</p>
+      </fd-accordion>
+      <fd-accordion
+        id="accordion"
+        :icon="showIcon ? CubeTransparentIcon : undefined"
+        @click="handleClick"
+      >
+        <template #heading>
+          {{ headingText }}
+        </template>
+
+        <p>{{ text }}</p>
+      </fd-accordion>
+      <fd-accordion
         id="accordion"
         :icon="showIcon ? CubeTransparentIcon : undefined"
         @click="handleClick"
@@ -84,7 +107,6 @@ export default defineComponent({
     const headingText = shallowRef('Your accordion title - keep it short n\' sweet');
     const counter = shallowRef(0);
     const showIcon = shallowRef(false);
-    const showAccordion = shallowRef(false);
 
     const bg = shallowRef('#fff');
 
@@ -95,7 +117,6 @@ export default defineComponent({
     return {
       bg,
       counter,
-      showAccordion,
       showIcon,
       handleClick,
       headingText,
@@ -124,7 +145,6 @@ export default defineComponent({
   border-radius: 8px;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
 }
 
 .aux-text {

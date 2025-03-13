@@ -7,7 +7,7 @@
       <button
         :id="`${id}__button`"
         class="fd-accordion__button"
-        :aria-expanded="modelValue"
+        :aria-expanded="isOpen"
         :aria-controls="`${id}__content`"
         type="button"
         @click="toggleAccordion"
@@ -27,31 +27,45 @@
         <div class="fd-accordion_controller">
           <slot
             name="controller"
-            :model-value="modelValue"
+            :open="isOpen"
           >
             <div class="fd-accordion__controller-group">
               <fd-icon :icon="MinusIcon" />
-              <fd-icon class="fd-accordion__control-arm" :icon="MinusIcon" />
+              <fd-icon
+                class="fd-accordion__control-arm"
+                :class="{ 'fd-accordion__control-arm--open': isOpen }"
+                :icon="MinusIcon"
+              />
             </div>
           </slot>
         </div>
       </button>
     </div>
-    <div
-      :id="`${id}__content`"
-      class="fd-accordion__content"
-      :aria-labelledby="`${id}__button`"
-      :hidden="contentHidden"
-      role="region"
+    <transition
+      @before-enter="(el) => onBeforeEnter(el as HTMLElement)"
+      @enter="(el) => onEnter(el as HTMLElement)"
+      @after-enter="(el) => onAfterEnter(el as HTMLElement)"
+      @before-leave="(el) => onBeforeLeave(el as HTMLElement)"
+      @leave="(el) => onLeave(el as HTMLElement)"
+      @after-leave="(el) => onAfterLeave(el as HTMLElement)"
     >
-      <slot />
-    </div>
+      <div
+        v-show="isOpen"
+        :id="`${id}__content`"
+        class="fd-accordion__content"
+        :aria-labelledby="`${id}__button`"
+        role="region"
+      >
+        <slot />
+      </div>
+    </transition>
   </div>
 </template>
 <script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
+import { shallowRef, defineComponent, PropType } from 'vue';
 import { MinusIcon } from '@heroicons/vue/24/solid';
 import FdIcon from '../Icon';
+import { slideInOutContent } from '../../utils';
 import { Icon } from '../../types';
 
 export default defineComponent({
@@ -68,31 +82,67 @@ export default defineComponent({
       type: String,
       required: true,
     },
-    modelValue: {
+    open: {
       type: Boolean,
       default: false,
     },
   },
   setup(props, { emit }) {
-    const contentHidden = computed(() => !props.modelValue);
+    const isOpen = shallowRef(props.open);
+    const postText = shallowRef<HTMLDivElement | null>(null);
 
     function toggleAccordion() {
-      emit('update:modelValue', !props.modelValue);
+      emit('toggled', !isOpen.value);
+      isOpen.value = !isOpen.value;
+    }
+
+    function onBeforeEnter(el: HTMLElement) {
+      slideInOutContent('before-enter', el);
+    }
+
+    function onEnter(el: HTMLElement) {
+      slideInOutContent('enter', el);
+    }
+
+    function onAfterEnter(el: HTMLElement) {
+      slideInOutContent('after-enter', el);
+    }
+
+    function onBeforeLeave(el: HTMLElement) {
+      slideInOutContent('before-leave', el);
+    }
+
+    function onLeave(el: HTMLElement) {
+      slideInOutContent('leave', el);
+    }
+
+    function onAfterLeave(el: HTMLElement) {
+      slideInOutContent('after-leave', el);
     }
     
     return {
-      contentHidden,
+      isOpen,
+      onBeforeEnter,
+      onEnter,
+      onAfterEnter,
+      onBeforeLeave,
+      onLeave,
+      onAfterLeave,
       toggleAccordion,
       MinusIcon,
     };
   },
-  emits: ['update:modelValue'],
+  emits: ['toggled'],
 });
 </script>
 <style lang="scss" scoped>
 @import '@/styles/required';
 
 .fd-accordion {
+  &:last-of-type {
+    border-bottom: 1px solid rgb(var(--fora_neutral), 1);
+  }
+
   &__button {
     @include focus-primary;
 
@@ -142,6 +192,18 @@ export default defineComponent({
         top: 0;
       }
     }
+  }
+
+  &__control-arm {
+    transition: transform 0.3s ease;
+
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+
+  &__content {
+    padding: 0.25rem 0.75rem 1.5rem;
   }
 }
 </style>
