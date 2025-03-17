@@ -56,7 +56,12 @@
         :aria-labelledby="`${id}__button`"
         role="region"
       >
-        <slot />
+        <div
+          ref="contentInner"
+          class="fd-accordion__content-inner"
+        >
+          <slot />
+        </div>
       </div>
     </transition>
   </div>
@@ -89,7 +94,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const isOpen = shallowRef(props.open);
-    const postText = shallowRef<HTMLDivElement | null>(null);
+    const contentInner = shallowRef<HTMLDivElement | null>(null);
 
     function toggleAccordion() {
       emit('toggled', !isOpen.value);
@@ -97,15 +102,17 @@ export default defineComponent({
     }
 
     function onBeforeEnter(el: HTMLElement) {
-      slideInOutContent('before-enter', el);
+      el.classList.add('fd-accordion__content--before-enter');
     }
 
     function onEnter(el: HTMLElement) {
+      el.style.height = `${contentInner.value!.offsetHeight}px`;
       slideInOutContent('enter', el);
     }
 
     function onAfterEnter(el: HTMLElement) {
-      slideInOutContent('after-enter', el);
+      el.classList.remove('fd-accordion__content--before-enter');
+      el.style.height = '';
     }
 
     function onBeforeLeave(el: HTMLElement) {
@@ -121,6 +128,7 @@ export default defineComponent({
     }
     
     return {
+      contentInner,
       isOpen,
       onBeforeEnter,
       onEnter,
@@ -203,6 +211,10 @@ export default defineComponent({
   }
 
   &__content {
+    overflow: hidden;
+  }
+
+  &__content-inner {
     padding: 0.25rem 0.75rem 1.5rem;
   }
 }

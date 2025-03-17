@@ -154,3 +154,29 @@ export function swapContent(phase: Phase, el: HTMLElement, parent?: HTMLElement 
       break;
   }
 }
+
+export function slideOpen(phase: string, el: HTMLElement) {
+  function onBeforeEnter() {
+    el.classList.add('slide-open--before-enter');
+  }
+
+  function onEnter() {
+    el.classList.add('slide-open--enter');
+  }
+
+  function onAfterEnter() {
+    el.classList.remove('slide-open--before-enter', 'slide-open--enter');
+  }
+
+  function onBeforeLeave() {
+    el.classList.add('slide-open--before-leave');
+  }
+
+  function onLeave() {
+    el.classList.add('slide-open--leave');
+  }
+
+  function onAfterLeave() {
+    el.classList.remove('slide-open--before-leave');
+  }
+}
