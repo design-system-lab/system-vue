@@ -39,6 +39,11 @@
             id="show-icon"
             value="show-icon"
           >Show Icon</fd-checkbox>
+          <fd-checkbox
+            v-model="disabled"
+            id="disabled"
+            value="disabled"
+          >Disabled</fd-checkbox>
         </fd-group>
       </div>
     </div>
@@ -53,6 +58,7 @@
 
       <fd-accordion
         id="accordion"
+        :disabled="disabled"
         :icon="showIcon ? CubeTransparentIcon : undefined"
         open
         @click="handleClick"
@@ -65,6 +71,7 @@
       </fd-accordion>
       <fd-accordion
         id="accordion"
+        :disabled="disabled"
         :icon="showIcon ? CubeTransparentIcon : undefined"
         @click="handleClick"
       >
@@ -76,6 +83,7 @@
       </fd-accordion>
       <fd-accordion
         id="accordion"
+        :disabled="disabled"
         :icon="showIcon ? CubeTransparentIcon : undefined"
         @click="handleClick"
       >
@@ -107,6 +115,7 @@ export default defineComponent({
     const headingText = shallowRef('Your accordion title - keep it short n\' sweet');
     const counter = shallowRef(0);
     const showIcon = shallowRef(false);
+    const disabled = shallowRef(false);
 
     const bg = shallowRef('#fff');
 
@@ -117,6 +126,7 @@ export default defineComponent({
     return {
       bg,
       counter,
+      disabled,
       showIcon,
       handleClick,
       headingText,

@@ -2,6 +2,10 @@
   <div
     :id="id"
     class="fd-accordion"
+    :class="{
+      'fd-accordion--disabled': disabled,
+      'fd-accordion--open': isOpen
+    }"
   >
     <div class="fd-accordion__header">
       <button
@@ -9,8 +13,9 @@
         class="fd-accordion__button"
         :aria-expanded="isOpen"
         :aria-controls="`${id}__content`"
+        :disabled="disabled"
         type="button"
-        @click="toggleAccordion"
+        @click.stop="toggleAccordion"
       >
         <div v-if="$slots.icon || icon" class="fd-accordion__icon">
           <slot name="icon">
@@ -41,14 +46,7 @@
         </div>
       </button>
     </div>
-    <transition
-      @before-enter="(el) => onBeforeEnter(el as HTMLElement)"
-      @enter="(el) => onEnter(el as HTMLElement)"
-      @after-enter="(el) => onAfterEnter(el as HTMLElement)"
-      @before-leave="(el) => onBeforeLeave(el as HTMLElement)"
-      @leave="(el) => onLeave(el as HTMLElement)"
-      @after-leave="(el) => onAfterLeave(el as HTMLElement)"
-    >
+    <transition v-on="{ ...expandCollapse }">
       <div
         v-show="isOpen"
         :id="`${id}__content`"
@@ -70,7 +68,7 @@
 import { shallowRef, defineComponent, PropType } from 'vue';
 import { MinusIcon } from '@heroicons/vue/24/solid';
 import FdIcon from '../Icon';
-import { slideInOutContent } from '../../utils';
+import { expandCollapse } from '../../utils';
 import { Icon } from '../../types';
 
 export default defineComponent({
@@ -79,6 +77,10 @@ export default defineComponent({
     FdIcon,
   },
   props: {
+    disabled: {
+      type: Boolean,
+      default: false,
+    },
     icon: {
       type: Function as PropType<Icon>,
       default: undefined,
@@ -97,45 +99,16 @@ export default defineComponent({
     const contentInner = shallowRef<HTMLDivElement | null>(null);
 
     function toggleAccordion() {
+      if (props.disabled) return;
+
       emit('toggled', !isOpen.value);
       isOpen.value = !isOpen.value;
-    }
-
-    function onBeforeEnter(el: HTMLElement) {
-      el.classList.add('fd-accordion__content--before-enter');
-    }
-
-    function onEnter(el: HTMLElement) {
-      el.style.height = `${contentInner.value!.offsetHeight}px`;
-      slideInOutContent('enter', el);
-    }
-
-    function onAfterEnter(el: HTMLElement) {
-      el.classList.remove('fd-accordion__content--before-enter');
-      el.style.height = '';
-    }
-
-    function onBeforeLeave(el: HTMLElement) {
-      slideInOutContent('before-leave', el);
-    }
-
-    function onLeave(el: HTMLElement) {
-      slideInOutContent('leave', el);
-    }
-
-    function onAfterLeave(el: HTMLElement) {
-      slideInOutContent('after-leave', el);
     }
     
     return {
       contentInner,
+      expandCollapse,
       isOpen,
-      onBeforeEnter,
-      onEnter,
-      onAfterEnter,
-      onBeforeLeave,
-      onLeave,
-      onAfterLeave,
       toggleAccordion,
       MinusIcon,
     };
@@ -147,42 +120,48 @@ export default defineComponent({
 @import '@/styles/required';
 
 .fd-accordion {
+  background-color: rgba(var(--fora_accordion_bg), 1);
+  
   &:last-of-type {
-    border-bottom: 1px solid rgb(var(--fora_neutral), 1);
+    border-bottom:  $accordion_border rgba(var(--fora_accordion_border-color));
   }
 
   &__button {
     @include focus-primary;
 
     display: flex;
-    gap: 0.5rem;
+    gap: $accordion_button_gap;
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    padding: 0.75rem;
+    padding: $accordion_button_padding;
     border: none;
-    background-color: #fff;
+    background-color: rgba(var(--fora_accordion_bg));
     cursor: pointer;
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: rgba(var(--fora_neutral_reduced--hover), 1);
+      background-color: rgba(var(--fora_accordion-header_bg--hover));
     }
+
+    @include focus-primary;
   }
 
   &__header {
-    border-top: 1px solid rgb(var(--fora_neutral), 1);
+    border-top: $accordion_border rgb(var(--fora_accordion_border-color));
   }
 
   &__icon {
+    color: rgba(var(--fora_accordion-header_icon_color));
     flex: 0 0 auto;
-    height: 1.5rem;
-    width: 1.5rem;
+    height: $accordion_icon_size;
+    width: $accordion_icon_size;
   }
 
   &__heading {
+    color: rgba(var(--fora_accordion-header_title_color));
     flex: 1 1 100%;
-    font-weight: $font-medium;
+    font-weight: $accordion_heading_font_weight;
     text-align: left;
   }
 
@@ -190,9 +169,10 @@ export default defineComponent({
     flex: 0 0 auto;
 
     &-group {
+      color: rgba(var(--fora_accordion-header_toggle_color));
       position: relative;
-      height: 1.5rem;
-      width: 1.5rem;
+      height: $accordion_controller_size;
+      width: $accordion_controller_size;
 
       & .fd-icon {
         position: absolute;
@@ -211,11 +191,35 @@ export default defineComponent({
   }
 
   &__content {
-    overflow: hidden;
+    color: rgba(var(--fora_accordion_content_color));
+    transition: height $accordion_transition_time ease;
   }
 
   &__content-inner {
-    padding: 0.25rem 0.75rem 1.5rem;
+    padding: $accordion_content_padding;
+  }
+
+  &--disabled {
+    .fd-accordion__button {
+      background-color: rgba(var(--fora_accordion-header_bg--disabled));
+      pointer-events: none;
+    }
+
+    .fd-accordion__icon {
+      color: rgba(var(--fora_accordion-header_icon_color--disabled));
+    }
+
+    .fd-accordion__heading {
+      color: rgba(var(--fora_accordion-header_title_color--disabled));
+    }
+
+    .fd-accordion__controller-group {
+      color: rgba(var(--fora_accordion-header_toggle_color--disabled));
+    }
+
+    .fd-accordion__content {
+      color: rgba(var(--fora_accordion_content_color--disabled));
+    }
   }
 }
 </style>

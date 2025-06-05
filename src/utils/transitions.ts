@@ -155,28 +155,27 @@ export function swapContent(phase: Phase, el: HTMLElement, parent?: HTMLElement 
   }
 }
 
-export function slideOpen(phase: string, el: HTMLElement) {
-  function onBeforeEnter() {
-    el.classList.add('slide-open--before-enter');
-  }
+export const expandCollapse = {
+  beforeEnter(el: HTMLElement) {
+    el.style.height = '0';
+      el.style.overflow = 'hidden';
+  },
 
-  function onEnter() {
-    el.classList.add('slide-open--enter');
-  }
+  enter(el: HTMLElement) {
+    el.style.height = `${el.scrollHeight}px`;
+  },
 
-  function onAfterEnter() {
-    el.classList.remove('slide-open--before-enter', 'slide-open--enter');
-  }
+  afterEnter(el: HTMLElement) {
+    el.style.height = '';
+    el.style.overflow = '';
+  },
 
-  function onBeforeLeave() {
-    el.classList.add('slide-open--before-leave');
-  }
+  beforeLeave(el: HTMLElement) {
+    el.style.height = `${el.scrollHeight}px`;
+    el.style.overflow = 'hidden';
+  },
 
-  function onLeave() {
-    el.classList.add('slide-open--leave');
-  }
-
-  function onAfterLeave() {
-    el.classList.remove('slide-open--before-leave');
-  }
+  leave(el: HTMLElement) {
+    el.style.height = '0';
+  },
 }
