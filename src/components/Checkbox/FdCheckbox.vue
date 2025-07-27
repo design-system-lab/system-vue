@@ -134,25 +134,25 @@ export default defineComponent({
   transition: $transition-timing background-color;
 
   &:hover:not(#{&}--readonly) {
-    background-color: rgba(var(--fora_checkbox_bg--hover));
+    background-color: rgb(var(--fora_checkbox_bg--hover));
 
     .fd-checkbox-base {
-      border-color: rgba(var(--fora_checkbox-base_border-color--hover));
+      border-color: rgb(var(--fora_checkbox-base_border-color--hover));
 
       &--selected {
-        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_box-shadow-color--hover--selected));
+        box-shadow: 0 0 0 2px rgb(var(--fora_checkbox-base_box-shadow-color--hover--selected));
       }
 
       &--indeterminate {
-        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_box-shadow-color--hover--indeterminate));
+        box-shadow: 0 0 0 2px rgb(var(--fora_checkbox-base_box-shadow-color--hover--indeterminate));
       }
 
       &--error.fd-checkbox-base--selected {
-        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--selected));
+        box-shadow: 0 0 0 2px rgb(var(--fora_checkbox-base_error_box-shadow-color--hover--selected));
       }
 
       &--error.fd-checkbox-base--indeterminate {
-        box-shadow: 0 0 0 2px rgba(var(--fora_checkbox-base_error_box-shadow-color--hover--indeterminate));
+        box-shadow: 0 0 0 2px rgb(var(--fora_checkbox-base_error_box-shadow-color--hover--indeterminate));
       }
     }
   }
@@ -167,23 +167,23 @@ export default defineComponent({
   }
 
   &--error {
-    color: rgba(var(--fora_checkbox_error_color));
+    color: rgb(var(--fora_checkbox_error_color));
 
     &:hover:not(#{&}--readonly) {
-      background-color: rgba(var(--fora_checkbox_error_bg--hover));
+      background-color: rgb(var(--fora_checkbox_error_bg--hover));
 
       .fd-checkbox-base {
-        border-color: rgba(var(--fora_checkbox-base_error_border-color));
+        border-color: rgb(var(--fora_checkbox-base_error_border-color));
       }
     }
   }
 
   &--readonly {
-    color: rgba(var(--fora_checkbox_readonly_color));
+    color: rgb(var(--fora_checkbox_readonly_color));
   }
 
   &--disabled {
-    color: rgba(var(--fora_checkbox_disabled_color));
+    color: rgb(var(--fora_checkbox_disabled_color));
     cursor: not-allowed;
   }
 

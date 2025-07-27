@@ -41,8 +41,8 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-card {
-  background-color: rgba(var(--fora_card_bg));
-  border: $card_border rgba(var(--fora_card_border-color));
+  background-color: rgb(var(--fora_card_bg));
+  border: $card_border rgb(var(--fora_card_border-color));
   border-radius: $card_border-radius;
   box-shadow: $card_box-shadow;
   display: flex;
@@ -57,7 +57,7 @@ export default defineComponent({
   }
 
   &__icon {
-    color: rgba(var(--fora_card_icon_color));
+    color: rgb(var(--fora_card_icon_color));
     height: $card_icon_size;
     width: $card_icon_size;
   }
@@ -75,21 +75,21 @@ export default defineComponent({
   }
 
   &__overline {
-    color: rgba(var(--fora_card_overline_color));
+    color: rgb(var(--fora_card_overline_color));
     font-size: $card_overline_font-size;
     font-weight: $card_overline_font-weight;
     line-height: $card_overline_line-height;
   }
 
   &__heading {
-    color: rgba(var(--fora_card_heading_color));
+    color: rgb(var(--fora_card_heading_color));
     font-size: $card_heading_font-size;
     font-weight: $card_heading_font-weight;
     line-height: $card_heading_line-height;
   }
 
   &__content {
-    color: rgba(var(--fora_card_text_color));
+    color: rgb(var(--fora_card_text_color));
     font-size: $card_text_font-size;
     font-weight: $card_text_font-weight;
     line-height: $card_text_line-height;

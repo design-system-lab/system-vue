@@ -137,12 +137,12 @@ export default defineComponent({
 
 .fd-toast {
   align-items: flex-start;
-  background-color: rgba(var(--fora_toast_informational_bg));
+  background-color: rgb(var(--fora_toast_informational_bg));
   box-shadow: $shadow-sm;
-  border: $toast_border rgba(var(--fora_toast_informational_border-color));
+  border: $toast_border rgb(var(--fora_toast_informational_border-color));
   border-radius: $toast_border-radius;
   border-left-width: $toast_tab_width;
-  color: rgba(var(--fora_toast_informational_color));
+  color: rgb(var(--fora_toast_informational_color));
   display: flex;
   gap: $toast_gap;
   padding: $toast_padding;
@@ -168,7 +168,7 @@ export default defineComponent({
   }
 
   &__heading {
-    color: rgba(var(--fora_toast_heading_color));
+    color: rgb(var(--fora_toast_heading_color));
     font-size: $toast_heading_font-size;
     font-weight: $toast_heading_font-weight;
     line-height: $toast_heading_line-height;
@@ -180,14 +180,14 @@ export default defineComponent({
   }
 
   &__description {
-    color: rgba(var(--fora_toast_text_color));
+    color: rgb(var(--fora_toast_text_color));
     font-size: $toast_text_font-size;
     font-weight: $toast_text_font-weight;
     line-height: $toast_text_line-height;
   }
 
   &__timestamp {
-    color: rgba(var(--fora_toast_timestamp_color));
+    color: rgb(var(--fora_toast_timestamp_color));
     font-size: $toast_timestamp_font-size;
     font-weight: $toast_timestamp_font-weight;
     line-height: $toast_timestamp_line-height;
@@ -195,34 +195,34 @@ export default defineComponent({
   }
 
   &--neutral {
-    background-color: rgba(var(--fora_toast_neutral_bg));
-    border-color: rgba(var(--fora_toast_neutral_border-color));
-    color: rgba(var(--fora_toast_neutral_color));
+    background-color: rgb(var(--fora_toast_neutral_bg));
+    border-color: rgb(var(--fora_toast_neutral_border-color));
+    color: rgb(var(--fora_toast_neutral_color));
   }
 
   &--success {
-    background-color: rgba(var(--fora_toast_success_bg));
-    border-color: rgba(var(--fora_toast_success_border-color));
-    color: rgba(var(--fora_toast_success_color));
+    background-color: rgb(var(--fora_toast_success_bg));
+    border-color: rgb(var(--fora_toast_success_border-color));
+    color: rgb(var(--fora_toast_success_color));
   }
 
   &--warning {
-    background-color: rgba(var(--fora_toast_warning_bg));
-    border-color: rgba(var(--fora_toast_warning_border-color));
-    color: rgba(var(--fora_toast_warning_color));
+    background-color: rgb(var(--fora_toast_warning_bg));
+    border-color: rgb(var(--fora_toast_warning_border-color));
+    color: rgb(var(--fora_toast_warning_color));
   }
 
   &--danger {
-    background-color: rgba(var(--fora_toast_danger_bg));
-    border-color: rgba(var(--fora_toast_danger_border-color));
-    color: rgba(var(--fora_toast_danger_color));
+    background-color: rgb(var(--fora_toast_danger_bg));
+    border-color: rgb(var(--fora_toast_danger_border-color));
+    color: rgb(var(--fora_toast_danger_color));
   }
 
   &__link {
     display: inline-block;
     border: none;
     background: none;
-    color: rgba(var(--fora_toast_link_color));
+    color: rgb(var(--fora_toast_link_color));
     font-size: $toast_link_font-size;
     font-weight: $toast_link_font-weight;
     line-height: $toast_link_line-height;

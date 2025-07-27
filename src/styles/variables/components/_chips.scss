@@ -1,14 +1,14 @@
 // Variables specific to FdChip
 
 // colors for theming, must be duplicated in theme map
-$chip_bg: $neutral_reduced, 1 !default;
-$chip_border-color: $black, 0.2 !default;
-$chip_icon_color: $text_default, 1 !default;
-$chip_interactive_bg: $neutral_reduced, 1 !default;
-$chip_interactive_bg--hover: $neutral_reduced--hover, 1 !default;
-$chip_interactive_bg--pressed: $neutral_reduced--pressed, 1 !default;
-$chip_interactive_border-color: $black, 0.5 !default;
-$chip_text_color: $text_intense, 1 !default;
+$chip_bg: $neutral_reduced !default;
+$chip_border-color: $black / 20% !default;
+$chip_icon_color: $text_default !default;
+$chip_interactive_bg: $neutral_reduced !default;
+$chip_interactive_bg--hover: $neutral_reduced--hover !default;
+$chip_interactive_bg--pressed: $neutral_reduced--pressed !default;
+$chip_interactive_border-color: $black / 50% !default;
+$chip_text_color: $text_intense !default;
 
 
 // default style vars

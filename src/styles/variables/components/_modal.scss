@@ -1,10 +1,10 @@
 // Variables specific to FdModal
 
 // colors for theming, must be duplicated in theme map
-$modal_content_color: $text_default, 1 !default;
-$modal_overlay_bg: $black, 0.5 !default;
-$modal_panel_bg: $white, 1 !default;
-$modal_title_color: $text-intense, 1 !default;
+$modal_content_color: $text_default !default;
+$modal_overlay_bg: $black / 50% !default;
+$modal_panel_bg: $white !default;
+$modal_title_color: $text-intense !default;
 
 // default style vars
 $modal_close_right: 1.5rem !default;

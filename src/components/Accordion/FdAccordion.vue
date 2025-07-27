@@ -120,10 +120,10 @@ export default defineComponent({
 @import '@/styles/required';
 
 .fd-accordion {
-  background-color: rgba(var(--fora_accordion_bg), 1);
+  background-color: rgb(var(--fora_accordion_bg));
   
   &:last-of-type {
-    border-bottom:  $accordion_border rgba(var(--fora_accordion_border-color));
+    border-bottom:  $accordion_border rgb(var(--fora_accordion_border-color));
   }
 
   &__button {
@@ -136,12 +136,12 @@ export default defineComponent({
     width: 100%;
     padding: $accordion_button_padding;
     border: none;
-    background-color: rgba(var(--fora_accordion_bg));
+    background-color: rgb(var(--fora_accordion_bg));
     cursor: pointer;
     transition: background-color 0.3s;
 
     &:hover {
-      background-color: rgba(var(--fora_accordion-header_bg--hover));
+      background-color: rgb(var(--fora_accordion-header_bg--hover));
     }
 
     @include focus-primary;
@@ -152,14 +152,14 @@ export default defineComponent({
   }
 
   &__icon {
-    color: rgba(var(--fora_accordion-header_icon_color));
+    color: rgb(var(--fora_accordion-header_icon_color));
     flex: 0 0 auto;
     height: $accordion_icon_size;
     width: $accordion_icon_size;
   }
 
   &__heading {
-    color: rgba(var(--fora_accordion-header_title_color));
+    color: rgb(var(--fora_accordion-header_title_color));
     flex: 1 1 100%;
     font-weight: $accordion_heading_font_weight;
     text-align: left;
@@ -169,7 +169,7 @@ export default defineComponent({
     flex: 0 0 auto;
 
     &-group {
-      color: rgba(var(--fora_accordion-header_toggle_color));
+      color: rgb(var(--fora_accordion-header_toggle_color));
       position: relative;
       height: $accordion_controller_size;
       width: $accordion_controller_size;
@@ -191,7 +191,7 @@ export default defineComponent({
   }
 
   &__content {
-    color: rgba(var(--fora_accordion_content_color));
+    color: rgb(var(--fora_accordion_content_color));
     transition: height $accordion_transition_time ease;
   }
 
@@ -201,24 +201,24 @@ export default defineComponent({
 
   &--disabled {
     .fd-accordion__button {
-      background-color: rgba(var(--fora_accordion-header_bg--disabled));
+      background-color: rgb(var(--fora_accordion-header_bg--disabled));
       pointer-events: none;
     }
 
     .fd-accordion__icon {
-      color: rgba(var(--fora_accordion-header_icon_color--disabled));
+      color: rgb(var(--fora_accordion-header_icon_color--disabled));
     }
 
     .fd-accordion__heading {
-      color: rgba(var(--fora_accordion-header_title_color--disabled));
+      color: rgb(var(--fora_accordion-header_title_color--disabled));
     }
 
     .fd-accordion__controller-group {
-      color: rgba(var(--fora_accordion-header_toggle_color--disabled));
+      color: rgb(var(--fora_accordion-header_toggle_color--disabled));
     }
 
     .fd-accordion__content {
-      color: rgba(var(--fora_accordion_content_color--disabled));
+      color: rgb(var(--fora_accordion_content_color--disabled));
     }
   }
 }

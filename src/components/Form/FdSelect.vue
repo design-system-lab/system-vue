@@ -687,7 +687,7 @@ export default defineComponent({
   }
 
   &__placeholder {
-    color: rgba(var(--fora_form-field_placeholder_color), 1);
+    color: rgb(var(--fora_form-field_placeholder_color));
   }
 }
 </style>

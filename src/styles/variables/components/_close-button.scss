@@ -3,11 +3,11 @@
 // colors for theming, must be duplicated in theme map
 
 $close-button_bg: transparent !default;
-$close-button_bg--hover: $black, 0.1 !default;
-$close-button_bg--pressed: $black, 0.2 !default;
-$close-button_bg--focus: $black, 0.1 !default;
-$close-button_color: $neutral-13, 1 !default;
-$close-button_color--disabled: $black, 0.3 !default;
+$close-button_bg--hover: $black / 10% !default;
+$close-button_bg--pressed: $black / 20% !default;
+$close-button_bg--focus: $black / 10% !default;
+$close-button_color: $neutral-13 !default;
+$close-button_color--disabled: $black / 30% !default;
 
 // default style vars
 

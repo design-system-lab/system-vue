@@ -4,7 +4,7 @@
 
 
 // default style vars
-$select_text_width: calc(100% - 1.75rem);
+$select_text_width: calc(100% - 1.75rem) !default;
 
 
 // theme map, must replicate colors

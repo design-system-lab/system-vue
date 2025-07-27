@@ -225,7 +225,7 @@ export default defineComponent({
   width: 100%;
 
   &__assistive-text {
-    color: rgba(var(--fora_form-field_assistive-text_color));
+    color: rgb(var(--fora_form-field_assistive-text_color));
     font-size: $form-field_auxillary-text_size;
     font-weight: $form-field_auxillary-text_weight;
     line-height: 1.25rem;
@@ -233,7 +233,7 @@ export default defineComponent({
   }
 
   &__errors-text {
-    color: rgba(var(--fora_form-field_error-text_color));
+    color: rgb(var(--fora_form-field_error-text_color));
     display: flex;
     font-size: $form-field_error-text_size;
     font-weight: $form-field_error-text_weight;

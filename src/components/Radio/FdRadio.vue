@@ -128,19 +128,19 @@ export default defineComponent({
   transition: background-color $transition-timing;
 
   &:hover {
-    background-color: rgba(var(--fora_radio_bg--hover));
+    background-color: rgb(var(--fora_radio_bg--hover));
   }
 
   &--selected {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
-        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_box-shadow-color--hover--selected));
+        box-shadow: 0 0 0 2px rgb(var(--fora_radio-base_box-shadow-color--hover--selected));
       }
     }
   }
 
   &--readonly {
-    color: rgba(var(--fora_radio_readonly_color));
+    color: rgb(var(--fora_radio_readonly_color));
 
     &:hover {
       background-color: transparent;
@@ -148,23 +148,23 @@ export default defineComponent({
   }
 
   &--error {
-    color: rgba(var(--fora_radio_error_color));
+    color: rgb(var(--fora_radio_error_color));
 
     &:hover {
-      background-color: rgba(var(--fora_radio_error_bg--hover));
+      background-color: rgb(var(--fora_radio_error_bg--hover));
     }
   }
 
   &--error#{&}--selected {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
-        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_error_box-shadow-color--hover--selected));
+        box-shadow: 0 0 0 2px rgb(var(--fora_radio-base_error_box-shadow-color--hover--selected));
       }
     }
   }
 
   &--disabled {
-    color: rgba(var(--fora_radio_disabled_color));
+    color: rgb(var(--fora_radio_disabled_color));
     cursor: not-allowed;
 
     &:hover {
