@@ -198,6 +198,6 @@ export default defineComponent({
 
 .aux-text {
   font-size: $font-sm;
-  color: rgba(var(--fora_neutral-8), 1);
+  color: rgb(var(--fora_neutral-8));
 }
 </style>
