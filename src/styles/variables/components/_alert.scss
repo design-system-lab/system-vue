@@ -1,27 +1,27 @@
 // Variables specific to FdAlert
 
 // colors for theming, must be duplicated in theme map
-$alert_danger_bg: $danger_reduced, 1 !default;
-$alert_danger_border-color: $danger, 1 !default;
-$alert_danger_color: $danger, 1 !default;
-$alert_default_bg: $primary_reduced, 1 !default;
-$alert_default_border-color: $primary, 1 !default;
-$alert_default_color: $primary, 1 !default;
-$alert_heading_color: $text_intense, 1 !default;
-$alert_info_bg: $informational_reduced, 1 !default;
-$alert_info_border-color: $informational, 1 !default;
-$alert_info_color: $informational, 1 !default;
-$alert_link_color: $primary, 1 !default;
-$alert_neutral_bg: $neutral_reduced, 1 !default;
-$alert_neutral_border-color: $neutral, 1 !default;
-$alert_neutral_color: $neutral, 1 !default;
-$alert_success_bg: $success_reduced, 1 !default;
-$alert_success_border-color: $success, 1 !default;
-$alert_success_color: $success, 1 !default;
-$alert_text_color: $text_default, 1 !default;
-$alert_warning_bg: $warning_reduced, 1 !default;
-$alert_warning_border-color: $warning, 1 !default;
-$alert_warning_color: $warning, 1 !default;
+$alert_danger_bg: $danger_reduced !default;
+$alert_danger_border-color: $danger !default;
+$alert_danger_color: $danger !default;
+$alert_default_bg: $primary_reduced !default;
+$alert_default_border-color: $primary !default;
+$alert_default_color: $primary !default;
+$alert_heading_color: $text_intense !default;
+$alert_info_bg: $informational_reduced !default;
+$alert_info_border-color: $informational !default;
+$alert_info_color: $informational !default;
+$alert_link_color: $primary !default;
+$alert_neutral_bg: $neutral_reduced !default;
+$alert_neutral_border-color: $neutral !default;
+$alert_neutral_color: $neutral !default;
+$alert_success_bg: $success_reduced !default;
+$alert_success_border-color: $success !default;
+$alert_success_color: $success !default;
+$alert_text_color: $text_default !default;
+$alert_warning_bg: $warning_reduced !default;
+$alert_warning_border-color: $warning !default;
+$alert_warning_color: $warning !default;
 
 
 // default style vars

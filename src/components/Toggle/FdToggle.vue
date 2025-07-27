@@ -144,7 +144,7 @@ export default defineComponent({
   }
 
   &__control {
-    background-color: rgba(var(--fora_toggle_inactive_bg));
+    background-color: rgb(var(--fora_toggle_inactive_bg));
     border-radius: calc($toggle_control_height / 2);
     flex: 0 0 auto;
     height: $toggle_control_height;
@@ -154,28 +154,28 @@ export default defineComponent({
     width: $toggle_control_width;
 
     &:hover {
-      background-color: rgba(var(--fora_toggle_inactive_bg--hover));
+      background-color: rgb(var(--fora_toggle_inactive_bg--hover));
     }
 
     &:active {
-      background-color: rgba(var(--fora_toggle_inactive_bg--pressed));
+      background-color: rgb(var(--fora_toggle_inactive_bg--pressed));
     }
 
     &--active {
-      background-color: rgba(var(--fora_toggle_active_bg));
+      background-color: rgb(var(--fora_toggle_active_bg));
 
       &:hover {
-        background-color: rgba(var(--fora_toggle_active_bg--hover));
+        background-color: rgb(var(--fora_toggle_active_bg--hover));
       }
 
       &:active {
-        background-color: rgba(var(--fora_toggle_active_bg--pressed));
+        background-color: rgb(var(--fora_toggle_active_bg--pressed));
       }
     }
   }
 
   &__knob {
-    background-color: rgba(var(--fora_toggle_knob_bg));
+    background-color: rgb(var(--fora_toggle_knob_bg));
     border-radius: calc($toggle_knob_height / 2);
     height: $toggle_knob_height;
     left: calc(($toggle_control_height - $toggle_knob_height) / 2);

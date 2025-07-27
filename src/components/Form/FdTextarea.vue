@@ -278,7 +278,7 @@ export default defineComponent({
   }
 
   &__count {
-    color: rgba(var(--fora_textarea_count_color));
+    color: rgb(var(--fora_textarea_count_color));
     font-size: $textarea_count_size;
     font-weight: $textarea_count_weight;
     line-height: $textarea_count_line-height;

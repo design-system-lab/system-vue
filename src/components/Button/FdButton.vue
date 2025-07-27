@@ -198,46 +198,46 @@ export default defineComponent({
 
   &--filled {
     &-primary {
-      background-color: rgba(var(--fora_button_primary_filled_bg));
-      color: rgba(var(--fora_button_filled_color));
+      background-color: rgb(var(--fora_button_primary_filled_bg));
+      color: rgb(var(--fora_button_filled_color));
 
       &:hover {
-        background-color: rgba(var(--fora_button_primary_filled_bg--hover));
+        background-color: rgb(var(--fora_button_primary_filled_bg--hover));
       }
 
       &:active,
       &.fd-button--pressed {
-        background-color: rgba(var(--fora_button_primary_filled_bg--pressed));
+        background-color: rgb(var(--fora_button_primary_filled_bg--pressed));
         box-shadow: none;
       }
     }
 
     &-danger {
-      background-color: rgba(var(--fora_button_danger_filled_bg));
-      color: rgba(var(--fora_button_filled_color));
+      background-color: rgb(var(--fora_button_danger_filled_bg));
+      color: rgb(var(--fora_button_filled_color));
 
       &:hover {
-        background-color: rgba(var(--fora_button_danger_filled_bg--hover));
+        background-color: rgb(var(--fora_button_danger_filled_bg--hover));
       }
 
       &:active,
       &.fd-button--pressed {
-        background-color: rgba(var(--fora_button_danger_filled_bg--pressed));
+        background-color: rgb(var(--fora_button_danger_filled_bg--pressed));
         box-shadow: none;
       }
     }
 
     &-neutral {
-      background-color: rgba(var(--fora_button_neutral_filled_bg));
-      color: rgba(var(--fora_button_filled_color));
+      background-color: rgb(var(--fora_button_neutral_filled_bg));
+      color: rgb(var(--fora_button_filled_color));
 
       &:hover {
-        background-color: rgba(var(--fora_button_neutral_filled_bg--hover));
+        background-color: rgb(var(--fora_button_neutral_filled_bg--hover));
       }
 
       &:active,
       &.fd-button--pressed {
-        background-color: rgba(var(--fora_button_neutral_filled_bg--pressed));
+        background-color: rgb(var(--fora_button_neutral_filled_bg--pressed));
         box-shadow: none;
       }
     }
@@ -245,84 +245,84 @@ export default defineComponent({
 
   &--outlined {
     &-primary {
-      border: $button_outlined_border rgba(var(--fora_button_primary_outlined_border));
-      background-color: rgba(var(--fora_button_primary_outlined_bg));
-      color: rgba(var(--fora_button_primary_outlined_color));
+      border: $button_outlined_border rgb(var(--fora_button_primary_outlined_border));
+      background-color: rgb(var(--fora_button_primary_outlined_bg));
+      color: rgb(var(--fora_button_primary_outlined_color));
 
       &:hover {
-        background-color: rgba(var(--fora_button_primary_outlined_bg--hover));
-        border-color: rgba(var(--fora_button_primary_outlined_border--hover));
-        color: rgba(var(--fora_button_primary_outlined_color--hover));
+        background-color: rgb(var(--fora_button_primary_outlined_bg--hover));
+        border-color: rgb(var(--fora_button_primary_outlined_border--hover));
+        color: rgb(var(--fora_button_primary_outlined_color--hover));
       }
 
       &:active,
       &.fd-button--pressed {
-        background-color: rgba(var(--fora_button_primary_outlined_bg--pressed));
-        border-color: rgba(var(--fora_button_primary_outlined_border--pressed));
+        background-color: rgb(var(--fora_button_primary_outlined_bg--pressed));
+        border-color: rgb(var(--fora_button_primary_outlined_border--pressed));
         box-shadow: none;
-        color: rgba(var(--fora_button_primary_outlined_color--pressed));
+        color: rgb(var(--fora_button_primary_outlined_color--pressed));
       }
     }
 
     &-danger {
-      border: $button_outlined_border rgba(var(--fora_button_danger_outlined_border));
-      background-color: rgba(var(--fora_button_danger_outlined_bg));
-      color: rgba(var(--fora_button_danger_outlined_color));
+      border: $button_outlined_border rgb(var(--fora_button_danger_outlined_border));
+      background-color: rgb(var(--fora_button_danger_outlined_bg));
+      color: rgb(var(--fora_button_danger_outlined_color));
 
       &:hover {
-        background-color: rgba(var(--fora_button_danger_outlined_bg--hover));
-        border-color: rgba(var(--fora_button_danger_outlined_border--hover));
-        color: rgba(var(--fora_button_danger_outlined_color--hover));
+        background-color: rgb(var(--fora_button_danger_outlined_bg--hover));
+        border-color: rgb(var(--fora_button_danger_outlined_border--hover));
+        color: rgb(var(--fora_button_danger_outlined_color--hover));
       }
 
       &:active,
       &.fd-button--pressed {
-        background-color: rgba(var(--fora_button_danger_outlined_bg--pressed));
-        border-color: rgba(var(--fora_button_danger_outlined_border--pressed));
+        background-color: rgb(var(--fora_button_danger_outlined_bg--pressed));
+        border-color: rgb(var(--fora_button_danger_outlined_border--pressed));
         box-shadow: none;
-        color: rgba(var(--fora_button_danger_outlined_color--pressed));
+        color: rgb(var(--fora_button_danger_outlined_color--pressed));
       }
     }
 
     &-neutral {
-      border: $button_outlined_border rgba(var(--fora_button_neutral_outlined_border));
-      background-color: rgba(var(--fora_button_neutral_outlined_bg));
-      color: rgba(var(--fora_button_neutral_outlined_color));
+      border: $button_outlined_border rgb(var(--fora_button_neutral_outlined_border));
+      background-color: rgb(var(--fora_button_neutral_outlined_bg));
+      color: rgb(var(--fora_button_neutral_outlined_color));
 
       &:hover {
-        background-color: rgba(var(--fora_button_neutral_outlined_bg--hover));
-        border-color: rgba(var(--fora_button_neutral_outlined_border--hover));
-        color: rgba(var(--fora_button_neutral_outlined_color--hover));
+        background-color: rgb(var(--fora_button_neutral_outlined_bg--hover));
+        border-color: rgb(var(--fora_button_neutral_outlined_border--hover));
+        color: rgb(var(--fora_button_neutral_outlined_color--hover));
       }
 
       &:active,
       &.fd-button--pressed {
-        background-color: rgba(var(--fora_button_neutral_outlined_bg--pressed));
-        border-color: rgba(var(--fora_button_neutral_outlined_border--pressed));
+        background-color: rgb(var(--fora_button_neutral_outlined_bg--pressed));
+        border-color: rgb(var(--fora_button_neutral_outlined_border--pressed));
         box-shadow: none;
-        color: rgba(var(--fora_button_neutral_outlined_color--pressed));
+        color: rgb(var(--fora_button_neutral_outlined_color--pressed));
       }
     }
   }
 
   &--text {
-    background-color: rgba(var(--fora_button_text_bg));
-    border-color: rgba(var(--fora_button_text_border));
+    background-color: rgb(var(--fora_button_text_bg));
+    border-color: rgb(var(--fora_button_text_border));
     box-shadow: none;
-    color: rgba(var(--fora_button_text_color));
+    color: rgb(var(--fora_button_text_color));
 
     &:hover {
-      background-color: rgba(var(--fora_button_text_bg--hover));
-      border-color: rgba(var(--fora_button_text_border--hover));
-      color: rgba(var(--fora_button_text_color--hover));
+      background-color: rgb(var(--fora_button_text_bg--hover));
+      border-color: rgb(var(--fora_button_text_border--hover));
+      color: rgb(var(--fora_button_text_color--hover));
     }
 
     &:active,
     &.fd-button--pressed {
-      background-color: rgba(var(--fora_button_text_bg--pressed));
-      border-color: rgba(var(--fora_button_text_border--pressed));
+      background-color: rgb(var(--fora_button_text_bg--pressed));
+      border-color: rgb(var(--fora_button_text_border--pressed));
       box-shadow: none;
-      color: rgba(var(--fora_button_text_color--pressed));
+      color: rgb(var(--fora_button_text_color--pressed));
     }
   }
 
@@ -398,17 +398,17 @@ export default defineComponent({
     pointer-events: none;
 
     &[class*='filled'] {
-      background-color: rgba(var(--fora_button_disabled_bg));
-      color: rgba(var(--fora_button_disabled_color));
+      background-color: rgb(var(--fora_button_disabled_bg));
+      color: rgb(var(--fora_button_disabled_color));
     }
 
     &[class*='outlined'] {
-      border-color: rgba(var(--fora_button_disabled_border));
-      color: rgba(var(--fora_button_disabled_color));
+      border-color: rgb(var(--fora_button_disabled_border));
+      color: rgb(var(--fora_button_disabled_color));
     }
 
     &[class*='text'] {
-      color: rgba(var(--fora_button_disabled_color));
+      color: rgb(var(--fora_button_disabled_color));
     }
   }
 }

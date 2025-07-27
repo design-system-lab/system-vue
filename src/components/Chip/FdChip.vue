@@ -179,11 +179,11 @@ export default defineComponent({
 
 .fd-chip {
   align-items: center;
-  background-color: rgba(var(--fora_chip_bg));
-  border: $chip_border rgba(var(--fora_chip_border-color));
+  background-color: rgb(var(--fora_chip_bg));
+  border: $chip_border rgb(var(--fora_chip_border-color));
   border-radius: $border-radius_full;
   box-sizing: border-box;
-  color: rgba(var(--fora_chip_color));
+  color: rgb(var(--fora_chip_color));
   display: inline-flex;
   font-size: $chip_font-size;
   gap: $chip_gap;
@@ -213,25 +213,25 @@ export default defineComponent({
   }
 
   &--interactive {
-    background-color: rgba(var(--fora_chip_interactive_bg));
-    border-color: rgba(var(--fora_chip_interactive_border-color));
+    background-color: rgb(var(--fora_chip_interactive_bg));
+    border-color: rgb(var(--fora_chip_interactive_border-color));
 
     &:hover {
-      background-color: rgba(var(--fora_chip_interactive_bg--hover));
+      background-color: rgb(var(--fora_chip_interactive_bg--hover));
     }
 
     &:active,
     &.fd-chip--selected {
-      background-color: rgba(var(--fora_chip_interactive_bg--pressed));
+      background-color: rgb(var(--fora_chip_interactive_bg--pressed));
     }
   }
 
   &--selected {
-    background-color: (rgba(var(--fora_chip_interactive_bg--pressed)));
+    background-color: (rgb(var(--fora_chip_interactive_bg--pressed)));
   }
 
   &__icon {
-    color: rgba(var(--fora_chip_icon_color));
+    color: rgb(var(--fora_chip_icon_color));
     display: flex;
     flex: 0 0 auto;
     height: $chip_icon_width;

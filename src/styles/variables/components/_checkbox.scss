@@ -1,55 +1,55 @@
 // Variables specific to FdCheckbox
 
 // colors for theming, must be duplicated in theme map
-$checkbox_disabled_color: $neutral-5, 1;
-$checkbox_bg--hover: $primary-6, 0.1;
-$checkbox_error_bg--hover: $danger-6, 0.1;
-$checkbox_error_color: $danger-7, 1;
-$checkbox_readonly_color: $neutral-11, 1;
+$checkbox_disabled_color: $neutral-5 !default;
+$checkbox_bg--hover: $primary-6 / 10% !default;
+$checkbox_error_bg--hover: $danger-6 / 10% !default;
+$checkbox_error_color: $danger-7 !default;
+$checkbox_readonly_color: $neutral-11 !default;
 
-$checkbox-base_bg: $white, 1;
-$checkbox-base_bg--indeterminate: $primary-6, 1;
-$checkbox-base_bg--selected: $primary-6, 1;
-$checkbox-base_border-color: $neutral-7, 1;
-$checkbox-base_border-color--hover: $primary-6, 1;
-$checkbox-base_border-color--indeterminate: $primary-6, 1;
-$checkbox-base_border-color--selected: $primary-6, 1;
-$checkbox-base_box-shadow-color--hover--indeterminate: $primary-6, 0.35;
-$checkbox-base_box-shadow-color--hover--selected: $primary-6, 0.35;
-$checkbox-base_color--indeterminate: $white, 1;
-$checkbox-base_color--selected: $white, 1;
-$checkbox-base_disabled_bg: $neutral-3, 1;
-$checkbox-base_disabled_bg--indeterminate: $neutral-4, 1;
-$checkbox-base_disabled_bg--selected: $neutral-4, 1;
-$checkbox-base_disabled_border-color: $neutral-4, 1;
-$checkbox-base_disabled_border-color--indeterminate: $neutral-4, 1;
-$checkbox-base_disabled_border-color--selected: $neutral-4, 1;
-$checkbox-base_error_border-color: $danger-7, 1;
-$checkbox-base_error_border-color--indeterminate: $danger-7, 1;
-$checkbox-base_error_border-color--selected: $danger-7, 1;
-$checkbox-base_error_box-shadow-color--hover--indeterminate: $danger-6, 0.4;
-$checkbox-base_error_box-shadow-color--hover--selected: $danger-6, 0.4;
-$checkbox-base_readonly_bg: $neutral-3, 1;
-$checkbox-base_readonly_bg--indeterminate: $neutral-6, 1;
-$checkbox-base_readonly_bg--selected: $neutral-6, 1;
-$checkbox-base_readonly_border-color: $neutral-7, 1;
-$checkbox-base_readonly_border-color--indeterminate: $neutral-6, 1;
-$checkbox-base_readonly_border-color--selected: $neutral-6, 1;
+$checkbox-base_bg: $white !default;
+$checkbox-base_bg--indeterminate: $primary-6 !default;
+$checkbox-base_bg--selected: $primary-6 !default;
+$checkbox-base_border-color: $neutral-7 !default;
+$checkbox-base_border-color--hover: $primary-6 !default;
+$checkbox-base_border-color--indeterminate: $primary-6 !default;
+$checkbox-base_border-color--selected: $primary-6 !default;
+$checkbox-base_box-shadow-color--hover--indeterminate: $primary-6 / 35% !default;
+$checkbox-base_box-shadow-color--hover--selected: $primary-6 / 35% !default;
+$checkbox-base_color--indeterminate: $white !default;
+$checkbox-base_color--selected: $white !default;
+$checkbox-base_disabled_bg: $neutral-3 !default;
+$checkbox-base_disabled_bg--indeterminate: $neutral-4 !default;
+$checkbox-base_disabled_bg--selected: $neutral-4 !default;
+$checkbox-base_disabled_border-color: $neutral-4 !default;
+$checkbox-base_disabled_border-color--indeterminate: $neutral-4 !default;
+$checkbox-base_disabled_border-color--selected: $neutral-4 !default;
+$checkbox-base_error_border-color: $danger-7 !default;
+$checkbox-base_error_border-color--indeterminate: $danger-7 !default;
+$checkbox-base_error_border-color--selected: $danger-7 !default;
+$checkbox-base_error_box-shadow-color--hover--indeterminate: $danger-6 / 40% !default;
+$checkbox-base_error_box-shadow-color--hover--selected: $danger-6 / 40% !default;
+$checkbox-base_readonly_bg: $neutral-3 !default;
+$checkbox-base_readonly_bg--indeterminate: $neutral-6 !default;
+$checkbox-base_readonly_bg--selected: $neutral-6 !default;
+$checkbox-base_readonly_border-color: $neutral-7 !default;
+$checkbox-base_readonly_border-color--indeterminate: $neutral-6 !default;
+$checkbox-base_readonly_border-color--selected: $neutral-6 !default;
 
 // default style vars
-$checkbox_border-radius: $border-radius_md;
-$checkbox_gap: 0.75rem;
-$checkbox_size: $form-field_input_size;
+$checkbox_border-radius: $border-radius_md !default;
+$checkbox_gap: 0.75rem !default;
+$checkbox_size: $form-field_input_size !default;
 
-$checkbox-base_border: 1px solid;
-$checkbox-base_border-radius: $border-radius_sm;
-$checkbox-base_box-shadow: 0 0 0 2px;
-$checkbox-base_height: 1.5rem;
-$checkbox-base_width: 1.5rem;
+$checkbox-base_border: 1px solid !default;
+$checkbox-base_border-radius: $border-radius_sm !default;
+$checkbox-base_box-shadow: 0 0 0 2px !default;
+$checkbox-base_height: 1.5rem !default;
+$checkbox-base_width: 1.5rem !default;
 
 // different sizes
-$checkbox-base_sm_height: 1.25rem;
-$checkbox-base_sm_width: 1.25rem;
+$checkbox-base_sm_height: 1.25rem !default;
+$checkbox-base_sm_width: 1.25rem !default;
 
 // theme map, must replicate colors
 // when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)

@@ -1,12 +1,12 @@
 // Variables specific to FdCard
 
 // colors for theming, must be duplicated in theme map
-$card_bg: $surface, 1 !default;
-$card_border-color: $neutral, 1 !default;
-$card_heading_color: $text_intense, 1 !default;
-$card_icon_color: $primary, 1 !default;
-$card_overline_color: $text_reduced, 1 !default;
-$card_text_color: $text_default, 1 !default;
+$card_bg: $surface !default;
+$card_border-color: $neutral !default;
+$card_heading_color: $text_intense !default;
+$card_icon_color: $primary !default;
+$card_overline_color: $text_reduced !default;
+$card_text_color: $text_default !default;
 
 
 // default style vars
