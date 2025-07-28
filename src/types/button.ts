@@ -9,7 +9,7 @@ export interface ButtonGroupButton {
   appendIcon?: Icon;
   disabled?: boolean;
   href?: string;
-  icon?: boolean;
+  icon?: Icon;
   label?: string;
   prependIcon?: Icon;
   slot?: string;
@@ -32,4 +32,14 @@ export interface ButtonProps {
   to?: RouteLocationRaw;
   toggle?: boolean;
   type?: 'button' | 'submit' | 'reset';
+}
+
+export interface ButtonGroupProps {
+  buttons: ButtonGroupButton[];
+  kind?: ButtonKind;
+  modelValue?: number;
+  /* radio functions like a true radio, where once it's on it doesn't turn off
+   alternately you could handle it with all the buttons set to toggle */
+  radio?: boolean;
+  size?: TshirtSize;
 }
