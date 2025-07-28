@@ -1,3 +1,46 @@
+<script lang="ts" setup>
+import { computed, defineComponent, PropType } from 'vue'
+import {
+  FlagIcon,
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+} from '@heroicons/vue/24/outline';
+import FdCloseButton from '../CloseButton/FdCloseButton.vue';
+import FdIcon from '../Icon';
+import { hasSlotContent } from '../../utils';
+import { AlertProps } from '../../types';
+
+const props = withDefaults(defineProps<AlertProps>(), {
+  dismissible: false,
+  kind: 'default',
+});
+
+defineEmits<{
+  (e: 'click:link' | 'dismiss'): void;
+}>();
+
+const getIcon = computed(() => {
+  if (props.icon) return props.icon;
+
+  switch (props.kind) {
+    case 'info':
+      return InformationCircleIcon;
+    case 'success':
+      return CheckCircleIcon;
+    case 'warning':
+      return ExclamationTriangleIcon;
+    case 'danger':
+      return ExclamationCircleIcon;
+    case 'default':
+      return FlagIcon;
+    default:
+      return InformationCircleIcon;
+  }
+});
+</script>
+
 <template>
   <div
     class="fd-alert"
@@ -39,66 +82,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import {
-  FlagIcon,
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-  InformationCircleIcon,
-} from '@heroicons/vue/24/outline';
-import FdCloseButton from '../CloseButton/FdCloseButton.vue';
-import FdIcon from '../Icon';
-import { hasSlotContent } from '../../utils';
-import { Icon } from '../../types';
 
-export default defineComponent({
-  name: 'FdAlert',
-  components: { FdCloseButton, FdIcon },
-  props: {
-    dismissible: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    kind: {
-      type: String as PropType<'default' | 'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
-      default: 'default',
-    },
-    linkText: {
-      type: String,
-      default: undefined,
-    },
-  },
-  emits: ['click:link', 'dismiss'],
-  setup(props) {
-    const getIcon = computed(() => {
-      if (props.icon) return props.icon;
-
-      switch (props.kind) {
-        case 'info':
-          return InformationCircleIcon;
-        case 'success':
-          return CheckCircleIcon;
-        case 'warning':
-          return ExclamationTriangleIcon;
-        case 'danger':
-          return ExclamationCircleIcon;
-        case 'default':
-          return FlagIcon;
-        default:
-          return InformationCircleIcon;
-      }
-    });
-
-    return { getIcon, hasSlotContent };
-  }
-});
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 
