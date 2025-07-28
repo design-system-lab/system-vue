@@ -66,8 +66,8 @@ export default defineComponent({
       default: 'bottom',
     },
     icon: {
-      type: Boolean,
-      default: false,
+      type: Function as PropType<Icon>,
+      default: undefined,
     },
     items: {
       type: Array as PropType<SelectOption[]>,
