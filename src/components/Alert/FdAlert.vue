@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { computed, defineComponent, PropType } from 'vue'
+import { computed } from 'vue'
 import {
   FlagIcon,
   CheckCircleIcon,

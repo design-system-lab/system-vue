@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { shallowRef, defineComponent, PropType } from 'vue';
+import { shallowRef } from 'vue';
 import { MinusIcon } from '@heroicons/vue/24/solid';
 import FdIcon from '../Icon';
 import { expandCollapse } from '../../utils';
