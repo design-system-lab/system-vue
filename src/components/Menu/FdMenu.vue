@@ -325,7 +325,7 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-menu {
-  background-color: rgba(var(--fora_menu_bg));
+  background-color: rgb(var(--fora_menu_bg));
   border-radius: $menu_border-radius;
   box-shadow: $menu_box-shadow;
   left: 0;
@@ -360,10 +360,10 @@ export default defineComponent({
     width: 100%;
 
     &:hover {
-      background-color: rgba(var(--fora_menu_button_bg--hover));
+      background-color: rgb(var(--fora_menu_button_bg--hover));
 
       .fd-menu__checkbox {
-        border-color: rgba(var(--fora_checkbox-base_border-color--hover));
+        border-color: rgb(var(--fora_checkbox-base_border-color--hover));
       }
     }
 
@@ -372,7 +372,7 @@ export default defineComponent({
     }
 
     &--selected {
-      color: rgba(var(--fora_menu_button_color--selected));
+      color: rgb(var(--fora_menu_button_color--selected));
     }
 
     &--small {
@@ -385,12 +385,12 @@ export default defineComponent({
     }
 
     &-icon {
-      color: rgba(var(--fora_menu_button-icon_color));
+      color: rgb(var(--fora_menu_button-icon_color));
       margin-right: $menu_button-icon_margin-right;
     }
 
     &-check {
-      color: rgba(var(--fora_menu_button-check_color));
+      color: rgb(var(--fora_menu_button-check_color));
       margin-left: $menu_button-check_margin-left;
     }
 

@@ -164,7 +164,7 @@ export default defineComponent({
   z-index: 9999;
 
   &__overlay {
-    background-color: rgba(var(--fora_modal_overlay_bg));
+    background-color: rgb(var(--fora_modal_overlay_bg));
     height: 100%;
     width: 100%;
   }
@@ -181,7 +181,7 @@ export default defineComponent({
   }
 
   &__panel {
-    background-color: rgba(var(--fora_modal_panel_bg));
+    background-color: rgb(var(--fora_modal_panel_bg));
     border-radius: $border-radius_lg;
     box-shadow: $shadow-xl;
     margin: 0 $modal_panel_margin;
@@ -193,7 +193,7 @@ export default defineComponent({
   }
 
   &__title {
-    color: rgba(var(--fora_modal_title_color));
+    color: rgb(var(--fora_modal_title_color));
     font-size: $modal_title_size;
     font-weight: $modal_title_weight;
     line-height: $modal_title_line-height;
@@ -201,7 +201,7 @@ export default defineComponent({
   }
 
   &__content {
-    color: rgba(var(--fora_modal_content_color));
+    color: rgb(var(--fora_modal_content_color));
     font-size: $modal_content_size;
   }
 

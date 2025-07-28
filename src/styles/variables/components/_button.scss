@@ -1,60 +1,60 @@
 // Variables specific to FdButton
 
 // colors for theming, must be duplicated in theme map
-$button_filled_color: $white, 1 !default;
+$button_filled_color: $white !default;
 
-$button_danger_filled_bg: $danger, 1 !default;
-$button_danger_filled_bg--hover: $danger--hover, 1 !default;
-$button_danger_filled_bg--pressed: $danger--pressed, 1 !default;
+$button_danger_filled_bg: $danger !default;
+$button_danger_filled_bg--hover: $danger--hover !default;
+$button_danger_filled_bg--pressed: $danger--pressed !default;
 
-$button_danger_outlined_bg: $danger, 0 !default;
-$button_danger_outlined_bg--hover: $danger, 0.1 !default;
-$button_danger_outlined_bg--pressed: $danger, 0.25 !default;
-$button_danger_outlined_border: $danger, 1 !default;
-$button_danger_outlined_border--hover: $danger--hover, 1 !default;
-$button_danger_outlined_border--pressed: $danger--pressed, 1 !default;
-$button_danger_outlined_color: $danger, 1 !default;
-$button_danger_outlined_color--hover: $danger--hover, 1 !default;
-$button_danger_outlined_color--pressed: $danger--pressed, 1 !default;
+$button_danger_outlined_bg: $danger / 0% !default;
+$button_danger_outlined_bg--hover: $danger / 10% !default;
+$button_danger_outlined_bg--pressed: $danger / 25% !default;
+$button_danger_outlined_border: $danger !default;
+$button_danger_outlined_border--hover: $danger--hover !default;
+$button_danger_outlined_border--pressed: $danger--pressed !default;
+$button_danger_outlined_color: $danger !default;
+$button_danger_outlined_color--hover: $danger--hover !default;
+$button_danger_outlined_color--pressed: $danger--pressed !default;
 
-$button_neutral_filled_bg: $text_reduced, 1 !default;
-$button_neutral_filled_bg--hover: $text_default, 1 !default;
-$button_neutral_filled_bg--pressed: $text_intense, 1 !default;
+$button_neutral_filled_bg: $text_reduced !default;
+$button_neutral_filled_bg--hover: $text_default !default;
+$button_neutral_filled_bg--pressed: $text_intense !default;
 
-$button_neutral_outlined_bg: $neutral, 0 !default;
-$button_neutral_outlined_bg--hover: $neutral, 0.1 !default;
-$button_neutral_outlined_bg--pressed: $neutral, 0.25 !default;
-$button_neutral_outlined_border: $text_reduced, 1 !default;
-$button_neutral_outlined_border--hover: $text_default, 1 !default;
-$button_neutral_outlined_border--pressed: $text_intense, 1 !default;
-$button_neutral_outlined_color: $text_reduced, 1 !default;
-$button_neutral_outlined_color--hover: $text_default, 1 !default;
-$button_neutral_outlined_color--pressed: $text_intense, 1 !default;
+$button_neutral_outlined_bg: $neutral / 0% !default;
+$button_neutral_outlined_bg--hover: $neutral / 10% !default;
+$button_neutral_outlined_bg--pressed: $neutral / 25% !default;
+$button_neutral_outlined_border: $text_reduced !default;
+$button_neutral_outlined_border--hover: $text_default !default;
+$button_neutral_outlined_border--pressed: $text_intense !default;
+$button_neutral_outlined_color: $text_reduced !default;
+$button_neutral_outlined_color--hover: $text_default !default;
+$button_neutral_outlined_color--pressed: $text_intense !default;
 
-$button_primary_filled_bg: $primary, 1 !default;
-$button_primary_filled_bg--hover: $primary--hover, 1 !default;
-$button_primary_filled_bg--pressed: $primary--pressed, 1 !default;
+$button_primary_filled_bg: $primary !default;
+$button_primary_filled_bg--hover: $primary--hover !default;
+$button_primary_filled_bg--pressed: $primary--pressed !default;
 
-$button_primary_outlined_bg: $primary, 0 !default;
-$button_primary_outlined_bg--hover: $primary, 0.1 !default;
-$button_primary_outlined_bg--pressed: $primary, 0.25 !default;
-$button_primary_outlined_border: $primary, 1 !default;
-$button_primary_outlined_border--hover: $primary--hover, 1 !default;
-$button_primary_outlined_border--pressed: $primary--pressed, 1 !default;
-$button_primary_outlined_color: $primary, 1 !default;
-$button_primary_outlined_color--hover: $primary--hover, 1 !default;
-$button_primary_outlined_color--pressed: $primary--pressed, 1 !default;
+$button_primary_outlined_bg: $primary / 0% !default;
+$button_primary_outlined_bg--hover: $primary / 10% !default;
+$button_primary_outlined_bg--pressed: $primary / 25% !default;
+$button_primary_outlined_border: $primary !default;
+$button_primary_outlined_border--hover: $primary--hover !default;
+$button_primary_outlined_border--pressed: $primary--pressed !default;
+$button_primary_outlined_color: $primary !default;
+$button_primary_outlined_color--hover: $primary--hover !default;
+$button_primary_outlined_color--pressed: $primary--pressed !default;
 
-$button_text_bg: $primary, 0 !default;
-$button_text_bg--hover: $primary, 0.1 !default;
-$button_text_bg--pressed: $primary, 0.25 !default;
-$button_text_color: $primary, 1 !default;
-$button_text_color--hover: $primary--hover, 1 !default;
-$button_text_color--pressed: $primary--pressed, 1 !default;
+$button_text_bg: $primary / 0% !default;
+$button_text_bg--hover: $primary / 10% !default;
+$button_text_bg--pressed: $primary / 25% !default;
+$button_text_color: $primary !default;
+$button_text_color--hover: $primary--hover !default;
+$button_text_color--pressed: $primary--pressed !default;
 
-$button_disabled_bg: $disabled_reduced, 1 !default;
-$button_disabled_border-color: $disabled, 1 !default;
-$button_disabled_color: $disabled, 1 !default;
+$button_disabled_bg: $disabled_reduced !default;
+$button_disabled_border-color: $disabled !default;
+$button_disabled_color: $disabled !default;
 
 
 // default style vars

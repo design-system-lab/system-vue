@@ -79,11 +79,11 @@ export default defineComponent({
 @import "@/styles/required";
 
 .fd-close-button {
-  background-color: rgba(var(--fora_close-button_bg));
+  background-color: rgb(var(--fora_close-button_bg));
   border: $close-button_border;
   border-radius: $close-button_border-radius;
   box-sizing: content-box;
-  color: rgba(var(--fora_close-button_color));
+  color: rgb(var(--fora_close-button_color));
   cursor: pointer;
   display: flex;
   flex: 0 0 auto;
@@ -97,15 +97,15 @@ export default defineComponent({
   @include focus-primary;
 
   &:focus-visible {
-    background-color: rgba(var(--fora_close-button_bg--focus));
+    background-color: rgb(var(--fora_close-button_bg--focus));
   }
 
   &:hover {
-    background-color: rgba(var(--fora_close-button_bg--hover));
+    background-color: rgb(var(--fora_close-button_bg--hover));
   }
 
   &:active {
-    background-color: rgba(var(--fora_close-button_bg--pressed));
+    background-color: rgb(var(--fora_close-button_bg--pressed));
   }
 
   &--lg {
@@ -124,7 +124,7 @@ export default defineComponent({
 
   &--disabled,
   &:disabled {
-    color: rgba(var(--fora_close-button_color--disabled));
+    color: rgb(var(--fora_close-button_color--disabled));
     pointer-events: none;
   }
 }

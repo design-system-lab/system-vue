@@ -1,19 +1,19 @@
 // Variables specific to FdAccordion
 
 // colors for theming, must be duplicated in theme map
-$accordion_border-color: $text_intense, 0.2 !default;
-$accordion_bg: $surface, 1 !default;
-$accordion_content_color: $text_intense, 1 !default;
-$accordion_content_color--disabled: $disabled, 1 !default;
+$accordion_border-color: $text_intense / 20% !default;
+$accordion_bg: $surface !default;
+$accordion_content_color: $text_intense !default;
+$accordion_content_color--disabled: $disabled !default;
 
-$accordion-header_bg--disabled: $neutral_reduced--hover, 1 !default;
-$accordion-header_bg--hover: $neutral_reduced--hover, 1 !default;
-$accordion-header_icon_color: $text_reduced, 1 !default;
-$accordion-header_icon_color--disabled: $disabled, 1 !default;
-$accordion-header_title_color: $text_intense, 1 !default;
-$accordion-header_title_color--disabled: $disabled, 1 !default;
-$accordion-header_toggle_color: $text_intense, 1 !default;
-$accordion-header_toggle_color--disabled: $disabled, 1 !default;
+$accordion-header_bg--disabled: $neutral_reduced--hover !default;
+$accordion-header_bg--hover: $neutral_reduced--hover !default;
+$accordion-header_icon_color: $text_reduced !default;
+$accordion-header_icon_color--disabled: $disabled !default;
+$accordion-header_title_color: $text_intense !default;
+$accordion-header_title_color--disabled: $disabled !default;
+$accordion-header_toggle_color: $text_intense !default;
+$accordion-header_toggle_color--disabled: $disabled !default;
 
 
 // default style vars
