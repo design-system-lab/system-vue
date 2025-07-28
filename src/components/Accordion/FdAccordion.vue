@@ -1,3 +1,31 @@
+<script lang="ts" setup>
+import { shallowRef, defineComponent, PropType } from 'vue';
+import { MinusIcon } from '@heroicons/vue/24/solid';
+import FdIcon from '../Icon';
+import { expandCollapse } from '../../utils';
+import { AccordionProps } from '../../types';
+
+const props = withDefaults(defineProps<AccordionProps>(), {
+  disabled: false,
+  open: false,
+});
+
+const emit = defineEmits<{
+  (e: 'toggled', open: boolean): void;
+}>();
+
+const isOpen = shallowRef(props.open);
+const contentInner = shallowRef<HTMLDivElement | null>(null);
+
+function toggleAccordion() {
+  if (props.disabled) return;
+
+  emit('toggled', !isOpen.value);
+  isOpen.value = !isOpen.value;
+}
+    
+</script>
+
 <template>
   <div
     :id="id"
@@ -64,58 +92,7 @@
     </transition>
   </div>
 </template>
-<script lang="ts">
-import { shallowRef, defineComponent, PropType } from 'vue';
-import { MinusIcon } from '@heroicons/vue/24/solid';
-import FdIcon from '../Icon';
-import { expandCollapse } from '../../utils';
-import { Icon } from '../../types';
 
-export default defineComponent({
-  name: 'FdAccordion',
-  components: {
-    FdIcon,
-  },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-    open: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, { emit }) {
-    const isOpen = shallowRef(props.open);
-    const contentInner = shallowRef<HTMLDivElement | null>(null);
-
-    function toggleAccordion() {
-      if (props.disabled) return;
-
-      emit('toggled', !isOpen.value);
-      isOpen.value = !isOpen.value;
-    }
-    
-    return {
-      contentInner,
-      expandCollapse,
-      isOpen,
-      toggleAccordion,
-      MinusIcon,
-    };
-  },
-  emits: ['toggled'],
-});
-</script>
 <style lang="scss" scoped>
 @import '@/styles/required';
 
