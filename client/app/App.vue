@@ -3,7 +3,7 @@
     <header class="pa-8">
       <fd-row>
         <fd-col>
-          <h1>Fora Design System</h1>
+          <h1 class="heading-3">Fora Design System</h1>
         </fd-col>
         <fd-col>
           <fd-select
@@ -73,7 +73,7 @@ export default defineComponent({
 
 header {
   background-color: rgb(var(--fora_neutral_reduced));
-  border-bottom: 1px solid rgb(var(--fora_neutral_reduced_pressed));
+  border-bottom: 1px solid rgb(var(--fora_neutral_reduced--hover));
 }
 
 </style>
