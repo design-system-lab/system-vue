@@ -1,11 +1,11 @@
 import { RouteLocationRaw } from 'vue-router';
-import { Icon } from './common';
+import { Icon, TshirtSize } from './common';
 
 export type ButtonKind = 'primary' | 'danger' | 'neutral';
 
 export type ButtonMode = 'filled' | 'outlined' | 'text';
 
-export type ButtonGroupButton = {
+export interface ButtonGroupButton {
   appendIcon?: Icon;
   disabled?: boolean;
   href?: string;
@@ -16,3 +16,20 @@ export type ButtonGroupButton = {
   to?: RouteLocationRaw;
   toggle?: boolean;
 };
+
+export interface ButtonProps {
+  appendIcon?: Icon;
+  block?: boolean;
+  disabled?: boolean;
+  href?: string;
+  icon?: Icon;
+  kind?: ButtonKind;
+  mode?: ButtonMode;
+  modelValue?: boolean;
+  prependIcon?: Icon;
+  size?: TshirtSize;
+  tag?: string;
+  to?: RouteLocationRaw;
+  toggle?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+}
