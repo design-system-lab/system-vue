@@ -2,6 +2,7 @@ export * from './accordion';
 export * from './alert';
 export * from './app';
 export * from './button';
+export * from './checkbox'
 export * from './common';
 export * from './forms';
 export * from './group';
