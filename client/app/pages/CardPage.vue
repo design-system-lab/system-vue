@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Chip</h1>
+    <h1>Cards</h1>
     <br>
     <div class="control-panel">
       <div>

@@ -1,9 +1,7 @@
 import type { FunctionalComponent, HTMLAttributes, VNodeProps } from 'vue';
 import FdChip from '../components/Chip';
 
-export type ErrorMessages = {
-  [key: string]: string; 
-}
+export type ErrorMessages = Record<string, string>;
 
 export type Icon = FunctionalComponent<HTMLAttributes & VNodeProps>;
 
