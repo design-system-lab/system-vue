@@ -29,9 +29,9 @@ const emit = defineEmits<{
   (e: 'dismiss'): void;
   (e: 'update:modelValue', value: string | string[] | boolean): void;
 }>();
-  
-const groupHandleModelValue = inject<((val: string | string[]) => void) | null>('groupHandleModelValue', null);
+
 const groupModelValue = inject('groupModelValue', shallowRef(null));
+const groupHandleModelValue = inject<((val: string | string[]) => void) | null>('groupHandleModelValue', null);
 
 const chipModelValue = computed<boolean | string | string[]>(() => {
   return groupModelValue.value ?? props.modelValue;
