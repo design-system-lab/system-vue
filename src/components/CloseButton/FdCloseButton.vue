@@ -7,8 +7,6 @@ import FdIcon from '../Icon';
 import { TranslationSupport } from '../../utils';
 import { CloseButtonProps } from '../../types/button';
 
-
-
 const props = withDefaults(defineProps<CloseButtonProps>(), {
   disabled: false,
   round: false,

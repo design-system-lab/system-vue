@@ -6,4 +6,5 @@ export * from './checkbox'
 export * from './chip';
 export * from './common';
 export * from './forms';
+export * from './grid';
 export * from './group';
