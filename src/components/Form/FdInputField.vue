@@ -1,3 +1,59 @@
+<script lang="ts" setup>
+import { shallowRef } from 'vue';
+import FdIcon from '../Icon';
+import FdInputPostText from './FdInputPostText.vue';
+import { filterSlots, getIconSize } from '../../utils';
+import { InputFieldProps } from '../../types';
+
+/**
+ * Input Field
+ * 
+ * @param {Icon} appendIcon - An icon component to use within FdIcon, comes after the text within the input field
+ * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
+ * @param {string} describedby - Optional. When using descriptive text for the input outside of the component, supply this prop with the id of the descriptive text element
+ * @param {boolean} disabled - Whether the component is disabled
+ * @param {array} errors - The keys of the error messages for the errors that are in effect
+ * @param {ErrorMessages} errorMessages - Key:value pairs for possible errors, where the value is the error message displayed
+ * @param {string} id - Required id for the input, used to correlate the label, hint text, and error message
+ * @param {object} inputAttrs - An object of key:value pairs for attributes to add to the html input element
+ * @param {string} label - The label for the input field
+ * @param {string} labelledby - Optional. When using a label outside of the component, supply this prop with the id of the label element
+ * @param {string} modelValue - The value of the input
+ * @param {boolean} persistentAssistiveText - Whether to show the assistive text while displaying errors
+ * @param {string} placeholder - Placeholder text for the input
+ * @param {Icon} prependIcon - An icon component to use within FdIcon, comes before the text within the input field
+ * @param {boolean} readonly - Whether the field should be set to readonly mode
+ * @param {boolean} small - Whether to render the field in small mode
+ * @param {string} type - The HTML attribute type value to set on the input element, (e.g. 'text', 'number', etc.)
+ */
+
+const props = withDefaults(defineProps<InputFieldProps>(), {
+  disabled: false,
+  errors: () => [],
+  errorMessages: () => ({}),
+  inputAttrs: () => ({}),
+  persistentAssistiveText: false,
+  readonly: false,
+  small: false,
+  type: 'text',
+});
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+}>();
+
+const hasFocus = shallowRef(false);
+
+/**
+ * Handles the input event and emits the input value
+ * 
+ * @prop {object} e The HTML InputEvent from the input
+ */
+function handleInput(e: Event) {
+  emit('update:modelValue', (e.target as HTMLInputElement)?.value);
+}
+</script>
+
 <template>
   <div
     class="fd-input-field"
@@ -84,133 +140,6 @@
     </fd-input-post-text>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, shallowRef, PropType } from 'vue';
-import FdIcon from '../Icon';
-import FdInputPostText from './FdInputPostText.vue';
-import { filterSlots, getIconSize } from '../../utils';
-import { ErrorMessages, Icon } from '../../types';
-
-/**
- * Input Field
- * 
- * @param {Icon} appendIcon - An icon component to use within FdIcon, comes after the text within the input field
- * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
- * @param {string} describedby - Optional. When using descriptive text for the input outside of the component, supply this prop with the id of the descriptive text element
- * @param {boolean} disabled - Whether the component is disabled
- * @param {array} errors - The keys of the error messages for the errors that are in effect
- * @param {ErrorMessages} errorMessages - Key:value pairs for possible errors, where the value is the error message displayed
- * @param {string} id - Required id for the input, used to correlate the label, hint text, and error message
- * @param {object} inputAttrs - An object of key:value pairs for attributes to add to the html input element
- * @param {string} label - The label for the input field
- * @param {string} labelledby - Optional. When using a label outside of the component, supply this prop with the id of the label element
- * @param {string} modelValue - The value of the input
- * @param {boolean} persistentAssistiveText - Whether to show the assistive text while displaying errors
- * @param {string} placeholder - Placeholder text for the input
- * @param {Icon} prependIcon - An icon component to use within FdIcon, comes before the text within the input field
- * @param {boolean} readonly - Whether the field should be set to readonly mode
- * @param {boolean} small - Whether to render the field in small mode
- * @param {string} type - The HTML attribute type value to set on the input element, (e.g. 'text', 'number', etc.)
- */
-export default defineComponent({
-  name: 'FdInputField',
-  components: {
-    FdIcon,
-    FdInputPostText,
-  },
-  props: {
-    appendIcon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    assistiveText: {
-      type: String,
-      default: undefined,
-    },
-    describedby: {
-      type: String,
-      default: undefined,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    errors: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
-    errorMessages: {
-      type: Object as PropType<ErrorMessages>,
-      default: () => ({}),
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-    inputAttrs: {
-      type: Object as PropType<{[key: string]: string}>,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: undefined,
-    },
-    labelledby: {
-      type: String,
-      default: undefined,
-    },
-    modelValue: {
-      type: String,
-      default: undefined,
-    },
-    persistentAssistiveText: {
-      type: Boolean,
-      default: false,
-    },  
-    placeholder: {
-      type: String,
-      default: undefined,
-    },
-    prependIcon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    readonly: {
-      type: Boolean,
-      default: false,
-    },
-    small: {
-      type: Boolean,
-      default: false,
-    },
-    type: {
-      type: String,
-      default: 'text',
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const hasFocus = shallowRef(false);
-
-    /**
-     * Handles the input event and emits the input value
-     * 
-     * @prop {object} e The HTML InputEvent from the input
-     */
-    function handleInput(e: Event) {
-      emit('update:modelValue', (e.target as HTMLInputElement)?.value);
-    }
-
-    return {
-      filterSlots,
-      getIconSize,
-      handleInput,
-      hasFocus,
-    };
-  }
-});
-</script>
 
 <style lang="scss" scoped>
 @import "@/styles/required";
