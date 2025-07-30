@@ -1,5 +1,5 @@
 import { RouteLocationRaw } from 'vue-router';
-import { Icon, TshirtSize } from './common';
+import { Icon, TshirtSize, TshirtSizeNormalized } from './common';
 
 export type ButtonKind = 'primary' | 'danger' | 'neutral';
 
@@ -42,4 +42,10 @@ export interface ButtonGroupProps {
    alternately you could handle it with all the buttons set to toggle */
   radio?: boolean;
   size?: TshirtSize;
+}
+
+export interface CloseButtonProps {
+  disabled?: boolean;
+  round?: boolean;
+  size?: TshirtSizeNormalized;
 }

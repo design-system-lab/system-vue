@@ -5,6 +5,7 @@ export type ErrorMessages = Record<string, string>;
 export type Icon = FunctionalComponent<HTMLAttributes & VNodeProps>;
 
 export type TshirtSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TshirtSizeNormalized = 'sm' | 'md' | 'lg';
 
 export interface ComponentWithSlot {
   slotName: string;

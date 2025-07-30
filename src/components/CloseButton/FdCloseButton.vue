@@ -1,3 +1,45 @@
+<script lang="ts" setup>
+import { computed, inject } from 'vue';
+import { XMarkIcon as XMarkIconLg } from '@heroicons/vue/24/solid'
+import { XMarkIcon } from '@heroicons/vue/20/solid';
+import { XMarkIcon as XMarkIconSm } from '@heroicons/vue/16/solid';
+import FdIcon from '../Icon';
+import { TranslationSupport } from '../../utils';
+import { CloseButtonProps } from '../../types/button';
+
+
+
+const props = withDefaults(defineProps<CloseButtonProps>(), {
+  disabled: false,
+  round: false,
+  size: 'md',
+});
+
+const { t } = inject('i18n') as TranslationSupport;
+
+const icon = computed(() => {
+  switch (props.size) {
+    case 'lg':
+      return XMarkIconLg;
+    case 'sm':
+      return XMarkIconSm;
+    default:
+      return XMarkIcon;
+  }
+});
+
+const getSize = computed((): number => {
+  switch (props.size) {
+    case 'lg':
+      return 24;
+    case 'sm':
+      return 16;
+    default:
+      return 20;
+  }
+});
+</script>
+
 <template>
   <button
     class="fd-close-button"
@@ -19,61 +61,6 @@
     />
   </button>
 </template>
-
-<script lang="ts">
-import { computed, defineComponent, inject, PropType } from 'vue';
-import { XMarkIcon as XMarkIconLg } from '@heroicons/vue/24/solid'
-import { XMarkIcon } from '@heroicons/vue/20/solid';
-import { XMarkIcon as XMarkIconSm } from '@heroicons/vue/16/solid';
-import FdIcon from '../Icon';
-import { TranslationSupport } from '../../utils';
-
-export default defineComponent({
-  name: 'FdCloseButton',
-  components: { FdIcon },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    round: {
-      type: Boolean,
-      default: false,
-    },
-    size: {
-      type: String as PropType<'lg' | 'md' | 'sm'>,
-      default: 'md',
-    }
-  },
-  setup(props) {
-    const { t } = inject('i18n') as TranslationSupport;
-
-    const icon = computed(() => {
-      switch (props.size) {
-        case 'lg':
-          return XMarkIconLg;
-        case 'sm':
-          return XMarkIconSm;
-        default:
-          return XMarkIcon;
-      }
-    });
-
-    const getSize = computed((): number => {
-      switch (props.size) {
-        case 'lg':
-          return 24;
-        case 'sm':
-          return 16;
-        default:
-          return 20;
-      }
-    });
-
-    return { getSize, icon, t };
-  }
-});
-</script>
 
 <style lang="scss" scoped>
 @import "@/styles/required";
