@@ -32,7 +32,7 @@ export interface InputPostTextProps {
 export interface RadioBaseProps {
   disabled?: boolean;
   errors?: string[];
-  inputAttrs?: Record<string, any>;
+  inputAttrs?: Record<string, string>;
   modelValue?: string;
   name: string;
   readonly?: boolean;

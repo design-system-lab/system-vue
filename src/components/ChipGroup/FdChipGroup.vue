@@ -44,7 +44,10 @@ watch(
         :value="chip.value"
         @dismiss="$emit('dismiss', i)"
       >
-        <template v-if="chip.iconSlotName" #icon>
+        <template
+          v-if="chip.iconSlotName"
+          #icon
+        >
           <slot :name="chip.iconSlotName" />
         </template>
         <slot :name="chip.slotName">

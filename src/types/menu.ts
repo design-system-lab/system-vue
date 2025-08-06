@@ -1,5 +1,5 @@
-import type { Icon } from "./common";
-import type { SelectOption } from "./forms";
+import type { Icon } from './common';
+import type { SelectOption } from './forms';
 
 export type MenuDirection = 'top' | 'bottom';
 export type MenuPlacement = 'attached' | 'global';

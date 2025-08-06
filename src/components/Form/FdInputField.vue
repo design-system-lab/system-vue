@@ -27,7 +27,7 @@ import type { InputFieldProps } from '../../types';
  * @param {string} type - The HTML attribute type value to set on the input element, (e.g. 'text', 'number', etc.)
  */
 
-const props = withDefaults(defineProps<InputFieldProps>(), {
+withDefaults(defineProps<InputFieldProps>(), {
   disabled: false,
   errors: () => [],
   errorMessages: () => ({}),

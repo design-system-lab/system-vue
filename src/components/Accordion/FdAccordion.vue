@@ -45,7 +45,10 @@ function toggleAccordion() {
         type="button"
         @click.stop="toggleAccordion"
       >
-        <div v-if="$slots.icon || icon" class="fd-accordion__icon">
+        <div
+          v-if="$slots.icon || icon"
+          class="fd-accordion__icon"
+        >
           <slot name="icon">
             <fd-icon
               v-if="icon"

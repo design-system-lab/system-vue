@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { shallowRef, PropType } from 'vue';
+import { shallowRef } from 'vue';
 import FdCheckboxBase from './FdCheckboxBase.vue';
 import type { CheckboxProps } from '../../types';
 
@@ -35,13 +35,13 @@ const hasFocus = shallowRef(false);
 
 function onChange(event: boolean) {
   emit('update:modelValue', event);
-};
+}
 
 function handleFocus(e: FocusEvent) {
   if ((e.target as HTMLElement).matches(':focus-visible')) {
     hasFocus.value = true;
   }
-};
+}
 </script>
 
 <template>

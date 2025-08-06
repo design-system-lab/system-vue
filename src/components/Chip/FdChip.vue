@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { computed, inject, shallowRef } from 'vue';
-import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid';
+import { CheckIcon } from '@heroicons/vue/20/solid';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon/FdIcon.vue';
 import type { ChipProps } from '../../types';

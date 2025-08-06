@@ -15,7 +15,7 @@ export interface ButtonGroupButton {
   slot?: string;
   to?: RouteLocationRaw;
   toggle?: boolean;
-};
+}
 
 export interface ButtonProps {
   appendIcon?: Icon;
