@@ -3,7 +3,7 @@ import { shallowRef } from 'vue';
 import { MinusIcon } from '@heroicons/vue/24/solid';
 import FdIcon from '../Icon';
 import { expandCollapse } from '../../utils';
-import { AccordionProps } from '../../types';
+import type { AccordionProps } from '../../types';
 
 const props = withDefaults(defineProps<AccordionProps>(), {
   disabled: false,

@@ -1,23 +1,5 @@
 import { nextTick, ref } from 'vue';
-
-export interface Toast {
-  duration?: number,
-  id?: string,
-  offset?: number,
-  position?: 'top-left' | 'top-right' | 'bottom-right' | 'bottom-left',
-  props?: Record<string, unknown>,
-  onAppear?: () => void,
-  onDismiss?: () => void,
-  onClickLink?: () => void,
-  onLeave?: () => void
-}
-
-export interface MappedToasts {
-  'top-left': Toast[],
-  'top-right': Toast[],
-  'bottom-right': Toast[],
-  'bottom-left': Toast[]
-}
+import { type Toast, type MappedToasts } from '../types/toast';
 
 export function useToaster() {
   const toasts = ref<Toast[]>([]);

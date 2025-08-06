@@ -1,8 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
-import { FdColProps } from '../../types';
+import type { ColProps } from '../../types';
 
-const props = withDefaults(defineProps<FdColProps>(), {
+const props = withDefaults(defineProps<ColProps>(), {
   alignStart: false,
   alignCenter: false,
   alignEnd: false,

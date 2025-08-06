@@ -3,7 +3,7 @@ import { shallowRef } from 'vue';
 import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
 import { filterSlots, getIconSize } from '../../utils';
-import { InputFieldProps } from '../../types';
+import type { InputFieldProps } from '../../types';
 
 /**
  * Input Field

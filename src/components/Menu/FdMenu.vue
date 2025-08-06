@@ -4,7 +4,7 @@ import { CheckIcon } from '@heroicons/vue/20/solid'
 import FdCheckboxBase from '../Checkbox/FdCheckboxBase.vue';
 import FdIcon from '../Icon';
 import { getIconSize, onDocumentClick, onWindowEvent } from '../../utils';
-import { MenuProps } from '../../types';
+import type { MenuProps } from '../../types';
 
 /**
  * Menu

@@ -1,4 +1,4 @@
-import { Icon } from './common';
+import type { Icon } from './common';
 
 export interface AccordionProps {
   disabled?: boolean;

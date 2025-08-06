@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { shallowRef, PropType } from 'vue';
 import FdCheckboxBase from './FdCheckboxBase.vue';
-import { CheckboxProps } from '../../types';
+import type { CheckboxProps } from '../../types';
 
 /**
  * Checkbox

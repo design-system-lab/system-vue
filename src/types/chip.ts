@@ -1,4 +1,4 @@
-import { Icon, SlotOrText, TshirtSizeNormalized } from './common';
+import type { Icon, SlotOrText, TshirtSizeNormalized } from './common';
 
 export  interface ChipProps {
   dismissible?: boolean;

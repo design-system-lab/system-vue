@@ -1,5 +1,5 @@
-import { RouteLocationRaw } from 'vue-router';
-import { Icon, TshirtSize, TshirtSizeNormalized } from './common';
+import { type RouteLocationRaw } from 'vue-router';
+import type { Icon, TshirtSize, TshirtSizeNormalized } from './common';
 
 export type ButtonKind = 'primary' | 'danger' | 'neutral';
 

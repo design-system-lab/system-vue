@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { CheckIcon, MinusIcon } from '@heroicons/vue/20/solid'
 import FdIcon from '../Icon/FdIcon.vue';
-import { CheckboxBaseProps } from '../../types';
+import type { CheckboxBaseProps } from '../../types';
 
 /**
  * Checkbox Base

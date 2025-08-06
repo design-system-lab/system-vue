@@ -1,4 +1,4 @@
-import { ErrorMessages } from './common';
+import type { ErrorMessages } from './common';
 
 export interface CheckboxBaseProps {
   disabled?: boolean;

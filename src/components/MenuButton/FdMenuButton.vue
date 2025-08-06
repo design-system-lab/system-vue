@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '@heroicons/vue/20/solid'
 import FdButton from '../Button/FdButton.vue';
 import FdIcon from '../Icon/FdIcon.vue';
 import FdMenu from '../Menu/FdMenu.vue';
-import { MenuButtonProps, NodeOrNull } from '../../types';
+import type { MenuButtonProps, NodeOrNull } from '../../types';
 
 /**
  * Menu button component

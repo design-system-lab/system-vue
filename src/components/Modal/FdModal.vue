@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { nextTick, shallowRef, watch } from 'vue';
 import FdCloseButton from '../CloseButton';
+import type { ModalProps } from '../../types';
 
 /**
  * Modal component
@@ -14,17 +15,6 @@ import FdCloseButton from '../CloseButton';
  * @param {Number} xl - number of columns to span at extra large screen sizes
  * @param {Number} xs - number of columns to span at extra small screen sizes
  */
-
-interface ModalProps {
-  align?: 'start' | 'center' | 'end';
-  dismissible?: boolean;
-  lg?: number;
-  md?: number;
-  sm?: number;
-  visible: boolean;
-  xl?: number;
-  xs?: number;
-}
 
 const props = withDefaults(defineProps<ModalProps>(), {
   align: 'center',

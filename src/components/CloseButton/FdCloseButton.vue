@@ -5,7 +5,7 @@ import { XMarkIcon } from '@heroicons/vue/20/solid';
 import { XMarkIcon as XMarkIconSm } from '@heroicons/vue/16/solid';
 import FdIcon from '../Icon';
 import { TranslationSupport } from '../../utils';
-import { CloseButtonProps } from '../../types/button';
+import type { CloseButtonProps } from '../../types';
 
 const props = withDefaults(defineProps<CloseButtonProps>(), {
   disabled: false,

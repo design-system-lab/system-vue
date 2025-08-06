@@ -3,7 +3,7 @@ import { shallowRef } from 'vue';
 import { ExclamationTriangleIcon } from '@heroicons/vue/20/solid';
 import FdIcon from '../Icon';
 import { getIconSize, slideInOutContent, swapContent } from '../../utils';
-import { InputPostTextProps } from '../../types';
+import type { InputPostTextProps } from '../../types';
 
 /**
  * Post text (error and assistive text) for input fields

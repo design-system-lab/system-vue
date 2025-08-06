@@ -1,4 +1,4 @@
-export interface FdColProps {
+export interface ColProps {
   alignStart?: boolean;
   alignCenter?: boolean;
   alignEnd?: boolean;
@@ -7,4 +7,14 @@ export interface FdColProps {
   col?: string;
   offset?: string;
   order?: string;
+}
+
+export interface RowProps {
+  justifyCenter?: boolean;
+  justifyEnd?: boolean;
+  justifyBetween?: boolean;
+  justifyAround?: boolean;
+  justifyEvenly?: boolean;
+  noGutter?: boolean;
+  reverse?: boolean;
 }

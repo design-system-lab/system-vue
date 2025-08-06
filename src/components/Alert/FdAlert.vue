@@ -10,7 +10,7 @@ import {
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
 import { hasSlotContent } from '../../utils';
-import { AlertProps } from '../../types';
+import type { AlertProps } from '../../types';
 
 const props = withDefaults(defineProps<AlertProps>(), {
   dismissible: false,

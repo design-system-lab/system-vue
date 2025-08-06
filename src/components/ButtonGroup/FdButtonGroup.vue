@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import FdButton from '../Button/FdButton.vue';
-import { ButtonGroupProps } from '../../types';
+import type { ButtonGroupProps } from '../../types';
 
 const props = withDefaults(defineProps<ButtonGroupProps>(), {
   buttons: () => [],

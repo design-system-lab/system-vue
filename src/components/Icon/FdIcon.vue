@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IconProps } from '../../types';
+import type { IconProps } from '../../types';
 
 withDefaults(defineProps<IconProps>(), {
   icon: () => ({}),

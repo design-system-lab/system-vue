@@ -4,11 +4,7 @@ import FdButtonGroup from '../ButtonGroup';
 import FdCheckboxGroup from '../CheckboxGroup/FdCheckboxGroup.vue';
 import FdChipGroup from '../ChipGroup/FdChipGroup.vue';
 import FdRadioGroup from '../RadioGroup/FdRadioGroup.vue';
-import { GroupType } from '../../types';
-
-interface GroupProps {
-  type?: GroupType;
-}
+import type { GroupProps } from '../../types';
 
 const props = withDefaults(defineProps<GroupProps>(), {
   type: 'default'

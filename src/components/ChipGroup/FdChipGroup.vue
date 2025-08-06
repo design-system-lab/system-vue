@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { provide, shallowRef, watch } from 'vue';
 import FdChip from '../Chip/FdChip.vue';
-import { ChipGroupProps } from '../../types';
+import type { ChipGroupProps } from '../../types';
 
 const props = withDefaults(defineProps<ChipGroupProps>(), {
   chips: () => [],

@@ -1,3 +1,61 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+} from '@heroicons/vue/24/outline';
+import FdCloseButton from '../CloseButton/FdCloseButton.vue';
+import FdIcon from '../Icon';
+import { hasSlotContent } from '../../utils';
+import type { ToastProps } from '../../types';
+
+/**
+ * Toast component
+ * 
+ * @param {string} content - The content of the toast
+ * @param {string} description - The description of the toast
+ * @param {boolean} dismissible - Whether the toast is dismissible
+ * @param {Icon} icon - The icon to display in the toast
+ * @param {string} kind - The kind of toast (info, success, warning, danger, neutral)
+ * @param {string} linkText - The text of the link
+ * @param {boolean} showTimestamp - Whether to show the timestamp
+ */
+
+const props = withDefaults(defineProps<ToastProps>(), {
+  content: undefined,
+  description: undefined,
+  dismissible: false,
+  icon: undefined,
+  kind: 'info',
+  linkText: undefined,
+  showTimestamp: false,
+});
+
+defineEmits<{
+  (e: 'click:link'): void;
+  (e: 'dismiss'): void;
+}>();
+
+const getIcon = computed(() => {
+  if (props.icon) return props.icon;
+
+  switch (props.kind) {
+    case 'info':
+      return InformationCircleIcon;
+    case 'success':
+      return CheckCircleIcon;
+    case 'warning':
+      return ExclamationTriangleIcon;
+    case 'danger':
+      return ExclamationCircleIcon;
+    default:
+      return InformationCircleIcon;
+  }
+});
+</script>
+
 <template>
   <div
     class="fd-toast"
@@ -51,87 +109,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-  InformationCircleIcon,
-} from '@heroicons/vue/24/outline';
-import FdCloseButton from '../CloseButton/FdCloseButton.vue';
-import FdIcon from '../Icon';
-import { hasSlotContent } from '../../utils';
-import { Icon } from '../../types';
 
-/**
- * Toast component
- * 
- * @param {string} content - The content of the toast
- * @param {string} description - The description of the toast
- * @param {boolean} dismissible - Whether the toast is dismissible
- * @param {Icon} icon - The icon to display in the toast
- * @param {string} kind - The kind of toast (info, success, warning, danger, neutral)
- * @param {string} linkText - The text of the link
- * @param {boolean} showTimestamp - Whether to show the timestamp
- */
-
-export default defineComponent({
-  name: 'FdToast',
-  components: { FdCloseButton, FdIcon },
-  props: {
-    content: {
-      type: String,
-      default: undefined,
-    },
-    description: {
-      type: String,
-      default: undefined,
-    },
-    dismissible: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    kind: {
-      type: String as PropType<'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
-      default: 'info',
-    },
-    linkText: {
-      type: String,
-      default: undefined,
-    },
-    showTimestamp: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['click:link', 'dismiss'],
-  setup(props) {
-    const getIcon = computed(() => {
-      if (props.icon) return props.icon;
-
-      switch (props.kind) {
-        case 'info':
-          return InformationCircleIcon;
-        case 'success':
-          return CheckCircleIcon;
-        case 'warning':
-          return ExclamationTriangleIcon;
-        case 'danger':
-          return ExclamationCircleIcon;
-        default:
-          return InformationCircleIcon;
-      }
-    });
-
-    return { getIcon, hasSlotContent };
-  }
-});
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 

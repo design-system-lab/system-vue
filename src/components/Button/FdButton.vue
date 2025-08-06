@@ -2,7 +2,7 @@
 import { computed } from 'vue';
 import FdIcon from '../Icon';
 import { getButtonElement, getIconSize } from '../../utils';
-import { ButtonProps } from '../../types';
+import type { ButtonProps } from '../../types';
 
 /**
  * Button

@@ -2,7 +2,7 @@
 import FdCheckbox from '../Checkbox';
 import FdInputPostText from '../Form/FdInputPostText.vue';
 import { filterSlots } from '../../utils';
-import { CheckboxGroupProps } from '../../types';
+import type { CheckboxGroupProps } from '../../types';
 
 /**
  * Checkbox Group

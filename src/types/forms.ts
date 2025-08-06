@@ -1,13 +1,5 @@
-import { ErrorMessages, Icon, SlotOrText } from './common';
-import { MenuDirection, MenuPlacement } from './menu';
-
-export interface SelectOptionDefault {
-  icon?: Icon;
-  selected?: boolean;
-  value: string;
-}
-
-export type SelectOption = SlotOrText & SelectOptionDefault;
+import type { ErrorMessages, Icon, SlotOrText } from './common';
+import type { MenuDirection, MenuPlacement } from './menu';
 
 export interface InputFieldProps {
   appendIcon?: Icon;
@@ -36,6 +28,48 @@ export interface InputPostTextProps {
   id?: string;
   persistentAssistiveText?: boolean;
 }
+
+export interface RadioBaseProps {
+  disabled?: boolean;
+  errors?: string[];
+  inputAttrs?: Record<string, any>;
+  modelValue?: string;
+  name: string;
+  readonly?: boolean;
+  value?: string;
+}
+
+export interface RadioProps {
+  disabled?: boolean;
+  errors?: string[];
+  inputAttrs?: Record<string, string>;
+  label?: string;
+  modelValue?: string;
+  name?: string;
+  readonly?: boolean;
+  value: string;
+}
+
+export interface RadioGroupProps {
+  assistiveText?: string;
+  disabled?: boolean;
+  errors?: string[];
+  errorMessages?: ErrorMessages;
+  id: string;
+  label?: string;
+  modelValue?: string;
+  name?: string;
+  persistentAssistiveText?: boolean;
+  radios: RadioProps[];
+}
+
+export interface SelectOptionDefault {
+  icon?: Icon;
+  selected?: boolean;
+  value: string;
+}
+
+export type SelectOption = SlotOrText & SelectOptionDefault;
 
 export interface SelectProps {
   assistiveText?: string;
@@ -66,6 +100,15 @@ export interface SelectProps {
   small?: boolean;
 }
 
+export interface SelectValueProps {
+  chips?: boolean;
+  chipsInteractive?: boolean;
+  csv?: boolean;
+  modelValue: SelectOption[];
+  multiple?: boolean;
+  wrap?: boolean;
+}
+
 export interface TextareaProps {
   appendIcon?: Icon;
   assistiveText?: string;
@@ -87,4 +130,15 @@ export interface TextareaProps {
   resize?: 'none' | 'both' | 'horizontal' | 'vertical' | 'block' | 'inline';
   rows?: string | number;
   small?: boolean;
+}
+
+export interface ToggleProps {
+  hideLabel?: boolean;
+  label?: string;
+  id: string;
+  modelValue?: boolean;
+  reverseLabel?: boolean;
+  showValue?: boolean;
+  valueFalse?: string;
+  valueTrue?: string;
 }

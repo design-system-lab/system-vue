@@ -6,7 +6,7 @@ import FdIcon from '../Icon';
 import FdInputPostText from './FdInputPostText.vue';
 import FdMenu from '../Menu';
 import { filterSlots, getIconSize, TranslationSupport } from '../../utils';
-import { SelectProps, Icon, NodeOrNull, SelectOption } from '../../types';
+import type { Icon, NodeOrNull, SelectOption, SelectProps } from '../../types';
 
 /**
  * Input Field
