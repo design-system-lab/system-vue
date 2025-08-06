@@ -1,4 +1,4 @@
-import { ErrorMessages, Icon, SlotOrText } from './common';
+import { ErrorMessages, Icon, MenuDirection, MenuPlacement, SlotOrText } from './common';
 
 export interface SelectOptionDefault {
   icon?: Icon;
@@ -34,4 +34,56 @@ export interface InputPostTextProps {
   errorMessages?: ErrorMessages;
   id?: string;
   persistentAssistiveText?: boolean;
+}
+
+export interface SelectProps {
+  assistiveText?: string;
+  checkboxEnd?: boolean;
+  chips?: boolean;
+  chipsInteractive?: boolean;
+  csv?: boolean;
+  describedby?: string;
+  disabled?: boolean;
+  direction?: MenuDirection;
+  displaySelectionIcon?: boolean;
+  errors?: string[];
+  errorMessages?: ErrorMessages;
+  id: string;
+  inputAttrs?: Record<string, string>;
+  items: SelectOption[];
+  label?: string;
+  labelledby?: string;
+  menuPlacement?: MenuPlacement;
+  menuWidth?: string;
+  modelValue: string[];
+  multiple?: boolean;
+  persistentAssistiveText?: boolean;  
+  placeholder?: string;
+  prependIcon?: Icon;
+  readonly?: boolean;
+  size?: number;
+  small?: boolean;
+}
+
+export interface TextareaProps {
+  appendIcon?: Icon;
+  assistiveText?: string;
+  count?: number;
+  describedby?: string;
+  disabled?: boolean;
+  enforceCount?: boolean;
+  errors?: string[];
+  errorMessages?: ErrorMessages;
+  id: string;
+  inputAttrs?: Record<string, string>;
+  label?: string;
+  labelledby?: string;
+  modelValue?: string;
+  persistentAssistiveText?: boolean;
+  placeholder?: string;
+  prependIcon?: Icon;
+  readonly?: boolean;
+  resize?: 'none' | 'both' | 'horizontal' | 'vertical' | 'block' | 'inline';
+  rows?: string | number;
+  small?: boolean;
 }
