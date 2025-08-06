@@ -4,6 +4,11 @@ export type ErrorMessages = Record<string, string>;
 
 export type Icon = FunctionalComponent<HTMLAttributes & VNodeProps>;
 
+export interface IconProps {
+  icon: Icon;
+  size: number;
+}
+
 export type TshirtSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
 export type TshirtSizeNormalized = 'sm' | 'md' | 'lg';
 
