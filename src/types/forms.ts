@@ -1,4 +1,5 @@
-import { ErrorMessages, Icon, MenuDirection, MenuPlacement, SlotOrText } from './common';
+import { ErrorMessages, Icon, SlotOrText } from './common';
+import { MenuDirection, MenuPlacement } from './menu';
 
 export interface SelectOptionDefault {
   icon?: Icon;
