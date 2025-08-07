@@ -1,3 +1,49 @@
+<script lang="ts" setup>
+import { shallowRef } from 'vue';
+import FdCheckboxBase from './FdCheckboxBase.vue';
+import type { CheckboxProps } from '../../types';
+
+/**
+ * Checkbox
+ * 
+ * @param {boolean} disabled - Whether the checkbox is disabled
+ * @param {string[]} errors - An array of error keys for active errors
+ * @param {string} id - The HTML id of the checkbox
+ * @param {boolean} indeterminate - Whether the checkbox is in an indeterminate state
+ * @param {Object} inputAttrs - Additional attributes to apply to the input element
+ * @param {string} label - The label for the checkbox
+ * @param {boolean} modelValue - The checked value of the checkbox
+ * @param {boolean} readonly - Whether the checkbox is readonly
+ * @param {boolean} small - Whether the checkbox is small
+ * @param {string} value - The HTML value of the checkbox
+ */
+
+withDefaults(defineProps<CheckboxProps>(), {
+  disabled: false,
+  errors: () => [],
+  indeterminate: false,
+  inputAttrs: () => ({}),
+  readonly: false,
+  small: false,
+});
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void;
+}>();
+
+const hasFocus = shallowRef(false);
+
+function onChange(event: boolean) {
+  emit('update:modelValue', event);
+}
+
+function handleFocus(e: FocusEvent) {
+  if ((e.target as HTMLElement).matches(':focus-visible')) {
+    hasFocus.value = true;
+  }
+}
+</script>
+
 <template>
   <label
     class="fd-checkbox"
@@ -34,91 +80,6 @@
     </span>
   </label>
 </template>
-<script lang="ts">
-import { defineComponent, shallowRef, PropType } from 'vue';
-import FdCheckboxBase from './FdCheckboxBase.vue';
-
-/**
- * Checkbox
- * 
- * @param {boolean} disabled - Whether the checkbox is disabled
- * @param {string[]} errors - An array of error keys for active errors
- * @param {string} id - The HTML id of the checkbox
- * @param {boolean} indeterminate - Whether the checkbox is in an indeterminate state
- * @param {Object} inputAttrs - Additional attributes to apply to the input element
- * @param {string} label - The label for the checkbox
- * @param {boolean} modelValue - The checked value of the checkbox
- * @param {boolean} readonly - Whether the checkbox is readonly
- * @param {boolean} small - Whether the checkbox is small
- * @param {string} value - The HTML value of the checkbox
- */
-export default defineComponent({
-  name: 'FdCheckbox',
-  components: { FdCheckboxBase },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    errors: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-    indeterminate: {
-      type: Boolean,
-      default: false,
-    },
-    inputAttrs: {
-      type: Object as PropType<{[key: string]: string}>,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: undefined,
-    },
-    modelValue: {
-      type: Boolean,
-      default: undefined,
-    },
-    readonly: {
-      type: Boolean,
-      default: false,
-    },
-    small: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: String,
-      default: undefined,
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(_, { emit }) {
-    const hasFocus = shallowRef(false);
-
-    const onChange = (event: boolean) => {
-      emit('update:modelValue', event);
-    };
-
-    const handleFocus = (e: FocusEvent) => {
-      if ((e.target as HTMLElement).matches(':focus-visible')) {
-        hasFocus.value = true;
-      }
-    };
-
-    return {
-      hasFocus,
-      handleFocus,
-      onChange,
-    };
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 @import "@/styles/required";

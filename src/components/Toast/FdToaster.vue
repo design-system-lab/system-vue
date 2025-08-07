@@ -1,3 +1,30 @@
+<script lang="ts" setup>
+import { shallowRef, watch } from 'vue';
+import FdToast from './FdToast.vue';
+import { useToaster } from '../../utils';
+import type { ToasterProps } from '../../types';
+
+/**
+ * Toaster component
+ * The toaster component is responsible for displaying toasts in the correct position
+ * 
+ * @param {string} position - The position of the toaster
+ * @param {Toast[]} toasts - The toasts to display
+ */
+
+const props = withDefaults(defineProps<ToasterProps>(), {
+  position: 'top-right',
+  toasts: () => [],
+});
+  
+const { mapToasts } = useToaster();
+const posToasts = shallowRef(mapToasts(props.toasts));
+
+watch(() => props.toasts, (newToasts) => {
+  posToasts.value = mapToasts(newToasts);
+}, { deep: true });
+</script>
+
 <template>
   <div class="fd-toaster">
     <div
@@ -50,48 +77,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, shallowRef, watch, PropType } from 'vue';
-import { useToaster, Toast } from '../../utils';
-import FdToast from './FdToast.vue';
 
-/**
- * Toaster component
- * The toaster component is responsible for displaying toasts in the correct position
- * 
- * @param {string} position - The position of the toaster
- * @param {Toast[]} toasts - The toasts to display
- */
-
-export default defineComponent({
-  name: 'FdToaster',
-  components: { FdToast },
-  props: {
-    position: {
-      type: String,
-      default: 'top-right',
-      validator: (value: string) => ['top-right', 'top-left', 'bottom-right', 'bottom-left'].includes(value),
-    },
-    toasts: {
-      type: Array as PropType<Toast[]>,
-      default: () => [],
-    }
-  },
-
-  setup(props) {
-    const { mapToasts } = useToaster();
-    const posToasts = shallowRef(mapToasts(props.toasts));
-
-    watch(() => props.toasts, (newToasts) => {
-      posToasts.value = mapToasts(newToasts);
-    }, { deep: true });
-
-    return {
-      posToasts,
-    };
-  },
-});
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 

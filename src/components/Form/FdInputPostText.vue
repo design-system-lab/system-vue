@@ -1,3 +1,77 @@
+<script lang="ts" setup>
+import { shallowRef } from 'vue';
+import { ExclamationTriangleIcon } from '@heroicons/vue/20/solid';
+import FdIcon from '../Icon';
+import { getIconSize, slideInOutContent, swapContent } from '../../utils';
+import type { InputPostTextProps } from '../../types';
+
+/**
+ * Post text (error and assistive text) for input fields
+ * 
+ * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
+ * @param {array} errors - The keys of the error messages for the errors that are in effect
+ * @param {ErrorMessages} errorMessages - key:value pairs for possible errors, where the value is the error message displayed
+ * @param {string} id - Id for the input, used to correlate the label, hint text, and error message
+ * @param {boolean} persistentAssistiveText - Whether to show the assistive text while displaying errors
+ */
+
+const props = withDefaults(defineProps<InputPostTextProps>(), {
+  errors: () => [],
+  errorMessages: () => ({}),
+  persistentAssistiveText: false,
+});
+  
+const postText = shallowRef<HTMLDivElement | null>(null);
+
+function onBeforeEnter(el: HTMLElement) {
+  if (props.persistentAssistiveText || !props.assistiveText){
+    slideInOutContent('before-enter', el);
+  } else {
+    swapContent('before-enter', el, postText.value);
+  }
+}
+
+function onEnter(el: HTMLElement) {
+  if (props.persistentAssistiveText || !props.assistiveText){
+    slideInOutContent('enter', el);
+  } else {
+    swapContent('enter', el, postText.value);
+  }
+}
+
+function onAfterEnter(el: HTMLElement) {
+  if (props.persistentAssistiveText || !props.assistiveText){
+    slideInOutContent('after-enter', el);
+  } else {
+    swapContent('after-enter', el, postText.value);
+  }
+}
+
+function onBeforeLeave(el: HTMLElement) {
+  if (props.persistentAssistiveText || !props.assistiveText){
+    slideInOutContent('before-leave', el);
+  } else {
+    swapContent('before-leave', el, postText.value);
+  }
+}
+
+function onLeave(el: HTMLElement) {
+  if (props.persistentAssistiveText || !props.assistiveText){
+    slideInOutContent('leave', el);
+  } else {
+    swapContent('leave', el, postText.value);
+  }
+}
+
+function onAfterLeave(el: HTMLElement) {
+  if (props.persistentAssistiveText || !props.assistiveText){
+    slideInOutContent('after-leave', el);
+  } else {
+    swapContent('after-leave', el, postText.value);
+  }
+}
+</script>
+
 <template>
   <div
     ref="postText"
@@ -108,115 +182,7 @@
     </transition-group>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, PropType, shallowRef } from 'vue';
-import { ExclamationTriangleIcon } from '@heroicons/vue/20/solid';
-import FdIcon from '../Icon';
-import { getIconSize, slideInOutContent, swapContent } from '../../utils';
-import { ErrorMessages } from '../../types';
 
-/**
- * Post text (error and assistive text) for input fields
- * 
- * @param {string} assistiveText - Text that appears beneath the input field intended to give additional context
- * @param {array} errors - The keys of the error messages for the errors that are in effect
- * @param {ErrorMessages} errorMessages - Key:value pairs for possible errors, where the value is the error message displayed
- * @param {string} id - Id for the input, used to correlate the label, hint text, and error message
- * @param {boolean} persistentAssistiveText - Whether to show the assistive text while displaying errors
- */
-export default defineComponent({
-  name: 'FdInputPostText',
-  components: {
-    FdIcon,
-  },
-  props: {
-    assistiveText: {
-      type: String,
-      default: undefined,
-    },
-    errors: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
-    errorMessages: {
-      type: Object as PropType<ErrorMessages>,
-      default: () => ({}),
-    },
-    id: {
-      type: String,
-      default: undefined,
-    },
-    persistentAssistiveText: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props) {
-    const postText = shallowRef<HTMLDivElement | null>(null);
-
-    function onBeforeEnter(el: HTMLElement) {
-      if (props.persistentAssistiveText || !props.assistiveText){
-        slideInOutContent('before-enter', el);
-      } else {
-        swapContent('before-enter', el, postText.value);
-      }
-    }
-
-    function onEnter(el: HTMLElement) {
-      if (props.persistentAssistiveText || !props.assistiveText){
-        slideInOutContent('enter', el);
-      } else {
-        swapContent('enter', el, postText.value);
-      }
-    }
-
-    function onAfterEnter(el: HTMLElement) {
-      if (props.persistentAssistiveText || !props.assistiveText){
-        slideInOutContent('after-enter', el);
-      } else {
-        swapContent('after-enter', el, postText.value);
-      }
-    }
-
-    function onBeforeLeave(el: HTMLElement) {
-      if (props.persistentAssistiveText || !props.assistiveText){
-        slideInOutContent('before-leave', el);
-      } else {
-        swapContent('before-leave', el, postText.value);
-      }
-    }
-
-    function onLeave(el: HTMLElement) {
-      if (props.persistentAssistiveText || !props.assistiveText){
-        slideInOutContent('leave', el);
-      } else {
-        swapContent('leave', el, postText.value);
-      }
-    }
-
-    function onAfterLeave(el: HTMLElement) {
-      if (props.persistentAssistiveText || !props.assistiveText){
-        slideInOutContent('after-leave', el);
-      } else {
-        swapContent('after-leave', el, postText.value);
-      }
-    }
-
-    return {
-      ExclamationTriangleIcon,
-      getIconSize,
-      onBeforeEnter,
-      onEnter,
-      onAfterEnter,
-      onBeforeLeave,
-      onLeave,
-      onAfterLeave,
-      postText,
-    }
-  }
-})
-
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 

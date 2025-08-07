@@ -33,9 +33,11 @@
     <br><br>
 
     <h4>Group Using Data</h4><br>
-    <fd-group id="checkbox-group" :checkboxes="checkboxes" label="Checks in Spanish" type="checkbox">
+    <fd-group v-model="dataModel" id="checkbox-group" :checkboxes="checkboxes" label="Checks in Spanish" type="checkbox">
       <template #check-two>Numero Dos</template>
     </fd-group>
+    <br>
+    <p>{{ dataModel }}</p>
     
     <br><br>
 
@@ -91,6 +93,7 @@ export default defineComponent({
     const valReadonly = shallowRef(false);
     const valDisabled = shallowRef(true);
     const smVal = shallowRef(false);
+    const dataModel = ref([]);
 
     const checkboxes = ref([
       {
@@ -113,7 +116,7 @@ export default defineComponent({
       },
     ]);
 
-    return { checkboxes, val, valError, valIndeterminate, val1, val2, val3, valReadonly, valDisabled, smVal };
+    return { checkboxes, val, valError, valIndeterminate, val1, val2, val3, valReadonly, valDisabled, smVal, dataModel };
   }
 })
 </script>

@@ -1,3 +1,72 @@
+<script lang="ts" setup>
+import { computed } from 'vue';
+import FdIcon from '../Icon';
+import { getButtonElement, getIconSize } from '../../utils';
+import type { ButtonProps } from '../../types';
+
+/**
+ * Button
+ * 
+ * @param {Function} appendIcon - The icon to append to the button
+ * @param {boolean} block - Whether the button should be block level
+ * @param {boolean} disabled - Whether the button is disabled
+ * @param {string} href - The href for the button
+ * @param {Function} icon - For icon buttons, the icon to display in the button
+ * @param {string} kind - The kind of button to display (primary, danger, neutral)
+ * @param {string} mode - The mode of the button (filled, outlined, text)
+ * @param {boolean} modelValue - The model value of the button (for toggle buttons)
+ * @param {Function} prependIcon - The icon to prepend to the button
+ * @param {string} size - The size of the button (xs, sm, md, lg, xl)
+ * @param {string} tag - The HTML tag to use for the button (overriding the tag can have unintended consequences)
+ * @param {string | Object} to - The route to navigate to
+ * @param {boolean} toggle - Whether the button is a toggle button
+ * @param {string} type - The html button type (button, submit, reset)
+ */
+
+const props = withDefaults(defineProps<ButtonProps>(), {
+  appendIcon: undefined,
+  block: false,
+  disabled: false,
+  href: undefined,
+  icon: undefined,
+  kind: 'primary',
+  mode: 'filled',
+  modelValue: false,
+  prependIcon: undefined,
+  size: 'md',
+  tag: undefined,
+  to: undefined,
+  toggle: false,
+  type: 'button',
+});
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: boolean): void;
+}>();
+
+const buttonEl = computed((): string => {
+  if (props.tag) return props.tag;
+  return getButtonElement(props.href, props.to);
+});
+
+const buttonType = computed((): string | undefined => {
+  if (props.type) return props.type;
+  if (buttonEl.value === 'button') return 'button';
+  return undefined;
+});
+
+const getButtonStyle = computed((): string => {
+  if (props.mode === 'text') return 'text';
+  return `${props.mode}-${props.kind}`;
+});
+
+const handleClick = () => {
+  if (props.toggle) {
+    emit('update:modelValue', !props.modelValue);
+  }
+}
+</script>
+
 <template>
   <component
     :is="buttonEl"
@@ -49,127 +118,7 @@
     </slot>
   </component>
 </template>
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue';
-import { RouteLocationRaw } from 'vue-router';
-import FdIcon from '../Icon';
-import { getButtonElement, getIconSize, tshirt } from '../../utils';
-import { ButtonKind, ButtonMode, Icon, TshirtSize } from '../../types';
 
-/**
- * Button
- * 
- * @param {Function} appendIcon - The icon to append to the button
- * @param {boolean} block - Whether the button should be block level
- * @param {boolean} disabled - Whether the button is disabled
- * @param {string} href - The href for the button
- * @param {Function} icon - For icon buttons, the icon to display in the button
- * @param {string} kind - The kind of button to display (primary, danger, neutral)
- * @param {string} mode - The mode of the button (filled, outlined, text)
- * @param {boolean} modelValue - The model value of the button (for toggle buttons)
- * @param {Function} prependIcon - The icon to prepend to the button
- * @param {string} size - The size of the button (xs, sm, md, lg, xl)
- * @param {string} tag - The HTML tag to use for the button (overriding the tag can have unintended consequences)
- * @param {string | Object} to - The route to navigate to
- * @param {boolean} toggle - Whether the button is a toggle button
- * @param {string} type - The html button type (button, submit, reset)
- */
-
-export default defineComponent({
-  name: 'FdButton',
-  components: { FdIcon },
-  props: {
-    appendIcon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    block: {
-      type: Boolean,
-      default: false,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    href: {
-      type: String,
-      default: undefined,
-    },
-    icon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    kind:  {
-      type: String as PropType<ButtonKind>,
-      default: 'primary',
-    },
-    // TODO: Add loading state option
-    // loading: {
-    //   type: Boolean,
-    //   default: false,
-    // },
-    mode: {
-      type: String as PropType<ButtonMode>,
-      default: 'filled',
-    },
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    prependIcon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    size: {
-      type: String as PropType<TshirtSize>,
-      default: 'md',
-      validator: (opt: string) => tshirt(opt),
-    },
-    tag: {
-      type: String,
-      default: undefined,
-    },
-    to: {
-      type: [String, Object] as PropType<RouteLocationRaw>,
-      default: undefined,
-    },
-    toggle: {
-      type: Boolean,
-      default: false,
-    },
-    type: {
-      type: String as PropType<'button' | 'submit' | 'reset'>,
-      default: 'button',
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(props, { emit }) {
-    const buttonEl = computed((): string => {
-      if (props.tag) return props.tag;
-      return getButtonElement(props.href, props.to);
-    });
-
-    const buttonType = computed((): string | undefined => {
-      if (props.type) return props.type;
-      if (buttonEl.value === 'button') return 'button';
-      return undefined;
-    });
-
-    const getButtonStyle = computed((): string => {
-      if (props.mode === 'text') return 'text';
-      return `${props.mode}-${props.kind}`;
-    });
-
-    const handleClick = () => {
-      if (props.toggle) {
-        emit('update:modelValue', !props.modelValue);
-      }
-    }
-
-    return { buttonEl, buttonType, getButtonStyle, getIconSize, handleClick };
-  }
-});
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 

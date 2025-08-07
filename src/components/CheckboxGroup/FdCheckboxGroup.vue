@@ -1,3 +1,45 @@
+<script lang="ts" setup>
+import FdCheckbox from '../Checkbox';
+import FdInputPostText from '../Form/FdInputPostText.vue';
+import { filterSlots } from '../../utils';
+import type { CheckboxGroupProps } from '../../types';
+
+/**
+ * Checkbox Group
+ * 
+ * @param {string} assistiveText - Assistive text for the checkbox group
+ * @param {CheckboxGroupCheckbox[]} checkboxes - An array of checkbox objects
+ * @param {boolean} disabled - Whether the checkbox group is disabled
+ * @param {string[]} errors - An array of error keys for active errors
+ * @param {ErrorMessages} errorMessages - An object containing error messages
+ * @param {string} id - The HTML id of the checkbox group
+ * @param {string} label - The label for the checkbox group
+ * @param {boolean} persistentAssistiveText - Whether the assistive text should persist
+ */
+
+const props = withDefaults(defineProps<CheckboxGroupProps>(), {
+  checkboxes: () => [],
+  disabled: false,
+  errors: () => [],
+  errorMessages: () => ({}),
+  modelValue: () => [],
+  persistentAssistiveText: false,
+});
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string[]): void;
+}>();
+
+const handleChange = (value: string | undefined, checked: boolean) => {
+  if (value === undefined) return;
+  if (checked) {
+    emit('update:modelValue', [...props.modelValue, value]);
+  } else {
+    emit('update:modelValue', props.modelValue.filter(v => v !== value));
+  }
+};
+</script>
+
 <template>
   <div class="fd-checkbox-group">
     <fieldset
@@ -16,7 +58,6 @@
       <slot>
         <fd-checkbox
           v-for="checkbox in checkboxes"
-          v-model="checkbox.modelValue"
           :key="checkbox.id"
           :disabled="disabled || checkbox.disabled"
           :errors="errors"
@@ -24,9 +65,11 @@
           :indeterminate="checkbox.indeterminate"
           :input-attrs="checkbox.inputAttrs"
           :label="checkbox.label"
+          :model-value="checkbox.value ? modelValue.includes(checkbox.value) : undefined"
           :readonly="checkbox.readonly"
           :small="checkbox.small"
           :value="checkbox.value"
+          @update:model-value="handleChange(checkbox.value, $event)"
         >
           <slot :name="checkbox.slotName" />
         </fd-checkbox>
@@ -52,55 +95,6 @@
     </fieldset>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import FdCheckbox from '../Checkbox';
-import FdInputPostText from '../Form/FdInputPostText.vue';
-import { filterSlots } from '../../utils';
-import { CheckboxGroupCheckbox, ErrorMessages } from '../../types';
-
-export default defineComponent({
-  name: 'FdCheckboxGroup',
-  components: { FdCheckbox, FdInputPostText },
-  props: {
-    assistiveText: {
-      type: String,
-      default: undefined,
-    },
-    checkboxes: {
-      type: Array as PropType<CheckboxGroupCheckbox[]>,
-      default: () => [],
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    errors: {
-      type: Array as PropType<string[]>,
-      default: () => [],
-    },
-    errorMessages: {
-      type: Object as PropType<ErrorMessages>,
-      default: () => ({}),
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-    label: {
-      type: String,
-      default: undefined,
-    },
-    persistentAssistiveText: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup() {
-    return { filterSlots };
-  }
-})
-</script>
 
 <style lang="scss" scoped>
 @import "@/styles/required";

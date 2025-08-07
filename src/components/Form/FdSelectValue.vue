@@ -1,3 +1,27 @@
+<script lang="ts" setup>
+import { inject, shallowRef } from 'vue';
+import FdChip from '../Chip/FdChip.vue';
+import { TranslationSupport } from '../../utils';
+import type { SelectValueProps, SelectOption } from '../../types';
+
+withDefaults(defineProps<SelectValueProps>(), {
+  chips: false,
+  chipsInteractive: false,
+  csv: false,
+  modelValue: () => [],
+  multiple: false,
+  wrap: true,
+});
+
+defineEmits<{
+  (e: 'click:item', item: SelectOption): void;
+  (e: 'dismiss:item', item: SelectOption): void;
+}>();
+
+const { t } = inject('i18n') as TranslationSupport;
+const field = shallowRef<HTMLDivElement | null>(null);
+</script>
+
 <template>
   <div
     ref="field"
@@ -52,56 +76,6 @@
     </span>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, inject, PropType, shallowRef } from 'vue';
-import FdChip from '../Chip/FdChip.vue';
-import { TranslationSupport } from '../../utils';
-import { SelectOption } from '../../types';
-
-export default defineComponent({
-  name: 'FdSelectValue',
-  components: { FdChip },
-  props: {
-    chips: {
-      type: Boolean,
-      default: false,
-    },
-    chipsInteractive: {
-      type: Boolean,
-      default: false,
-    },
-    csv: {
-      type: Boolean,
-      default: false,
-    },
-    modelValue: {
-      type: Array as PropType<SelectOption[]>,
-      default: () => [],
-    },
-    multiple: {
-      type: Boolean,
-      default: false,
-    },
-    /**
-     * TODO: Build out the wrap functionality
-     */
-    wrap: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  emits: ['click:item', 'dismiss:item'],
-  setup() {
-    const { t } = inject('i18n') as TranslationSupport;
-    const field = shallowRef<HTMLDivElement | null>(null);
-
-    return {
-      field,
-      t,
-    };
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .fd-select-value {

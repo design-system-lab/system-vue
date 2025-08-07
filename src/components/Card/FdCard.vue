@@ -29,14 +29,6 @@
   </section>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  name: 'FdCard',
-});
-</script>
-
 <style lang="scss" scoped>
 @import "@/styles/required";
 

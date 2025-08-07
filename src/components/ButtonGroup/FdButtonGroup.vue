@@ -1,3 +1,29 @@
+<script lang="ts" setup>
+import FdButton from '../Button/FdButton.vue';
+import type { ButtonGroupProps } from '../../types';
+
+const props = withDefaults(defineProps<ButtonGroupProps>(), {
+  buttons: () => [],
+  kind: 'primary',
+  modelValue: -1,
+  radio: false,
+  size: 'md',
+});
+
+const emit = defineEmits<{
+  (e: 'click', event: MouseEvent): void;
+  (e: 'update:modelValue', value: number): void;
+}>();
+
+function handleClick(i: number, e: MouseEvent) {
+  if (props.radio) {
+    emit('update:modelValue', i);
+  }
+
+  emit('click', e)
+}
+</script>
+
 <template>
   <div class="fd-button-group">
     <slot>
@@ -23,52 +49,3 @@
     </slot>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, PropType } from 'vue';
-import FdButton from '../Button/FdButton.vue';
-import { tshirt } from '../../utils';
-import { ButtonGroupButton, ButtonKind, TshirtSize } from '../../types';
-
-export default defineComponent({
-  name: 'FdButtonGroup',
-  components: { FdButton },
-  props: {
-    buttons: {
-      type: Array as PropType<ButtonGroupButton[]>,
-      default: () => [],
-    },
-    kind:  {
-      type: String as PropType<ButtonKind>,
-      default: 'primary',
-    },
-    modelValue: {
-      type: Number,
-      default: -1,
-    },
-    // radio functions like a true radio, where once it's on it doesn't turn off
-    // alternately you could handle it with all the buttons set to toggle
-    radio: {
-      type: Boolean,
-      default: false,
-    },
-    size: {
-      type: String as PropType<TshirtSize>,
-      default: 'md',
-      validator: (opt: string) => tshirt(opt),
-    },
-  },
-  emits: ['click', 'update:modelValue'],
-  setup(props, { emit }) {
-    const handleClick = (i: number, e: MouseEvent) => {
-      if (props.radio) {
-        emit('update:modelValue', i);
-      }
-
-      emit('click', e)
-    }
-
-    return { handleClick };
-  }
-});
-</script>
