@@ -1,3 +1,51 @@
+<script lang="ts" setup>
+import { inject, shallowRef } from 'vue';
+import FdRadioBase from './FdRadioBase.vue';
+import type { RadioProps } from '../../types';
+
+/**
+ * FdRadio
+ * 
+ * @param {Boolean} disabled - Whether the radio is disabled
+ * @param {Array} errors - Array of keys for error messages
+ * @param {Object} inputAttrs - Additional attributes applied to the radio input
+ * @param {String} label - The label for the radio
+ * @param {String} modelValue - The model value for the radio
+ * @param {String} name - The name for the radio, used to connect radio inputs
+ * @param {Boolean} readonly - Whether the radio is readonly
+ * @param {String} value - The value for the radio
+ */
+
+withDefaults(defineProps<RadioProps>(), {
+  disabled: false,
+  errors: () => [],
+  inputAttrs: () => ({}),
+  readonly: false,
+});
+
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+}>();
+
+const hasFocus = shallowRef(false);
+const groupDisabled = inject('groupDisabled', false);
+const groupErrors = inject('groupErrors', []);
+const groupHandleModelValue = inject<(val: string) => void>('groupHandleModelValue');
+const groupModelValue = inject('groupModelValue', '');
+const groupName = inject('groupName', '');
+
+const handleChange = (value: string) => {
+  emit('update:modelValue', value);
+  if (groupHandleModelValue) groupHandleModelValue(value);
+};
+
+const handleFocus = (e: FocusEvent) => {
+  if ((e.target as HTMLElement).matches(':focus-visible')) {
+    hasFocus.value = true;
+  }
+};
+</script>
+
 <template>
   <label
     class="fd-radio"
@@ -28,92 +76,6 @@
   </label>
 </template>
 
-<script lang="ts">
-import { defineComponent, inject, shallowRef } from 'vue';
-import FdRadioBase from './FdRadioBase.vue';
-
-/**
- * FdRadio
- * 
- * @param {Boolean} disabled - Whether the radio is disabled
- * @param {Array} errors - Array of keys for error messages
- * @param {Object} inputAttrs - Additional attributes applied to the radio input
- * @param {String} label - The label for the radio
- * @param {String} modelValue - The model value for the radio
- * @param {String} name - The name for the radio, used to connect radio inputs
- * @param {Boolean} readonly - Whether the radio is readonly
- * @param {String} value - The value for the radio
- */
-export default defineComponent({
-  name: 'FdRadio',
-  components: { FdRadioBase },
-  props: {
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    errors: {
-      type: Array,
-      default: () => [],
-    },
-    inputAttrs: {
-      type: Object,
-      default: () => ({}),
-    },
-    label: {
-      type: String,
-      default: null,
-    },
-    modelValue: {
-      type: String,
-      default: undefined,
-    },
-    name: {
-      type: String,
-      default: undefined,
-    },
-    readonly: {
-      type: Boolean,
-      default: false,
-    },
-    value: {
-      type: String,
-      required: true,
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(_, { emit }) {
-    const hasFocus = shallowRef(false);
-    const groupDisabled = inject('groupDisabled', false);
-    const groupErrors = inject('groupErrors', []);
-    const groupHandleModelValue = inject<(val: string) => void>('groupHandleModelValue');
-    const groupModelValue = inject('groupModelValue', '');
-    const groupName = inject('groupName', '');
-
-    const handleChange = (value: string) => {
-      emit('update:modelValue', value);
-      if (groupHandleModelValue) groupHandleModelValue(value);
-    };
-
-    const handleFocus = (e: FocusEvent) => {
-      if ((e.target as HTMLElement).matches(':focus-visible')) {
-        hasFocus.value = true;
-      }
-    };
-    
-    return {
-      groupDisabled,
-      groupErrors,
-      handleChange,
-      handleFocus,
-      hasFocus,
-      groupModelValue,
-      groupName,
-    };
-  },
-});
-</script>
-
 <style lang="scss" scoped>
 @import '../../styles/required';
 
@@ -128,19 +90,19 @@ export default defineComponent({
   transition: background-color $transition-timing;
 
   &:hover {
-    background-color: rgba(var(--fora_radio_bg--hover));
+    background-color: rgb(var(--fora_radio_bg--hover));
   }
 
   &--selected {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
-        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_box-shadow-color--hover--selected));
+        box-shadow: 0 0 0 2px rgb(var(--fora_radio-base_box-shadow-color--hover--selected));
       }
     }
   }
 
   &--readonly {
-    color: rgba(var(--fora_radio_readonly_color));
+    color: rgb(var(--fora_radio_readonly_color));
 
     &:hover {
       background-color: transparent;
@@ -148,23 +110,23 @@ export default defineComponent({
   }
 
   &--error {
-    color: rgba(var(--fora_radio_error_color));
+    color: rgb(var(--fora_radio_error_color));
 
     &:hover {
-      background-color: rgba(var(--fora_radio_error_bg--hover));
+      background-color: rgb(var(--fora_radio_error_bg--hover));
     }
   }
 
   &--error#{&}--selected {
     &:hover {
       &:deep(.fd-radio-base__indicator) {
-        box-shadow: 0 0 0 2px rgba(var(--fora_radio-base_error_box-shadow-color--hover--selected));
+        box-shadow: 0 0 0 2px rgb(var(--fora_radio-base_error_box-shadow-color--hover--selected));
       }
     }
   }
 
   &--disabled {
-    color: rgba(var(--fora_radio_disabled_color));
+    color: rgb(var(--fora_radio_disabled_color));
     cursor: not-allowed;
 
     &:hover {

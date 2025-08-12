@@ -1,25 +1,25 @@
 // Variables specific to FdToast
 
 // colors for theming, must be duplicated in theme map
-$toast_informational_bg: $informational_reduced, 1 !default;
-$toast_informational_border-color: $informational, 1 !default;
-$toast_informational_color: $informational, 1 !default;
-$toast_danger_bg: $danger_reduced, 1 !default;
-$toast_danger_border-color: $danger, 1 !default;
-$toast_danger_color: $danger, 1 !default;
-$toast_heading_color: $text_intense, 1 !default;
-$toast_link_color: $primary, 1 !default;
-$toast_neutral_bg: $neutral_reduced, 1 !default;
-$toast_neutral_border-color: $neutral, 1 !default;
-$toast_neutral_color: $neutral, 1 !default;
-$toast_success_bg: $success_reduced, 1 !default;
-$toast_success_border-color: $success, 1 !default;
-$toast_success_color: $success, 1 !default;
-$toast_text_color: $text_default, 1 !default;
-$toast_timestamp_color: $text_default, 1 !default;
-$toast_warning_bg: $warning_reduced, 1 !default;
-$toast_warning_border-color: $warning, 1 !default;
-$toast_warning_color: $warning, 1 !default;
+$toast_informational_bg: $informational_reduced !default;
+$toast_informational_border-color: $informational !default;
+$toast_informational_color: $informational !default;
+$toast_danger_bg: $danger_reduced !default;
+$toast_danger_border-color: $danger !default;
+$toast_danger_color: $danger !default;
+$toast_heading_color: $text_intense !default;
+$toast_link_color: $primary !default;
+$toast_neutral_bg: $neutral_reduced !default;
+$toast_neutral_border-color: $neutral !default;
+$toast_neutral_color: $neutral !default;
+$toast_success_bg: $success_reduced !default;
+$toast_success_border-color: $success !default;
+$toast_success_color: $success !default;
+$toast_text_color: $text_default !default;
+$toast_timestamp_color: $text_default !default;
+$toast_warning_bg: $warning_reduced !default;
+$toast_warning_border-color: $warning !default;
+$toast_warning_color: $warning !default;
 
 
 // default style vars

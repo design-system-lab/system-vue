@@ -19,15 +19,16 @@ $tshirt-sizing: ('xs', 'sm', 'md', 'lg', 'xl');
 $border-radius_sm: 4px !default;
 $border-radius_md: 8px !default;
 $border-radius_lg: 10px !default;
+$border-radius_xl: 16px !default;
 $border-radius_full: 1000px !default;
 
 // elevation
 
-$shadow-xs: 0 0 8px rgba(var(--fora_black), 0.15) !default;
-$shadow-sm: 0 0 12px rgba(var(--fora_black), 0.18) !default;
-$shadow-md: 0 0 24px rgba(var(--fora_black), 0.21) !default;
-$shadow-lg: 0 0 32px rgba(var(--fora_black), 0.24) !default;
-$shadow-xl: 0 0 40px rgba(var(--fora_black), 0.27) !default;
+$shadow-xs: 0 0 8px rgb(var(--fora_black) / 15%) !default;
+$shadow-sm: 0 0 12px rgb(var(--fora_black) / 18%) !default;
+$shadow-md: 0 0 24px rgb(var(--fora_black) / 21%) !default;
+$shadow-lg: 0 0 32px rgb(var(--fora_black) / 24%) !default;
+$shadow-xl: 0 0 40px rgb(var(--fora_black) / 27%) !default;
 
 
 // layout

@@ -1,3 +1,81 @@
+<script lang="ts" setup>
+import { nextTick, shallowRef, watch } from 'vue';
+import FdCloseButton from '../CloseButton';
+import type { ModalProps } from '../../types';
+
+/**
+ * Modal component
+ * 
+ * @param {String} align - vertical position (anchored to top, bottom, or centered)
+ * @param {Boolean} dismissible - whether the modal can be dismissed by clicking outside of it
+ * @param {Number} lg - number of columns to span at large screen sizes
+ * @param {Number} md - number of columns to span at medium screen sizes
+ * @param {Number} sm - number of columns to span at small screen sizes
+ * @param {Boolean} visible - whether the modal is visible
+ * @param {Number} xl - number of columns to span at extra large screen sizes
+ * @param {Number} xs - number of columns to span at extra small screen sizes
+ */
+
+const props = withDefaults(defineProps<ModalProps>(), {
+  align: 'center',
+  dismissible: true,
+  lg: 4,
+  md: 6,
+  sm: 8,
+  visible: false,
+  xl: 3,
+  xs: 12,
+});
+
+defineEmits(['close']);
+
+const firstFocusableElement = shallowRef<HTMLElement>();
+const focusableContent = shallowRef<NodeListOf<Element>>();
+const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+const lastFocusableElement = shallowRef<HTMLElement>();
+const modal = shallowRef<HTMLDivElement>();
+const previouslyFocusedElement = shallowRef<HTMLElement | null>(null);
+
+// Set up focus trap and focus on first focusable element
+function initCaptureFocus() {
+  const modalElement = modal.value;
+
+  focusableContent.value = modalElement?.querySelectorAll(focusableElements);
+  firstFocusableElement.value = focusableContent.value?.[0] as HTMLElement;
+  lastFocusableElement.value = focusableContent.value?.[focusableContent.value.length - 1] as HTMLElement;
+
+  firstFocusableElement.value?.focus();
+}
+
+// Ensure focus is trapped within modal while tabbing
+function handleTab(e: KeyboardEvent) {
+  if (document.activeElement === lastFocusableElement.value) {
+    firstFocusableElement.value?.focus();
+    e.preventDefault();
+  }
+}
+
+// Ensure focus is trapped within modal while shift-tabbing
+function handleTabShift(e: KeyboardEvent) {
+  if (document.activeElement === firstFocusableElement.value) {
+    lastFocusableElement.value?.focus();
+    e.preventDefault();
+  }
+}
+
+// Watch for modal visibility, then inititate focus trap when visible
+watch(() => props.visible, (newValue) => {
+  if (newValue) {
+    previouslyFocusedElement.value = document.activeElement as HTMLElement;
+    nextTick(() => {
+      initCaptureFocus();
+    });
+  } else {
+    previouslyFocusedElement.value?.focus();
+  }
+});
+</script>
+
 <template>
   <div
     v-if="visible"
@@ -42,116 +120,7 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { defineComponent, nextTick, shallowRef, watch, PropType } from 'vue';
-import FdCloseButton from '../CloseButton';
 
-/**
- * Modal component
- * 
- * @param {String} align - vertical position (anchored to top, bottom, or centered)
- * @param {Boolean} dismissible - whether the modal can be dismissed by clicking outside of it
- * @param {Number} lg - number of columns to span at large screen sizes
- * @param {Number} md - number of columns to span at medium screen sizes
- * @param {Number} sm - number of columns to span at small screen sizes
- * @param {Boolean} visible - whether the modal is visible
- * @param {Number} xl - number of columns to span at extra large screen sizes
- * @param {Number} xs - number of columns to span at extra small screen sizes
- */
-export default defineComponent({
-  name: 'FdModal',
-  components: {
-    FdCloseButton,
-  },
-  props: {
-    align: {
-      type: String as PropType<'start' | 'center' | 'end'>,
-      default: 'center',
-    },
-    dismissible: {
-      type: Boolean,
-      default: true,
-    },
-    lg: {
-      type: Number,
-      default: 4,
-    },
-    md: {
-      type: Number,
-      default: 6,
-    },
-    sm: {
-      type: Number,
-      default: 8,
-    },
-    visible: {
-      type: Boolean,
-      required: true,
-    },
-    xl: {
-      type: Number,
-      default: 3,
-    },
-    xs: {
-      type: Number,
-      default: 12,
-    },
-  },
-  setup(props) {
-    const firstFocusableElement = shallowRef<HTMLElement>();
-    const focusableContent = shallowRef<NodeListOf<Element>>();
-    const focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    const lastFocusableElement = shallowRef<HTMLElement>();
-    const modal = shallowRef<HTMLDivElement>();
-    const previouslyFocusedElement = shallowRef<HTMLElement | null>(null);
-
-    // Set up focus trap and focus on first focusable element
-    function initCaptureFocus() {
-      const modalElement = modal.value;
-
-      focusableContent.value = modalElement?.querySelectorAll(focusableElements);
-      firstFocusableElement.value = focusableContent.value?.[0] as HTMLElement;
-      lastFocusableElement.value = focusableContent.value?.[focusableContent.value.length - 1] as HTMLElement;
-
-      firstFocusableElement.value?.focus();
-    }
-
-    // Ensure focus is trapped within modal while tabbing
-    function handleTab(e: KeyboardEvent) {
-      if (document.activeElement === lastFocusableElement.value) {
-        firstFocusableElement.value?.focus();
-        e.preventDefault();
-      }
-    }
-
-    // Ensure focus is trapped within modal while shift-tabbing
-    function handleTabShift(e: KeyboardEvent) {
-      if (document.activeElement === firstFocusableElement.value) {
-        lastFocusableElement.value?.focus();
-        e.preventDefault();
-      }
-    }
-
-    // Watch for modal visibility, then inititate focus trap when visible
-    watch(() => props.visible, (newValue) => {
-      if (newValue) {
-        previouslyFocusedElement.value = document.activeElement as HTMLElement;
-        nextTick(() => {
-          initCaptureFocus();
-        });
-      } else {
-        previouslyFocusedElement.value?.focus();
-      }
-    });
-
-    return {
-      handleTab,
-      handleTabShift,
-      modal,
-    };
-  },
-});
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 
@@ -164,7 +133,7 @@ export default defineComponent({
   z-index: 9999;
 
   &__overlay {
-    background-color: rgba(var(--fora_modal_overlay_bg));
+    background-color: rgb(var(--fora_modal_overlay_bg));
     height: 100%;
     width: 100%;
   }
@@ -181,7 +150,7 @@ export default defineComponent({
   }
 
   &__panel {
-    background-color: rgba(var(--fora_modal_panel_bg));
+    background-color: rgb(var(--fora_modal_panel_bg));
     border-radius: $border-radius_lg;
     box-shadow: $shadow-xl;
     margin: 0 $modal_panel_margin;
@@ -193,7 +162,7 @@ export default defineComponent({
   }
 
   &__title {
-    color: rgba(var(--fora_modal_title_color));
+    color: rgb(var(--fora_modal_title_color));
     font-size: $modal_title_size;
     font-weight: $modal_title_weight;
     line-height: $modal_title_line-height;
@@ -201,7 +170,7 @@ export default defineComponent({
   }
 
   &__content {
-    color: rgba(var(--fora_modal_content_color));
+    color: rgb(var(--fora_modal_content_color));
     font-size: $modal_content_size;
   }
 

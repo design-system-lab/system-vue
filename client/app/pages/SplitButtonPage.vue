@@ -7,7 +7,6 @@
     <fd-group type="button">
       <fd-button>Option Prime</fd-button>
       <fd-menu-button
-        icon
         :items="[
           {
             'text': 'Option 01',

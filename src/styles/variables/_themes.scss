@@ -109,14 +109,16 @@ $defaultThemes: (
     text_reduced: $text_reduced,
 
     disabled: $disabled,
-    disalbed_reduced: $disalbed_reduced,
+    disalbed_reduced: $disabled_reduced,
   ),
 );
 
 // for each component var, merge the keys into default
+$defaultThemes: map-merge($defaultThemes, 'default', $theme-accordion);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-alert);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-banner);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-buttons);
+$defaultThemes: map-merge($defaultThemes, 'default', $theme-card);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-close-button);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-checkbox);
 $defaultThemes: map-merge($defaultThemes, 'default', $theme-chips);

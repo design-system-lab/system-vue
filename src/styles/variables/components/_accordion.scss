@@ -1,0 +1,44 @@
+// Variables specific to FdAccordion
+
+// colors for theming, must be duplicated in theme map
+$accordion_border-color: $text_intense / 20% !default;
+$accordion_bg: $surface !default;
+$accordion_content_color: $text_intense !default;
+$accordion_content_color--disabled: $disabled !default;
+
+$accordion-header_bg--disabled: $neutral_reduced--hover !default;
+$accordion-header_bg--hover: $neutral_reduced--hover !default;
+$accordion-header_icon_color: $text_reduced !default;
+$accordion-header_icon_color--disabled: $disabled !default;
+$accordion-header_title_color: $text_intense !default;
+$accordion-header_title_color--disabled: $disabled !default;
+$accordion-header_toggle_color: $text_intense !default;
+$accordion-header_toggle_color--disabled: $disabled !default;
+
+
+// default style vars
+$accordion_border: 1px solid !default;
+$accordion_button_gap: 0.5rem !default;
+$accordion_button_padding: 0.75rem !default;
+$accordion_content_padding: 0.25rem 0.75rem 1.5rem !default;
+$accordion_controller_size: 1.5rem !default;
+$accordion_heading_font-weight: $font-medium !default;
+$accordion_icon_size: 1.5rem !default;
+$accordion_transition_time: 0.5s !default;
+
+// theme map, must replicate colors
+// when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-accordion: (
+  accordion_bg: $accordion_bg,
+  accordion_border-color: $accordion_border-color,
+  accordion_content_color: $accordion_content_color,
+  accordion_content_color--disabled: $accordion_content_color--disabled,
+  accordion-header_bg--hover: $accordion-header_bg--hover,
+  accordion-header_bg--disabled: $accordion-header_bg--disabled,
+  accordion-header_icon_color: $accordion-header_icon_color,
+  accordion-header_icon_color--disabled: $accordion-header_icon_color--disabled,
+  accordion-header_title_color: $accordion-header_title_color,
+  accordion-header_title_color--disabled: $accordion-header_title_color--disabled,
+  accordion-header_toggle_color: $accordion-header_toggle_color,
+  accordion-header_toggle_color--disabled: $accordion-header_toggle_color--disabled,
+);

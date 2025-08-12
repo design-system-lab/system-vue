@@ -1,63 +1,69 @@
 // Variables specific to FdButton
 
 // colors for theming, must be duplicated in theme map
-$button_primary_bg: $primary-6, 1 !default;
-$button_primary_bg--hover: $primary-8, 1 !default;
-$button_primary_bg--pressed: $primary-9, 1 !default;
-$button_primary_color: $white, 1 !default;
-$button_primary_color--hover: $white, 1 !default;
-$button_primary_color--pressed: $neutral-2, 1 !default;
+$button_filled_color: $white !default;
 
-$button_secondary_bg: $primary-2, 1 !default;
-$button_secondary_bg--hover: $primary-3, 1 !default;
-$button_secondary_bg--pressed: $primary-4, 1 !default;
-$button_secondary_color: $primary-7, 1 !default;
-$button_secondary_color--hover: $primary-8, 1 !default;
-$button_secondary_color--pressed: $primary-10, 1 !default;
+$button_danger_filled_bg: $danger !default;
+$button_danger_filled_bg--hover: $danger--hover !default;
+$button_danger_filled_bg--pressed: $danger--pressed !default;
 
-$button_tertiary_border-color: $primary-6, 1 !default;
-$button_tertiary_border-color--hover: $primary-8, 1 !default;
-$button_tertiary_border-color--pressed: $primary-9, 1 !default;
-$button_tertiary_bg: $primary-6, 0 !default;
-$button_tertiary_bg--hover: $primary-6, 0.15 !default;
-$button_tertiary_bg--pressed: $primary-6, 0.3 !default;
-$button_tertiary_color: $button_tertiary_border-color !default;
-$button_tertiary_color--hover: $button_tertiary_border-color--hover !default;
-$button_tertiary_color--pressed: $button_tertiary_border-color--pressed !default;
+$button_danger_outlined_bg: $danger / 0% !default;
+$button_danger_outlined_bg--hover: $danger / 10% !default;
+$button_danger_outlined_bg--pressed: $danger / 25% !default;
+$button_danger_outlined_border: $danger !default;
+$button_danger_outlined_border--hover: $danger--hover !default;
+$button_danger_outlined_border--pressed: $danger--pressed !default;
+$button_danger_outlined_color: $danger !default;
+$button_danger_outlined_color--hover: $danger--hover !default;
+$button_danger_outlined_color--pressed: $danger--pressed !default;
 
-$button_tertiary-neutral_border-color: $neutral-8, 1 !default;
-$button_tertiary-neutral_border-color--hover: $neutral-9, 1 !default;
-$button_tertiary-neutral_border-color--pressed: $neutral-10, 1 !default;
-$button_tertiary-neutral_bg: $neutral-6, 0 !default;
-$button_tertiary-neutral_bg--hover: $neutral-6, 0.15 !default;
-$button_tertiary-neutral_bg--pressed: $neutral-6, 0.3 !default;
-$button_tertiary-neutral_color: $button_tertiary-neutral_border-color !default;
-$button_tertiary-neutral_color--hover: $button_tertiary-neutral_border-color--hover !default;
-$button_tertiary-neutral_color--pressed: $button_tertiary-neutral_border-color--pressed !default;
+$button_neutral_filled_bg: $text_reduced !default;
+$button_neutral_filled_bg--hover: $text_default !default;
+$button_neutral_filled_bg--pressed: $text_intense !default;
 
-$button_link_color: $primary-6, 1 !default;
-$button_link_color--hover: $primary-8, 1 !default;
-$button_link_color--pressed: $primary-9, 1 !default;
-$button_link_bg: $primary-6, 0 !default;
-$button_link_bg--hover: $primary-6, 0.15 !default;
-$button_link_bg--pressed: $primary-6, 0.3 !default;
+$button_neutral_outlined_bg: $neutral / 0% !default;
+$button_neutral_outlined_bg--hover: $neutral / 10% !default;
+$button_neutral_outlined_bg--pressed: $neutral / 25% !default;
+$button_neutral_outlined_border: $text_reduced !default;
+$button_neutral_outlined_border--hover: $text_default !default;
+$button_neutral_outlined_border--pressed: $text_intense !default;
+$button_neutral_outlined_color: $text_reduced !default;
+$button_neutral_outlined_color--hover: $text_default !default;
+$button_neutral_outlined_color--pressed: $text_intense !default;
 
-$button_destructive_bg: $danger-6, 1 !default;
-$button_destructive_bg--hover: $danger-8, 1 !default;
-$button_destructive_bg--pressed: $danger-9, 1 !default;
-$button_destructive_color: $white, 1 !default;
-$button_destructive_color--hover: $white, 1 !default;
-$button_destructive_color--pressed: $neutral-2, 1 !default;
+$button_primary_filled_bg: $primary !default;
+$button_primary_filled_bg--hover: $primary--hover !default;
+$button_primary_filled_bg--pressed: $primary--pressed !default;
 
-$button_disabled_border-color: $neutral-4, 1 !default;
-$button_disabled_bg: $neutral-3, 1 !default; // for outlined buttons
-$button_disabled_color: $neutral-5, 1 !default;
+$button_primary_outlined_bg: $primary / 0% !default;
+$button_primary_outlined_bg--hover: $primary / 10% !default;
+$button_primary_outlined_bg--pressed: $primary / 25% !default;
+$button_primary_outlined_border: $primary !default;
+$button_primary_outlined_border--hover: $primary--hover !default;
+$button_primary_outlined_border--pressed: $primary--pressed !default;
+$button_primary_outlined_color: $primary !default;
+$button_primary_outlined_color--hover: $primary--hover !default;
+$button_primary_outlined_color--pressed: $primary--pressed !default;
+
+$button_text_bg: $primary / 0% !default;
+$button_text_bg--hover: $primary / 10% !default;
+$button_text_bg--pressed: $primary / 25% !default;
+$button_text_color: $primary !default;
+$button_text_color--hover: $primary--hover !default;
+$button_text_color--pressed: $primary--pressed !default;
+
+$button_disabled_bg: $disabled_reduced !default;
+$button_disabled_border-color: $disabled !default;
+$button_disabled_color: $disabled !default;
+
 
 // default style vars
 $button_border: none !default;
 $button_border-radius: $border-radius_md !default;
 $button_elevation: $shadow-xs !default;
 $button_font-family: $font-family !default;
+$button_gap: 0.5rem !default;
+$button_xs_gap: 0.25rem !default;
 $button_weight: $font-semi-bold !default;
 $button_text-align: center !default;
 $button_text-transform: none !default;
@@ -91,55 +97,50 @@ $button_outlined_border: $button_outlined_width solid !default;
 // theme map, must replicate colors
 // when using, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
 $theme-buttons: (
-  button_primary_bg: $button_primary_bg,
-  button_primary_bg--hover: $button_primary_bg--hover,
-  button_primary_bg--pressed: $button_primary_bg--pressed,
-  button_primary_color: $button_primary_color,
-  button_primary_color--hover: $button_primary_color--hover,
-  button_primary_color--pressed: $button_primary_color--pressed,
-
-  button_secondary_bg: $button_secondary_bg,
-  button_secondary_bg--hover: $button_secondary_bg--hover,
-  button_secondary_bg--pressed: $button_secondary_bg--pressed,
-  button_secondary_color: $button_secondary_color,
-  button_secondary_color--hover: $button_secondary_color--hover,
-  button_secondary_color--pressed: $button_secondary_color--pressed,
-
-  button_tertiary_border-color: $button_tertiary_border-color,
-  button_tertiary_border-color--hover: $button_tertiary_border-color--hover,
-  button_tertiary_border-color--pressed: $button_tertiary_border-color--pressed,
-  button_tertiary_bg: $button_tertiary_bg,
-  button_tertiary_bg--hover: $button_tertiary_bg--hover,
-  button_tertiary_bg--pressed: $button_tertiary_bg--pressed,
-  button_tertiary_color: $button_tertiary_color,
-  button_tertiary_color--hover: $button_tertiary_color--hover,
-  button_tertiary_color--pressed: $button_tertiary_color--pressed,
-
-  button_tertiary-neutral_border-color: $button_tertiary-neutral_border-color,
-  button_tertiary-neutral_border-color--hover: $button_tertiary-neutral_border-color--hover,
-  button_tertiary-neutral_border-color--pressed: $button_tertiary-neutral_border-color--pressed,
-  button_tertiary-neutral_bg: $button_tertiary-neutral_bg,
-  button_tertiary-neutral_bg--hover: $button_tertiary-neutral_bg--hover,
-  button_tertiary-neutral_bg--pressed: $button_tertiary-neutral-bg--pressed,
-  button_tertiary-neutral_color: $button_tertiary-neutral_color,
-  button_tertiary-neutral_color--hover: $button_tertiary-neutral_color--hover,
-  button_tertiary-neutral_color--pressed: $button_tertiary-neutral_color--pressed,
-
-  button_link_color: $button_link_color,
-  button_link_color--hover: $button_link_color--hover,
-  button_link_color--pressed: $button_link_color--pressed,
-  button_link_bg: $button_link_bg,
-  button_link_bg--hover: $button_link_bg--hover,
-  button_link_bg--pressed: $button_link_bg--pressed,
-
-  button_destructive_bg: $button_destructive_bg,
-  button_destructive_bg--hover: $button_destructive_bg--hover,
-  button_destructive_bg--pressed: $button_destructive_bg--pressed,
-  button_destructive_color: $button_destructive_color,
-  button_destructive_color--hover: $button_destructive_color--hover,
-  button_destructive_color--pressed: $button_destructive_color--pressed,
-
-  button_disabled_border-color: $button_disabled_border-color,
+  button_filled_color: $button_filled_color,
+  button_danger_filled_bg: $button_danger_filled_bg,
+  button_danger_filled_bg--hover: $button_danger_filled_bg--hover,
+  button_danger_filled_bg--pressed: $button_danger_filled_bg--pressed,
+  button_danger_outlined_bg: $button_danger_outlined_bg,
+  button_danger_outlined_bg--hover: $button_danger_outlined_bg--hover,
+  button_danger_outlined_bg--pressed: $button_danger_outlined_bg--pressed,
+  button_danger_outlined_border: $button_danger_outlined_border,
+  button_danger_outlined_border--hover: $button_danger_outlined_border--hover,
+  button_danger_outlined_border--pressed: $button_danger_outlined_border--pressed,
+  button_danger_outlined_color: $button_danger_outlined_color,
+  button_danger_outlined_color--hover: $button_danger_outlined_color--hover,
+  button_danger_outlined_color--pressed: $button_danger_outlined_color--pressed,
+  button_neutral_filled_bg: $button_neutral_filled_bg,
+  button_neutral_filled_bg--hover: $button_neutral_filled_bg--hover,
+  button_neutral_filled_bg--pressed: $button_neutral_filled_bg--pressed,
+  button_neutral_outlined_bg: $button_neutral_outlined_bg,
+  button_neutral_outlined_bg--hover: $button_neutral_outlined_bg--hover,
+  button_neutral_outlined_bg--pressed: $button_neutral_outlined_bg--pressed,
+  button_neutral_outlined_border: $button_neutral_outlined_border,
+  button_neutral_outlined_border--hover: $button_neutral_outlined_border--hover,
+  button_neutral_outlined_border--pressed: $button_neutral_outlined_border--pressed,
+  button_neutral_outlined_color: $button_neutral_outlined_color,
+  button_neutral_outlined_color--hover: $button_neutral_outlined_color--hover,
+  button_neutral_outlined_color--pressed: $button_neutral_outlined_color--pressed,
+  button_primary_filled_bg: $button_primary_filled_bg,
+  button_primary_filled_bg--hover: $button_primary_filled_bg--hover,
+  button_primary_filled_bg--pressed: $button_primary_filled_bg--pressed,
+  button_primary_outlined_bg: $button_primary_outlined_bg,
+  button_primary_outlined_bg--hover: $button_primary_outlined_bg--hover,
+  button_primary_outlined_bg--pressed: $button_primary_outlined_bg--pressed,
+  button_primary_outlined_border: $button_primary_outlined_border,
+  button_primary_outlined_border--hover: $button_primary_outlined_border--hover,
+  button_primary_outlined_border--pressed: $button_primary_outlined_border--pressed,
+  button_primary_outlined_color: $button_primary_outlined_color,
+  button_primary_outlined_color--hover: $button_primary_outlined_color--hover,
+  button_primary_outlined_color--pressed: $button_primary_outlined_color--pressed,
+  button_text_bg: $button_text_bg,
+  button_text_bg--hover: $button_text_bg--hover,
+  button_text_bg--pressed: $button_text_bg--pressed,
+  button_text_color: $button_text_color,
+  button_text_color--hover: $button_text_color--hover,
+  button_text_color--pressed: $button_text_color--pressed,
   button_disabled_bg: $button_disabled_bg,
-  button_disabled_color: $button_disabled_color,
+  button_disabled_border-color: $button_disabled_border-color,
+  button_disabled_color: $button_disabled_color
 );

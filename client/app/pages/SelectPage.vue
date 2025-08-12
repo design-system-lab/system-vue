@@ -473,8 +473,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 
 .box {
-  background: rgba(var(--fora_neutral-2), 1);
-  border: 1px solid rgba(var(--fora_neutral-5), 1);
+  background: rgb(var(--fora_neutral-2));
+  border: 1px solid rgb(var(--fora_neutral-5));
   border-radius: 8px;
   max-width: 100%;
   padding: 2rem;

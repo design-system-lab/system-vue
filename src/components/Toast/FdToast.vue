@@ -1,3 +1,50 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+import {
+  CheckCircleIcon,
+  ExclamationCircleIcon,
+  ExclamationTriangleIcon,
+  InformationCircleIcon,
+} from '@heroicons/vue/24/outline';
+import FdCloseButton from '../CloseButton/FdCloseButton.vue';
+import FdIcon from '../Icon';
+import { getStatusIcon, hasSlotContent } from '../../utils';
+import type { ToastProps } from '../../types';
+
+/**
+ * Toast component
+ * 
+ * @param {string} content - The content of the toast
+ * @param {string} description - The description of the toast
+ * @param {boolean} dismissible - Whether the toast is dismissible
+ * @param {Icon} icon - The icon to display in the toast
+ * @param {string} kind - The kind of toast (info, success, warning, danger, neutral)
+ * @param {string} linkText - The text of the link
+ * @param {boolean} showTimestamp - Whether to show the timestamp
+ */
+
+const props = withDefaults(defineProps<ToastProps>(), {
+  content: undefined,
+  description: undefined,
+  dismissible: false,
+  icon: undefined,
+  kind: 'info',
+  linkText: undefined,
+  showTimestamp: false,
+});
+
+defineEmits<{
+  (e: 'click:link'): void;
+  (e: 'dismiss'): void;
+}>();
+
+const getIcon = computed(() => {
+  if (props.icon) return props.icon;
+
+  return getStatusIcon(props.kind);
+});
+</script>
+
 <template>
   <div
     class="fd-toast"
@@ -51,98 +98,18 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-  InformationCircleIcon,
-} from '@heroicons/vue/24/outline';
-import FdCloseButton from '../CloseButton/FdCloseButton.vue';
-import FdIcon from '../Icon';
-import { hasSlotContent } from '../../utils';
-import { Icon } from '../../types';
 
-/**
- * Toast component
- * 
- * @param {string} content - The content of the toast
- * @param {string} description - The description of the toast
- * @param {boolean} dismissible - Whether the toast is dismissible
- * @param {Icon} icon - The icon to display in the toast
- * @param {string} kind - The kind of toast (info, success, warning, danger, neutral)
- * @param {string} linkText - The text of the link
- * @param {boolean} showTimestamp - Whether to show the timestamp
- */
-
-export default defineComponent({
-  name: 'FdToast',
-  components: { FdCloseButton, FdIcon },
-  props: {
-    content: {
-      type: String,
-      default: undefined,
-    },
-    description: {
-      type: String,
-      default: undefined,
-    },
-    dismissible: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    kind: {
-      type: String as PropType<'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
-      default: 'info',
-    },
-    linkText: {
-      type: String,
-      default: undefined,
-    },
-    showTimestamp: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['click:link', 'dismiss'],
-  setup(props) {
-    const getIcon = computed(() => {
-      if (props.icon) return props.icon;
-
-      switch (props.kind) {
-        case 'info':
-          return InformationCircleIcon;
-        case 'success':
-          return CheckCircleIcon;
-        case 'warning':
-          return ExclamationTriangleIcon;
-        case 'danger':
-          return ExclamationCircleIcon;
-        default:
-          return InformationCircleIcon;
-      }
-    });
-
-    return { getIcon, hasSlotContent };
-  }
-});
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 
 .fd-toast {
   align-items: flex-start;
-  background-color: rgba(var(--fora_toast_informational_bg));
+  background-color: rgb(var(--fora_toast_informational_bg));
   box-shadow: $shadow-sm;
-  border: $toast_border rgba(var(--fora_toast_informational_border-color));
+  border: $toast_border rgb(var(--fora_toast_informational_border-color));
   border-radius: $toast_border-radius;
   border-left-width: $toast_tab_width;
-  color: rgba(var(--fora_toast_informational_color));
+  color: rgb(var(--fora_toast_informational_color));
   display: flex;
   gap: $toast_gap;
   padding: $toast_padding;
@@ -168,7 +135,7 @@ export default defineComponent({
   }
 
   &__heading {
-    color: rgba(var(--fora_toast_heading_color));
+    color: rgb(var(--fora_toast_heading_color));
     font-size: $toast_heading_font-size;
     font-weight: $toast_heading_font-weight;
     line-height: $toast_heading_line-height;
@@ -180,14 +147,14 @@ export default defineComponent({
   }
 
   &__description {
-    color: rgba(var(--fora_toast_text_color));
+    color: rgb(var(--fora_toast_text_color));
     font-size: $toast_text_font-size;
     font-weight: $toast_text_font-weight;
     line-height: $toast_text_line-height;
   }
 
   &__timestamp {
-    color: rgba(var(--fora_toast_timestamp_color));
+    color: rgb(var(--fora_toast_timestamp_color));
     font-size: $toast_timestamp_font-size;
     font-weight: $toast_timestamp_font-weight;
     line-height: $toast_timestamp_line-height;
@@ -195,34 +162,34 @@ export default defineComponent({
   }
 
   &--neutral {
-    background-color: rgba(var(--fora_toast_neutral_bg));
-    border-color: rgba(var(--fora_toast_neutral_border-color));
-    color: rgba(var(--fora_toast_neutral_color));
+    background-color: rgb(var(--fora_toast_neutral_bg));
+    border-color: rgb(var(--fora_toast_neutral_border-color));
+    color: rgb(var(--fora_toast_neutral_color));
   }
 
   &--success {
-    background-color: rgba(var(--fora_toast_success_bg));
-    border-color: rgba(var(--fora_toast_success_border-color));
-    color: rgba(var(--fora_toast_success_color));
+    background-color: rgb(var(--fora_toast_success_bg));
+    border-color: rgb(var(--fora_toast_success_border-color));
+    color: rgb(var(--fora_toast_success_color));
   }
 
   &--warning {
-    background-color: rgba(var(--fora_toast_warning_bg));
-    border-color: rgba(var(--fora_toast_warning_border-color));
-    color: rgba(var(--fora_toast_warning_color));
+    background-color: rgb(var(--fora_toast_warning_bg));
+    border-color: rgb(var(--fora_toast_warning_border-color));
+    color: rgb(var(--fora_toast_warning_color));
   }
 
   &--danger {
-    background-color: rgba(var(--fora_toast_danger_bg));
-    border-color: rgba(var(--fora_toast_danger_border-color));
-    color: rgba(var(--fora_toast_danger_color));
+    background-color: rgb(var(--fora_toast_danger_bg));
+    border-color: rgb(var(--fora_toast_danger_border-color));
+    color: rgb(var(--fora_toast_danger_color));
   }
 
   &__link {
     display: inline-block;
     border: none;
     background: none;
-    color: rgba(var(--fora_toast_link_color));
+    color: rgb(var(--fora_toast_link_color));
     font-size: $toast_link_font-size;
     font-weight: $toast_link_font-weight;
     line-height: $toast_link_line-height;

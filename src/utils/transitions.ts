@@ -154,3 +154,28 @@ export function swapContent(phase: Phase, el: HTMLElement, parent?: HTMLElement 
       break;
   }
 }
+
+export const expandCollapse = {
+  beforeEnter(el: HTMLElement) {
+    el.style.height = '0';
+      el.style.overflow = 'hidden';
+  },
+
+  enter(el: HTMLElement) {
+    el.style.height = `${el.scrollHeight}px`;
+  },
+
+  afterEnter(el: HTMLElement) {
+    el.style.height = '';
+    el.style.overflow = '';
+  },
+
+  beforeLeave(el: HTMLElement) {
+    el.style.height = `${el.scrollHeight}px`;
+    el.style.overflow = 'hidden';
+  },
+
+  leave(el: HTMLElement) {
+    el.style.height = '0';
+  },
+}

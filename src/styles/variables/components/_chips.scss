@@ -1,24 +1,19 @@
 // Variables specific to FdChip
 
 // colors for theming, must be duplicated in theme map
-$chip_bg: $neutral-3, 1 !default;
-$chip_border-color: $black, 0.1 !default;
-$chip_color: $neutral-13, 1 !default;
-$chip_dismiss_bg--hover: $black, 0.1 !default;
-$chip_dismiss_bg--pressed: $black, 0.2 !default;
-$chip_icon_color: $neutral-8, 1 !default;
-$chip_interactive_bg: $neutral-2, 1 !default;
-$chip_interactive_bg--hover: $neutral-3, 1 !default;
-$chip_interactive_bg--pressed: $neutral-4, 1 !default;
-$chip_interactive_border-color: $black, 0.5 !default;
-$chip_selected_bg: $neutral-4, 1 !default;
+$chip_bg: $neutral_reduced !default;
+$chip_border-color: $black / 20% !default;
+$chip_icon_color: $text_default !default;
+$chip_interactive_bg: $neutral_reduced !default;
+$chip_interactive_bg--hover: $neutral_reduced--hover !default;
+$chip_interactive_bg--pressed: $neutral_reduced--pressed !default;
+$chip_interactive_border-color: $black / 50% !default;
+$chip_text_color: $text_intense !default;
 
 
 // default style vars
 $chip_border: 1px solid;
 $chip_border-radius: $border-radius_full !default;
-$chip_dismiss_height: 1rem !default;
-$chip_dismiss_width: 1rem !default;
 $chip_dismissible_padding-right: 0.25rem !default;
 $chip_font-size: $font-sm !default;
 $chip_gap: 0.25rem !default;
@@ -32,8 +27,6 @@ $chip_selected_height: 1rem !default;
 $chip_selected_width: 1rem !default;
 
 // different sizes
-$chip_lg_dismiss_height: 1.25rem !default;
-$chip_lg_dismiss_width: 1.25rem !default;
 $chip_lg_icon_height: 1.25rem !default;
 $chip_lg_icon_width: 1.25rem !default;
 $chip_lg_selected_height: 1.25rem !default;
@@ -43,7 +36,6 @@ $chip_md_height: 1.5rem !default;
 $chip_md_padding-x: 0.625rem !default;
 $chip_md_padding-y: 0.125rem !default;
 
-$chip_sm_dismiss_margin-right: -0.125rem !default;
 $chip_sm_height: 1.25rem !default;
 $chip_sm_padding-x: 0.5rem !default;
 $chip_sm_padding-y: 0 !default;
@@ -54,13 +46,10 @@ $chip_sm_size: $font-xs !default;
 $theme-chips: (
   chip_bg: $chip_bg,
   chip_border-color: $chip_border-color,
-  chip_color: $chip_color,
-  chip_dismiss_bg--hover: $chip_dismiss_bg--hover,
-  chip_dismiss_bg--pressed: $chip_dismiss_bg--pressed,
   chip_icon_color: $chip_icon_color,
   chip_interactive_bg: $chip_interactive_bg,
   chip_interactive_bg--hover: $chip_interactive_bg--hover,
   chip_interactive_bg--pressed: $chip_interactive_bg--pressed,
   chip_interactive_border-color: $chip_interactive_border-color,
-  chip_selected_bg: $chip_selected_bg
+  chip_text_color: $chip_text_color,
 );

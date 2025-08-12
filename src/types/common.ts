@@ -1,13 +1,16 @@
 import type { FunctionalComponent, HTMLAttributes, VNodeProps } from 'vue';
-import FdChip from '../components/Chip';
 
-export type ErrorMessages = {
-  [key: string]: string; 
-}
+export type ErrorMessages = Record<string, string>;
 
 export type Icon = FunctionalComponent<HTMLAttributes & VNodeProps>;
 
+export interface IconProps {
+  icon: Icon;
+  size: number;
+}
+
 export type TshirtSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+export type TshirtSizeNormalized = 'sm' | 'md' | 'lg';
 
 export interface ComponentWithSlot {
   slotName: string;
@@ -21,12 +24,6 @@ export interface ComponentWithText {
 
 export type SlotOrText = ComponentWithSlot | ComponentWithText;
 
-export type MenuDirection = 'top' | 'bottom';
-export type MenuPlacement = 'attached' | 'global';
-
 export type NodeOrNull = Node | null;
 
 export type StopLight = 'info' | 'success' | 'warning' | 'danger';
-
-type FdChipType = typeof FdChip;
-export type ChipGroupChip = FdChipType & SlotOrText;

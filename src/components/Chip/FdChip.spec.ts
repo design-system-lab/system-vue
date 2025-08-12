@@ -2,12 +2,17 @@ import { render } from '@testing-library/vue'
 import FdChip from './FdChip.vue'
 import { CubeTransparentIcon } from '@heroicons/vue/24/solid';
 
+const provide = {
+  i18n: { t: (key: string) => key },
+};
+
 // write unit tests for FdChip component checking all props, slots and events
 test('renders chip text', () => {
   const { getByText } = render(FdChip, {
     props: {
       text: 'Chip Label',
     },
+    global: { provide },
   });
 
   getByText('Chip Label');
@@ -19,6 +24,7 @@ test('renders chip with icon', () => {
       text: 'Chip Label',
       icon: CubeTransparentIcon,
     },
+    global: { provide },
   });
 
   getByText('Chip Label');
@@ -31,6 +37,7 @@ test('renders chip with dismiss button', () => {
       text: 'Chip Label',
       dismissible: true,
     },
+    global: { provide },
   });
 
   getByText('Chip Label');
@@ -44,6 +51,7 @@ test('renders interactive chip with checkmark', async () => {
       interactive: true,
       modelValue: true,
     },
+    global: { provide },
   });
 
   getByTestId('fd-chip__selected');

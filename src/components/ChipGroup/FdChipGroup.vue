@@ -1,23 +1,55 @@
+<script lang="ts" setup>
+import { provide, shallowRef, watch } from 'vue';
+import FdChip from '../Chip/FdChip.vue';
+import type { ChipGroupProps } from '../../types';
+
+const props = withDefaults(defineProps<ChipGroupProps>(), {
+  chips: () => [],
+});
+
+const emit = defineEmits<{
+  (e: 'dismiss', index: number): void;
+  (e: 'update:modelValue', value: string | string[]): void;
+}>();
+
+const currentVal = shallowRef(props.modelValue);
+
+function handleModelValue(value: string | string[]) {
+  emit('update:modelValue', value);
+}
+
+provide('groupModelValue', currentVal);
+provide('groupHandleModelValue', handleModelValue);
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    currentVal.value = val;
+  },
+);
+</script>
+
 <template>
   <div class="fd-chip-group">
     <slot>
       <fd-chip
         v-for="(chip, i) in chips"
         :key="i"
-        :avatar-img="chip.avatarImg"
         :dismissible="chip.dismissible"
         :icon="chip.icon"
         :interactive="chip.interactive"
-        :model-value="modelValue"
-        :outlined="chip.outlined"
-        :small="chip.small"
-        :status="chip.status"
+        :size="size"
         :tag="chip.tag"
         :text="chip.text"
         :value="chip.value"
         @dismiss="$emit('dismiss', i)"
-        @update:modelValue="($event) => $emit('update:modelValue', $event)"
       >
+        <template
+          v-if="chip.iconSlotName"
+          #icon
+        >
+          <slot :name="chip.iconSlotName" />
+        </template>
         <slot :name="chip.slotName">
           {{ chip.text }}
         </slot>
@@ -25,45 +57,6 @@
     </slot>
   </div>
 </template>
-
-<script lang="ts">
-import { PropType, defineComponent, provide, shallowRef, watch } from 'vue';
-import FdChip from '../Chip/FdChip.vue';
-import { ChipGroupChip } from '../../types';
-
-export default defineComponent({
-  name: 'FdChipGroup',
-  components: { FdChip },
-  props: {
-    chips: {
-      type: Array as PropType<ChipGroupChip[]>,
-      default: () => [],
-    },
-    modelValue: {
-      type: [String, Array] as PropType<string | string[]>,
-      default: null,
-    },
-  },
-  emits: ['dismiss', 'update:modelValue'],
-  setup(props, { emit }) {
-    const currentVal = shallowRef(props.modelValue);
-
-    function handleModelValue(value: string | string[]) {
-      emit('update:modelValue', value);
-    }
-
-    provide('groupModelValue', currentVal);
-    provide('groupHandleModelValue', handleModelValue);
-
-    watch(
-      () => props.modelValue,
-      (val) => {
-        currentVal.value = val;
-      },
-    );
-  },
-});
-</script>
 
 <style lang="scss" scoped>
 .fd-chip-group {

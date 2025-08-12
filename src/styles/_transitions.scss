@@ -59,3 +59,15 @@
 .fade-leave-to {
   opacity: 0;
 }
+
+// Expand/Collapse a container
+
+.slide-open--before-enter {
+  height: 0;
+  opacity: 0;
+  transition: all 0.5s ease-in-out;
+}
+
+.slide-open--enter {
+
+}

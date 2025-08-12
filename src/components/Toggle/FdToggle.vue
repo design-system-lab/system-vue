@@ -1,3 +1,46 @@
+<script lang="ts" setup>
+import { computed, inject } from 'vue';
+import { TranslationSupport } from '../../utils';
+import type { ToggleProps } from '../../types';
+
+/**
+ * Toggle Switch
+ * 
+ * @param {boolean} hideLabel - Whether to hide the label of the toggle (only hides the label visually for accessibility)
+ * @param {string} label - The label for the input
+ * @param {string} id - The html id used for the input and associating the label to the input
+ * @param {boolean} modelValue - The value of the input
+ * @param {boolean} reverseLabel - Whether to show the toggle before the label
+ * @param {boolean} showValue - Whether to show the current value of the input
+ * @param {string} valueFalse - If showValue is false, this is the text to use for the off value, defaults to "Off"
+ * @param {string} valueTrue - If showValue is true, this is the text to use for the on value, defaults to "On"
+ */
+
+const props = withDefaults(defineProps<ToggleProps>(), {
+  hideLabel: false,
+  modelValue: false,
+  reverseLabel: false,
+  showValue: false,
+});
+
+defineEmits<{
+  (e: 'update:modelValue', value: boolean): void;
+}>();
+
+const { t } = inject('i18n') as TranslationSupport;
+
+/**
+ * Gets the current text describing the current value of the input
+ */
+const getValue = computed(() => {
+  return (
+    props.modelValue
+    ? props.valueTrue || t(`toggle:${props.modelValue}`)
+    : props.valueFalse || t(`toggle:${props.modelValue}`)
+  );
+});
+</script>
+
 <template>
   <div class="fd-toggle">
     <div
@@ -50,78 +93,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { computed, defineComponent, inject } from 'vue';
-import { TranslationSupport } from '../../utils';
-
-/**
- * Toggle Switch
- * 
- * @param {boolean} hideLabel - Whether to hide the label of the toggle (only hides the label visually for accessibility)
- * @param {string} label - The label for the input
- * @param {string} id - The html id used for the input and associating the label to the input
- * @param {boolean} modelValue - The value of the input
- * @param {boolean} reverseLabel - Whether to show the toggle before the label
- * @param {boolean} showValue - Whether to show the current value of the input
- * @param {string} valueFalse - If showValue is false, this is the text to use for the off value, defaults to "Off"
- * @param {string} valueTrue - If showValue is true, this is the text to use for the on value, defaults to "On"
- */
-export default defineComponent({
-  name: 'FdToggle',
-  props: {
-    hideLabel: {
-      type: Boolean,
-      default: false,
-    },
-    label: {
-      type: String,
-      default: undefined,
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    reverseLabel: {
-      type: Boolean,
-      default: false,
-    },
-    showValue: {
-      type: Boolean,
-      default: false,
-    },
-    valueFalse: {
-      type: String,
-      default: undefined,
-    },
-    valueTrue: {
-      type: String,
-      default: undefined,
-    },
-  },
-  emits: ['update:modelValue'],
-  setup(props) {
-    const { t } = inject('i18n') as TranslationSupport;
-
-    /**
-     * Gets the current text describing the current value of the input
-     */
-    const getValue = computed(() => {
-      return (
-        props.modelValue
-        ? props.valueTrue || t(`toggle:${props.modelValue}`)
-        : props.valueFalse || t(`toggle:${props.modelValue}`)
-      );
-    });
-
-    return { getValue, t };
-  }
-});
-</script>
-
 <style lang="scss">
 @import "@/styles/required";
 
@@ -144,7 +115,7 @@ export default defineComponent({
   }
 
   &__control {
-    background-color: rgba(var(--fora_toggle_inactive_bg));
+    background-color: rgb(var(--fora_toggle_inactive_bg));
     border-radius: calc($toggle_control_height / 2);
     flex: 0 0 auto;
     height: $toggle_control_height;
@@ -154,28 +125,28 @@ export default defineComponent({
     width: $toggle_control_width;
 
     &:hover {
-      background-color: rgba(var(--fora_toggle_inactive_bg--hover));
+      background-color: rgb(var(--fora_toggle_inactive_bg--hover));
     }
 
     &:active {
-      background-color: rgba(var(--fora_toggle_inactive_bg--pressed));
+      background-color: rgb(var(--fora_toggle_inactive_bg--pressed));
     }
 
     &--active {
-      background-color: rgba(var(--fora_toggle_active_bg));
+      background-color: rgb(var(--fora_toggle_active_bg));
 
       &:hover {
-        background-color: rgba(var(--fora_toggle_active_bg--hover));
+        background-color: rgb(var(--fora_toggle_active_bg--hover));
       }
 
       &:active {
-        background-color: rgba(var(--fora_toggle_active_bg--pressed));
+        background-color: rgb(var(--fora_toggle_active_bg--pressed));
       }
     }
   }
 
   &__knob {
-    background-color: rgba(var(--fora_toggle_knob_bg));
+    background-color: rgb(var(--fora_toggle_knob_bg));
     border-radius: calc($toggle_knob_height / 2);
     height: $toggle_knob_height;
     left: calc(($toggle_control_height - $toggle_knob_height) / 2);

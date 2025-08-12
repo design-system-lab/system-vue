@@ -1,3 +1,88 @@
+<script lang="ts" setup>
+import { computed, inject, shallowRef } from 'vue';
+import { CheckIcon } from '@heroicons/vue/20/solid';
+import FdCloseButton from '../CloseButton/FdCloseButton.vue';
+import FdIcon from '../Icon/FdIcon.vue';
+import type { ChipProps } from '../../types';
+
+/**
+ * Chips
+ * 
+ * @param {boolean} dismissible - Adds a dismiss button to the chip and emits `dismiss` event when clicked
+ * @param {Icon} icon - Icon to display on the chip
+ * @param {boolean} interactive - Makes the chip interactive (clickable) and emits `update:modelValue` event when clicked
+ * @param {string | string[] | boolean} modelValue - Value of the chip, can function like a checkbox, radio, or multi-select based on the value type
+ * @param {'sm' | 'md' | 'lg'} size - Size of the chip
+ * @param {string} tag - Optional HTML tag to use for the chip, will default to div for non-interactive chips and button for interactive chips
+ * @param {string} text - Text to display in the chip
+ * @param {string} value - Value to use for the chip, used for radio or multi-select chips
+ */
+
+const props = withDefaults(defineProps<ChipProps>(), {
+  dismissible: false,
+  interactive: false,
+  modelValue: false,
+  size: 'lg',
+});
+
+const emit = defineEmits<{
+  (e: 'dismiss'): void;
+  (e: 'update:modelValue', value: string | string[] | boolean): void;
+}>();
+
+const groupModelValue = inject('groupModelValue', shallowRef(null));
+const groupHandleModelValue = inject<((val: string | string[]) => void) | null>('groupHandleModelValue', null);
+
+const chipModelValue = computed<boolean | string | string[]>(() => {
+  return groupModelValue.value ?? props.modelValue;
+});
+
+const getChipType = computed(() => {
+  if (props.tag) return props.tag;
+  if (props.interactive) return 'button';
+  return 'div';
+});
+
+const getIconSize = computed(() => {
+  return props.size === 'lg' ? 20 : 16;
+});
+
+const getReturnValue = computed(() => {
+  if (typeof chipModelValue.value === 'boolean') return !props.modelValue;
+  if (props.value) {
+    if (typeof chipModelValue.value === 'string') return props.value;
+
+    if (Array.isArray(chipModelValue.value)) {
+      return chipModelValue.value.includes(props.value)
+        ? chipModelValue.value.filter((v: string) => v !== props.value)
+        : [...chipModelValue.value, props.value];
+    }
+  }
+
+  return chipModelValue.value;
+});
+
+const isSelected = computed(() => {
+  if (typeof chipModelValue.value === 'boolean') return chipModelValue.value;
+  if (props.value) {
+    if (typeof chipModelValue.value === 'string') return props.value === chipModelValue.value;
+    if (Array.isArray(chipModelValue.value)) {
+      return chipModelValue.value.includes(props.value);
+    }
+  }
+
+  return false;
+});
+
+function handleClick() {
+  if (props.interactive) {
+    emit('update:modelValue', getReturnValue.value);
+    if (groupHandleModelValue) groupHandleModelValue((getReturnValue.value as string | string[]));
+  }
+}
+
+</script>
+
 <template>
   <component
     :is="getChipType"
@@ -7,6 +92,7 @@
       {
         'fd-chip--dismissible': dismissible,
         'fd-chip--interactive': interactive,
+        'fd-chip--selected': isSelected,
       }
     ]"
     @click="handleClick"
@@ -40,155 +126,25 @@
         />
       </slot>
     </div>
-    <button
+    <fd-close-button
       v-if="dismissible"
-      class="fd-chip__dismiss"
-      :class="[`fd-chip__dismiss--${size}`]"
+      round
+      :size="size === 'lg' ? 'md' : 'sm'"
       data-testid="fd-chip__dismiss"
-      @click.stop.prevent="$emit('dismiss')"
-    >
-      <slot name="dismiss-icon">
-        <fd-icon
-          :icon="XMarkIcon"
-          :size="getIconSize"
-        />
-      </slot>
-    </button>
+    />
   </component>
 </template>
-<script lang="ts">
-import { computed, defineComponent, inject, shallowRef, PropType } from 'vue';
-import { CheckIcon, XMarkIcon } from '@heroicons/vue/20/solid';
-import FdIcon from '../Icon/FdIcon.vue';
-import { Icon } from '../../types';
 
-/**
- * Chips
- * 
- * @param {boolean} dismissible - Adds a dismiss button to the chip and emits `dismiss` event when clicked
- * @param {Icon} icon - Icon to display on the chip
- * @param {boolean} interactive - Makes the chip interactive (clickable) and emits `update:modelValue` event when clicked
- * @param {string | string[] | boolean} modelValue - Value of the chip, can function like a checkbox, radio, or multi-select based on the value type
- * @param {'sm' | 'md' | 'lg'} size - Size of the chip
- * @param {string} tag - Optional HTML tag to use for the chip, will default to div for non-interactive chips and button for interactive chips
- * @param {string} text - Text to display in the chip
- * @param {string} value - Value to use for the chip, used for radio or multi-select chips
- */
-export default defineComponent({
-  name: 'FdChip',
-  components: {
-    FdIcon,
-  },
-  props: {
-    dismissible: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    interactive: {
-      type: Boolean,
-      default: false,
-    },
-    modelValue: {
-      type: [String, Array, Boolean] as PropType<string | string[] | boolean>,
-      default: false,
-    },
-    size: {
-      type: String as PropType<'sm' | 'md' | 'lg'>,
-      default: 'lg',
-    },
-    tag: {
-      type: String,
-      default: undefined,
-    },
-    text: {
-      type: String,
-      default: undefined,
-    },
-    value: {
-      type: String,
-      default: undefined,
-    },
-  },
-  emits: ['dismiss', 'update:modelValue'],
-  setup(props, { emit }) {
-    const groupHandleModelValue = inject<((val: string | string[]) => void) | null>('groupHandleModelValue', null);
-    const groupModelValue = inject('groupModelValue', shallowRef(null));
-
-    const chipModelValue = computed<boolean | string | string[]>(() => {
-      return groupModelValue.value ?? props.modelValue;
-    });
-
-    const getChipType = computed(() => {
-      if (props.tag) return props.tag;
-      if (props.interactive) return 'button';
-      return 'div';
-    });
-
-    const getIconSize = computed(() => {
-      return props.size === 'lg' ? 20 : 16;
-    });
-
-    const getReturnValue = computed(() => {
-      if (typeof chipModelValue.value === 'boolean') return !props.modelValue;
-      if (props.value) {
-        if (typeof chipModelValue.value === 'string') return props.value;
-
-        if (Array.isArray(chipModelValue.value)) {
-          return chipModelValue.value.includes(props.value)
-            ? chipModelValue.value.filter((v: string) => v !== props.value)
-            : [...chipModelValue.value, props.value];
-        }
-      }
-
-      return chipModelValue.value;
-    });
-
-    const isSelected = computed(() => {
-      if (typeof chipModelValue.value === 'boolean') return chipModelValue.value;
-      if (props.value) {
-        if (typeof chipModelValue.value === 'string') return props.value === chipModelValue.value;
-        if (Array.isArray(chipModelValue.value)) {
-          return chipModelValue.value.includes(props.value);
-        }
-      }
-
-      return false;
-    });
-
-    function handleClick() {
-      if (props.interactive) {
-        emit('update:modelValue', getReturnValue.value);
-        if (groupHandleModelValue) groupHandleModelValue((getReturnValue.value as string | string[]));
-      }
-    }
-
-    return {
-      chipModelValue,
-      getChipType,
-      getIconSize,
-      getReturnValue,
-      handleClick,
-      isSelected,
-      CheckIcon,
-      XMarkIcon,
-    };
-  },
-});
-</script>
 <style lang="scss" scoped>
 @import '../../styles/required';
 
 .fd-chip {
   align-items: center;
-  background-color: rgba(var(--fora_chip_bg));
-  border: $chip_border rgba(var(--fora_chip_border-color));
+  background-color: rgb(var(--fora_chip_bg));
+  border: $chip_border rgb(var(--fora_chip_border-color));
   border-radius: $border-radius_full;
   box-sizing: border-box;
-  color: rgba(var(--fora_chip_color));
+  color: rgb(var(--fora_chip_color));
   display: inline-flex;
   font-size: $chip_font-size;
   gap: $chip_gap;
@@ -207,6 +163,10 @@ export default defineComponent({
     font-size: $chip_sm_size;
     height: $chip_sm_height;
     padding: $chip_sm_padding-y calc($chip_sm_padding-x - 1px);
+
+    .fd-close-button {
+      margin-right: -2px;
+    }
   }
 
   &--dismissible {
@@ -214,24 +174,25 @@ export default defineComponent({
   }
 
   &--interactive {
-    background-color: rgba(var(--fora_chip_interactive_bg));
-    border-color: rgba(var(--fora_chip_interactive_border-color));
+    background-color: rgb(var(--fora_chip_interactive_bg));
+    border-color: rgb(var(--fora_chip_interactive_border-color));
 
     &:hover {
-      background-color: rgba(var(--fora_chip_interactive_bg--hover));
+      background-color: rgb(var(--fora_chip_interactive_bg--hover));
     }
 
-    &:active {
-      background-color: rgba(var(--fora_chip_interactive_bg--pressed));
+    &:active,
+    &.fd-chip--selected {
+      background-color: rgb(var(--fora_chip_interactive_bg--pressed));
     }
   }
 
   &--selected {
-    background-color: (rgba(var(--fora_chip_selected_bg)));
+    background-color: (rgb(var(--fora_chip_interactive_bg--pressed)));
   }
 
   &__icon {
-    color: rgba(var(--fora_chip_icon_color));
+    color: rgb(var(--fora_chip_icon_color));
     display: flex;
     flex: 0 0 auto;
     height: $chip_icon_width;
@@ -252,36 +213,6 @@ export default defineComponent({
     &--lg {
       height: $chip_lg_selected_height;
       width: $chip_lg_selected_width;
-    }
-  }
-
-  &__dismiss {
-    background: none;
-    border: none;
-    border-radius: $border-radius_full;
-    cursor: pointer;
-    display: flex;
-    flex: 0 0 auto;
-    height: $chip_dismiss_height;
-    padding: 0;
-    transition: $transition-timing background-color;
-    width: $chip_dismiss_width;
-
-    &:hover {
-      background-color: rgba(var(--fora_chip_dismiss_bg--hover));
-    }
-
-    &:active {
-      background-color: rgba(var(--fora_chip_dismiss_bg--pressed));
-    }
-
-    &--lg {
-      height: $chip_lg_dismiss_height;
-      width: $chip_lg_dismiss_width;
-    }
-
-    &--sm {
-      margin-right: $chip_sm_dismiss_margin-right;
     }
   }
 }

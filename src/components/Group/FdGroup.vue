@@ -1,3 +1,31 @@
+<script lang="ts" setup>
+import { computed } from 'vue';
+import FdButtonGroup from '../ButtonGroup';
+import FdCheckboxGroup from '../CheckboxGroup/FdCheckboxGroup.vue';
+import FdChipGroup from '../ChipGroup/FdChipGroup.vue';
+import FdRadioGroup from '../RadioGroup/FdRadioGroup.vue';
+import type { GroupProps } from '../../types';
+
+const props = withDefaults(defineProps<GroupProps>(), {
+  type: 'default'
+});
+
+const getComponent = computed(() => {
+  switch (props.type) {
+    case 'button':
+      return FdButtonGroup;
+    case 'checkbox':
+      return FdCheckboxGroup;
+    case 'chip':
+      return FdChipGroup;
+    case 'radio':
+      return FdRadioGroup;
+  }
+
+  return 'div';
+});
+</script>
+
 <template>
   <component
     :is="getComponent"
@@ -14,44 +42,6 @@
     </template>
   </component>
 </template>
-
-<script lang="ts">
-import { PropType, computed, defineComponent } from 'vue';
-import FdButtonGroup from '../ButtonGroup';
-import FdCheckboxGroup from '../CheckboxGroup/FdCheckboxGroup.vue';
-import FdChipGroup from '../ChipGroup/FdChipGroup.vue';
-import FdRadioGroup from '../RadioGroup/FdRadioGroup.vue';
-import { GroupType } from '../../types';
-
-export default defineComponent({
-  name: 'FdGroup',
-  components: { FdButtonGroup, FdCheckboxGroup, FdChipGroup, FdRadioGroup },
-  props: {
-    type: {
-      type: String as PropType<GroupType>,
-      default: 'default',
-    },
-  },
-  setup(props) {
-    const getComponent = computed(() => {
-      switch (props.type) {
-        case 'button':
-          return 'fd-button-group';
-        case 'checkbox':
-          return 'fd-checkbox-group';
-        case 'chip':
-          return 'fd-chip-group';
-        case 'radio':
-          return 'fd-radio-group';
-      }
-
-      return 'div';
-    });
-
-    return { getComponent };
-  }
-});
-</script>
 
 <style lang="scss" scoped>
 @import "@/styles/required";
