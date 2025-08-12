@@ -1,15 +1,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import {
-  FlagIcon,
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-  InformationCircleIcon,
-} from '@heroicons/vue/24/outline';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
-import { hasSlotContent } from '../../utils';
+import { getStatusIcon, hasSlotContent } from '../../utils';
 import type { AlertProps } from '../../types';
 
 const props = withDefaults(defineProps<AlertProps>(), {
@@ -24,20 +17,7 @@ defineEmits<{
 const getIcon = computed(() => {
   if (props.icon) return props.icon;
 
-  switch (props.kind) {
-    case 'info':
-      return InformationCircleIcon;
-    case 'success':
-      return CheckCircleIcon;
-    case 'warning':
-      return ExclamationTriangleIcon;
-    case 'danger':
-      return ExclamationCircleIcon;
-    case 'default':
-      return FlagIcon;
-    default:
-      return InformationCircleIcon;
-  }
+  return getStatusIcon(props.kind);
 });
 </script>
 

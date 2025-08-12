@@ -8,7 +8,7 @@ import {
 } from '@heroicons/vue/24/outline';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
-import { hasSlotContent } from '../../utils';
+import { getStatusIcon, hasSlotContent } from '../../utils';
 import type { ToastProps } from '../../types';
 
 /**
@@ -41,18 +41,7 @@ defineEmits<{
 const getIcon = computed(() => {
   if (props.icon) return props.icon;
 
-  switch (props.kind) {
-    case 'info':
-      return InformationCircleIcon;
-    case 'success':
-      return CheckCircleIcon;
-    case 'warning':
-      return ExclamationTriangleIcon;
-    case 'danger':
-      return ExclamationCircleIcon;
-    default:
-      return InformationCircleIcon;
-  }
+  return getStatusIcon(props.kind);
 });
 </script>
 

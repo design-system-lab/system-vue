@@ -42,25 +42,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, shallowRef, watch } from 'vue';
+import { defineComponent, onMounted, shallowRef, watch } from 'vue';
 import FdRow from '../../src/components/Row';
 import FdCol from '../../src/components/Col';
 import { FdSelect } from '../../src/components/Form';
 import FdApp from '../../src/components/App';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'App',
   components: { FdApp, FdCol, FdRow, FdSelect },
   setup() {
-    const path = shallowRef(['/']);
     const router = useRouter();
+    const route = useRoute();
+    const path = shallowRef(['/']);
 
     watch(path, (newPath) => {
       if (newPath[0] !== router.currentRoute.value.path) {
         router.push(newPath[0]);
       }
     });
+
+    watch(
+      () => route.path,
+      (newPath) => {
+        if (path.value[0] !== newPath) {
+          path.value = [newPath];
+        }
+      },
+      { immediate: true }
+    );
 
     return {
       path,
