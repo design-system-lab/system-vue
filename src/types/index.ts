@@ -1,6 +1,7 @@
 export type * from './accordion';
 export type * from './alert';
 export type * from './app';
+export type * from './banner';
 export type * from './button';
 export type * from './checkbox'
 export type * from './chip';

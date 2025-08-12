@@ -1,6 +1,7 @@
 import type { Icon } from './common';
+import type { AlertKind } from './alert';
 
-export type ToastKind = 'info' | 'success' | 'warning' | 'danger' | 'neutral';
+export type ToastKind = Omit<AlertKind, 'default'>;
 
 export interface Toast {
   duration?: number,

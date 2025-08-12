@@ -1,21 +1,21 @@
 // Variables specific to FdBanner
 
 // colors for theming, must be duplicated in theme map
-$banner_danger_bg: $danger_reduced, 1 !default;
-$banner_danger_color: $danger, 1 !default;
-$banner_default_bg: $primary_reduced, 1 !default;
-$banner_default_color: $primary, 1 !default;
-$banner_heading_color: $text_intense, 1 !default;
-$banner_info_bg: $informational_reduced, 1 !default;
-$banner_info_color: $informational, 1 !default;
-$banner_link_color: $primary, 1 !default;
-$banner_neutral_bg: $neutral_reduced, 1 !default;
-$banner_neutral_color: $neutral, 1 !default;
-$banner_success_bg: $success_reduced, 1 !default;
-$banner_success_color: $success, 1 !default;
-$banner_text_color: $text_default, 1 !default;
-$banner_warning_bg: $warning_reduced, 1 !default;
-$banner_warning_color: $warning, 1 !default;
+$banner_danger_bg: $danger_reduced !default;
+$banner_danger_color: $danger !default;
+$banner_default_bg: $primary_reduced !default;
+$banner_default_color: $primary !default;
+$banner_heading_color: $text_intense !default;
+$banner_info_bg: $informational_reduced !default;
+$banner_info_color: $informational !default;
+$banner_link_color: $primary !default;
+$banner_neutral_bg: $neutral_reduced !default;
+$banner_neutral_color: $neutral !default;
+$banner_success_bg: $success_reduced !default;
+$banner_success_color: $success !default;
+$banner_text_color: $text_default !default;
+$banner_warning_bg: $warning_reduced !default;
+$banner_warning_color: $warning !default;
 
 
 // default style vars

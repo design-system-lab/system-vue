@@ -1,3 +1,26 @@
+<script lang="ts" setup>
+import { computed } from 'vue'
+import FdCloseButton from '../CloseButton/FdCloseButton.vue';
+import FdIcon from '../Icon';
+import { getStatusIcon, hasSlotContent } from '../../utils';
+import { BannerProps, Icon } from '../../types';
+
+const props = withDefaults(defineProps<BannerProps>(), {
+  dismissible: false,
+  kind: 'default',
+});
+
+defineEmits<{
+  (e: 'dismiss' | 'click:link'): void;
+}>();
+
+const getIcon = computed(() => {
+  if (props.icon) return props.icon;
+
+  return getStatusIcon(props.kind);
+});
+</script>
+
 <template>
   <div
     class="fd-banner"
@@ -33,73 +56,14 @@
     </div>
   </div>
 </template>
-<script lang="ts">
-import { computed, defineComponent, PropType } from 'vue'
-import {
-  FlagIcon,
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-  InformationCircleIcon,
-} from '@heroicons/vue/24/outline';
-import FdCloseButton from '../CloseButton/FdCloseButton.vue';
-import FdIcon from '../Icon';
-import { hasSlotContent } from '../../utils';
-import { Icon } from '../../types';
 
-export default defineComponent({
-  name: 'FdBanner',
-  components: { FdCloseButton, FdIcon },
-  props: {
-    dismissible: {
-      type: Boolean,
-      default: false,
-    },
-    icon: {
-      type: Function as PropType<Icon>,
-      default: undefined,
-    },
-    kind: {
-      type: String as PropType<'default' | 'info' | 'success' | 'warning' | 'danger' | 'neutral'>,
-      default: 'default',
-    },
-    linkText: {
-      type: String,
-      default: undefined,
-    },
-  },
-  emits: ['click:link', 'dismiss'],
-  setup(props) {
-    const getIcon = computed(() => {
-      if (props.icon) return props.icon;
-
-      switch (props.kind) {
-        case 'info':
-          return InformationCircleIcon;
-        case 'success':
-          return CheckCircleIcon;
-        case 'warning':
-          return ExclamationTriangleIcon;
-        case 'danger':
-          return ExclamationCircleIcon;
-        case 'default':
-          return FlagIcon;
-        default:
-          return InformationCircleIcon;
-      }
-    });
-
-    return { getIcon, hasSlotContent };
-  }
-});
-</script>
 <style lang="scss" scoped>
 @import "@/styles/required";
 
 .fd-banner {
-  background-color: rgba(var(--fora_banner_default_bg));
+  background-color: rgb(var(--fora_banner_default_bg));
   border-radius: $banner_border-radius;
-  color: rgba(var(--fora_banner_default_color));
+  color: rgb(var(--fora_banner_default_color));
   container-type: inline-size;
   container-name: banner;
   padding: $banner_padding;
@@ -126,7 +90,7 @@ export default defineComponent({
   }
 
   &__heading {
-    color: rgba(var(--fora_banner_heading_color));
+    color: rgb(var(--fora_banner_heading_color));
     font-size: $banner_heading_font-size;
     font-weight: $banner_heading_font-weight;
     line-height: $banner_heading_line-height;
@@ -137,7 +101,7 @@ export default defineComponent({
   }
 
   &__description {
-    color: rgba(var(--fora_banner_text_color));
+    color: rgb(var(--fora_banner_text_color));
     font-size: $banner_text_font-size;
     font-weight: $banner_text_font-weight;
     line-height: $banner_text_line-height;
@@ -145,33 +109,33 @@ export default defineComponent({
   }
 
   &--info {
-    background-color: rgba(var(--fora_banner_info_bg));
-    border-color: rgba(var(--fora_banner_info_border-color));
-    color: rgba(var(--fora_banner_info_color));
+    background-color: rgb(var(--fora_banner_info_bg));
+    border-color: rgb(var(--fora_banner_info_border-color));
+    color: rgb(var(--fora_banner_info_color));
   }
   
   &--neutral {
-    background-color: rgba(var(--fora_banner_neutral_bg));
-    border-color: rgba(var(--fora_banner_neutral_border-color));
-    color: rgba(var(--fora_banner_neutral_color));
+    background-color: rgb(var(--fora_banner_neutral_bg));
+    border-color: rgb(var(--fora_banner_neutral_border-color));
+    color: rgb(var(--fora_banner_neutral_color));
   }
 
   &--success {
-    background-color: rgba(var(--fora_banner_success_bg));
-    border-color: rgba(var(--fora_banner_success_border-color));
-    color: rgba(var(--fora_banner_success_color));
+    background-color: rgb(var(--fora_banner_success_bg));
+    border-color: rgb(var(--fora_banner_success_border-color));
+    color: rgb(var(--fora_banner_success_color));
   }
 
   &--warning {
-    background-color: rgba(var(--fora_banner_warning_bg));
-    border-color: rgba(var(--fora_banner_warning_border-color));
-    color: rgba(var(--fora_banner_warning_color));
+    background-color: rgb(var(--fora_banner_warning_bg));
+    border-color: rgb(var(--fora_banner_warning_border-color));
+    color: rgb(var(--fora_banner_warning_color));
   }
 
   &--danger {
-    background-color: rgba(var(--fora_banner_danger_bg));
-    border-color: rgba(var(--fora_banner_danger_border-color));
-    color: rgba(var(--fora_banner_danger_color));
+    background-color: rgb(var(--fora_banner_danger_bg));
+    border-color: rgb(var(--fora_banner_danger_border-color));
+    color: rgb(var(--fora_banner_danger_color));
   }
 
   &__actions {

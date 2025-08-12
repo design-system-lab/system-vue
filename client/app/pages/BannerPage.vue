@@ -64,7 +64,8 @@
         {{ headingText }}
         <template #actions>
           <fd-button
-            kind="tertiary-neutral"
+            kind="neutral"
+            mode="outlined"
             size="sm"
           >
             Learn More
