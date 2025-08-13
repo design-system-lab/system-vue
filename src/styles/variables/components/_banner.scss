@@ -1,0 +1,60 @@
+// Variables specific to FdBanner
+
+// colors for theming, must be duplicated in theme map
+$banner_danger_bg: $danger_reduced !default;
+$banner_danger_color: $danger !default;
+$banner_default_bg: $primary_reduced !default;
+$banner_default_color: $primary !default;
+$banner_heading_color: $text_intense !default;
+$banner_info_bg: $informational_reduced !default;
+$banner_info_color: $informational !default;
+$banner_link_color: $primary !default;
+$banner_neutral_bg: $neutral_reduced !default;
+$banner_neutral_color: $neutral !default;
+$banner_success_bg: $success_reduced !default;
+$banner_success_color: $success !default;
+$banner_text_color: $text_default !default;
+$banner_warning_bg: $warning_reduced !default;
+$banner_warning_color: $warning !default;
+
+
+// default style vars
+$banner_actions_gap: 0.75rem !default;
+$banner_border-radius: 0 !default;
+$banner_breakpoint: 600px !default;
+$banner_content_gap: 0.125rem !default;
+$banner_gap: 0.75rem !default;
+$banner_heading_font-size: $font-sm !default;
+$banner_heading_font-weight: $font-medium !default;
+$banner_heading_line-height: 1.25rem !default;
+$banner_heading-container_gap: 0.25rem !default;
+$banner_icon_padding: 0.75rem 0.5rem 0.75rem 0.75rem !default;
+$banner_link_font-size: $font-sm !default;
+$banner_link_font-weight: $font-medium !default;
+$banner_link_line-height: 1.25rem !default;
+$banner_link_padding: 0 !default;
+$banner_link_margin: 0 !default;
+$banner_padding: 0.75rem !default;
+$banner_text_font-size: $font-sm !default;
+$banner_text_font-weight: $font-regular !default;
+$banner_text_line-height: 1.25rem !default;
+
+// theme map, must replicate colors
+// when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-banner: (
+  banner_default_bg: $banner_default_bg,
+  banner_default_color: $banner_default_color,
+  banner_danger_bg: $banner_danger_bg,
+  banner_danger_color: $banner_danger_color,
+  banner_heading_color: $banner_heading_color,
+  banner_info_bg: $banner_info_bg,
+  banner_info_color: $banner_info_color,
+  banner_link_color: $banner_link_color,
+  banner_neutral_bg: $banner_neutral_bg,
+  banner_neutral_color: $banner_neutral_color,
+  banner_success_bg: $banner_success_bg,
+  banner_success_color: $banner_success_color,
+  banner_text_color: $banner_text_color,
+  banner_warning_bg: $banner_warning_bg,
+  banner_warning_color: $banner_warning_color,
+);

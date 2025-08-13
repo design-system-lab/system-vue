@@ -1,4 +1,4 @@
-import { AlertKind, Icon } from "../types";
+import { AlertKind, Icon } from '../types';
 
 import {
   FlagIcon,
