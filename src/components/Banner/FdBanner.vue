@@ -3,7 +3,7 @@ import { computed } from 'vue'
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
 import { getStatusIcon, hasSlotContent } from '../../utils';
-import { BannerProps, Icon } from '../../types';
+import { BannerProps } from '../../types';
 
 const props = withDefaults(defineProps<BannerProps>(), {
   dismissible: false,

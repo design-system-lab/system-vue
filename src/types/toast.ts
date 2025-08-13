@@ -1,7 +1,7 @@
 import type { Icon } from './common';
 import type { AlertKind } from './alert';
 
-export type ToastKind = Omit<AlertKind, 'default'>;
+export type ToastKind = Exclude<AlertKind, 'default'>;
 
 export interface Toast {
   duration?: number,
