@@ -1,11 +1,5 @@
 <script lang="ts" setup>
 import { computed } from 'vue'
-import {
-  CheckCircleIcon,
-  ExclamationCircleIcon,
-  ExclamationTriangleIcon,
-  InformationCircleIcon,
-} from '@heroicons/vue/24/outline';
 import FdCloseButton from '../CloseButton/FdCloseButton.vue';
 import FdIcon from '../Icon';
 import { getStatusIcon, hasSlotContent } from '../../utils';
