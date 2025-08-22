@@ -28,19 +28,34 @@ const getIconSize = computed(() => {
       `fd-badge--${mode}`,
       `fd-badge--${size}`,
       {
-        'fd-badge--truncate': truncate,
         'fd-badge--icon': icon,
+        'fd-badge--truncate': truncate,
       },
     ]"
     :style="{ maxWidth: truncate ? maxWidth : 'none' }"
   >
-    <span v-if="showIndicator && !icon" class="fd-badge__indicator"/>
-    <fd-icon v-if="prependIcon && !icon" :icon="prependIcon" :size="getIconSize" />
-    <fd-icon v-if="icon" :icon="icon" :size="getIconSize" />
+    <span
+      v-if="showIndicator && !icon"
+      class="fd-badge__indicator"
+    />
+    <fd-icon
+      v-if="prependIcon && !icon"
+      :icon="prependIcon"
+      :size="getIconSize"
+    />
+    <fd-icon
+      v-if="icon"
+      :icon="icon"
+      :size="getIconSize"
+    />
     <span class="fd-badge__content">
       <slot v-if="!icon" />
     </span>
-    <fd-icon v-if="appendIcon && !icon" :icon="appendIcon" :size="getIconSize" />
+    <fd-icon
+      v-if="appendIcon && !icon"
+      :icon="appendIcon"
+      :size="getIconSize"
+    />
   </span>
 </template>
 
@@ -49,17 +64,17 @@ const getIconSize = computed(() => {
 
 .fd-badge {
   align-items: center;
+  background-color: rgb(var(--fora_badge_default_bg));
   border: 1px solid transparent;
+  border-radius: $badge_border-radius;
   color: rgb(var(--fora_badge_color));
   display: inline-flex;
+  font-size: $badge_font-size;
   gap: $badge_gap;
   height: $badge_height;
   justify-content: flex-start;
   line-height: $badge_line-height;
   padding: $badge_padding;
-  font-size: $badge_font-size;
-  background-color: rgb(var(--fora_badge_default_bg));
-  border-radius: $badge_border-radius;
 
   &.fd-badge--outline {
     border-color: rgb(var(--fora_badge_default_border-color));
@@ -151,19 +166,19 @@ const getIconSize = computed(() => {
 
   &--truncate {
     .fd-badge__content {
-      white-space: nowrap;
+      min-width: 0;
       overflow: hidden;
       text-overflow: ellipsis;
-      min-width: 0;
+      white-space: nowrap;
     }
   }
 
   &--icon {
-    justify-content: center;
     gap: 0;
     height: $badge_height;
-    width: $badge_height;
+    justify-content: center;
     padding: 0;
+    width: $badge_height;
   }
 
   &__indicator {
@@ -179,21 +194,21 @@ const getIconSize = computed(() => {
     padding: $badge_sm_padding;
 
     &.fd-badge--icon {
+      height: $badge_sm_height;
       padding: 0;
       width: $badge_sm_height;
-      height: $badge_sm_height;
     }
   }
 
   &--lg {
+    border-radius: $badge_lg_border-radius;
     font-size: $badge_lg_font-size;
     height: $badge_lg_height;
-    border-radius: $badge_lg_border-radius;
     padding: $badge_lg_padding;
 
     &.fd-badge--icon {
-      width: $badge_lg_height;
       height: $badge_lg_height;
+      width: $badge_lg_height;
     }
   }
 }
