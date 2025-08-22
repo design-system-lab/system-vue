@@ -4,6 +4,13 @@
     <br>
     <div class="control-panel">
       <div>
+        <fd-input-field
+          v-model="maxWidth"
+          class="mb-4"
+          label="Max Width"
+          id="max-width"
+          small
+        />
         <fd-select
           v-model="size"
           id="size-type"
@@ -57,6 +64,11 @@
             id="append-icon"
             value="append-icon"
           >Append Icon</fd-checkbox>
+          <fd-checkbox
+            v-model="truncate"
+            id="truncate"
+            value="truncate"
+          >Truncate</fd-checkbox>
         </fd-group>
       </div>
     </div>
@@ -72,6 +84,8 @@
         :show-indicator="showIndicator"
         :prepend-icon="prependIcon ? CubeTransparentIcon : undefined"
         :append-icon="appendIcon ? CubeTransparentIcon : undefined"
+        :truncate="truncate"
+        :max-width="truncate ? maxWidth : undefined"
       >
         Default Badge
       </fd-badge>
@@ -83,6 +97,8 @@
         kind="success"
         :prepend-icon="prependIcon ? CubeTransparentIcon : undefined"
         :append-icon="appendIcon ? CubeTransparentIcon : undefined"
+        :truncate="truncate"
+        :max-width="truncate ? maxWidth : undefined"
       >
         Success Badge
       </fd-badge>
@@ -94,6 +110,8 @@
         kind="warning"
         :prepend-icon="prependIcon ? CubeTransparentIcon : undefined"
         :append-icon="appendIcon ? CubeTransparentIcon : undefined"
+        :truncate="truncate"
+        :max-width="truncate ? maxWidth : undefined"
       >
         Warning Badge
       </fd-badge>
@@ -105,6 +123,8 @@
         kind="danger"
         :prepend-icon="prependIcon ? CubeTransparentIcon : undefined"
         :append-icon="appendIcon ? CubeTransparentIcon : undefined"
+        :truncate="truncate"
+        :max-width="truncate ? maxWidth : undefined"
       >
         Error Badge
       </fd-badge>
@@ -116,6 +136,8 @@
         kind="info"
         :prepend-icon="prependIcon ? CubeTransparentIcon : undefined"
         :append-icon="appendIcon ? CubeTransparentIcon : undefined"
+        :truncate="truncate"
+        :max-width="truncate ? maxWidth : undefined"
       >
         Information Badge
       </fd-badge>
@@ -127,6 +149,8 @@
         kind="neutral"
         :prepend-icon="prependIcon ? CubeTransparentIcon : undefined"
         :append-icon="appendIcon ? CubeTransparentIcon : undefined"
+        :truncate="truncate"
+        :max-width="truncate ? maxWidth : undefined"
       >
         Neutral Badge
       </fd-badge>
@@ -142,7 +166,7 @@ import { CubeTransparentIcon } from '@heroicons/vue/24/solid'
 import FdBadge from '../../../src/components/Badge';
 import FdCheckbox from '../../../src/components/Checkbox';
 import FdGroup from '../../../src/components/Group';
-import { FdSelect } from '../../../src/components/Form';
+import { FdInputField, FdSelect } from '../../../src/components/Form';
 
 
 const showIndicator = shallowRef(false);
@@ -150,7 +174,9 @@ const showIcon = shallowRef(false);
 const outlined = shallowRef(false);
 const prependIcon = shallowRef(false);
 const appendIcon = shallowRef(false);
+const truncate = shallowRef(true);
 const size = shallowRef('md');
+const maxWidth = shallowRef('160px');
 
 const bg = shallowRef('#fff');
 
