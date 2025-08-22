@@ -12,6 +12,7 @@
     <ul>
       <li><router-link :to="{ name: 'Accordion' }">Accordion</router-link></li>
       <li><router-link :to="{ name: 'Alerts' }">Alerts</router-link></li>
+      <li><router-link :to="{ name: 'Badge' }">Badge</router-link></li>
       <li><router-link :to="{ name: 'Banners' }">Banners</router-link></li>
       <li><router-link :to="{ name: 'Buttons' }">Buttons</router-link></li>
       <li><router-link :to="{ name: 'Card' }">Card</router-link></li>
