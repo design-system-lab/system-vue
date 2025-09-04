@@ -24,7 +24,7 @@ withDefaults(defineProps<IconProps>(), {
 <style lang="scss">
 .fd-icon {
   color: currentColor;
-  display: inline-block;
+  display: inline-flex;
   vertical-align: middle;
 }
 </style>

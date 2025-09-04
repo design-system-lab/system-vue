@@ -1,0 +1,94 @@
+// Variables specific to FdBadge
+
+// colors for theming, must be duplicated in theme map
+$badge_color: $text_default !default;
+
+$badge_danger_bg: $danger_reduced !default;
+$badge_danger_border-color: $danger !default;
+$badge_danger_icon_color: $danger !default;
+$badge_danger_indicator_bg: $danger !default;
+
+$badge_default_bg: $primary_reduced !default;
+$badge_default_border-color: $primary !default;
+$badge_default_icon_color: $primary !default;
+$badge_default_indicator_bg: $primary !default;
+
+$badge_info_bg: $informational_reduced !default;
+$badge_info_border-color: $informational !default;
+$badge_info_icon_color: $informational !default;
+$badge_info_indicator_bg: $informational !default;
+
+$badge_neutral_bg: $neutral_reduced !default;
+$badge_neutral_border-color: $neutral !default;
+$badge_neutral_icon_color: $neutral !default;
+$badge_neutral_indicator_bg: $neutral !default;
+
+$badge_success_bg: $success_reduced !default;
+$badge_success_border-color: $success !default;
+$badge_success_icon_color: $success !default;
+$badge_success_indicator_bg: $success !default;
+
+$badge_warning_bg: $warning_reduced !default;
+$badge_warning_border-color: $warning !default;
+$badge_warning_icon_color: $warning !default;
+$badge_warning_indicator_bg: $warning !default;
+
+
+// default style vars
+$badge_gap: 0.375rem !default;
+$badge_height: 1.5rem !default;
+$badge_line-height: 1.25rem !default;
+$badge_padding: 0 0.5rem !default;
+$badge_font-size: $font-xs !default;
+$badge_border-radius: $border-radius_md !default;
+
+$badge_indicator_border-radius: 50% !default;
+$badge_indicator_size: 0.5rem !default;
+
+// Sizes
+
+$badge_sm_font-size: 10px !default;
+$badge_sm_height: 1.25rem !default;
+$badge_sm_padding: 0 0.375rem !default;
+$badge_sm_border-radius: $border-radius_md !default;
+
+$badge_lg_font-size: $font-sm !default;
+$badge_lg_height: 1.75rem !default;
+$badge_lg_padding: 0 0.5rem !default;
+$badge_lg_border-radius: $border-radius_lg !default;
+
+// theme map, must replicate colors
+// when using in components, add --fora_ before the key as the css variable, for example: var(--fora_button_primary)
+$theme-badge: (
+  badge_color: $badge_color,
+
+  badge_default_bg: $badge_default_bg,
+  badge_default_border-color: $badge_default_border-color,
+  badge_default_icon_color: $badge_default_icon_color,
+  badge_default_indicator_bg: $badge_default_indicator_bg,
+
+  badge_danger_bg: $badge_danger_bg,
+  badge_danger_border-color: $badge_danger_border-color,
+  badge_danger_icon_color: $badge_danger_icon_color,
+  badge_danger_indicator_bg: $badge_danger_indicator_bg,
+
+  badge_info_bg: $badge_info_bg,
+  badge_info_border-color: $badge_info_border-color,
+  badge_info_icon_color: $badge_info_icon_color,
+  badge_info_indicator_bg: $badge_info_indicator_bg,
+
+  badge_neutral_bg: $badge_neutral_bg,
+  badge_neutral_border-color: $badge_neutral_border-color,
+  badge_neutral_icon_color: $badge_neutral_icon_color,
+  badge_neutral_indicator_bg: $badge_neutral_indicator_bg,
+
+  badge_success_bg: $badge_success_bg,
+  badge_success_border-color: $badge_success_border-color,
+  badge_success_icon_color: $badge_success_icon_color,
+  badge_success_indicator_bg: $badge_success_indicator_bg,
+
+  badge_warning_bg: $badge_warning_bg,
+  badge_warning_border-color: $badge_warning_border-color,
+  badge_warning_icon_color: $badge_warning_icon_color,
+  badge_warning_indicator_bg: $badge_warning_indicator_bg,
+);

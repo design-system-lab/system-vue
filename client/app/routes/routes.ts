@@ -1,6 +1,7 @@
 import Home from '../pages/HomePage.vue';
 import AccordionPage from '../pages/AccordionPage.vue';
 import AlertPage from '../pages/AlertPage.vue';
+import BadgePage from '../pages/BadgePage.vue';
 import BannerPage from '../pages/BannerPage.vue';
 import ButtonPage from '../pages/ButtonPage.vue';
 import CardPage from '../pages/CardPage.vue';
@@ -25,6 +26,7 @@ export default [
   { path: '/', name: 'Home', component: Home },
   { path: '/accordion', name: 'Accordion', component: AccordionPage },
   { path: '/alerts', name: 'Alerts', component: AlertPage },
+  { path: '/badge', name: 'Badge', component: BadgePage },
   { path: '/banners', name: 'Banners', component: BannerPage },
   { path: '/buttons', name: 'Buttons', component: ButtonPage },
   { path: '/card', name: 'Card', component: CardPage },
